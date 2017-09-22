@@ -9,13 +9,19 @@ const port = {
 
 const pages = [{
     html: 'index',
-    script: 'main'
+    script: 'main',
 }, {
     html: 'sub',
     script: 'sub'
 }, {
     html: 'detail',
     script: 'detail'
+}, {
+    html: 'join',
+    script: 'join'
+}, {
+    html: 'join-food',
+    script: 'join-food'
 }];
 
 module.exports = {

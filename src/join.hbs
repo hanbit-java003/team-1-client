@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{> template/header }}
+<section class="cock-join-main">
+    <div class="cock-join-title">회원가입</div>
+    <form class="cock-join">
+        <div class="cock-join-group">
+            <label for="cock-join-email">Email</label><br>
+            <input type="email" class="form-control" id="cock-join-email" placeholder="E-mail을 입력해주세요!">
+            <button class="btn btn-info btn-sm">인증번호 전송</button>
+        </div>
+        <div class="cock-join-group">
+            <input type="text" class="form-control" id="cock-join-certification" placeholder="인증번호를 입력해주세요!">
+            <button class="btn btn-info btn-sm">확인</button>
+        </div>
+        <div class="cock-join-group">
+            <label for="cock-join-nick">별명</label><br>
+            <input type="text" class="form-control" id="cock-join-nick"placeholder="별명을 입력해주세요!">
+            <button class="btn btn-info btn-sm">중복확인</button>
+        </div>
+        <div class="cock-join-group">
+            <label for="cock-join-pw">비밀번호</label><br>
+            <input type="password" class="form-control" id="cock-join-pw" placeholder="비밀번호를 입력해주세요!">
+        </div>
+        <div class="cock-join-group">
+            <label for="cock-join-pwc">비밀번호 재확인</label><br>
+            <input type="password" class="form-control" id="cock-join-pwc" placeholder="비밀번호를 다시 입력해주세요.">
+        </div>
+        <div class="cock-join-group">
+            <label for="cock-join-pw">캡차</label>
+            <div class="cock-join-capcha">
+
+            </div>
+        </div>
+        <div class="cock-join-check">
+            <label class="cock-join-check-label">
+                <input type="checkbox" class="cock-join-check-input">
+                약관동의
+            </label>
+        </div>
+        <div class="cock-join-btn">
+            <button id="cock-join-btn-cancel" class="btn btn-danger btn-lg">취소</button>
+            <button id="cock-join-btn-save"  class="btn btn-primary btn-lg">회원가입</button>
+        </div>
+    </form>
+   <!-- <ul class="cock-join">
+        <li class="cock-join-email">
+            <span>E-mail</span><br>
+            <input type="text" placeholder="E-mail을 입력해주세요!">
+            <button class="btn btn-primary btn-sm">인증번호 전송</button>
+        </li>
+        <li class="cock-join-certification">
+            <input type="text" placeholder="인증번호를 입력해주세요!">
+            <button class="btn btn-primary btn-sm">확인</button>
+        </li>
+        <li class="cock-join-nick">
+            <span>별명</span><br>
+            <input type="text" placeholder="별명을 입력해주세요!">
+            <button class="btn btn-primary btn-sm">중복확인</button>
+        </li>
+        <li class="cock-join-pw">
+            <span>비밀번호</span><br>
+            <input type="password" placeholder="비밀번호">
+        </li>
+        <li class="cock-join-pwc">
+            <span>비밀번호 재확인</span><br>
+            <input type="password" placeholder="비밀번호 재확인">
+        </li>
+        <li>
+            <span>캡차 부분</span>
+        </li>
+        <button class="btn btn-default btn-lg">취소</button>
+        <button class="btn btn-primary btn-lg">회원가입</button>
+    </ul>-->
+
+</section>
+{{> template/footer }}
+</body>
+</html>
