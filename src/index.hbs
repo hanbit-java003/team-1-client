@@ -6,9 +6,71 @@
 </head>
 <body>
 {{> template/header}}
-<button id="btn-test" class="btn btn-default">이동</button>
-<button id="btn-join-test" class="btn btn-danger">회원가입</button>
-<button id="btn-join-food-test" class="btn btn-danger">회원가입-음식</button>
+<section class="main-contents">
+    <div id="main-map">
+    </div>
+    <div class="main-tags-container">
+        <ul class="frequent-tags">
+            <li>#한식맛있어</li>
+            <li>#일해라절해라</li>
+            <li>#중식</li>
+            <li>#양식</li>
+            <li>#삼겹살</li>
+            <li>#오늘은치킨먹는날</li>
+            <li>#우동</li>
+            <li>#라면</li>
+            <li>#양꼬치엔칭</li>
+            <li>#고라멘땡긴다</li>
+        </ul>
+    </div>
+    <div class="main-card-container">
+        <div class="main-card-tab">
+            <ul class="card-tab-btns">
+                <li class="active">주변 맛집</li>
+                <li>추천 맛집</li>
+            </ul>
+            <ul class="card-tab-contents">
+                <li class="active">
+                    <ul class="card-contents-list">
+                        <li>
+                            <div class="card-contents-img">
+                                사진
+                            </div>
+                            <div class="card-contents">
+                                <div class="card-contents-sort">
+                                    <div class="card-contents-sort-where">국</div>
+                                    /
+                                    <div class="card-contents-sort-what">종</div>
+                                </div>
+                                <div class="card-contents-title">
+                                    title 1
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="card-contents-list">
+                        <li>
+                            <div class="card-contents-img">
+                            </div>
+                            <div class="card-contents">
+                                <div class="card-contents-sort">
+                                    <div class="card-contents-sort-where">국</div>
+                                    /
+                                    <div class="card-contents-sort-what">종</div>
+                                </div>
+                                <div class="card-contents-title">
+                                    title 2
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
 {{> template/footer}}
 </body>
 </html>
