@@ -2,12 +2,16 @@ require('bootstrap');
 require('../less/main.less');
 var hello = require('./sample/hello');
 
-$('.say-hello').on('click', function() {
+$('.say-hello').on('click', function () {
     alert(hello.hello($('#txt-hello').val()));
 });
 
-$('.goto-sub').on('click', function() {
+$('.goto-sub').on('click', function () {
     location.href = 'sub.html';
+});
+
+$('#btn-test').on('click', function () {
+    location.href = 'detail.html';
 });
 
 var loadGoogleMapsApi = require('load-google-maps-api-2');
