@@ -47,9 +47,6 @@ function getPlugins(pages) {
             from: 'node_modules/bootstrap/dist/css',
             to: 'vendor/bootstrap/css/'
         }, {
-            from: 'node_modules/bootstrap/dist/fonts',
-            to: 'vendor/bootstrap/fonts/'
-        }, {
             from: 'node_modules/font-awesome/css',
             to: 'vendor/font-awesome/css/'
         }, {
