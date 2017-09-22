@@ -6,7 +6,77 @@
 </head>
 <body>
 {{> template/header }}
-
+<section class="kk-shop">
+    <div id="google-map">
+    </div>
+    <div class="form-horizontal">
+        <div class="kk-coordinate form-group">
+            <label class="col-sm-2 control-label">선택한 위치</label>
+            <div class="form-inline col-sm-10">
+                <div class="form-group col-sm-5">
+                    <label>위도 :</label>
+                    <input type="number" class="form-control" id="lat" value="37.552331" placeholder="위도">
+                </div>
+                <div class="form-group col-sm-5">
+                    <label>경도 :</label>
+                    <input type="number" class="form-control" id="lng" value="126.937588" placeholder="경도">
+                </div>
+                <button class="btn btn-primary col-sm-2">중복확인</button>
+            </div>
+        </div>
+        <div class="kk-sign form-group">
+            <label class="col-sm-2 control-label">간판 이름</label>
+            <div class="col-sm-9">
+                    <input type="text" class="form-control" value="" placeholder="이름을 입력해주세요.">
+            </div>
+        </div>
+        <div class="kk-classify form-group">
+            <label class="col-sm-2 control-label">분류</label>
+            <div class="col-sm-10 kk-classify-dropdown">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        분류1<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        분류2<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        분류3<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="kk-card">
+    <div class="form-horizontal">
+        <div class="kk-img-input form-group">
+            <label class="col-sm-2 control-label">그림 파일</label>
+            <label for="kk-btn-background" class="col-sm-2 btn btn-primary">파일선택</label>
+            <input type="file" id="kk-btn-background" accept="image/*">
+        </div>
+    </div>
+    <div class="btn-menu-plus">
+        <i class="fa fa-plus"></i>먹은 메뉴
+    </div>
+    <div id="background-preview"></div>
+</section>
 {{> template/footer }}
 </body>
 </html>
