@@ -10,10 +10,6 @@ $('.goto-sub').on('click', function () {
     location.href = 'sub.html';
 });
 
-$('#btn-test').on('click', function () {
-    location.href = 'detail.html';
-});
-
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
 loadGoogleMapsApi.key = 'AIzaSyDmSxIrhoC4OAiGOtO6ddcFCwSMRbgfPGs';
@@ -81,3 +77,7 @@ $('.card-tab-btns > li').on('click', function () {
     $(tabContents[tabIndex]).addClass('active');
 
 });
+
+$('.card-contents-list > li').on('click', function () {
+    location.href = 'detail.html';
+})
