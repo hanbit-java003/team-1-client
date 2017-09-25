@@ -1,5 +1,9 @@
 require('../less/common.less');
 
-$('.header-bt').on('click', function () {
+$('.header-logo').on('click', function () {
+   location.href = './';
+});
+
+$('.header-bt').on('click',function () {
    location.href = './join.html';
 });

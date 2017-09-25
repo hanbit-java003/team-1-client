@@ -1,6 +1,7 @@
 require('bootstrap');
 require('../less/insert.less');
-require('jquery-ui');
+
+var common = require('./common');
 
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
