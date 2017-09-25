@@ -1,6 +1,8 @@
 @import 'common.less';
 @import 'join.less';
 
+@section-background-color: rgba(0,0,0,0.6);
+
 .cock-join-food {
   position: relative;
   margin-top: 20px;
@@ -8,26 +10,32 @@
   text-align: center;
 }
 
-.cock-join-food >li {
+.cock-join-food >.cock-join-food-img {
+  position: relative;
   display: inline-block;
   width: 80px;
   height: 80px;
   box-shadow: 2px 2px 3px rgba(0,0,0,0.2);
   border-radius: 4px;
-  margin-left: 20px;
+  margin-left: 16px;
   margin-bottom: 20px;
   cursor: pointer;
-}
-.cock-join-food >li:hover {
-  background-color: rgba(0,0,0,0.4);  // 레드 그린 블루 알파
-}
-
-.cock-join-food-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 4px;
   background-size: cover;
   background-position: 50% 50%;
+}
+
+.cock-join-food > .cock-join-food-img >.dark-layer {
+   border-radius: 4px;
+}
+
+.cock-join-food > .cock-join-food-img >.dark-layer:hover {
+  border-radius: 4px;
+  background-color: @section-background-color;
+  // 어두워 지게 만듦
+}
+
+.cock-join-food >.cock-join-food-img:hover {
+  background-color: rgba(0,0,0,0.4);  // 레드 그린 블루 알파
 }
 
 

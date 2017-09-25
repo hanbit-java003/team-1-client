@@ -1,5 +1,12 @@
 require('../less/join.less');
 
-$('#cock-join-btn-cancel').on('click', function () {
-    history.back();
+var common = require('./common.js');
+
+
+$('.cock-join-btn-cancel').on('click', function () {
+    location.href = './';
+});
+
+$('.cock-join-btn-save').on('click', function () {
+    location.href = './join-food.html';
 });

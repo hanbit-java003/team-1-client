@@ -1,5 +1,7 @@
 require('bootstrap');
 require('../less/main.less');
+var common = require('./common.js');
+
 var hello = require('./sample/hello');
 
 $('.say-hello').on('click', function () {
@@ -88,4 +90,5 @@ $('#btn-join-test').on('click', function () {
 
 $('#btn-join-food-test').on('click', function () {
     location.href = 'join-food.html';
-})
+});
+

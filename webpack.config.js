@@ -22,6 +22,9 @@ const pages = [{
 }, {
     html: 'join-food',
     script: 'join-food'
+}, {
+    html: 'setting',
+    script: 'setting'
 }];
 
 module.exports = {
