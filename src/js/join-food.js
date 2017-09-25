@@ -35,3 +35,7 @@ setList(model);
 $('.cock-join-food-save').on('click', function () {
    location.href = './setting.html';
 });
+
+module.exports ={
+    model : model
+}

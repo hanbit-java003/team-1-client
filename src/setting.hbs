@@ -2,14 +2,72 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>사용자 정보 변경</title>
 </head>
 <body>
 {{> template/header }}
 <section class="cock-join-main">
-    <div class="cock-join">
-        <button class="cock-setting-cancel btn btn-danger btn-lg">취소</button>
-        <button class="cock-setting-save btn btn-success btn-lg">저장</button>
+    <div class="cock-setting-title">사용자 정보 변경</div>
+    <div class="cock-setting">
+        <div class="cock-setting-avatar">
+            <div class="cock-setting-avatar-picture">
+                <div class="cock-setting-avatar-border">
+                    <div class="cock-setting-avatar-img"></div>
+                </div>
+            </div>
+            <div class="cock-setting-avatar-btn">
+                <i id="cock-setting-avatar-select" class="fa fa-camera"></i>
+                <input type="file" id="cock-setting-avatar-input" class="cock-file-select">
+            </div>
+            <div class="cock-setting-email">
+
+            </div>
+        </div>
+        <div class="cock-sign-in">
+        <div class="form-group">
+            <label for="cock-member-food">선호하는 음식 <span class="cock-member-food-span">열기</span></label>
+        </div>
+        </div>
+        <div class="cock-sign-up">
+            <div class="form-group">
+                <label for="cock-member-food">선호하는 음식 <span class="cock-member-food-span">닫기</span></label>
+                <button class="cock-setting-food-save btn btn-success btn-sm">수정</button>
+                <div id="cock-member-food">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cock-member-nick-input">별명</label>
+            <input type="text" class="form-control" id="cock-member-nick-input">
+        </div>
+        <div class="form-group">
+            <label for="cock-member-phone-input">전화번호</label>
+            <input type="text" class="form-control" id="cock-member-phone-input" placeholder="010-1234-5678">
+        </div>
+        <div class="form-group">
+            <label for="cock-member-cpw-input">현재 비밀번호</label>
+            <input type="password" class="form-control" id="cock-member-cpw-input">
+        </div>
+        <div class="form-group">
+            <label for="cock-member-npw-input">새 비밀번호</label>
+            <input type="password" class="form-control" id="cock-member-npw-input">
+        </div>
+        <div class="form-group">
+            <label for="cock-member-npwc-input">새 비밀번호 확인</label>
+            <input type="password" class="form-control" id="cock-member-npwc-input">
+        </div>
+        <div class="form-check">
+            <label>이메일 수신</label>
+            <label class="form-check-label">
+                <input type="checkbox" id="cock-member-info-check" class="form-check-input">
+                추천맛집, 최신의 맛집정보를 받아 보겠습니다.
+            </label>
+        </div>
+
+        <div class="cock-setting-btns">
+            <button class="cock-setting-cancel btn btn-danger btn-lg">취소</button>
+            <button class="cock-setting-save btn btn-success btn-lg">저장</button>
+        </div>
     </div>
 </section>
 {{> template/footer }}
