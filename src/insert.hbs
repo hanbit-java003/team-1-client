@@ -73,9 +73,47 @@
         </div>
     </div>
     <div class="btn-menu-plus">
-        <i class="fa fa-plus"></i>먹은 메뉴
+        <i class="fa fa-plus"></i> 먹은 메뉴
     </div>
-    <div id="background-preview"></div>
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="kk-preview">
+                    <div class="background-preview"></div>
+                    <button class="kk-btn-delete btn btn-danger">삭제</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="kk-preview">
+                    <div class="background-preview"></div>
+                    <button class="kk-btn-delete btn btn-danger">삭제</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="kk-preview">
+                    <div class="background-preview"></div>
+                    <button class="kk-btn-delete btn btn-danger">삭제</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+<section class="kk-submit">
+    <div>
+        <button class="kk-btn-cancel btn btn-warning">취소</button>
+        <button class="kk-btn-save btn btn-success">저장</button>
+    </div>
 </section>
 {{> template/footer }}
 </body>
