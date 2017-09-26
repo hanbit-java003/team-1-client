@@ -5,10 +5,35 @@ body {
   color: @font-color;
 }
 
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none !important;
+}
+
 ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+input {
+  padding-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+
+input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+.dark-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); // 레드 그린 블루 알파
 }
 
 header {
@@ -17,14 +42,16 @@ header {
   margin-bottom: 40px;
   min-width: 1220px;
   width: 100%;
-  height: 80px;
-  background-color: #F4E7D7;
+  height: 100px;
+  color: #888;
+  background-color: #fff;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .header-wrapper {
   position: relative;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 30px 20px 30px;
   width: 1220px;
   height: 40px;
   box-sizing: content-box;
@@ -32,69 +59,65 @@ header {
   text-align: center;
 }
 
-.navicon {
+.header-btn-member {
+  position: absolute;
+  top: 30px;
+  left: 10px;
   margin-right: 15px;
   font-size: 30px;
-  vertical-align: top;
   cursor: pointer;
-  float: left;
 }
 
 .header-logo {
+  position: relative;
   width: 200px;
   margin: 0 auto;
   font-size: 25px;
   font-weight: bold;
-  line-height: 0.9;
+  letter-spacing: -2px;
   cursor: pointer;
-
-  div:last-child {
-    margin-left: 30px;
-  }
 
   div {
     display: inline-block;
+  }
+
+  div:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 
 .search-wrapper {
   position: absolute;
-  top: 14px;
+  top: 30px;
   right: 0;
 }
 
 .header-search-bar {
   float: left;
   display: none;
-  color: #333;
   font-size: 26px;
   border-bottom: solid 1px #666;
 }
 
 .header-search-bar > input {
-  min-width: 820px;
-  border: none;
-  outline: none;
+  min-width: 320px;
+  background-color: transparent;
 }
 
 .header-search-icon {
   display: inline-block;
-  color: #333;
   font-size: 26px;
   cursor: pointer;
 }
 
 .header-close-icon {
-  color: #999;
   cursor: pointer;
 }
 
 .header-close-icon:hover {
   opacity: 0.7;
-}
-
-.header-search-icon:hover {
-  color: #999;
 }
 
 .header-bt {
@@ -117,12 +140,50 @@ header {
   color: #999;
 }
 
+@footer-bg-color: #2d2e2e;
+@footer-fg-color: #666;
+@footer-fg-color-highlight: #999;
 
-.dark-layer {
-  position: absolute;
-  top:0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);  // 레드 그린 블루 알파
+footer {
+  margin-top: 80px;
+  padding: 120px 10px 150px 10px;
+  background-color: @footer-bg-color;
+  color: @footer-fg-color;
+  text-align: center;
+}
+
+.footer-sns > li {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin: 0px 15px;
+  border-radius: 25px;
+  background-color: @footer-fg-color;
+  color: @footer-bg-color;
+  font-size: 30px;
+  line-height: 50px;
+  cursor: pointer;
+}
+
+.footer-sns > li:hover {
+  background-color: @footer-fg-color-highlight;
+}
+
+.footer-menu {
+  padding: 30px 10px;
+}
+
+.footer-menu > li {
+  display: inline-block;
+  margin: 0px 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.footer-menu > li:hover {
+  color: @footer-fg-color-highlight;
+}
+
+.footer-info {
+  font-size: 11px;
 }
