@@ -26,14 +26,23 @@ function init(restaurants) {
     $('.food-like').on('click', function () {
         if ($(this).hasClass('fa-heart-o')) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
+            $(this).css('color', '#ff4461');
         }
         else if ($(this).hasClass('fa-heart')) {
             $(this).removeClass('fa-heart').addClass('fa-heart-o');
+            $(this).css('color', '#666');
         }
     });
 
     $('.food-trash').on('click', function () {
-        alert('이 집 쓰레기!!!!');
+        if ($(this).hasClass('fa-trash-o')) {
+            $(this).removeClass('fa-trash-o').addClass('fa-trash');
+            $(this).css('color', '#ff4461');
+        }
+        else if ($(this).hasClass('fa-trash')) {
+            $(this).removeClass('fa-trash').addClass('fa-trash-o');
+            $(this).css('color', '#bbb');
+        }
     });
 
     $('.food-report').on('click', function () {
