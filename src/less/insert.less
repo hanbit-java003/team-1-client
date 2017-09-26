@@ -16,8 +16,19 @@
 }
 
 #google-map {
+  position: relative;
   width: @global-width;
   height: 500px;
+}
+
+#map-around {
+  position: absolute;
+  top: calc(~'50%' - 50px);
+  left: calc(~'50%' - 50px);
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: rgba(183, 194, 238, 0.29);
 }
 
 .kk-coordinate {
@@ -71,18 +82,22 @@
 
 @preview-width: 640px;
 
+#carousel-example-generic {
+  background-color: #000000;
+}
+
 .kk-preview {
   margin: 0px auto;
   width: @preview-width;
-  height: 10px;
 }
 
 .background-preview {
   position: relative;
-  background-image : url('../img/duch.jpg');
-  background-size: 100%;
-  width: @preview-width;
-  height: 455px;
+  margin: 0px auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  max-width: @preview-width;
+  max-height: 800px;
 }
 
 .menu-tag {

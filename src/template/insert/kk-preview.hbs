@@ -1,0 +1,8 @@
+{{#each this}}
+<div class="item {{#if active}}active{{/if}}">
+    <div class="kk-preview">
+        <div class="background-preview" style="background-image: url({{src}}); width: {{width}}px; height: {{height}}px;"></div>
+        <button class="kk-btn-delete btn btn-danger">삭제</button>
+    </div>
+</div>
+{{/each}}
