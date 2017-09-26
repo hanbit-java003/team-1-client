@@ -19,6 +19,7 @@ function init(restaurants) {
     }
 
     $('.btn-more').on('click', function () {
+        $(this).toggle();
         $(this).parent().find('.food-detail').toggle();
     });
 
