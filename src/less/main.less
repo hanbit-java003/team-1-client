@@ -1,17 +1,19 @@
 @import 'common.less';
 
 @main-width: 896px;
+@main-color: #DF6E21;
+
+#main-map {
+  min-width: @main-width;
+  max-width: 100%;
+  height: 450px;
+  margin-top: 20px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+}
 
 .main-contents {
   max-width: @main-width;
   margin: 0px auto;
-}
-
-#main-map {
-  width: 100%;
-  height: 300px;
-  margin-top: 20px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 }
 
 .main-tags-container {
@@ -19,55 +21,58 @@
   height: 100px;
   margin-top: 10px;
   padding: 10px;
-  // background-color: #D73A31; // 위치 확인용.
-  // text-align: center;
+}
 
-  .frequent-tags > li {
-    display: inline-block;
-    min-width: 80px;
-    height: 30px;
-    margin: 5px;
-    padding: 0px 10px;
-    background-color: #6C4F70;
-    border-radius: 40px;
-    color: #fff;
-    font-size: 15px;
-    text-align: center;
-    line-height: 30px;
-    opacity: 0.7;
-    cursor: pointer;
+.frequent-tags > li {
+  display: inline-block;
+  min-width: 80px;
+  height: 30px;
+  margin: 5px;
+  padding: 0px 10px;
+  color: #5e5e5e;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
 
-    &:hover {
-      opacity: 1;
-    }
+  &:hover {
+    color: @main-color;
   }
 }
 
 .main-card-container {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .card-tab-btns > li {
   display: inline-block;
   width: calc(@main-width / 2);
   padding: 10px 20px;
-  border-bottom: solid 1px #DF6E21;
+  border-bottom: solid 1px @main-color;
   font-size: 25px;
   font-weight: bold;
   text-align: center;
-  color: #DF6E21;
+  color: @main-color;
   cursor: pointer;
 
   &.active {
-    background-color: #DF6E21;
+    background-color: @main-color;
     color: #fff;
+  }
+}
+
+.card-tab-contents > li {
+  display: none;
+
+  &.active {
+    display: block;
   }
 }
 
 .card-contents-list {
   margin: 20px 50px;
-  // background-color: #D1A827;
 }
 
 @card-height: 200px;
@@ -82,9 +87,6 @@
   display: inline-block;
   width: 300px;
   height: 100%;
-  background-color: #874E4C; // 위치 확인용
-  background-position: 50% 50%;
-  background-size: cover;
 
   & img {
     width: 100%;
@@ -94,36 +96,55 @@
 
 .card-contents {
   display: inline-block;
-  width: 496px;
+  width: 486px;
   height: 100%;
   padding: 10px;
   vertical-align: top;
+  color: #5e5e5e;
 }
 
 .card-contents-sort {
-  font-size: 20px;
+  height: 40px;
+  margin-top: 10px;
+  font-size: 25px;
   text-align: right;
+  line-height: 40px;
 
   & div {
     display: inline-block;
-    width: 30px;
-    height: 20px;
+    width: 40px;
+    height: 100%;
     margin: 0 5px;
-    background-position: 50% 50%;
-    background-size: cover;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    vertical-align: top;
   }
 }
 
-.card-contents-title {
-  padding: 5px 35px;
-  font-size: 25px;
+.card-contents-sort-where img,
+.card-contents-sort-what img {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
 }
 
-.card-tab-contents > li {
-  display: none;
+.card-contents-title {
+  padding: 10px 20px;
+  font-size: 25px;
+  font-weight: bold;
+}
 
-  &.active {
-    display: block;
+.card-contents-tags {
+  padding: 10px 20px;
+  font-size: 17px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  & > li {
+    display: inline-block;
+    padding: 0 5px;
+  }
+
+  & > li:first-child {
+    padding-left: 0px;
   }
 }
