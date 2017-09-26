@@ -15,7 +15,7 @@ ul {
   padding: 0;
 }
 
-input:not(.sign-up) {
+input {
   padding-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
@@ -29,14 +29,13 @@ input::-webkit-input-placeholder {
 
 .dark-layer {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4); // 레드 그린 블루 알파
 }
 
-//////////////////////////////// 임시 헤더
 header {
   position: relative;
   display: inline-block;
@@ -52,7 +51,7 @@ header {
 .header-wrapper {
   position: relative;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 30px 20px 30px;
   width: 1220px;
   height: 40px;
   box-sizing: content-box;
@@ -60,12 +59,13 @@ header {
   text-align: center;
 }
 
-.navicon {
+.header-btn-member {
+  position: absolute;
+  top: 30px;
+  left: 10px;
   margin-right: 15px;
   font-size: 30px;
-  vertical-align: top;
   cursor: pointer;
-  float: left;
 }
 
 .header-logo {
@@ -90,7 +90,7 @@ header {
 
 .search-wrapper {
   position: absolute;
-  top: 14px;
+  top: 30px;
   right: 0;
 }
 
@@ -103,8 +103,6 @@ header {
 
 .header-search-bar > input {
   min-width: 320px;
-  border: none;
-  outline: none;
   background-color: transparent;
 }
 
@@ -142,9 +140,6 @@ header {
   color: #999;
 }
 
-/////////////////////////////////////// 임시 헤더
-
-/////////////////////////////////////// 임시 푸터
 @footer-bg-color: #2d2e2e;
 @footer-fg-color: #666;
 @footer-fg-color-highlight: #999;
@@ -192,5 +187,3 @@ footer {
 .footer-info {
   font-size: 11px;
 }
-
-/////////////////////////////////////// 임시 푸터
