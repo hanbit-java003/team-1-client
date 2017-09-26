@@ -5,12 +5,26 @@ body {
   color: @font-color;
 }
 
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none !important;
+}
+
 ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
+.dark-layer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); // 레드 그린 블루 알파
+}
+
+//////////////////////////////// 임시 헤더
 header {
   position: relative;
   display: inline-block;
@@ -19,6 +33,7 @@ header {
   width: 100%;
   height: 80px;
   background-color: #F4E7D7;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
 }
 
 .header-wrapper {
@@ -117,12 +132,55 @@ header {
   color: #999;
 }
 
+/////////////////////////////////////// 임시 헤더
 
-.dark-layer {
-  position: absolute;
-  top:0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);  // 레드 그린 블루 알파
+/////////////////////////////////////// 임시 푸터
+@footer-bg-color: #2d2e2e;
+@footer-fg-color: #666;
+@footer-fg-color-highlight: #999;
+
+footer {
+  margin-top: 80px;
+  padding: 120px 10px 150px 10px;
+  background-color: @footer-bg-color;
+  color: @footer-fg-color;
+  text-align: center;
 }
+
+.footer-sns > li {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin: 0px 15px;
+  border-radius: 25px;
+  background-color: @footer-fg-color;
+  color: @footer-bg-color;
+  font-size: 30px;
+  line-height: 50px;
+  cursor: pointer;
+}
+
+.footer-sns > li:hover {
+  background-color: @footer-fg-color-highlight;
+}
+
+.footer-menu {
+  padding: 30px 10px;
+}
+
+.footer-menu > li {
+  display: inline-block;
+  margin: 0px 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.footer-menu > li:hover {
+  color: @footer-fg-color-highlight;
+}
+
+.footer-info {
+  font-size: 11px;
+}
+
+/////////////////////////////////////// 임시 푸터
