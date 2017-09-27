@@ -1,0 +1,139 @@
+// sc
+@import 'common';
+
+.cock-detail {
+  max-width: 790px;
+  min-width: 390px;
+  margin: 0 auto;
+}
+
+.columns {
+  column-count: 2;
+  column-gap: 10px;
+  column-fill: auto;
+}
+
+.content-wrapper {
+  display: inline-block;
+  margin: 3px 3px 10px;
+  width: 384px;
+  height: auto;
+  border: 2px solid #FAFAFA;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  opacity: 1;
+  padding: 10px 10px 5px;
+  transition: all 0.2s ease;
+  break-inside: avoid;
+}
+
+.user-info {
+  background-color: #fff;
+}
+
+#user-img {
+  display: inline-block;
+  margin-right: 10px;
+  width: 48px;
+  height: 48px;
+  background-position: 50% 50%;
+  background-size: cover;
+  vertical-align: 50%;
+}
+
+#user-name {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  vertical-align: 100%;
+}
+
+.user-achievement {
+  display: inline-block;
+  float: right;
+
+  li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+}
+
+#food-img {
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 384px;
+  height: 284px;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.food-text {
+  position: relative;
+  margin: 10px;
+  background-color: #fff;
+  letter-spacing: -1.2px;
+
+  .food-eaten {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #888;
+  }
+
+  .food-comment {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+}
+
+.food-detail {
+  display: none;
+  margin: 30px;
+
+  .food-menu {
+    margin: 20px 0;
+    color: #002395;
+    text-align: left;
+
+    li {
+      display: inline-block;
+      margin-right: 4px;
+      cursor: pointer;
+    }
+  }
+
+  .food-icon {
+    position: absolute;
+    bottom: -25px;
+    right: 0;
+    color: #666;
+    font-size: 18px;
+    list-style: none;
+
+    li {
+      display: inline-block;
+      margin: 0 7px;
+      cursor: pointer;
+    }
+
+    li:nth-child(2) {
+      color: #bbb;
+    }
+    
+    li:nth-child(3) {
+      color: #ff4461;
+    }
+  }
+}
+
+@media (min-width: 300px) {
+  .columns {
+    column-count: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .columns {
+    column-count: 2;
+  }
+}

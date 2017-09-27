@@ -15,7 +15,22 @@ const pages = [{
     script: 'bookmark',
 }, {
     html: 'sub',
-    script: 'sub',
+    script: 'sub'
+}, {
+    html: 'insert',
+    script: 'insert'
+}, {
+    html: 'detail',
+    script: 'detail'
+}, {
+    html: 'join',
+    script: 'join'
+}, {
+    html: 'join-food',
+    script: 'join-food'
+}, {
+    html: 'setting',
+    script: 'setting'
 }];
 
 module.exports = {

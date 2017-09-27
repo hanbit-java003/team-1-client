@@ -1,0 +1,30 @@
+<div class="content-wrapper">
+    <div class="user-info">
+        <div id="user-img" class="img-circle" style="background-image: url({{userImg}})"></div>
+        <div id="user-name">{{userName}}</div>
+        <ul class="user-achievement">
+            {{~#each achievement~}}
+                <li>{{emblem}}</li>
+            {{~/each~}}
+        </ul>
+    </div>
+    <div id="food-img" class="img-responsive" style="background-image: url({{foodImg}})"></div>
+    <div class="food-text">
+        <div class="food-eaten">{{eaten}}</div>
+        <div class="food-comment">{{comment}}</div>
+        <a class="btn-more">... 더보기</a>
+        <div class="food-detail">
+            {{{detail}}}
+            <div class="food-menu">
+                {{~#each menu~}}
+                    <li>#{{item}}</li>
+                {{~/each~}}
+            </div>
+            <ul class="food-icon">
+                <li><i class="food-like fa fa-heart-o"></i></li>
+                <li><i class="food-trash fa fa-trash-o"></i></li>
+                <li><i class="food-report fa fa-ban"></i></li>
+            </ul>
+        </div>
+    </div>
+</div>
