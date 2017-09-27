@@ -27,7 +27,7 @@ function initMainMap() {
         var marker, i;
         var spoon = '../img/marker-spoon.png';
 
-        for (i=0; i<cardContentsModel.length; i++) {
+        for (i = 0; i < cardContentsModel.length; i++) {
             marker = new googleMaps.Marker({
                 position: new googleMaps.LatLng(cardContentsModel[i].lat, cardContentsModel[i].lng),
                 map: map,
@@ -52,11 +52,20 @@ function initCardContents(cardContentsModel) {
 
     var template = require('../template/card-contents-list.hbs');
 
-    for (var i=0; i<cardContentsModel.length; i++) {
+    for (var i = 0; i < cardContentsModel.length; i++) {
         var cardHtml = template(cardContentsModel[i]);
 
         $('.contents-nearby').append(cardHtml);
     }
+
+    // 리스트 클릭하면 상세 페이지로 이동
+    $('.card-contents-list > li').on('click', function () {
+        goDetail($(this).attr('uid'));
+    });
+}
+
+function goDetail(uid) {
+    location.href = 'detail.html?uid=' + uid;
 }
 
 initCardContents(cardContentsModel);
@@ -78,10 +87,6 @@ $('.card-tab-btns > li').on('click', function () {
     tabContents.removeClass('active');
     $(tabContents[tabIndex]).addClass('active');
 
-});
-
-$('.card-contents-list > li').on('click', function () {
-    location.href = 'detail.html';
 });
 
 $('#btn-join-test').on('click', function () {
