@@ -36,6 +36,47 @@
   font-size: @insert-font-size;
 }
 
+.location-check {
+  position: fixed;
+  top: calc(~'50%' - 150px);
+  left: calc(~'50%' - 150px);
+  padding: 10px;
+  display: none;
+  background-color: #ffffff;
+  border: solid 2px #888b89;
+  z-index: 1500;
+}
+
+.check-head {
+  width: 300px;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: solid 2px #888b89;
+  text-align: center;
+  font-size: 17px;
+}
+
+.check-around-store {
+  height: 200px;
+  margin-bottom: 5px;
+  padding: 5px;
+  overflow-y: scroll;
+
+  li {
+    padding: 1px;
+    border-bottom: solid 1px #888b89;
+    cursor: pointer;
+  }
+
+  li:hover {
+    background-color: #c8ccc9;
+  }
+}
+
+.check-btn {
+  text-align: center;
+}
+
 .kk-sign {
   margin-top: 10px;
   font-size: @insert-font-size;

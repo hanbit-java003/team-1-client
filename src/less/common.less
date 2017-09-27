@@ -2,7 +2,7 @@
 @global-width: 900px;
 
 body {
-  color: @font-color;
+  position: relative;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -36,11 +36,14 @@ input::-webkit-input-placeholder {
   background-color: rgba(0, 0, 0, 0.4); // 레드 그린 블루 알파
 }
 
+.overlay-layer {
+  z-index: 1000;
+}
+
 header {
   position: relative;
   display: inline-block;
   margin-bottom: 40px;
-  min-width: 1220px;
   width: 100%;
   height: 100px;
   color: #888;
@@ -52,7 +55,6 @@ header {
   position: relative;
   margin: 0 auto;
   padding: 40px 30px 20px 30px;
-  width: 1220px;
   height: 40px;
   box-sizing: content-box;
   z-index: 101;

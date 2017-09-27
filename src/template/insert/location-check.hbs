@@ -1,0 +1,16 @@
+<div class="location-check">
+    <div class="check-head">
+        <strong>혹시 이 집은 아닌가요?</strong>
+    </div>
+    <ul class="check-around-store">
+        {{#each this}}
+        <li>
+            {{title}}
+        </li>
+        {{/each}}
+    </ul>
+    <div class="check-btn">
+        <button class="check-cancel btn btn-danger">취소</button>
+        <button class="check-new btn btn-primary">이 안에 없어요.</button>
+    </div>
+</div>

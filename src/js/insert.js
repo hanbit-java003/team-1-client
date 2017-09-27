@@ -1,6 +1,7 @@
 require('bootstrap');
 require('../less/insert.less');
 
+var common = require('./common');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
 loadGoogleMapsApi.key = 'AIzaSyDfasnDjKf4JZvuEqVnp3N7Ezv3Cm-qAII';
@@ -17,35 +18,96 @@ var location = [{
     lat: 37.552188, lng: 126.937199, title: 'hello4'
 }];
 
-loadGoogleMapsApi().then(function(googleMaps) {
-    initMap(googleMaps);
+loadGoogleMapsApi().then(function(_googleMaps) {
+    googleMaps = _googleMaps;
+    initMap();
 
 }).catch(function(error) {
     console.error(error);
 });
 
-function initMap(googleMaps) {
-    var map = new googleMaps.Map($('#google-map')[0], {
+var map;
+var googleMaps;
+function initMap() {
+    map = new googleMaps.Map($('#google-map')[0], {
         center: {lat: 37.552331, lng: 126.937588},
         zoom: 16,
         scrollwheel: false
     });
 
-    addMarkers(googleMaps, map);
+    addMarkers();
 
     map.addListener('click', function (e) {
-        selectMap(googleMaps, e.latLng, map);
+        selectMap(e.latLng);
+        $('#lat').val(e.latLng.lat);
+        $('#lng').val(e.latLng.lng);
         //주변 가게 가져오기 구현 필요
         deleteMarkers();
-        addMarkers(googleMaps, map);
+        addMarkers();
+        menuLockInput(false);
     });
 
 }
+
+$('#locationCheck').on('click', function () {
+    $('body').append('<div class="overlay-layer dark-layer"></div>');
+    $('body').css('overflow', 'hidden');
+
+    var template = require('../template/insert/location-check.hbs');
+    var html = template(location);
+
+    $('body').append(html);
+    $('.location-check').show();
+
+    $('.check-cancel').on('click', function () {
+        clearDarkLayer();
+        menuLockInput(false);
+    });
+
+    $('.check-new').on('click', function () {
+        clearDarkLayer();
+        menuLockInput(false);
+    });
+
+    $('.check-around-store > li').on('click', function () {
+        var index = $(this).index();
+        var lo = location[index];
+
+        $('#lat').val(lo.lat);
+        $('#lng').val(lo.lng);
+        $('#kk-store-title').val(lo.title);
+        menuLockInput(true);
+
+        selectMap(lo);
+
+        clearDarkLayer();
+    });
+});
+
+function menuLockInput(lock) {
+    if (lock) {
+        $('#lat').attr('disabled', 'true');
+        $('#lng').attr('disabled', 'true');
+        $('#kk-store-title').attr('disabled', 'true');
+    }
+    else {
+        $('#lat').removeAttr('disabled');
+        $('#lng').removeAttr('disabled');
+        $('#kk-store-title').removeAttr('disabled');
+    }
+}
+
+function clearDarkLayer() {
+    $('.overlay-layer.dark-layer').remove();
+    $('.location-check').remove();
+    $('body').css('overflow', 'auto');
+}
+
 // 주변마커 가지고 있는 배열
 var markers = [];
 
 // 지도에 마커를 찍는 함수
-function addMarkers(googleMaps, map) {
+function addMarkers() {
     for (var i=0; i<location.length; i++) {
         var marker = new googleMaps.Marker({
             position: location[i],
@@ -57,21 +119,16 @@ function addMarkers(googleMaps, map) {
     }
 }
 
-// 마커 전체에 명령을 주는 함수
-function setMapOnAll(map) {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-    }
-}
-
 // 마커를 없에고 배열에도 없에는 함수
 function deleteMarkers() {
-    setMapOnAll(null);
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
     markers = [];
 }
 
 var clkMarker; // 클릭된 마커가 저장되는 변수
-function selectMap(googleMaps, latLng, map) {
+function selectMap(latLng) {
     if (clkMarker) {
         clkMarker.setMap(null);
     }
