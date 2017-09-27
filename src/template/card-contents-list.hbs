@@ -16,6 +16,9 @@
             {{title}} ({{count}})
         </div>
         <ul class="card-contents-tags">
+            {{#each tag}}
+            <li>#{{item}}</li>
+            {{/each}}
         </ul>
     </div>
 </li>
