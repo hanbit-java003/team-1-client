@@ -58,9 +58,8 @@ function initCardContents(cardContentsModel) {
         $('.contents-nearby').append(cardHtml);
     }
 
-    //console.log(cardContentsModel[i].id);
+    // 리스트 클릭하면 상세 페이지로 이동
     $('.card-contents-list > li').on('click', function () {
-        console.log();
         goDetail($(this).attr('uid'));
     });
 }

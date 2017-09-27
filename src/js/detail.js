@@ -17,6 +17,8 @@ function init(restaurants, cardContentsModel) {
     var template = require('../template/detail/restaurant.hbs');
     var shops = 0;
 
+    // 지금은 임시로 메인페이지의 카운트값을 받아 상세페이지 카드 개수를 정했는데
+    // 실제로는 반대로 해야함.
     for (var i = 0; i < cardContentsModel.length; i++) {
         if (params.get('uid') === cardContentsModel[i].id) {
             shops = cardContentsModel[i].count;
