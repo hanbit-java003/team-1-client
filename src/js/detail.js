@@ -2,17 +2,28 @@
 require('bootstrap');
 require('../less/detail.less');
 
+var UrlSearchParams = require('url-search-params');
+var params = new UrlSearchParams(location.search);
+
 var common = require('./common');
 var restaurants = require('./model/restaurants');
+var cardContentsModel = require('./model/card-contents-list');
 
 $('.header-logo').on('click', function () {
     location.href = './';
 });
 
-function init(restaurants) {
+function init(restaurants, cardContentsModel) {
     var template = require('../template/detail/restaurant.hbs');
+    var shops = 0;
 
-    for (var i = 0; i < restaurants.length; i++) {
+    for (var i = 0; i < cardContentsModel.length; i++) {
+        if (params.get('uid') === cardContentsModel[i].id) {
+            shops = cardContentsModel[i].count;
+        }
+    }
+
+    for (var i = 0; i < shops; i++) {
         var html = template(restaurants[i]);
 
         $('.cock-restaurants').append(html);
@@ -51,4 +62,4 @@ function init(restaurants) {
 
 }
 
-init(restaurants);
+init(restaurants, cardContentsModel);

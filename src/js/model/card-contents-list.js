@@ -6,6 +6,7 @@ module.exports = [{
     lat: 37.555344,
     lng: 126.932692,
     count: 14,
+    id: 'goramen',
     tag: [{
         item: '고라멘'
     }, {
@@ -25,6 +26,7 @@ module.exports = [{
     lat: 37.556792,
     lng: 126.933534,
     count: 22,
+    id: 'mibundang',
     tag: [{
         item: '미분당'
     }, {
@@ -44,6 +46,7 @@ module.exports = [{
     lat: 37.557007,
     lng: 126.935057,
     count: 1,
+    id: 'josun',
     tag: [{
         item: '조선'
     }, {
@@ -63,6 +66,7 @@ module.exports = [{
     lat: 37.555667,
     lng: 126.936178,
     count: 111,
+    id: 'marugame',
     tag: [{
         item: '우동'
     }, {
@@ -82,6 +86,7 @@ module.exports = [{
     lat: 37.558257,
     lng: 126.934696,
     count: 56,
+    id: 'fish',
     tag: [{
         item: '생선구이'
     }, {
@@ -101,6 +106,7 @@ module.exports = [{
     lat: 37.558037,
     lng: 126.934715,
     count: 90,
+    id: 'crister',
     tag: [{
         item: '치느님'
     }, {
