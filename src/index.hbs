@@ -6,43 +6,47 @@
 </head>
 <body>
 {{> template/header}}
-<section id="main-map">
-</section>
-<section class="main-contents">
-    <div class="main-tags-container">
-        <ul class="frequent-tags">
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-            <li>#해시태그</li>
-        </ul>
+<section class="contents-wrapper">
+    <!-- 좌측 메인 지도 -->
+    <div id="main-map">
     </div>
-    <div class="main-card-container">
-        <div class="main-card-tab">
-            <ul class="card-tab-btns">
-                <li class="active">주변 맛집</li>
-                <li>추천 맛집</li>
-            </ul>
-            <ul class="card-tab-contents">
-                <li class="active">
-                    <ul class="card-contents-list contents-nearby">
-                    </ul>
-                </li>
-                <li>
-                    <ul class="card-contents-list contents-recommend">
-                    </ul>
-                </li>
-            </ul>
+    <!-- 우측 메인 컨텐츠 -->
+    <div class="main-contents">
+        <div class="main-card-wrapper">
+            <div class="main-card-tab">
+                <!-- 카드 리스트 탭 버튼 -->
+                <ul class="card-tab-btns">
+                    <li class="active">주변 맛집</li>
+                    <li>추천 맛집</li>
+                </ul>
+                <!-- 카드 리스트 컨텐츠 -->
+                <ul class="card-tab-contents">
+                    <!-- 주변 맛집 -->
+                    <li class="active">
+                        <ul class="card-contents-list contents-nearby">
+                            <li>
+                                <div class="card-contents-img" style="background-image: url({{mainImg}})">
+                                </div>
+                                <div class="card-contents">
+                                    <div class="card-contents-title">
+                                        {{title}} ({{count}})
+                                    </div>
+                                    <ul class="card-contents-tags">
+                                        {{#each tag}}
+                                            <li>#{{item}}</li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- 추천 맛집 -->
+                    <li>
+                        <ul class="card-contents-list contents-recommend">
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
