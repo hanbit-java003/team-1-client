@@ -11,8 +11,8 @@
     <div id="main-map">
     </div>
     <!-- 우측 메인 컨텐츠 -->
-    <div class="main-contents">
-        <div class="main-card-wrapper">
+    <div class="main-contents-wrapper">
+        <div class="main-contents">
             <div class="main-card-tab">
                 <!-- 카드 리스트 탭 버튼 -->
                 <ul class="card-tab-btns">
@@ -24,20 +24,6 @@
                     <!-- 주변 맛집 -->
                     <li class="active">
                         <ul class="card-contents-list contents-nearby">
-                            <li>
-                                <div class="card-contents-img" style="background-image: url({{mainImg}})">
-                                </div>
-                                <div class="card-contents">
-                                    <div class="card-contents-title">
-                                        {{title}} ({{count}})
-                                    </div>
-                                    <ul class="card-contents-tags">
-                                        {{#each tag}}
-                                            <li>#{{item}}</li>
-                                        {{/each}}
-                                    </ul>
-                                </div>
-                            </li>
                         </ul>
                     </li>
                     <!-- 추천 맛집 -->
