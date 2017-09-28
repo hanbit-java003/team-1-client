@@ -1,23 +1,16 @@
 <li uid="{{id}}">
-    <div class="card-contents-img">
-        <img src="{{mainImg}}">
+    <div class="card-img" style="background-image: url({{mainImg}})">
     </div>
     <div class="card-contents">
-        <div class="card-contents-sort">
-            <div class="card-contents-sort-where">
-                <img src="{{nationalIcon}}">
-            </div>
-            /
-            <div class="card-contents-sort-what">
-                <img src="{{foodIcon}}">
-            </div>
+        <div class="card-contents-favorite">
+            <i class="fa fa-star-o"></i>
         </div>
         <div class="card-contents-title">
             {{title}} ({{count}})
         </div>
         <ul class="card-contents-tags">
             {{#each tag}}
-            <li>#{{item}}</li>
+                <li>#{{item}}</li>
             {{/each}}
         </ul>
     </div>

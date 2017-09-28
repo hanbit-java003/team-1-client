@@ -25,7 +25,7 @@ function initMainMap() {
         var infowindow = new googleMaps.InfoWindow();
 
         var marker, i;
-        var spoon = '../img/marker-spoon.png';
+        var spoon = '../img/spoon/spoon_220_20_60.png';
 
         for (i = 0; i < cardContentsModel.length; i++) {
             marker = new googleMaps.Marker({
