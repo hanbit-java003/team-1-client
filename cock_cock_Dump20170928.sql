@@ -130,6 +130,63 @@ LOCK TABLES `cc_img` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cc_member`
+--
+
+DROP TABLE IF EXISTS `cc_member`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_member` (
+  `uid` varchar(200) NOT NULL,
+  `email` varchar(300) NOT NULL,
+  `nick` varchar(100) NOT NULL,
+  `password` varchar(300) NOT NULL,
+  `create_dt` varchar(45) NOT NULL,
+  `creatd_by` varchar(45) DEFAULT NULL,
+  `food` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `nick_UNIQUE` (`nick`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_member`
+--
+
+LOCK TABLES `cc_member` WRITE;
+/*!40000 ALTER TABLE `cc_member` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_member` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cc_member_detail`
+--
+
+DROP TABLE IF EXISTS `cc_member_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_member_detail` (
+  `uid` varchar(200) NOT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `info` char(1) NOT NULL DEFAULT 'N',
+  `avatar` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  KEY `fk_cc_member_detail_cc_member1_idx` (`uid`),
+  CONSTRAINT `fk_cc_member_detail_cc_member1` FOREIGN KEY (`uid`) REFERENCES `cc_member` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_member_detail`
+--
+
+LOCK TABLES `cc_member_detail` WRITE;
+/*!40000 ALTER TABLE `cc_member_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_member_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cc_menu`
 --
 
@@ -209,10 +266,6 @@ LOCK TABLES `cc_tag` WRITE;
 /*!40000 ALTER TABLE `cc_tag` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cc_tag` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'cock_cock'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -223,4 +276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-28 16:44:26
+-- Dump completed on 2017-09-28 17:20:51
