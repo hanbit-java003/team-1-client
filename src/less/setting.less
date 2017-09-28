@@ -27,8 +27,9 @@
   border: solid 1px #8e8e8e;
   padding: 40px 60px ;
   background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 20px 10px 3px rgba(0,0,0,0.2);
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.04);
 }
 
 .cock-setting > .cock-setting-btns {
@@ -80,13 +81,38 @@
 }
 
 
-.form-group > label {
+.cock-setting-group > label {
   padding-left: 10px;
   padding-bottom: 5px;
 }
 
 .form-check > label {
   display: block;
+}
+
+.cock-setting-group > input {
+  display: inline-block;
+  margin-bottom: 10px;
+  border-radius: 0px;
+  border: none;
+  -webkit-box-shadow: none;
+  border-bottom: solid 2px #d9dadc;
+}
+
+#cock-member-nick-input {
+  max-width: 365px;
+}
+
+.cock-setting-group > button {
+  margin-left: 10px;
+  min-width: 98px;
+  max-width: 98px;
+}
+
+.cock-setting-group > input:focus {
+  border-bottom: solid 2px #66afe9;
+  -webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,0);
+  box-shadow: inset 0 0px 0px rgba(0,0,0,0);
 }
 
 .cock-member-food-span {
