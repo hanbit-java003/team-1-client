@@ -6,15 +6,15 @@ module.exports = [{
     count: 14,
     id: 'goramen',
     tag: [{
-        item: '고라멘'
+        item: '신촌맛집'
     }, {
-        item: '고라멘'
+        item: '라멘맛집'
     }, {
-        item: '고라멘'
+        item: '돈코츠라멘'
     }, {
-        item: '고라멘'
+        item: '면추가'
     }, {
-        item: '고라멘'
+        item: '차슈추가'
     }]
 }, {
     title: '미분당',
@@ -24,15 +24,15 @@ module.exports = [{
     count: 22,
     id: 'mibundang',
     tag: [{
-        item: '미분당'
+        item: '신촌맛집'
     }, {
         item: '미분당'
     }, {
-        item: '미분당'
+        item: '차돌박이쌀국수'
     }, {
-        item: '미분당'
+        item: '육수추가'
     }, {
-        item: '미분당'
+        item: '기다림의미학'
     }]
 }, {
     title: '조선의육개장',
@@ -42,15 +42,15 @@ module.exports = [{
     count: 1,
     id: 'josun',
     tag: [{
-        item: '조선'
+        item: '헬조선의맛'
     }, {
-        item: '조선'
+        item: '육개장'
     }, {
-        item: '조선'
+        item: '갓개장'
     }, {
-        item: '조선'
+        item: '얼큰칼칼'
     }, {
-        item: '조선'
+        item: '신촌맛집'
     }]
 }, {
     title: '마루가메제면 신촌점',
@@ -60,15 +60,15 @@ module.exports = [{
     count: 111,
     id: 'marugame',
     tag: [{
-        item: '우동'
+        item: '신촌맛집'
     }, {
-        item: '우동'
+        item: '닭튀김'
     }, {
-        item: '우동'
+        item: '일본우동'
     }, {
-        item: '우동'
+        item: '오뎅우동'
     }, {
-        item: '우동'
+        item: '니쿠우동'
     }]
 }, {
     title: '털보고된이생선구이 신촌점',
@@ -80,15 +80,15 @@ module.exports = [{
     count: 56,
     id: 'fish',
     tag: [{
-        item: '생선구이'
+        item: '고삼된'
+    }, {
+        item: '신촌맛집'
     }, {
         item: '생선구이'
     }, {
-        item: '생선구이'
+        item: '고삼순'
     }, {
-        item: '생선구이'
-    }, {
-        item: '생선구이'
+        item: '임연수'
     }]
 }, {
     title: '크리스터치킨 신촌점',
@@ -100,12 +100,12 @@ module.exports = [{
     tag: [{
         item: '치느님'
     }, {
-        item: '치느님'
+        item: '치맥'
     }, {
-        item: '치느님'
+        item: '꿀마늘'
     }, {
-        item: '치느님'
+        item: '진리의치킨'
     }, {
-        item: '치느님'
+        item: '크리스터'
     }]
 }];
