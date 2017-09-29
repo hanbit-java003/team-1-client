@@ -31,7 +31,12 @@ body {
   background-color: #fff;
 }
 
+.content-wrapper:hover {
+  box-shadow: 0 3px 10px rgba(34, 25, 25, 0.7);
+}
+
 .user-info {
+  position: relative;
   background-color: #fff;
 }
 
@@ -54,8 +59,10 @@ body {
 }
 
 .user-achievement {
+  position: absolute;
   display: inline-block;
-  float: right;
+  top: 15px;
+  right: 0;
 
   li {
     display: inline-block;
@@ -79,21 +86,29 @@ body {
   letter-spacing: -1.2px;
 
   .food-eaten {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 16px;
     font-weight: bold;
     color: #888;
   }
 
   .food-comment {
-    margin-bottom: 10px;
-    font-weight: bold;
+    display: inline-block;
+    margin-left: 30px;
   }
+}
+
+.btn-more {
+  margin-left: 10px;
+  color: #999;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .food-detail {
   display: none;
-  margin: 30px;
+  margin: 0 30px 30px 30px;
 
   .food-menu {
     margin: 20px 0;
@@ -124,7 +139,7 @@ body {
     li:nth-child(2) {
       color: #bbb;
     }
-    
+
     li:nth-child(3) {
       color: #ff4461;
     }
