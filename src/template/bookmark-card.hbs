@@ -1,30 +1,22 @@
 <li class="bookmark-list">
-    <div class="bookmark-photo"
-         style="background-image: url({{thumbnail}});"></div>
+    <div class="bookmark-photo">
+        <img src="{{thumbnail}}">
+    </div>
     <div class="bookmark-element">
         <div class="store-name">
-            {{storeName}}
+            {{title}}
         </div>
         <div class="country-food">
             <img src="{{flag}}" class="flag">
             /
-            <img src="{{sort}}" class="flag">
+            <img src="{{foodIcon}}" class="flag">
         </div>
-        <button class="bookmark-btn">
-            <i class="fa fa-bookmark-o"></i>
+        <button class="btn-bookmark">
+            <i class="bookmark-btn fa fa-bookmark"></i>
         </button>
         <div class="commentary">
             {{comment}}
         </div>
-        <ul class="thumbs-up-like">
-            <li>
-                <i class="fa fa-thumbs-o-up"></i>
-                {{like}}
-            </li>
-            <li>
-                <i class="fa fa-pencil-square-o"></i>
-                {{article}}
-            </li>
-        </ul>
+
     </div>
 </li>
