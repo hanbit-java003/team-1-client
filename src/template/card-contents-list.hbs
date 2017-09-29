@@ -2,12 +2,14 @@
     <div class="card-img" style="background-image: url({{mainImg}})">
     </div>
     <div class="card-contents">
+        <!-- 즐겨찾기 버튼 -->
         <div class="card-contents-favorite">
             <i class="fa fa-star-o"></i>
         </div>
         <div class="card-contents-title">
             {{title}} ({{count}})
         </div>
+        <!-- 맛집 관련 태그 (한줄) -->
         <ul class="card-contents-tags">
             {{#each tag}}
                 <li>#{{item}}</li>

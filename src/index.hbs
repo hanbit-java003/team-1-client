@@ -7,21 +7,32 @@
 <body>
 {{> template/header}}
 <section class="contents-wrapper">
-    <!-- 좌측 위 메인 지도 -->
-    <div id="main-map">
-    </div>
-    <!-- 좌측 아래 빠른 검색 -->
-    <div class="quick-search-wrapper">
-
+    <!-- 좌측 메인 컨텐츠 -->
+    <div class="left-contents-wrapper">
+        <!-- 좌측 위 메인 지도 -->
+        <div id="main-map">
+        </div>
+        <!-- 좌측 아래 빠른 검색 -->
+        <div class="quick-search-wrapper">
+            <ul class="quick-search">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
     </div>
     <!-- 우측 메인 컨텐츠 -->
-    <div class="main-contents-wrapper">
+    <div class="right-contents-wrapper">
         <div class="main-contents">
             <div class="main-card-tab">
                 <!-- 카드 리스트 탭 버튼 -->
                 <ul class="card-tab-btns">
-                    <li class="active">주변 맛집</li>
-                    <li>추천 맛집</li>
+                    <li id="nearby-rest" class="active">주변 맛집</li>
+                    <li id="recommend-rest">추천 맛집</li>
                 </ul>
                 <!-- 카드 리스트 컨텐츠 -->
                 <ul class="card-tab-contents">
@@ -39,6 +50,7 @@
             </div>
         </div>
     </div>
+
 </section>
 {{> template/footer}}
 </body>

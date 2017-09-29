@@ -7,7 +7,7 @@ var params = new UrlSearchParams(location.search);
 
 var common = require('./common');
 var restaurants = require('./model/restaurants');
-var cardContentsModel = require('./model/card-contents-list');
+var cardContentsModel = require('./model/card-contents-nearby');
 
 $('.header-logo').on('click', function () {
     location.href = './';
