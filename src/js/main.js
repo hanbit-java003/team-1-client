@@ -24,6 +24,12 @@ function getLocation() {
         }, function (error) { // 위치 찾기 에러 시 콜백
             console.error(error);
             alert('내 위치 확인을 허용해 주세요.');
+            initContentsRecommend(cardContentsRecommend);
+            $('#nearby-rest').removeClass('active');
+            $('#nearby-rest-contents').removeClass('active');
+            $('#recommend-rest').addClass('active');
+            $('#recommend-rest-contents').addClass('active');
+            initMainMap();
         }, { // 옵션
             enableHighAccuracy: false,
             maximumAge: 0,
