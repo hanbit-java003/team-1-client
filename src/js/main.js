@@ -46,6 +46,8 @@ function initMainMap(position) {
         var i;
 
         if ($('#nearby-rest').hasClass('active')) {
+            initContentsNearby(cardContentsNearby);
+
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
                 // 지도 확대 비율
@@ -79,6 +81,8 @@ function initMainMap(position) {
             }
         }
         else if ($('#recommend-rest').hasClass('active')) {
+            initContentsRecommend(cardContentsRecommend);
+
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
                 // 지도 확대 비율
@@ -128,16 +132,14 @@ function initContentsNearby(cardContentsNearby) {
         $('.contents-nearby').append(cardHtml);
     }
 
+    // 즐겨찾기 클릭 이벤트
+    clkFavorite();
+
     // 리스트 클릭하면 상세 페이지로 이동
     $('.card-contents-list > li').on('click', function () {
         goDetail($(this).attr('uid'));
     });
-
-    // 즐겨찾기 클릭 이벤트
-    clkFavorite();
 }
-
-initContentsNearby(cardContentsNearby);
 
 // 추천 맛집 리스트
 function initContentsRecommend(cardContentsRecommend) {
@@ -154,8 +156,6 @@ function initContentsRecommend(cardContentsRecommend) {
     // 즐겨찾기 클릭 이벤트
     clkFavorite();
 }
-
-initContentsRecommend(cardContentsRecommend);
 
 function goDetail(uid) {
     location.href = 'detail.html?uid=' + uid;
@@ -180,7 +180,12 @@ $('.card-tab-btns > li').on('click', function () {
     $(tabContents[tabIndex]).addClass('active');
 
     // 마커를 다시 찍기 위해 또 불러옴
-    getLocation();
+    if ($('#nearby-rest').hasClass('active')) {
+        getLocation();
+    }
+    else if ($('#recommend-rest').hasClass('active')) {
+        initMainMap();
+    }
 });
 
 // 즐겨찾기 클릭 이벤트
@@ -191,11 +196,13 @@ function clkFavorite() {
         if ($(this).hasClass('fa-star-o')) {
             $(this).removeClass('fa-star-o');
             $(this).addClass('fa-star');
+            alert('즐겨찾기에 추가되었습니다.');
         }
-        else if ($(this).hasClass('fa-star')) {
+        else {
             $(this).removeClass('fa-star');
             $(this).addClass('fa-star-o');
             $(this).css('color', '#FF7E5F');
+            alert('즐겨찾기에서 삭제되었습니다.');
         }
     })
 }
