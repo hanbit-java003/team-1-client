@@ -11,14 +11,15 @@
 .left-contents-wrapper {
   display: inline-block;
   width: 60%;
-  min-width: 614px;
   margin-bottom: 20px;
 }
 
 @main-box-shadow: 1px 1px 10px rgba(0,0,0,0.3); // 카드 그림자
+@left-contents-min-width: 614px;
 
 #main-map {
   width: 98%;
+  min-width: @left-contents-min-width;
   height: 500px;
   margin-right: 2%;
   box-shadow: @main-box-shadow;
@@ -27,6 +28,7 @@
 .quick-search-wrapper {
   display: inline-block;
   width: 98%;
+  min-width: @left-contents-min-width;
   height: 184px;
   margin: 20px 2% 0px 0px;
   background-color: #fff;
@@ -113,8 +115,9 @@
 }
 
 .card-contents-favorite {
-  padding: 5px 15px;
+  padding: 10px 15px;
   font-size: 20px;
+  color: @card-tab-color;
   text-align: right;
   line-height: 20px;
 }
