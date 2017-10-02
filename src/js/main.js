@@ -24,7 +24,6 @@ function getLocation() {
         }, function (error) { // 위치 찾기 에러 시 콜백
             console.error(error);
             alert('내 위치 확인을 허용해 주세요.');
-            initContentsRecommend(cardContentsRecommend);
             $('#nearby-rest').removeClass('active');
             $('#nearby-rest-contents').removeClass('active');
             $('#recommend-rest').addClass('active');
@@ -52,8 +51,6 @@ function initMainMap(position) {
         var i;
 
         if ($('#nearby-rest').hasClass('active')) {
-            initContentsNearby(cardContentsNearby);
-
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
                 // 지도 확대 비율
@@ -87,8 +84,6 @@ function initMainMap(position) {
             }
         }
         else if ($('#recommend-rest').hasClass('active')) {
-            initContentsRecommend(cardContentsRecommend);
-
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
                 // 지도 확대 비율
@@ -138,14 +133,13 @@ function initContentsNearby(cardContentsNearby) {
         $('.contents-nearby').append(cardHtml);
     }
 
-    // 즐겨찾기 클릭 이벤트
-    clkFavorite();
-
     // 리스트 클릭하면 상세 페이지로 이동
     $('.card-contents-list > li').on('click', function () {
         goDetail($(this).attr('uid'));
     });
 }
+
+initContentsNearby(cardContentsNearby);
 
 // 추천 맛집 리스트
 function initContentsRecommend(cardContentsRecommend) {
@@ -159,9 +153,9 @@ function initContentsRecommend(cardContentsRecommend) {
         $('.contents-recommend').append(cardHtml);
     }
 
-    // 즐겨찾기 클릭 이벤트
-    clkFavorite();
 }
+
+initContentsRecommend(cardContentsRecommend);
 
 function goDetail(uid) {
     location.href = 'detail.html?uid=' + uid;
@@ -212,6 +206,8 @@ function clkFavorite() {
         }
     })
 }
+
+clkFavorite();
 
 $('#btn-join-test').on('click', function () {
     location.href = 'join.html';

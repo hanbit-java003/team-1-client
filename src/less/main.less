@@ -25,7 +25,7 @@
   box-shadow: @main-box-shadow;
 }
 
-.quick-search-wrapper {
+.article-ranking-wrapper {
   display: inline-block;
   width: 98%;
   min-width: @left-contents-min-width;
@@ -33,6 +33,91 @@
   margin: 20px 2% 0px 0px;
   background-color: #fff;
   box-shadow: @main-box-shadow;
+}
+
+.ranking-top {
+  margin: 5px 0px;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+}
+
+.rt-logo {
+  display: inline-block;
+  width: 180px;
+  height: 100%;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.rt-title {
+  display: inline-block;
+  width: 120px;
+  height: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  vertical-align: top;
+  line-height: 30px;
+}
+
+.ranking-bottom > li {
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.rb-wrapper {
+  position: relative;
+  margin: 10px;
+}
+
+@rb-order-width: 30px;
+
+.rb-order {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: @rb-order-width;
+  height: @rb-order-width;
+  background-color: @card-tab-color;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: @rb-order-width;
+  z-index: 2000;
+}
+
+.rb-dark-layer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.rb-contents {
+  width: 100%;
+  height: 120px;
+  background-size: cover;
+  background-position: 50% 50%;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  z-index: 500;
+}
+
+.rbc-count {
+  padding: 5px 0px;
+  font-size: 20px;
+}
+
+.rbc-title {
+  padding-top: 10px;
+  font-size: 15px;
 }
 
 .right-contents-wrapper {
