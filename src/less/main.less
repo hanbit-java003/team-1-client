@@ -1,6 +1,6 @@
 @import 'common.less';
 
-@main-background-color: #f5f6f7;
+@main-background-color: #f7f7f7;
 
 .contents-wrapper {
   padding: 20px 80px;
@@ -10,13 +10,12 @@
 // 창 크기에 맞춰서 카드 크기 조절이 되기 위해 % 로 잡았음.
 .left-contents-wrapper {
   display: inline-block;
-  width: 65%;
-  min-width: 614px;
+  width: 60%;
   margin-bottom: 20px;
 }
 
 @main-box-shadow: 1px 1px 10px rgba(0,0,0,0.3); // 카드 그림자
-@left-contents-min-width: 768px; // 좌측 메인 컨텐츠 최소 너비
+@left-contents-min-width: 614px;
 
 #main-map {
   width: 98%;
@@ -38,8 +37,8 @@
 
 .right-contents-wrapper {
   display: inline-block;
-  width: 35%;
-  min-width: 512px;
+  width: 40%;
+  min-width: 410px;
   margin-bottom: 20px;
   vertical-align: top;
 }
@@ -116,8 +115,9 @@
 }
 
 .card-contents-favorite {
-  padding: 5px 15px;
+  padding: 10px 15px;
   font-size: 20px;
+  color: @card-tab-color;
   text-align: right;
   line-height: 20px;
 }

@@ -107,24 +107,6 @@ module.exports = [{
         item: '크리스터'
     }]
 }, {
-    id: 'bangkok',
-    title: '방콕익스프레스 2호점',
-    mainImg: './img/main-img/bangkok.jpg',
-    lat: 37.557146,
-    lng: 126.941890,
-    count: 30,
-    tag: [{
-        item: '팟타이'
-    }, {
-        item: '태국요리'
-    }, {
-        item: '신촌맛집'
-    }, {
-        item: '저렴한가격'
-    }, {
-        item: '쿵팟커리'
-    }]
-}, {
     id: 'hwasang',
     title: '화상손만두',
     mainImg: './img/main-img/hwasang.jpg',
