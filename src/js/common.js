@@ -8,7 +8,7 @@ $('.header-bt').on('click', function () {
     location.href = './join.html';
 });
 
-// 검색 버튼
+// 검색 버튼 토글
 function searchBarToggle() {
     $('.search-toggle').on('click', function () {
         $('.header-search-icon').toggle();
@@ -16,10 +16,9 @@ function searchBarToggle() {
     });
 
     $('.search-input').on('keyup', function (event) {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13) {     // 엔터를 치면
             var text = $('.search-input').val();
-            alert(text + ' 검색하시려구??')
-            //location.href = './search.html?' + text;
+            alert(text + ' 검색하시려구??');
         }
     });
 }

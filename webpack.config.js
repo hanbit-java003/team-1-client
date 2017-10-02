@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const utils = require('./webpack.config.utils');
