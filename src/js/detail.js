@@ -25,17 +25,19 @@ function init(restaurants, cardContentsModel) {
         }
     }
 
-    for (var i = 0; i < shops; i++) {
-        var html = template(restaurants[i]);
+    for (var j = 0; j < shops; j++) {
+        var html = template(restaurants[j]);
 
         $('.cock-restaurants').append(html);
     }
 
+    // 더보기 버튼
     $('.btn-more').on('click', function () {
         $(this).toggle();
         $(this).parent().find('.food-detail').toggle();
     });
 
+    // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').on('click', function () {
         if ($(this).hasClass('fa-heart-o')) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
@@ -47,6 +49,7 @@ function init(restaurants, cardContentsModel) {
         }
     });
 
+    // 이 글에 반대합니다 버튼 (쓰레기)
     $('.food-trash').on('click', function () {
         if ($(this).hasClass('fa-trash-o')) {
             $(this).removeClass('fa-trash-o').addClass('fa-trash');
@@ -58,6 +61,7 @@ function init(restaurants, cardContentsModel) {
         }
     });
 
+    // 신고 버튼
     $('.food-report').on('click', function () {
         alert('신고 할거임');
     });
