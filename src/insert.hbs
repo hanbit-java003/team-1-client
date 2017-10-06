@@ -6,99 +6,67 @@
 </head>
 <body>
 {{> template/header }}
-<section class="kk-shop">
+<section class="cc-shop">
     <div id="google-map"></div>
 
     <div class="form-horizontal">
-        <div class="kk-coordinate cock-setting-group">
+        <div class="cc-coordinate form-group">
             <label class="col-sm-2 control-label">선택한 위치</label>
             <div class="form-inline col-sm-10">
-                <div class="cock-setting-group col-sm-5">
+                <div class="form-group col-sm-5">
                     <label>위도 :</label>
                     <input type="number" class="form-control" id="lat" value="37.552331" placeholder="위도">
                 </div>
-                <div class="cock-setting-group col-sm-5">
+                <div class="form-group col-sm-5">
                     <label>경도 :</label>
                     <input type="number" class="form-control" id="lng" value="126.937588" placeholder="경도">
                 </div>
                 <button class="btn btn-primary col-sm-2" id="locationCheck">중복확인</button>
             </div>
         </div>
-        <div class="kk-sign cock-setting-group">
+        <div class="cc-sign form-group">
             <label class="col-sm-2 control-label">간판 이름</label>
             <div class="col-sm-9">
-                    <input id="kk-store-title" type="text" class="form-control" value="" placeholder="이름을 입력해주세요.">
-            </div>
-        </div>
-        <div class="kk-classify cock-setting-group">
-            <label class="col-sm-2 control-label">분류</label>
-            <div class="col-sm-10 kk-classify-dropdown">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                        분류1<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                        분류2<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                        분류3<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                    </ul>
-                </div>
+                    <input id="cc-rest-name" type="text" class="form-control" value="" placeholder="이름을 입력해주세요.">
             </div>
         </div>
     </div>
 </section>
-<section class="kk-card">
+<section class="cc-card">
     <div class="form-horizontal">
-        <div class="kk-img-input cock-setting-group">
+        <div class="cc-img-input form-group">
             <label class="col-sm-2 control-label">그림 파일</label>
-            <label for="kk-btn-background" class="col-sm-2 btn btn-primary">파일선택</label>
-            <input type="file" id="kk-btn-background" accept="image/*">
+            <label for="cc-btn-background" class="col-sm-2 btn btn-primary">파일선택</label>
+            <input type="file" id="cc-btn-background" accept="image/*" multiple>
         </div>
     </div>
-    <div class="btn-menu-plus">
-        <i class="fa fa-plus"></i> 먹은 메뉴
-    </div>
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="kk-preview" style="height: 400px">
-                <div class="item active">
-                </div>
+    <ul class="cc-preview">
+    </ul>
+</section>
+<section class="cc-comment">
+    <div class="form-horizontal">
+        <div class="cc-coordinate form-group">
+            <label class="col-sm-2 control-label">내용</label>
+            <div class="col-sm-9">
+                <textarea id="cc-comment-textarea" type="text" class="form-control" rows="3"></textarea>
             </div>
         </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
 </section>
-<section class="kk-submit">
+<section class="cc-hashtag">
+    <div class="form-horizontal">
+        <div class="cc-coordinate form-group">
+            <label class="col-sm-2 control-label">태그 입력</label>
+            <div class="col-sm-9">
+                <textarea id="cc-hashtag-textarea" type="text" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="cc-submit">
     <div>
-        <button class="kk-btn-cancel btn btn-warning">취소</button>
-        <button class="kk-btn-save btn btn-success">저장</button>
+        <button class="cc-btn-cancel btn btn-warning">취소</button>
+        <button class="cc-btn-save btn btn-success">저장</button>
     </div>
 </section>
 {{> template/footer }}
