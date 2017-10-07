@@ -125,7 +125,7 @@ function initMainMap(position) {
 function initContentsNearby(cardContentsNearby) {
     $('.contents-nearby').empty();
 
-    var template = require('../template/card-contents-list.hbs');
+    var template = require('../template/main/card-contents-list.hbs');
 
     for (var i = 0; i < cardContentsNearby.length; i++) {
         var cardHtml = template(cardContentsNearby[i]);
@@ -145,7 +145,7 @@ initContentsNearby(cardContentsNearby);
 function initContentsRecommend(cardContentsRecommend) {
     $('.contents-recommend').empty();
 
-    var template = require('../template/card-contents-list.hbs');
+    var template = require('../template/main/card-contents-list.hbs');
 
     for (var i = 0; i < cardContentsRecommend.length; i++) {
         var cardHtml = template(cardContentsRecommend[i]);
@@ -187,6 +187,24 @@ $('.card-tab-btns > li').on('click', function () {
         initMainMap();
     }
 });
+
+function initSort() {
+    var template = require('../template/main/card-contents-sort.hbs');
+
+    $('.card-contents-sort').html(template);
+
+    clkSort();
+}
+
+initSort();
+
+
+function clkSort() {
+    $('.card-contents-sort div').on('click', function () {
+        $(this).parent('.card-contents-sort').find('div').removeClass('active');
+        $(this).addClass('active');
+    })
+}
 
 // 즐겨찾기 클릭 이벤트
 function clkFavorite() {
