@@ -139,6 +139,11 @@
   }
 }
 
+.rb-order-list {
+  display: inline-block;
+
+}
+
 .right-contents-wrapper {
   display: inline-block;
   width: 40%;
@@ -226,6 +231,10 @@
   }
 }
 
+.locationContainer {
+  display: none;
+}
+
 @card-img-width: 200px; // 최근 업로드한 맛집 메뉴 사진 너비.
 
 .card-img {
@@ -247,22 +256,33 @@
 }
 
 .card-contents-favorite {
-  padding: 10px 15px;
+  padding: 5px 15px;
   font-size: 20px;
   color: @card-tab-color;
   text-align: right;
   line-height: 20px;
+  z-index: 2000;
 }
 
 .card-contents-title {
-  padding: 5px 0px 5px 15px;
+  display: inline-block;
+  padding: 5px 0px 5px 10px;
   font-size: 18px;
   font-weight: bold;
   letter-spacing: @main-letter-spacing;
 }
 
+.card-contents-count {
+  display: inline-block;
+  padding: 3px 0px 7px 10px;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: @main-letter-spacing;
+  vertical-align: top;
+}
+
 .card-contents-tags {
-  padding: 10px 15px;
+  padding: 10px;
   font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
@@ -277,4 +297,3 @@
     }
   }
 }
-
