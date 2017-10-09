@@ -2,7 +2,10 @@ require('../less/join.less');
 
 var common = require('./common.js');
 
-$('#cock-join-email-btn').on('click', function () {
+
+
+// 인증 연습
+/*$('#cock-join-email-btn').on('click', function () {
     console.log('dsadasd');
 
     var email = $('#cock-join-email').val().trim();
@@ -23,7 +26,24 @@ $('#cock-join-email-btn').on('click', function () {
 
     });
 
-});
+});*/
+
+function ajax(options) {
+
+
+    // 나머지 옵션은 그대로들은 똑같이 들어가고,
+    // 에러는 추가해서 들어가게끔
+    if (!options.error) {
+        options.error = function(jqXHR) {
+            var errorCode = jqXHR.responseJSON.errorCode;
+
+
+            alert(jqXHR.responseJSON.message);
+        };
+    }
+
+    $.ajax(options);
+}
 
 
 
@@ -32,5 +52,61 @@ $('.cock-join-btn-cancel').on('click', function () {
 });
 
 $('.cock-join-btn-save').on('click', function () {
-    location.href = './join-food.html';
+    // 검증  벨리데이션
+    var email = $('#cock-join-email').val().trim();
+    var nick = $('#cock-join-nick').val().trim();
+    var pw = $('#cock-join-pw').val().trim();
+    var pwc = $('#cock-join-pwc').val().trim();
+    var agree = $('.cock-join-check-input').prop('checked');
+
+    if(!email) {
+        alert('이메일을 입력하세요.');
+        $('#cock-join-email').focus();
+        return;
+    }
+    else if(!nick){
+        alert('별명을 입력하세요.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+    else if(!pw){
+        alert('비밀번호를 입력하세요.');
+        $('#cock-join-pw').focus();
+        return;
+    }
+    else if(!pwc){
+        alert('비밀번호 재확인을 입력하세요.');
+        $('#cock-join-pwc').focus();
+        return;
+    }// 비밀번호랑 비밀번호 확인 부분이 다르면?
+    else if(pw !== pwc) {
+        alert('새 비밀번호 확인이 다릅니다.');
+        $('#cock-join-pwc').focus();
+        return;
+    }
+    else if(!agree){
+        alert('약관의 동의 하셔야 됩니다.');
+        return;
+    }
+
+    $.ajax({
+       url: '/api/member/signup',
+        method: 'POST',
+        data: {
+           email: email,
+           password: pw,
+           nick : nick
+        },
+        success: function (result) {
+            alert('정상적으로 가입되셨습니다.');
+            location.href = './join-food.html';
+        },
+        error: function (jqXHR) { // Xml Http Request
+            alert(jqXHR.responseJSON.message);
+        }
+    });
 });
+
+module.exports = {
+    ajax: ajax
+};
