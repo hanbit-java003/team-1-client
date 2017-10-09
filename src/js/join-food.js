@@ -30,19 +30,15 @@ function setList(model) {
 }
 
 setList(model);
-    $('.cock-join-food-img > .dark-layer').on('click', function () {
-       // if ($(this).hasClass('dark-layer')){
-            $(this).removeClass('dark-layer').addClass('check-layer');
-            $(this).css('background-color','rgba(0, 0, 0, 0.0)');
-       // }
-    });
 
-    $('.cock-join-food-img > .check-layer').on('click', function () {
-       // if ($(this).hasClass('check-layer')){
-            $(this).removeClass('check-layer').addClass('dark-layer');
-            $(this).css('background-color','rgba(0, 0, 0, 0.7)');
-       // }
-    });
+
+$('.cock-join-food-img > div').on('click', function () {
+
+    $(this).css('background-color','rgba(0, 0, 0, 0.0)');
+
+
+});
+
 
 
 $('.cock-join-food-save').on('click', function () {
