@@ -43,42 +43,42 @@ setList(food.model);
 
 
 /*
-var model ={
-    email : 'jmk0629@cockcock.com',
-    currentPw: '',
-    password: '',
-    detail: {
-        nick: '홍길동',
-        phone: '01099999999',
-        info: 'Y',
-        avatar: '../img/avatars/setting-avatar.jpg'
-    }
-};
-*/
+ var model ={
+ email : 'jmk0629@cockcock.com',
+ currentPw: '',
+ password: '',
+ detail: {
+ nick: '홍길동',
+ phone: '01099999999',
+ info: 'Y',
+ avatar: '../img/avatars/setting-avatar.jpg'
+ }
+ };
+ */
 
-function init(model) {
-    $('.cock-setting-email').html(model.email);
-    $('#cock-member-nick-input').val(model.detail.nick);
-    $('#cock-member-phone-input').val(model.detail.phone);
+function init(member) {
+    $('.cock-setting-email').html(member.email);
+    $('#cock-member-nick-input').val(member.nick);
+    $('#cock-member-phone-input').val(member.detail.phone);
     $('#cock-member-phone-input').mask('000-0000-0000');
-    if (model.detail.info === 'Y') {
+    if (member.detail.info === 'Y') {
         $('#cock-member-info-check').attr('checked', true);
     }
-    if (model.detail.avatar) {
-        $('.cock-setting-avatar-img').css('background-image', 'url('+model.detail.avatar+')');
+    if (member.detail.avatar) {
+        $('.cock-setting-avatar-img').css('background-image', 'url('+member.detail.avatar+')');
     }
 
     $('#cock-setting-avatar-select').on('click',function () {
-       $('#cock-setting-avatar-input').click();
+        $('#cock-setting-avatar-input').click();
     });
 
     $('#cock-setting-avatar-input').on('change', function () {
-       if (this.files.length === 0) {
-           return; // 아무것도 안하고 return
-       }
-       
-       var file = this.files[0]; // 첫번째
-       var fileReader = new FileReader();// 파일 읽는 녀석
+        if (this.files.length === 0) {
+            return; // 아무것도 안하고 return
+        }
+
+        var file = this.files[0]; // 첫번째
+        var fileReader = new FileReader();// 파일 읽는 녀석
 
         fileReader.addEventListener('load',function (event) { // 이벤트를 추가.
             var preview = event.target.result; // 결과물을 가져옴.
@@ -87,21 +87,20 @@ function init(model) {
         }); // 읽기전에 이벤트 추가
 
         fileReader.readAsDataURL(file); // 파일 읽어줌.
-       
+
     });
 
 }
 
-init(model);
 
 $('.cock-member-food-span').on('click', function () {
-   $('.cock-sign-in').toggle(100);
-   $('.cock-sign-up').toggle(100);
+    $('.cock-sign-in').toggle(100);
+    $('.cock-sign-up').toggle(100);
 });
 
 
 $('.cock-setting-cancel').on('click', function () {
-   location.href = './';
+    location.href = './';
 });
 
 $('.cock-setting-save').on('click', function () {
