@@ -1,5 +1,10 @@
 require('../less/common.less');
 
+
+$('.header-btn-member').on('click', function () {
+    location.href = './setting.html';
+});
+
 $('.header-logo').on('click', function () {
     location.href = './';
 });
