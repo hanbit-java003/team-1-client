@@ -15,7 +15,8 @@ module.exports = [{
         item: '저렴한가격'
     }, {
         item: '쿵팟커리'
-    }]
+    }],
+    updateDt: '2017-09-07 15:32:08'
 }, {
     id: 'crister',
     title: '크리스터치킨 신촌점',
@@ -33,7 +34,8 @@ module.exports = [{
         item: '진리의치킨'
     }, {
         item: '크리스터'
-    }]
+    }],
+    updateDt: '2017-09-07 15:32:08'
 }, {
     id: 'fish',
     title: '털보고된이생선구이 신촌점',
@@ -51,7 +53,8 @@ module.exports = [{
         item: '고삼순'
     }, {
         item: '임연수'
-    }]
+    }],
+    updateDt: '2017-09-07 15:32:08'
 }, {
     id: 'goramen',
     title: '고라멘',
@@ -69,7 +72,8 @@ module.exports = [{
         item: '면추가'
     }, {
         item: '차슈추가'
-    }]
+    }],
+    updateDt: '2017-09-07 15:32:08'
 }, {
     id: 'mibundang',
     title: '미분당',
@@ -87,5 +91,6 @@ module.exports = [{
         item: '육수추가'
     }, {
         item: '기다림의미학'
-    }]
+    }],
+    updateDt: '2017-09-07 15:32:08'
 }];

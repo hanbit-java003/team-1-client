@@ -8,6 +8,8 @@ var loadGoogleMapsApi = require('load-google-maps-api-2');
 var contentsNearby = require('./model/card-contents-nearby');
 // 추천 맛집 모델
 var contentsRecommend = require('./model/card-contents-recommend');
+// 단골 맛집 모델
+var articleRanking = require('./model/article-ranking');
 
 loadGoogleMapsApi.key = 'AIzaSyDmSxIrhoC4OAiGOtO6ddcFCwSMRbgfPGs';
 loadGoogleMapsApi.language = 'ko';
@@ -81,7 +83,7 @@ function initMainMap(position) {
                 })(marker, i));
             }
 
-            var circles = new googleMaps.Circle({
+            /*var circles = new googleMaps.Circle({
                 center : mapOptions.center,
                 // 반지름 (m)
                 radius: 500,
@@ -99,25 +101,18 @@ function initMainMap(position) {
                 fillOpacity: 0.2
             });
 
-            circles.setMap(map);
+            circles.setMap(map);*/
         }
         else if ($('#recommend-rest').hasClass('active')) {
-            // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
-                // 지도 확대 비율
                 zoom: 16,
-                // 지도 스크롤 설정 off
                 scrollwheel: false,
-                // 지도 센터 설정
                 center: new googleMaps.LatLng(contentsRecommend[0].lat, contentsRecommend[0].lng)
             };
 
-            // 지도 생성
             var map = new googleMaps.Map($('#main-map')[0], mapOptions);
-            // 스푼 마커 이미지
             var spoon = '../img/spoon_blue.png';
 
-            // 마커 추가
             for (i = 0; i < contentsRecommend.length; i++) {
                 marker = new googleMaps.Marker({
                     position: new googleMaps.LatLng(contentsRecommend[i].lat, contentsRecommend[i].lng),
@@ -125,7 +120,6 @@ function initMainMap(position) {
                     icon: spoon
                 });
 
-                // 마커 클릭시 타이틀 팝업
                 googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
                         infowindow.setContent(contentsRecommend[i].title);
@@ -139,8 +133,34 @@ function initMainMap(position) {
     });
 }
 
+// 단골 맛집
+function initRanking(articleRanking) {
+    $('.ranking-bottom').empty();
+
+    var rankingTpl = require('../template/main/article-ranking.hbs');
+
+    for (var i = 0; i < articleRanking.length; i++) {
+        var rankingHtml = rankingTpl(articleRanking[i]);
+
+        $('.ranking-bottom').append(rankingHtml);
+    }
+
+    clkRanking();
+}
+
+initRanking(articleRanking);
+
+// 리스트 클릭하면 상세 페이지로 이동
+function clkRanking() {
+    $('.rb-wrapper').on('click', function () {
+        var rankingId = $(this).attr('uid');
+
+        goDetail(rankingId);
+    })
+}
+
+// 주변 맛집 / 추천 맛집 버튼 클릭
 function clkTab() {
-    // 주변 맛집 / 추천 맛집 버튼 클릭
     $('.card-tab-btns > li').on('click', function () {
         if ($(this).hasClass('active')) {
             return;
@@ -253,6 +273,7 @@ function clkFavorite() {
 
 clkFavorite();
 
+// 맛집 리스트 마우스오버 이벤트
 function hoverContents() {
     $('.card-contents-list > li').on('mouseenter', function () {
         $(this).find('.card-contents').css('color', '#FF7E5F');

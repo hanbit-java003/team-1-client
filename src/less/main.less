@@ -72,12 +72,17 @@
     width: 25%;
     height: 100%;
     vertical-align: top;
+
+    &:last-child {
+      padding-right: 10px;
+    }
   }
 }
 
 .rb-wrapper {
   position: relative;
   margin: 10px 0px 10px 10px;
+  cursor: pointer;
 }
 
 @rb-order-width: 30px;
@@ -147,7 +152,7 @@
 .right-contents-wrapper {
   display: inline-block;
   width: 40%;
-  min-width: 410px;
+  min-width: 614px;
   margin-bottom: 20px;
   vertical-align: top;
 }
@@ -266,7 +271,7 @@
 
 .card-contents-title {
   display: inline-block;
-  padding: 5px 0px 5px 10px;
+  padding: 5px 0px 5px 15px;
   font-size: 18px;
   font-weight: bold;
   letter-spacing: @main-letter-spacing;
@@ -274,15 +279,14 @@
 
 .card-contents-count {
   display: inline-block;
-  padding: 3px 0px 7px 10px;
+  padding: 3px 0px 7px 15px;
   font-size: 17px;
   font-weight: bold;
   letter-spacing: @main-letter-spacing;
-  vertical-align: top;
 }
 
 .card-contents-tags {
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
@@ -296,4 +300,13 @@
       padding-left: 0px;
     }
   }
+}
+
+.card-update-date {
+  padding: 10px 15px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: @main-letter-spacing;
 }
