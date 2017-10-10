@@ -6,6 +6,30 @@ var common = require('./common.js');
 
 var food = require('./join-food.js');
 
+var join = require('./join.js');
+
+
+
+
+join.ajax({
+    url:'/api/member/get',
+    success: function (result) {
+        if (!result.signedIn) {
+            alert('로그인이 필요한 페이지입니다.');
+            location.href= '/'; // 기본홈으로 돌려보냄.
+        }
+        getMemberDetail();
+    }
+});
+
+function getMemberDetail() {
+    join.ajax({
+        url: '/api/member/detail',
+        success: function (result) {
+            init(result);
+        }
+    });
+}
 
 
 function setList(model) {
@@ -18,6 +42,7 @@ function setList(model) {
 setList(food.model);
 
 
+/*
 var model ={
     email : 'jmk0629@cockcock.com',
     currentPw: '',
@@ -29,17 +54,18 @@ var model ={
         avatar: '../img/avatars/setting-avatar.jpg'
     }
 };
+*/
 
-function init(model) {
-    $('.cock-setting-email').html(model.email);
-    $('#cock-member-nick-input').val(model.detail.nick);
-    $('#cock-member-phone-input').val(model.detail.phone);
+function init(member) {
+    $('.cock-setting-email').html(member.email);
+    $('#cock-member-nick-input').val(member.nick);
+    $('#cock-member-phone-input').val(member.detail.phone);
     $('#cock-member-phone-input').mask('000-0000-0000');
-    if (model.detail.info === 'Y') {
+    if (member.detail.info === 'Y') {
         $('#cock-member-info-check').attr('checked', true);
     }
-    if (model.detail.avatar) {
-        $('.cock-setting-avatar-img').css('background-image', 'url('+model.detail.avatar+')');
+    if (member.detail.avatar) {
+        $('.cock-setting-avatar-img').css('background-image', 'url('+member.detail.avatar+')');
     }
 
     $('#cock-setting-avatar-select').on('click',function () {
@@ -66,7 +92,6 @@ function init(model) {
 
 }
 
-init(model);
 
 $('.cock-member-food-span').on('click', function () {
    $('.cock-sign-in').toggle(100);
@@ -82,8 +107,8 @@ $('.cock-setting-save').on('click', function () {
     var member = {
         currentPw: $('#cock-member-cpw-input').val().trim(),
         password: $('#cock-member-npw-input').val().trim(),
+        nick: $('#cock-member-nick-input').val().trim(),
         detail : {
-            nick: $('#cock-member-nick-input').val().trim(),
             phone: $('#cock-member-phone-input').val().trim(),
             info: $('#cock-member-info-check')[0].checked ? 'Y' : 'N'
         }
@@ -113,5 +138,28 @@ $('.cock-setting-save').on('click', function () {
     }
     console.log(member);
 
-    location.href = './';
+    var formData = new FormData();
+    // JSON을 String으로 바꿔준다.
+    formData.append('member', JSON.stringify(member));
+
+    var images = $('#cock-setting-avatar-input')[0].files;
+    if (images.length > 0) {
+        // 파일은 하나를 선택하든 여러개를 선택하든 배열형태로 나온다.
+        formData.append('avatar', images[0]);
+    }
+
+    join.ajax ({
+        url: '/api/member/save',
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData : false,
+        success: function (result) {
+            alert('정상적으로 저장되었습니다.');
+
+            location.reload();
+        }
+    });
+
+    /*console.log(member);*/
 });
