@@ -1,4 +1,7 @@
 require('../less/common.less');
+require('./test-login.js');
+
+
 
 $('.header-logo').on('click', function () {
     location.href = './';

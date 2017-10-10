@@ -52,6 +52,10 @@ $('.cock-join-btn-cancel').on('click', function () {
 });
 
 $('.cock-join-btn-save').on('click', function () {
+    cockJoin();
+});
+
+function cockJoin() {
     // 검증  벨리데이션
     var email = $('#cock-join-email').val().trim();
     var nick = $('#cock-join-nick').val().trim();
@@ -90,12 +94,12 @@ $('.cock-join-btn-save').on('click', function () {
     }
 
     $.ajax({
-       url: '/api/member/signup',
+        url: '/api/member/signup',
         method: 'POST',
         data: {
-           email: email,
-           password: pw,
-           nick : nick
+            email: email,
+            password: pw,
+            nick : nick
         },
         success: function (result) {
             alert('정상적으로 가입되셨습니다.');
@@ -105,7 +109,7 @@ $('.cock-join-btn-save').on('click', function () {
             alert(jqXHR.responseJSON.message);
         }
     });
-});
+}
 
 module.exports = {
     ajax: ajax
