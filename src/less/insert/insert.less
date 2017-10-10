@@ -1,13 +1,13 @@
-@import 'common.less';
+@import '../common.less';
 
 @insert-font-size: 15px;
 
-.kk-shop {
+.cc-shop {
   width: @global-width;
   margin: 0px auto;
 }
 
-.kk-shop input {
+.cc-shop input {
   border: none;
   outline: none;
   box-shadow: none;
@@ -31,7 +31,7 @@
   background-color: rgba(183, 194, 238, 0.29);
 }
 
-.kk-coordinate {
+.cc-coordinate {
   margin-top: 10px;
   font-size: @insert-font-size;
 }
@@ -77,101 +77,109 @@
   text-align: center;
 }
 
-.kk-sign {
+.cc-sign {
   margin-top: 10px;
   font-size: @insert-font-size;
 }
 
-.kk-classify-dropdown > div {
-  display: inline-block;
-  width: 30%;
-
-  button {
-    width: 80%;
-  }
-}
-
-.kk-card {
+.cc-card {
   width: @global-width;
   margin: 0px auto;
   padding-top: 10px;
   border-top: solid 2px #888b89;
 }
 
-.kk-img-input {
+.cc-img-input {
   margin: 0px;
 }
 
-#kk-btn-background {
+#cc-btn-background {
   display: none;
 }
 
-.btn-menu-plus {
-  width: 100px;
-  font-size: 15px;
-  padding-bottom: 5px;
+@preview-width: 360px;
 
-  i {
-    height: 20px;
-    width: 20px;
-    line-height: 20px;
-    text-align: center;
-    background-color: #4e7e8b;
-    border-radius: 10px;
+.cc-preview {
+  padding: 10px;
+  width: 100%;
+
+  li {
+    vertical-align: top;
   }
 }
 
-@preview-width: 640px;
-
-#carousel-example-generic {
-  background-color: #000000;
-}
-
-.kk-preview {
-  margin: 0px auto;
-  width: @preview-width;
-}
-
-.background-preview {
+.cc-preview-img {
   position: relative;
-  margin: 0px auto;
-  background-size: contain;
-  background-repeat: no-repeat;
-  max-width: @preview-width;
-  max-height: 800px;
+  display: inline-block;
+  margin: 5px;
+
+  .background-preview {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .cc-btn-delete {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: #ff1a37;
+    text-align: center;
+    line-height: 20px;
+    color: #dafaff;
+  }
 }
 
 .menu-tag {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 186px;
+  width: 100px;
   z-index: 100;
 
-  div {
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    font-size: 15px;
-    line-height: 20px;
-    text-align: center;
-    background-color: #ffa726;
-    border-radius: 10px;
-  }
+  .menu-tag-cage {
+    position: relative;
+    width: 100%;
 
-  input {
-    width: 130px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border: none;
-  }
+    input {
+      padding: 0px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.4);
+      color: #181818;
+      font-size: 15px;
+      border: none;
+    }
 
-  i {
-    color: rgba(0, 0, 0, 0.6);
-    cursor: pointer;
+    i {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      height: 20px;
+      width: 20px;
+      font-size: 15px;
+      border-radius: 10px;
+      background-color: #ffa726;
+      text-align: center;
+      line-height: 20px;
+      color: #dafaff;
+    }
   }
 }
 
-.kk-submit {
+.cc-comment {
+  width: @global-width;
+  margin: 0px auto;
+}
+
+.cc-hashtag {
+  width: @global-width;
+  margin: 0px auto;
+}
+
+.cc-submit {
   width: @global-width;
   margin: 10px auto 10px;
   padding-top: 10px;

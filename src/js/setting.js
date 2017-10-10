@@ -1,3 +1,4 @@
+require('./join.js');
 require('../less/setting.less');
 require('jquery-mask-plugin');
 
@@ -8,23 +9,15 @@ var food = require('./join-food.js');
 var join = require('./join.js');
 
 
-function setList(model) {
-    var foodTemplate = require('../template/join-food.hbs');
-    var foodHtml = foodTemplate(model);
 
-    $('#cock-member-food').html(foodHtml);
-}
-
-setList(food.model);
 
 join.ajax({
-    url: 'api/member/get',
-    success: function(result) {
-        if(!result.signedIn){
-            alert('로그인이 필요한 페이지입니다');
-            location.href= './';
+    url:'/api/member/get',
+    success: function (result) {
+        if (!result.signedIn) {
+            alert('로그인이 필요한 페이지입니다.');
+            location.href= '/'; // 기본홈으로 돌려보냄.
         }
-        // 회원수정단.
         getMemberDetail();
     }
 });
@@ -39,7 +32,18 @@ function getMemberDetail() {
 }
 
 
-/*var model ={
+function setList(model) {
+    var foodTemplate = require('../template/join-food.hbs');
+    var foodHtml = foodTemplate(model);
+
+    $('#cock-member-food').html(foodHtml);
+}
+
+setList(food.model);
+
+
+/*
+var model ={
     email : 'jmk0629@cockcock.com',
     currentPw: '',
     password: '',
@@ -49,18 +53,19 @@ function getMemberDetail() {
         info: 'Y',
         avatar: '../img/avatars/setting-avatar.jpg'
     }
-};*/
+};
+*/
 
-function init(member) {
-    $('.cock-setting-email').html(member.email);
-    $('#cock-member-nick-input').val(member.nick);
-    $('#cock-member-phone-input').val(member.detail.phone);
+function init(model) {
+    $('.cock-setting-email').html(model.email);
+    $('#cock-member-nick-input').val(model.detail.nick);
+    $('#cock-member-phone-input').val(model.detail.phone);
     $('#cock-member-phone-input').mask('000-0000-0000');
-    if (member.detail.info === 'Y') {
+    if (model.detail.info === 'Y') {
         $('#cock-member-info-check').attr('checked', true);
     }
-    if (member.detail.avatar) {
-        $('.cock-setting-avatar-img').css('background-image', 'url('+member.detail.avatar+')');
+    if (model.detail.avatar) {
+        $('.cock-setting-avatar-img').css('background-image', 'url('+model.detail.avatar+')');
     }
 
     $('#cock-setting-avatar-select').on('click',function () {
@@ -87,6 +92,7 @@ function init(member) {
 
 }
 
+init(model);
 
 $('.cock-member-food-span').on('click', function () {
    $('.cock-sign-in').toggle(100);
@@ -102,13 +108,12 @@ $('.cock-setting-save').on('click', function () {
     var member = {
         currentPw: $('#cock-member-cpw-input').val().trim(),
         password: $('#cock-member-npw-input').val().trim(),
+        nick: $('#cock-member-nick-input').val().trim(),
         detail : {
-            nick: $('#cock-member-nick-input').val().trim(),
             phone: $('#cock-member-phone-input').val().trim(),
             info: $('#cock-member-info-check')[0].checked ? 'Y' : 'N'
         }
-    };
-
+    }
     var npwc = $('#cock-member-npwc-input').val().trim();
     if (member.currentPw || member.password || npwc) {
         if(!member.currentPw) { //현재 비밀번호가 없으면?
@@ -132,12 +137,13 @@ $('.cock-setting-save').on('click', function () {
             return;
         }
     }
+    console.log(member);
 
     var formData = new FormData();
     // JSON을 String으로 바꿔준다.
     formData.append('member', JSON.stringify(member));
 
-    var images = $('.cock-setting-avatar-img')[0].files;
+    var images = $('#cock-setting-avatar-input')[0].files;
     if (images.length > 0) {
         // 파일은 하나를 선택하든 여러개를 선택하든 배열형태로 나온다.
         formData.append('avatar', images[0]);

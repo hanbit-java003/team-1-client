@@ -3,6 +3,11 @@ require('./test-login.js');
 
 
 
+
+$('.header-btn-member').on('click', function () {
+    location.href = './setting.html';
+});
+
 $('.header-logo').on('click', function () {
     location.href = './';
 });
