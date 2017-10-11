@@ -12,7 +12,7 @@ loadGoogleMapsApi.version = '3';
 
 // 임시 모델
 var model = {
-    rid: 10,
+    rid: 1,
     lat: 37.552320,
     lng: 126.937588,
     name: 'title',
