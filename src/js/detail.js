@@ -33,8 +33,11 @@ function init(restaurants, cardContentsModel) {
 
     // 더보기 버튼
     $('.btn-more').on('click', function () {
+        var detail = $(this).parent().find('.food-detail');
         $(this).toggle();
-        $(this).parent().find('.food-detail').toggle();
+        detail.css('width', 'auto');
+        detail.css('height', 'auto');
+        detail.css('white-space', 'normal');
     });
 
     // 이 글에 동의합니다 버튼 (좋아요)
