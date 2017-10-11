@@ -1,5 +1,6 @@
 require('bootstrap');
 require('../less/insert/insert.less');
+require('./insert/jquery.tagsinput');
 
 var common = require('./common');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
@@ -78,6 +79,9 @@ var latLng = {};
 // 메뉴
 var images = [];
 
+// hashTag 동작위한 plugin 설치
+$('#cc-hashtag-textarea').tagsInput();
+
 function getLocation() {
     // GPS 지원
     if (navigator.geolocation) {
@@ -146,11 +150,11 @@ function init() {
         var tagValue = '';
         if (model.tags) {
             for(var i=0; i<model.tags.length; i++) {
-                tagValue += model.tags[i].tag + ' ';
+                tagValue += model.tags[i].tag + ', ';
             }
         }
 
-        $('#cc-hashtag-textarea').val(tagValue);
+        $('#cc-hashtag-textarea').importTags(tagValue);
     }
 
     if (model.articles) {
@@ -478,3 +482,16 @@ function menuEvent(preview) {
         $(this).parent('.menu-tag-cage').parent('li').remove();
     });
 }
+
+$('.cc-btn-save').on('click', function () {
+    // model.rid = 없으면 서버에서 만듬
+    model.lat = $('#lat').val();
+    model.lng = $('#lng').val();
+    model.name = $('#cc-rest-name').val();
+    // model.status
+    // articles
+    // menus
+    // tags
+    var t = $('#cc-hashtag-textarea').val();
+    console.log(t);
+});
