@@ -1,5 +1,6 @@
 require('bootstrap');
 require('../less/insert/insert.less');
+require('./insert/jquery.tagsinput');
 
 var common = require('./common');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
@@ -11,66 +12,75 @@ loadGoogleMapsApi.language = 'ko';
 loadGoogleMapsApi.version = '3';
 
 // 임시 모델
-var model = {
-    rid: 10,
+/*var model = {
+    rid: 1,
     lat: 37.552320,
     lng: 126.937588,
     name: 'title',
     status: '',
-    article: {
+    articles: [{
         article_id: 0,
         comment: 'comment',
         status: '',
         imgs: [
             {
-                img_id: 0,
+                imgId: 0,
                 path: '../img/insert/duch.jpg'
             },
             {
-                img_id: 1,
+                imgId: 1,
                 path: '../img/insert/jeju.jpg'
             }
         ]
-    },
-    menu: [
+    }],
+    menus: [
         {
             id: 0,
-            img_id: 0,
+            imgId: 0,
             x: 10,
             y: 10,
             menu: 'img0_menu0'
         },
         {
             id: 0,
-            img_id: 1,
+            imgId: 1,
             x: 10,
             y: 10,
             menu: 'img1_menu0'
         },
         {
             id: 1,
-            img_id: 1,
+            imgId: 1,
             x: 40,
             y: 40,
             menu: 'img1_menu1'
         }
     ],
-    tag: [
+    tags: [
         {
-            tag_id: 0,
+            tagId: 0,
             tag: 'tag1'
         },
         {
-            tag_id: 1,
+            tagId: 1,
             tag: 'tag2'
         }
     ]
-};
+};*/
+
+var model = {
+    articles: [],
+    menus: [],
+    tags: []
+}
 
 // 현재위치
 var latLng = {};
 // 메뉴
 var images = [];
+
+// hashTag 동작위한 plugin 설치
+$('#cc-hashtag-textarea').tagsInput();
 
 function getLocation() {
     // GPS 지원
@@ -93,12 +103,21 @@ function getLocation() {
 }
 
 // 시작
-if (!params.get('rId')) {
+if (!params.get('rid')) {
     init();
+}
+else if (params.get('rid') && !params.get('articleId')) {
+    $.ajax({
+        url: '/api/cock/insert/' + params.get('rid'),
+        success: function(result) {
+            model = result;
+            init();
+        }
+    });
 }
 else {
     $.ajax({
-        url: '/api/cock/insert/' + params.get('rId'),
+        url: '/api/cock/insert/' + params.get('rid') + '/' + params.get('articleId'),
         success: function(result) {
             model = result;
             init();
@@ -123,24 +142,30 @@ function init() {
             lat: model.lat,
             lng: model.lng
         }
-        $('#cc-comment-textarea').val(model.article.comment);
+
+        if (model.articles) {
+            $('#cc-comment-textarea').val(model.articles[0].comment);
+        }
 
         var tagValue = '';
-        for(var i=0; i<model.tag.length; i++) {
-           tagValue += model.tag[i].tag + ' ';
+        if (model.tags) {
+            for(var i=0; i<model.tags.length; i++) {
+                tagValue += model.tags[i].tag + ', ';
+            }
         }
-        $('#cc-hashtag-textarea').val(tagValue);
+
+        $('#cc-hashtag-textarea').importTags(tagValue);
     }
 
-    if (model.article.imgs) {
-        model.article.imgs.forEach(function (t) {
+    if (model.articles) {
+        model.articles[0].imgs.forEach(function (t) {
             var img = new Image();
             $(img).on('load', function () {
                 images.push(img);
                 setImage(img, true);
 
-                model.menu.forEach(function (t2) {
-                    if (t.img_id === t2.img_id) {
+                model.menus.forEach(function (t2) {
+                    if (t.imgId === t2.imgId) {
                         t2.x += 'px';
                         t2.y += 'px';
                         var template = require('../template/insert/menu-tag.hbs');
@@ -169,6 +194,11 @@ function init() {
 var map;
 var googleMaps;
 function initMap() {
+    if (latLng) {
+        latLng.lat = 37.552320;
+        latLng.lng = 126.937588;
+    }
+
     map = new googleMaps.Map($('#google-map')[0], {
         center: {lat:latLng.lat, lng: latLng.lng},
         zoom: 16,
@@ -452,3 +482,16 @@ function menuEvent(preview) {
         $(this).parent('.menu-tag-cage').parent('li').remove();
     });
 }
+
+$('.cc-btn-save').on('click', function () {
+    // model.rid = 없으면 서버에서 만듬
+    model.lat = $('#lat').val();
+    model.lng = $('#lng').val();
+    model.name = $('#cc-rest-name').val();
+    // model.status
+    // articles
+    // menus
+    // tags
+    var t = $('#cc-hashtag-textarea').val();
+    console.log(t);
+});
