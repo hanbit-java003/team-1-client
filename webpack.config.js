@@ -35,9 +35,6 @@ const pages = [{
 }, {
     html: 'setting',
     script: 'setting'
-}, {
-    html: 'test-login',
-    script: 'test-login'
 }];
 
 module.exports = {
