@@ -76,7 +76,7 @@ function init(restaurants, cardContentsModel) {
      * 신고 버튼
      * */
     $('.food-report').on('click', function () {
-        alert('신고 할거임');
+        location.href = './report.html';
     });
 
     $('.img-responsive').on('click', function () {
