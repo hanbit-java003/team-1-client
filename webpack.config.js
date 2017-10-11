@@ -24,6 +24,9 @@ const pages = [{
     html: 'detail',
     script: 'detail'
 }, {
+    html: 'report',
+    script: 'report'
+}, {
     html: 'join',
     script: 'join'
 }, {
