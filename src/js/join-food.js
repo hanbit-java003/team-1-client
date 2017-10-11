@@ -42,7 +42,7 @@ $('.cock-join-food-img > div').on('click', function () {
 
 
 $('.cock-join-food-save').on('click', function () {
-   location.href = './setting.html';
+   location.href = '../';
 });
 
 module.exports ={

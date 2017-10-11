@@ -28,6 +28,11 @@ function searchBarToggle() {
 
 searchBarToggle();
 
+
+/*
+ *  로그인 레이아웃 나오게끔.
+ */
+
 $('.header-btn-member').on('click', function () {
     $.ajax({
         url: '/api/member/get',
@@ -51,7 +56,6 @@ $('.header-btn-member').on('click', function () {
             duration: 500,
             complete:function () {
                 if(!memberInfo.signedIn){
-                    console.log('dasdas');
                     $('#cock-login-btn').on('click', function () {
                         signIn();
                     });
@@ -110,7 +114,7 @@ function signIn(){
             remember: remember
         },
         success: function (result) {
-            alert('로그인 성공');
+            alert(result.email+'님 반갑습니다.');
             location.href = './';
         },
         error: function (jqXHR) {
