@@ -11,7 +11,6 @@ module.exports = [{
     }],
     foodImg: './img/sc-img/bbb.jpg',
     eaten: '돼지곰탕 특 1 그릇 14000 원',    // 이건 나중에 더 디테일하게 수정해야함. 메뉴, 그릇, 가격 다 나눠서..
-    comment: '돼지곰탕... 성공적...',
     detail: '합정역 근처 예술적인 맛집!!<br>하루 100 그릇 한정 판매!!<br>점심시간 지나서 가면 못먹어요~<br>',
     menu: [{
         item: "돼지곰탕"
@@ -32,7 +31,6 @@ module.exports = [{
     }],
     foodImg: './img/sc-img/ccc.jpg',
     eaten: '간장게장 1 접시 12000 원',
-    comment: '도둑이야!!!',
     detail: ' 밥도둑 간장게장한테<br>내 밥을 도둑맞았어요!!',
     menu: [{
         item: "간장게장"
@@ -53,7 +51,6 @@ module.exports = [{
     }],
     foodImg: './img/sc-img/aaa.jpg',
     eaten: '돈코츠라멘 1 그릇 6000 원',
-    comment: '라멘은 역시 고라멘이지!',
     detail: '친구의 단골집인 일본라멘집.<br>' +
     '처음 먹어본 일본 라멘집이라 그냥 맛 있는 집이라고 생각 했었는데, ' +
     '다른 일본 라면집을 먹어보니 확실히 맛집이란걸 알앗다.<br>' +

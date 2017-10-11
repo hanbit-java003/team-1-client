@@ -18,6 +18,7 @@ body {
 }
 
 .content-wrapper {
+  position: relative;
   display: inline-block;
   margin: 3px 3px 10px;
   width: 384px;
@@ -99,6 +100,9 @@ body {
 }
 
 .btn-more {
+  position: absolute;
+  bottom: 34px;
+  right: 174px;
   margin-left: 10px;
   color: #999;
   font-size: 12px;
@@ -107,8 +111,12 @@ body {
 }
 
 .food-detail {
-  display: none;
   margin: 0 30px 30px 30px;
+  width: 110px;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   .food-menu {
     margin: 20px 0;
