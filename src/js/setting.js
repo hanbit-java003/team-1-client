@@ -32,6 +32,7 @@ function getMemberDetail() {
 }
 
 
+
 function setList(model) {
     var foodTemplate = require('../template/join-food.hbs');
     var foodHtml = foodTemplate(model);
