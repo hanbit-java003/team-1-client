@@ -3,23 +3,23 @@ require('../less/join-food.less');
 var join = require('./join');
 
 var model = [{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 },{
-    background:'./img/aaa.jpg'
+    background:'./img/goramen_01.jpg'
 }];
 
 function setList(model) {

@@ -5,32 +5,32 @@ var UrlSearchParams = require('url-search-params');
 var params = new UrlSearchParams(location.search);
 
 var common = require('./common');
-var restaurants = require('./model/restaurants');
-var cardContentsModel = require('./model/card-contents-nearby');
 
-$('.header-logo').on('click', function () {
-    location.href = './';
-});
 
-function init(restaurants, cardContentsModel) {
+/**
+ * 식당별 글들이 모여있는 모델
+ * */
+var restaurants = [
+    require('./model/restaurants/goramen'),
+    require('./model/restaurants/fish'),
+    require('./model/restaurants/mibundang')
+];
+
+function init(restaurants) {
     var template = require('../template/detail/restaurant.hbs');
-    var shops = 0;
+    var html;
 
     /**
-     * 지금은 임시로 메인페이지의 카운트값을 받아 상세페이지 카드 개수를 정했는데
-     * 실제로는 반대로 해야함.
+     * 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를 비교해서
+     * 맞을 경우에 템플릿에 담음
      * */
-    for (var i = 0; i < cardContentsModel.length; i++) {
-        if (params.get('uid') === cardContentsModel[i].id) {
-            shops = cardContentsModel[i].count;
+    for (var i = 0; i < restaurants.length; i++) {
+        if (params.get('rid') === restaurants[i][0].rid) {
+            html = template(restaurants[i][0]);
         }
     }
 
-    for (var j = 0; j < shops; j++) {
-        var html = template(restaurants[j]);
-
-        $('.cock-restaurants').append(html);
-    }
+    $('.cock-restaurants').html(html);
 
     /**
      * 더보기 버튼
@@ -101,4 +101,4 @@ function popImg(img) {
     winImg.document.write(data);
 }
 
-init(restaurants, cardContentsModel);
+init(restaurants);

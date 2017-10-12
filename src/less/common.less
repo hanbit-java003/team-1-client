@@ -56,7 +56,6 @@ header {
 .header-wrapper {
   position: relative;
   margin: 0 auto;
-  padding: 40px 30px 20px 30px;
   // width: 1220px;
   height: 40px;
   box-sizing: content-box;
@@ -73,24 +72,22 @@ header {
   cursor: pointer;
 }
 
-.header-logo {
-  position: relative;
-  width: 200px;
-  margin: 0 auto;
-  font-size: 25px;
-  font-weight: bold;
-  letter-spacing: -2px;
+// 뒤로가기 버튼이 어디에 필요한지?
+.back-button {
+  display: none;
+  font-size: 50px;
+  line-height: -2;
   cursor: pointer;
+}
 
-  div {
-    display: inline-block;
-  }
-
-  div:first-child {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+.header-logo {
+  display: inline-block;
+  margin: 20px 30px 0 30px;
+  width: 200px;
+  height: 34.7px;
+  background: url('../img/main-logo1.png') 0 0;
+  background-size: contain;
+  cursor: pointer;
 }
 
 .search-wrapper {
