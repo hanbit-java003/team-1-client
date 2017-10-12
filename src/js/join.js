@@ -1,27 +1,13 @@
 require('../less/join.less');
 
 var common = require('./common.js');
-document.write('<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>');
-
-// 자동입력 방지.
-/*var verifyCallback = function() {
-    console.log('실행');
-};*/
-
+$.getScript('https://www.google.com/recaptcha/api.js');
 
 // 캡차부분.
 var vall = false;
 
-function verifyCallback(response) {
+window.verifyCallback = function() {
     vall = true;
-};
-
-window.onloadCallback = function() {
-    grecaptcha.render('cock-prevent', {
-        'sitekey' : '6Lc5fzIUAAAAAEehrbbislWASM_D5je_Q-LIudbG',
-        'theme' : 'light',
-        'callback' :verifyCallback
-    });
 };
 
 
