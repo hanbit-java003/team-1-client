@@ -158,7 +158,7 @@ initRanking(articleRanking);
 // 리스트 클릭하면 상세 페이지로 이동
 function clkRanking() {
     $('.rb-wrapper').on('click', function () {
-        var rankingId = $(this).attr('uid');
+        var rankingId = $(this).attr('rid');
 
         goDetail(rankingId);
     })
@@ -233,7 +233,7 @@ function initNearby(contentsNearby) {
 
     // 리스트 클릭하면 상세 페이지로 이동
     $('.card-contents-list > li').on('click', function () {
-        goDetail($(this).attr('uid'));
+        goDetail($(this).attr('rid'));
     });
 
     clkFavorite();
@@ -321,8 +321,8 @@ function hoverContents() {
     });
 }
 
-function goDetail(uid) {
-    location.href = 'detail.html?uid=' + uid;
+function goDetail(rid) {
+    location.href = 'detail.html?rid=' + rid;
 }
 
 $('#btn-join-test').on('click', function () {
