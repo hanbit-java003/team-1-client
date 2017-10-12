@@ -1,21 +1,13 @@
 require('../less/join.less');
 
 var common = require('./common.js');
-document.write('<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>');
+$.getScript('https://www.google.com/recaptcha/api.js');
 
 // 캡차부분.
 var vall = false;
 
-function verifyCallback(response) {
+window.verifyCallback = function() {
     vall = true;
-};
-
-window.onloadCallback = function() {
-    grecaptcha.render('cock-prevent', {
-        'sitekey' : '6Lc5fzIUAAAAAEehrbbislWASM_D5je_Q-LIudbG',
-        'theme' : 'light',
-        'callback' :verifyCallback
-    });
 };
 
 
@@ -102,7 +94,7 @@ function cockJoin() {
         $('#cock-join-pwc').focus();
         return;
     }
-    else if(vall !== true) {
+    else if(verifyCallback !== vall) {
         alert('자동등록방지를 푸셔야 합니다.');
         $('#cock-prevent').focus();
         return;
