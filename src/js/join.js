@@ -3,12 +3,26 @@ require('../less/join.less');
 var common = require('./common.js');
 $.getScript('https://www.google.com/recaptcha/api.js');
 
+// 자동입력 방지.
+/*var verifyCallback = function() {
+    console.log('실행');
+};*/
+
 // 캡차부분.
 var vall = false;
 
 window.verifyCallback = function() {
+    console.log('실행');
     vall = true;
 };
+
+/*window.onloadCallback = function() {
+    grecaptcha.render('cock-prevent', {
+        'sitekey' : '6Lc5fzIUAAAAAEehrbbislWASM_D5je_Q-LIudbG',
+        'theme' : 'light',
+        'callback' :verifyCallback
+    });
+};*/
 
 
 
@@ -94,7 +108,7 @@ function cockJoin() {
         $('#cock-join-pwc').focus();
         return;
     }
-    else if(verifyCallback !== vall) {
+    else if(!vall) {
         alert('자동등록방지를 푸셔야 합니다.');
         $('#cock-prevent').focus();
         return;
