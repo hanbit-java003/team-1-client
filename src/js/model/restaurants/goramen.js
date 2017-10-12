@@ -4,11 +4,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',
         achievement: [{
-            emblem: '국밥충'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '돼지테리언'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '신촌멋쟁이'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/goramen_01.jpg',
         eaten: '고라멘 1 그릇 8000 원 챠슈추가 1000 원 계란추가 1000 원',
@@ -27,11 +27,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Koala.jpg',
         userName: '알라코',
         achievement: [{
-            emblem: '국밥충'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '돼지테리언'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '신촌멋쟁이'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/goramen_02.jpg',
         eaten: '쇼유라멘 1 그릇 7000 원',
@@ -48,11 +48,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Penguins.jpg',
         userName: '펭귄맨',
         achievement: [{
-            emblem: '초딩입맛'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '오싫모'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '부산갈매기'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/goramen_03.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',
@@ -77,11 +77,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Penguins.jpg',
         userName: '펭귄맨',
         achievement: [{
-            emblem: '초딩입맛'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '오싫모'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '부산갈매기'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/goramen_04.jpg',
         eaten: '돈코츠라멘 1 그릇 7000 원',
@@ -99,11 +99,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Penguins.jpg',
         userName: '펭귄맨',
         achievement: [{
-            emblem: '초딩입맛'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '오싫모'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '부산갈매기'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/goramen_05.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',
