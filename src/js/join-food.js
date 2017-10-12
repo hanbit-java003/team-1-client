@@ -1,6 +1,6 @@
 require('../less/join-food.less');
 
-var join = require('./join');
+var common = require('./common');
 
 var model = [{
     background:'./img/aaa.jpg'
