@@ -48,8 +48,8 @@ function initBookmarkMap() {
         var i;
 
         var mapOptions = {
-            zoom: 18,
-            scrollwheel: true,
+            zoom: 16,
+            scrollwheel: false,
             center:
                 new googleMaps.LatLng(bookmarkModel[0].lat, bookmarkModel[0].lng)
         };
@@ -71,7 +71,25 @@ function initBookmarkMap() {
                     infowindow.open(bookmarkMaps, marker);
                 }
             })(marker, i));
+
+
         }
+
+/*
+        $('.bookmark-list').on('click', function () {
+
+            var mapOptions = {
+                zoom: 16,
+                scrollwheel: true,
+                center:
+                    new googleMaps.LatLng(bookmarkModel[i].lat, bookmarkModel[i].lng)
+            };
+
+            var goBookmark = new googleMaps.Map($('.bookmark-map')[0], mapOptions);
+
+
+        });*/
+
 
     }).catch(function (error) {
         console.error(error);
@@ -82,3 +100,11 @@ function initBookmarkMap() {
 
 initBookmarkMap();
 
+
+function goBookmark() {
+    $('.bookmark-list').on('click',function () {
+        var bookmarkDetail = $(this).attr('uid');
+
+
+    });
+}
