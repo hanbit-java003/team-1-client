@@ -2,6 +2,7 @@ require('bootstrap');
 require('../less/main.less');
 
 var common = require('./common');
+var join = require('./join');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
 // 주변 맛집 모델
@@ -83,6 +84,8 @@ function initMainMap(position) {
                 })(marker, i));
             }
 
+            initNearby(contentsNearby);
+
             /*var circles = new googleMaps.Circle({
                 center : mapOptions.center,
                 // 반지름 (m)
@@ -127,6 +130,8 @@ function initMainMap(position) {
                     }
                 })(marker, i));
             }
+
+            initRecommend(contentsRecommend);
         }
     }).catch(function (error) {
         console.error(error);
@@ -209,6 +214,8 @@ function clkSort() {
 
         $(this).parent('.card-contents-sort').find('div').removeClass('active');
         $(this).addClass('active');
+        
+        // 정렬 부분 구현 필요
     });
 }
 
@@ -229,11 +236,9 @@ function initNearby(contentsNearby) {
         goDetail($(this).attr('uid'));
     });
 
-    // clkFavorite();
-    // hoverContents();
+    clkFavorite();
+    hoverContents();
 }
-
-initNearby(contentsNearby);
 
 // 추천 맛집 리스트
 function initRecommend(contentsRecommend) {
@@ -247,14 +252,37 @@ function initRecommend(contentsRecommend) {
         $('.contents-recommend').append(recommendHtml);
     }
 
-    // clkFavorite();
-    // hoverContents();
+    clkFavorite();
+    hoverContents();
 }
 
-initRecommend(contentsRecommend);
-
-// 즐겨찾기 버튼 클릭 이벤트
+// 즐겨찾기
 function clkFavorite() {
+    join.ajax({
+        url: '/api/member/get',
+        success: function (result) {
+            if (!result.signedIn) {
+                signedOutFavorite();
+            }
+            else {
+                signedInFavorite();
+            }
+        }
+    });
+}
+
+// 비로그인 상태의 즐겨찾기 클릭 이벤트
+function signedOutFavorite() {
+    $('.card-contents-favorite i').on('click', function (event) {
+        event.stopPropagation();
+
+        alert('즐겨찾기 서비스 이용을 위해 로그인을 해주세요.');
+        $('.header-btn-member').trigger('click');
+    });
+}
+
+// 로그인 상태의 즐겨찾기 클릭 이벤트
+function signedInFavorite() {
     $('.card-contents-favorite i').on('click', function (event) {
         event.stopPropagation();
 
@@ -262,16 +290,16 @@ function clkFavorite() {
             $(this).removeClass('fa-star-o');
             $(this).addClass('fa-star');
             alert('즐겨찾기에 추가되었습니다.');
+            // 즐겨찾기 저장 구현 필요함
         }
         else {
             $(this).removeClass('fa-star');
             $(this).addClass('fa-star-o');
             alert('즐겨찾기에서 삭제되었습니다.');
+            // 즐겨찾기 삭제 구현 필요함
         }
     });
 }
-
-clkFavorite();
 
 // 맛집 리스트 마우스오버 이벤트
 function hoverContents() {
@@ -284,15 +312,14 @@ function hoverContents() {
 
         var myLatLng = {lat: lat, lng: lng};
 
-        console.log(myLatLng);
+        // console.log(myLatLng);
+        // 맵상에서 인포윈도우 팝업 구현 필요
     });
 
     $('.card-contents-list > li').on('mouseleave', function () {
         $(this).find('.card-contents').css('color', '#5e5e5e');
     });
 }
-
-// hoverContents();
 
 function goDetail(uid) {
     location.href = 'detail.html?uid=' + uid;
