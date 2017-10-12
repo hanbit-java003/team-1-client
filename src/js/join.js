@@ -3,12 +3,6 @@ require('../less/join.less');
 var common = require('./common.js');
 document.write('<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>');
 
-// 자동입력 방지.
-/*var verifyCallback = function() {
-    console.log('실행');
-};*/
-
-
 // 캡차부분.
 var vall = false;
 
