@@ -1,6 +1,28 @@
 require('../less/join.less');
 
 var common = require('./common.js');
+document.write('<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>');
+
+// 자동입력 방지.
+/*var verifyCallback = function() {
+    console.log('실행');
+};*/
+
+
+// 캡차부분.
+var vall = false;
+
+function verifyCallback(response) {
+    vall = true;
+};
+
+window.onloadCallback = function() {
+    grecaptcha.render('cock-prevent', {
+        'sitekey' : '6Lc5fzIUAAAAAEehrbbislWASM_D5je_Q-LIudbG',
+        'theme' : 'light',
+        'callback' :verifyCallback
+    });
+};
 
 
 
@@ -35,8 +57,6 @@ function ajax(options) {
     // 에러는 추가해서 들어가게끔
     if (!options.error) {
         options.error = function(jqXHR) {
-            var errorCode = jqXHR.responseJSON.errorCode;
-
 
             alert(jqXHR.responseJSON.message);
         };
@@ -86,6 +106,11 @@ function cockJoin() {
     else if(pw !== pwc) {
         alert('새 비밀번호 확인이 다릅니다.');
         $('#cock-join-pwc').focus();
+        return;
+    }
+    else if(vall !== true) {
+        alert('자동등록방지를 푸셔야 합니다.');
+        $('#cock-prevent').focus();
         return;
     }
     else if(!agree){

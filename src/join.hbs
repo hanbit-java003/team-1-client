@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 {{> template/header }}
@@ -33,10 +32,10 @@
             <input type="password" class="form-control" id="cock-join-pwc" placeholder="비밀번호를 다시 입력해주세요.">
         </div>
         <div class="cock-join-group">
-            <label for="cock-join-pw">자동등록 방지</label>
+            <label for="cock-join-pw">자동등록방지</label>
             <div class="cock-join-capcha">
-                <form action="?" method="POST">
-                    <div class="g-recaptcha" data-sitekey="6Lc5fzIUAAAAAEehrbbislWASM_D5je_Q-LIudbG"></div>
+                <form action="?" mothod="POST">
+                <div id="cock-prevent"></div>
                 </form>
             </div>
         </div>
