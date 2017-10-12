@@ -4,6 +4,7 @@ module.exports = [{
     title : '부탄츄 신촌점',
     flag: '../img/flag/jp.png',
     foodIcon: './img/main-img/food-icons/64 x 64-47.png',
+    address: '서울 서대문구 연세로5길 26-9',
     lat: 37.556841,
     lng: 126.935082,
     comment: '난 여기  맛있는데.... 지예가 싫다더라.... 고라멘의 라이벌'
@@ -13,6 +14,7 @@ module.exports = [{
     title : '고라멘 신촌점',
     flag: '../img/flag/jp.png',
     foodIcon: './img/main-img/food-icons/64 x 64-47.png',
+    address: '서울 마포구 신촌로12길 23',
     lat: 37.555344,
     lng: 126.932692,
     comment: '지예가 추천했어요! 완전 강추! ...하지만 부탄츄의 라이벌'
@@ -22,6 +24,7 @@ module.exports = [{
     title : '조선의 육개장 신촌점',
     flag: '../img/main-img/national-flags/kr.png',
     foodIcon: './img/main-img/food-icons/64 x 64-50.png',
+    address: '서울 서대문구 연세로5나길 20',
     lat: 37.557007,
     lng: 126.935057,
     comment: '아직 가보지 못한 미지의 세계...'
@@ -31,6 +34,7 @@ module.exports = [{
     title : '마루가메제면 신촌점',
     flag: '../img/flag/jp.png',
     foodIcon: './img/main-img/food-icons/64 x 64-47.png',
+    address: '서울 서대문구 신촌로 87-4',
     lat: 37.555667,
     lng: 126.936178,
     comment: ''
@@ -40,6 +44,7 @@ module.exports = [{
     title : '미분당 신촌점',
     flag: '../img/main-img/national-flags/cn.png',
     foodIcon: './img/main-img/food-icons/64 x 64-47.png',
+    address: '서울 서대문구 연세로5길 26-7',
     lat: 37.556792,
     lng: 126.933534,
     comment: ''
@@ -49,6 +54,7 @@ module.exports = [{
     title : '털보고된이생선구이 신촌점',
     flag: '../img/main-img/national-flags/kr.png',
     foodIcon: './img/main-img/food-icons/64 x 64-44.png',
+    address: '서울 서대문구 연세로7안길 38',
     lat: 37.558257,
     lng: 126.934696,
     comment: ''
@@ -58,6 +64,7 @@ module.exports = [{
     title : '크리스터치킨 신촌점',
     flag: '../img/main-img/national-flags/kr.png',
     foodIcon: './img/main-img/food-icons/64 x 64-27.png',
+    address: '서울 서대문구 연세로11길 30',
     lat: 37.558037,
     lng: 126.934715,
     comment: ''
