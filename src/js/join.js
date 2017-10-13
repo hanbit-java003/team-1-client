@@ -8,10 +8,12 @@ $.getScript('https://www.google.com/recaptcha/api.js');
     console.log('실행');
 };*/
 
+
 // 캡차부분.
 var vall = false;
 
 window.verifyCallback = function() {
+
     console.log('실행');
     vall = true;
 };
