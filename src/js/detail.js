@@ -43,6 +43,12 @@ function init(restaurants) {
         detail.css('white-space', 'normal');
     });
 
+    /**
+     * 좋아요, 쓰레기 카운트는 나중에 DB 에서 받아오고
+     * 버튼 누를때마다 리프레시 해야하나
+     * 아니면 쓰레기는 개수가 아니라 첨엔 약간 투명하다가
+     * 쓰레기 많이 눌리면 진하게 표시되게 하는것도 괜찮을듯..
+     * */
     var likeCount = 0;
     var trashCount = 0;
 
