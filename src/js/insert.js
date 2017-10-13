@@ -7,6 +7,9 @@ var loadGoogleMapsApi = require('load-google-maps-api-2');
 var UrlSearchParams = require('url-search-params');
 var params = new UrlSearchParams(location.search);
 
+var _ = require('lodash');
+_.move = require('lodash-move').default;
+
 loadGoogleMapsApi.key = 'AIzaSyDfasnDjKf4JZvuEqVnp3N7Ezv3Cm-qAII';
 loadGoogleMapsApi.language = 'ko';
 loadGoogleMapsApi.version = '3';
@@ -65,19 +68,19 @@ loadGoogleMapsApi.version = '3';
             tagId: 1,
             tag: 'tag2'
         }
-    ]
+    ],
+    uid: '3HgHeOlylIZR'
 };*/
 
 var model = {
-    articles: [],
+    articles: [{imgs: []}],
     menus: [],
-    tags: []
+    tags: [],
+    uid: ''
 }
 
 // 현재위치
 var latLng = {};
-// 메뉴
-var images = [];
 
 // hashTag 동작위한 plugin 설치
 $('#cc-hashtag-textarea').tagsInput();
@@ -103,10 +106,28 @@ function getLocation() {
 }
 
 // 시작
+$.ajax({
+    url:'/api/member/get',
+    success: function (result) {
+        /* TEST를 위해서 일단 없
+        if (!result.signedIn) {
+            alert('로그인이 필요한 페이지입니다.');
+            location.href= '/'; // 기본홈으로 돌려보냄.
+        }
+
+        model.uid = result.uid;
+
+        getRestAndArticle();
+        */
+    }
+});
+
 if (!params.get('rid')) {
+    // 식당 입력
     init();
 }
 else if (params.get('rid') && !params.get('articleId')) {
+    // 식당의 후기 입력
     $.ajax({
         url: '/api/cock/insert/' + params.get('rid'),
         success: function(result) {
@@ -116,6 +137,7 @@ else if (params.get('rid') && !params.get('articleId')) {
     });
 }
 else {
+    // 식당의 후기 수정
     $.ajax({
         url: '/api/cock/insert/' + params.get('rid') + '/' + params.get('articleId'),
         success: function(result) {
@@ -126,14 +148,15 @@ else {
 }
 
 function init() {
+    model.uid = '3HgHeOlylIZR'; // 임시 TEST용
     getLocation();
 
     if (model.rid) {
-        $('#lat').val(model.lat);
-        $('#lng').val(model.lng);
+        $('#cc-lat').val(model.lat);
+        $('#cc-lng').val(model.lng);
         $('#cc-rest-name').val(model.name);
-        $('#lat').attr('disabled', 'true');
-        $('#lng').attr('disabled', 'true');
+        $('#cc-lat').attr('disabled', 'true');
+        $('#cc-lng').attr('disabled', 'true');
         $('#cc-rest-name').attr('disabled', 'true');
         $('#locationCheck').hide();
         checkFlag = true;
@@ -161,7 +184,6 @@ function init() {
         model.articles[0].imgs.forEach(function (t) {
             var img = new Image();
             $(img).on('load', function () {
-                images.push(img);
                 setImage(img, true);
 
                 model.menus.forEach(function (t2) {
@@ -219,8 +241,8 @@ function initMap() {
     if (!model.rid) {
         map.addListener('click', function (e) {
             selectMap(e.latLng);
-            $('#lat').val(e.latLng.lat);
-            $('#lng').val(e.latLng.lng);
+            $('#cc-lat').val(e.latLng.lat);
+            $('#cc-lng').val(e.latLng.lng);
             //주변 가게 가져오기 구현 필요
             deleteMarkers();
             addMarkers();
@@ -256,8 +278,8 @@ $('#locationCheck').on('click', function () {
         var index = $(this).index();
         var lo = loc[index];
 
-        $('#lat').val(lo.lat);
-        $('#lng').val(lo.lng);
+        $('#cc-lat').val(lo.lat);
+        $('#cc-lng').val(lo.lng);
         $('#cc-rest-name').val(lo.title);
         menuLockInput(true);
 
@@ -270,13 +292,13 @@ $('#locationCheck').on('click', function () {
 
 function menuLockInput(lock) {
     if (lock) {
-        $('#lat').attr('disabled', 'true');
-        $('#lng').attr('disabled', 'true');
+        $('#cc-lat').attr('disabled', 'true');
+        $('#cc-lng').attr('disabled', 'true');
         $('#cc-rest-name').attr('disabled', 'true');
     }
     else {
-        $('#lat').removeAttr('disabled');
-        $('#lng').removeAttr('disabled');
+        $('#cc-lat').removeAttr('disabled');
+        $('#cc-lng').removeAttr('disabled');
         $('#cc-rest-name').removeAttr('disabled');
     }
 }
@@ -298,7 +320,7 @@ function addMarkers() {
     // 주변 위치 가져오기
     //
     //$.ajax();
-    //
+    // 임시 TEST용
     loc = [{
         lat: 37.552331, lng: 126.937588, title: 'hello1'
     }, {
@@ -343,6 +365,7 @@ function selectMap(latLng) {
     map.panTo(latLng);
 }
 
+var images = [];
 $('#cc-btn-background').on('change', function() {
     if (this.files.length === 0) {
         return;
@@ -367,12 +390,13 @@ $('#cc-btn-background').on('change', function() {
 
         var fileReader = new FileReader();
 
+        images.push(file);
+
         fileReader.onload = function(event) {
             var image = new Image();
             image.src = event.target.result;
 
             image.onload = function() {
-                images.push(image);
                 setImage(image, false);
             };
         };
@@ -381,13 +405,16 @@ $('#cc-btn-background').on('change', function() {
     }
 });
 
+// 이미지 폭 = 380px
+var IMG_WIDTH = 380;
+
 function setImage(image, save) {
     var width = image.width;
     var height = image.height;
 
-    if (width > 360) {
-        var ratio = 360/width;
-        width = 360;
+    if (width > IMG_WIDTH) {
+        var ratio = IMG_WIDTH/width;
+        width = IMG_WIDTH;
 
         height = height * ratio;
     }
@@ -407,22 +434,18 @@ function setImage(image, save) {
         var img = $(this).parent('li');
 
         var saved = img.attr('saved') === 'true';
-        var savedPhotoCount = model.imgs ? model.imgs.length : 0
+        var savedPhotoCount = model.articles[0].imgs ? model.articles[0].imgs.length : 0
 
         var index = saved ? img.index() : img.index() - savedPhotoCount;
 
         if (saved) {
-            model.imgs[index] = '_removed_';
+            model.articles[0].imgs[index].path = '_removed_';
             img.hide();
+            $(img).find('.background-preview').remove();
         }
         else {
             images.splice(index, 1);
             img.remove();
-        }
-
-        if (!images.length) {
-            console.log('clear');
-            $('#cc-btn-background').val('');
         }
     });
 
@@ -485,13 +508,63 @@ function menuEvent(preview) {
 
 $('.cc-btn-save').on('click', function () {
     // model.rid = 없으면 서버에서 만듬
-    model.lat = $('#lat').val();
-    model.lng = $('#lng').val();
+    model.lat = parseFloat($('#cc-lat').val());
+    model.lng = parseFloat($('#cc-lng').val());
     model.name = $('#cc-rest-name').val();
-    // model.status
-    // articles
+    if (!model.lat) {
+        alert('위도를 입력하세요.');
+        $('#cc-lat').focus();
+        return;
+    }
+    else if (!model.lng) {
+        alert('경도를 입력하세요.');
+        $('#cc-lng').focus();
+        return;
+    }
+    else if (!model.name) {
+        alert('식당 이름을 입력하세요.');
+        $('#cc-rest-name').focus();
+        return;
+    }
+    else if (!images.length && !_.filter(model.articles[0].imgs, function(value) {
+        return value.path !== '_removed_';
+        }).length) { // 추가파일과 모델의 파일을 구분
+        alert('사진을 한 개는 필수 입니다.');
+        return;
+    }
+    // model.status - 보류
+    // model.articles.article_id - 없으면 서버에서 만듬
+    model.articles[0].comment = $('#cc-comment-textarea').val();
+    // model.articles.status - 보류
+
     // menus
+    model.menus = [];
+    var imgsLi = $('.cc-preview-img');
+    for (var i=0; i<imgsLi.length; i++) {
+        var menuLi = $(imgsLi[i]).find('li');
+        $(menuLi).each(function () {
+            var menu = {
+                imgId: $(this).index(),
+                x: parseInt($(this).css('left')),
+                y: parseInt($(this).css('top')),
+                menu: $(this).find('input').val()
+            }
+            model.menus.push(menu);
+        });
+    }
+
     // tags
+    delete model.tags;
+    model.tags = [];
     var t = $('#cc-hashtag-textarea').val();
-    console.log(t);
+    model.tags = _.split(t, ',');
+
+    var formData = new FormData();
+    formData.append('model', JSON.stringify(model));
+
+    images.forEach(function(img) {
+        formData.append('imgs', img);
+    });
+
+    console.log(model);
 });
