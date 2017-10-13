@@ -11,7 +11,7 @@ var join = require('./join.js');
 
 
 
-join.ajax({
+common.ajax({
     url:'/api/member/get',
     success: function (result) {
         if (!result.signedIn) {
@@ -23,7 +23,7 @@ join.ajax({
 });
 
 function getMemberDetail() {
-    join.ajax({
+    common.ajax({
         url: '/api/member/detail',
         success: function (result) {
             init(result);
@@ -149,7 +149,7 @@ $('.cock-setting-save').on('click', function () {
         formData.append('avatar', images[0]);
     }
 
-    join.ajax ({
+    common.ajax ({
         url: '/api/member/save',
         method: 'POST',
         data: formData,

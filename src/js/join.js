@@ -52,21 +52,6 @@ window.verifyCallback = function() {
 
 });*/
 
-function ajax(options) {
-
-
-    // 나머지 옵션은 그대로들은 똑같이 들어가고,
-    // 에러는 추가해서 들어가게끔
-    if (!options.error) {
-        options.error = function(jqXHR) {
-
-            alert(jqXHR.responseJSON.message);
-        };
-    }
-
-    $.ajax(options);
-}
-
 
 
 $('.cock-join-btn-cancel').on('click', function () {
@@ -137,7 +122,3 @@ function cockJoin() {
         }
     });
 }
-
-module.exports = {
-    ajax: ajax
-};

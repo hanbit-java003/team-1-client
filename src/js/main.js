@@ -258,7 +258,7 @@ function initRecommend(contentsRecommend) {
 
 // 즐겨찾기
 function clkFavorite() {
-    join.ajax({
+    common.ajax({
         url: '/api/member/get',
         success: function (result) {
             if (!result.signedIn) {
