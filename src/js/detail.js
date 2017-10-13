@@ -43,6 +43,8 @@ function init(restaurants) {
         detail.css('white-space', 'normal');
     });
 
+    var likeCount = 0;
+    var trashCount = 0;
 
     /**
      *  이 글에 동의합니다 버튼 (좋아요)
@@ -51,10 +53,14 @@ function init(restaurants) {
         if ($(this).hasClass('fa-heart-o')) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
             $(this).css('color', '#ff4461');
+            likeCount += 1;
+            $(this).parent().find('.food-like-count').html(likeCount);
         }
         else if ($(this).hasClass('fa-heart')) {
             $(this).removeClass('fa-heart').addClass('fa-heart-o');
             $(this).css('color', '#666');
+            likeCount = likeCount - 1;
+            $(this).parent().find('.food-like-count').html(likeCount);
         }
     });
 
@@ -65,10 +71,14 @@ function init(restaurants) {
         if ($(this).hasClass('fa-trash-o')) {
             $(this).removeClass('fa-trash-o').addClass('fa-trash');
             $(this).css('color', '#ff4461');
+            trashCount += 1;
+            $(this).parent().find('.food-trash-count').html(trashCount);
         }
         else if ($(this).hasClass('fa-trash')) {
             $(this).removeClass('fa-trash').addClass('fa-trash-o');
             $(this).css('color', '#bbb');
+            trashCount -= 1;
+            $(this).parent().find('.food-trash-count').html(trashCount);
         }
     });
 

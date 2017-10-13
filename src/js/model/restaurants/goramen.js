@@ -121,5 +121,31 @@ module.exports = [{
         }, {
             item: "고라멘"
         }]
+    }, {
+        userImg: '../img/sc-img/members/Jellyfish.jpg',
+        userName: '알라코',
+        achievement: [{
+            emblem: '../img/sc-img/achievement/noodle.svg',
+            achieve: '면요리 100회 리뷰'
+        }, {
+            emblem: '../img/sc-img/achievement/bbq.svg',
+            achieve: '고기요리 100회 리뷰'
+        }, {
+            emblem: '../img/sc-img/achievement/pizza.svg',
+            achieve: '피자 100회 리뷰'
+        }],
+        foodImg: '../img/sc-img/restaurants/goramen_01.jpg',
+        eaten: '고라멘 1 그릇 8000 원 챠슈추가 1000 원 계란추가 1000 원',
+        detail: '돼지뼈, 닭뼈, 생선 육수국물이<br>' +
+        '아주 진해서 밥말아 먹기 딱 좋은 라멘!!',
+        tag: [{
+            item: "고라멘"
+        }, {
+            item: "돈코츠라멘"
+        }, {
+            item: "라멘"
+        }, {
+            item: "챠슈"
+        }]
     }]
 }];
