@@ -5,7 +5,9 @@
             <div id="user-name">{{userName}}</div>
             <ul class="user-achievement">
                 {{~#each achievement~}}
-                    <li class="achievement-icon" style="background-image: url({{emblem}})"></li>
+                    <li class="achievement-icon" style="background-image: url({{emblem}})">
+                        <span class="achievement-tooltip">{{achieve}}</span>
+                    </li>
                 {{~/each~}}
             </ul>
         </div>
