@@ -2,20 +2,11 @@ require('../less/join.less');
 
 var common = require('./common.js');
 $.getScript('https://www.google.com/recaptcha/api.js');
-$.getScript('https://www.google.com/recaptcha/api.js');
-
-// 자동입력 방지.
-/*var verifyCallback = function() {
-    console.log('실행');
-};*/
-
 
 // 캡차부분.
 var vall = false;
 
 window.verifyCallback = function() {
-
-    console.log('실행');
     vall = true;
 };
 
@@ -52,21 +43,6 @@ window.verifyCallback = function() {
     });
 
 });*/
-
-function ajax(options) {
-
-
-    // 나머지 옵션은 그대로들은 똑같이 들어가고,
-    // 에러는 추가해서 들어가게끔
-    if (!options.error) {
-        options.error = function(jqXHR) {
-
-            alert(jqXHR.responseJSON.message);
-        };
-    }
-
-    $.ajax(options);
-}
 
 
 
@@ -139,6 +115,3 @@ function cockJoin() {
     });
 }
 
-module.exports = {
-    ajax: ajax
-};
