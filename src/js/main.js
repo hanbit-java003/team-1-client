@@ -44,12 +44,15 @@ function getLocation() {
 
 getLocation();
 
+var map;
+var marker;
+var i;
+var infoWindow;
+
 function initMainMap(position) {
     loadGoogleMapsApi().then(function (googleMaps) {
 
-        var infowindow = new googleMaps.InfoWindow();
-        var marker;
-        var i;
+        infoWindow = new googleMaps.InfoWindow();
 
         if ($('#nearby-rest').hasClass('active')) {
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
@@ -63,7 +66,7 @@ function initMainMap(position) {
             };
 
             // 지도 생성
-            var map = new googleMaps.Map($('#main-map')[0], mapOptions);
+            map = new googleMaps.Map($('#main-map')[0], mapOptions);
             // 스푼 마커 이미지
             var spoon = '../img/spoon_red.png';
 
@@ -78,8 +81,8 @@ function initMainMap(position) {
                 // 마커 클릭시 타이틀 팝업
                 googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent(contentsNearby[i].title);
-                        infowindow.open(map, marker);
+                        infoWindow.setContent(contentsNearby[i].title);
+                        infoWindow.open(map, marker);
                     }
                 })(marker, i));
             }
@@ -113,7 +116,7 @@ function initMainMap(position) {
                 center: new googleMaps.LatLng(contentsRecommend[0].lat, contentsRecommend[0].lng)
             };
 
-            var map = new googleMaps.Map($('#main-map')[0], mapOptions);
+            map = new googleMaps.Map($('#main-map')[0], mapOptions);
             var spoon = '../img/spoon_blue.png';
 
             for (i = 0; i < contentsRecommend.length; i++) {
@@ -125,8 +128,8 @@ function initMainMap(position) {
 
                 googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent(contentsRecommend[i].title);
-                        infowindow.open(map, marker);
+                        infoWindow.setContent(contentsRecommend[i].title);
+                        infoWindow.open(map, marker);
                     }
                 })(marker, i));
             }
@@ -290,13 +293,13 @@ function signedInFavorite() {
             $(this).removeClass('fa-star-o');
             $(this).addClass('fa-star');
             alert('즐겨찾기에 추가되었습니다.');
-            // 즐겨찾기 저장 구현 필요함
+            // 서버에서 즐겨찾기 저장 구현 필요함
         }
         else {
             $(this).removeClass('fa-star');
             $(this).addClass('fa-star-o');
             alert('즐겨찾기에서 삭제되었습니다.');
-            // 즐겨찾기 삭제 구현 필요함
+            // 서버에서 즐겨찾기 삭제 구현 필요함
         }
     });
 }
@@ -307,12 +310,12 @@ function hoverContents() {
         $(this).find('.card-contents').css('color', '#FF7E5F');
 
         var location = $(this).find('.locationContainer');
-        var lat = location.attr('lat');
-        var lng = location.attr('lng');
+        var lat = parseFloat(location.attr('lat'));
+        var lng = parseFloat(location.attr('lng'));
 
         var myLatLng = {lat: lat, lng: lng};
 
-        // console.log(myLatLng);
+        map.panTo(myLatLng);
         // 맵상에서 인포윈도우 팝업 구현 필요
     });
 
