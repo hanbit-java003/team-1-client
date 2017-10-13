@@ -7,7 +7,31 @@ module.exports = [{
     address: '서울 서대문구 연세로5길 26-9',
     lat: 37.556841,
     lng: 126.935082,
-    comment: '난 여기  맛있는데.... 지예가 싫다더라.... 고라멘의 라이벌'
+    commnet :[{
+        hashtag: '라멘집'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '체인점'
+    }]
 }, {
     id:'goramen',
     thumbnail : './img/main-img/goramen.jpg',
@@ -17,7 +41,11 @@ module.exports = [{
     address: '서울 마포구 신촌로12길 23',
     lat: 37.555344,
     lng: 126.932692,
-    comment: '지예가 추천했어요! 완전 강추! ...하지만 부탄츄의 라이벌'
+    commnet :[{
+        hashtag: '라멘집'
+    },{
+        hashtag: '개인가게'
+    }]
 }, {
     id:'josun',
     thumbnail : './img/main-img/josun.jpg',
@@ -27,7 +55,11 @@ module.exports = [{
     address: '서울 서대문구 연세로5나길 20',
     lat: 37.557007,
     lng: 126.935057,
-    comment: '아직 가보지 못한 미지의 세계...'
+    commnet :[{
+        hashtag: '육개장'
+    },{
+        hashtag: '안가봄'
+    }]
 }, {
     id:'marugame',
     thumbnail : './img/main-img/marugame.jpg',
@@ -37,7 +69,13 @@ module.exports = [{
     address: '서울 서대문구 신촌로 87-4',
     lat: 37.555667,
     lng: 126.936178,
-    comment: ''
+    commnet :[{
+        hashtag: '정통 우동집'
+    },{
+        hashtag: '체인점'
+    },{
+        hashtag: '드라마에도 나옴'
+    }]
 }, {
     id:'mibundang',
     thumbnail : './img/main-img/mibundang.jpg',
@@ -47,7 +85,11 @@ module.exports = [{
     address: '서울 서대문구 연세로5길 26-7',
     lat: 37.556792,
     lng: 126.933534,
-    comment: ''
+    commnet :[{
+        hashtag: '쌀국수'
+    },{
+        hashtag: '조용한 분위기'
+    }]
 }, {
     id:'fish',
     thumbnail : './img/main-img/fish.jpg',
@@ -57,7 +99,11 @@ module.exports = [{
     address: '서울 서대문구 연세로7안길 38',
     lat: 37.558257,
     lng: 126.934696,
-    comment: ''
+    commnet :[{
+        hashtag: '생선구이'
+    },{
+        hashtag: '가성비 최고'
+    }]
 }, {
     id:'crister',
     thumbnail : './img/main-img/chicken.jpg',
@@ -67,5 +113,9 @@ module.exports = [{
     address: '서울 서대문구 연세로11길 30',
     lat: 37.558037,
     lng: 126.934715,
-    comment: ''
+    commnet :[{
+        hashtag: '치킨집'
+    },{
+        hashtag: '체인점'
+    }]
 }];

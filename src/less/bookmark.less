@@ -100,16 +100,29 @@
   vertical-align: middle;
 }
 
+.commentary-container {
+  position: absolute;
+  bottom: 0;
+  max-width: 450px;
+}
+
 .commentary{
   bottom: 0;
   margin-left:10px;
   margin-bottom: 40px;
   font-size:14px;
   color: rgb(255, 255, 255);
-  overflow:hidden;
-  text-overflow:ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+
+  li {
+    display: inline-block;
+    margin-right: 7px;
+  }
 }
 
-
+.location-info {
+  display: none;
+}
 
