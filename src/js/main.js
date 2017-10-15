@@ -307,16 +307,20 @@ function signedInFavorite() {
 // 맛집 리스트 마우스오버 이벤트
 function hoverContents() {
     $('.card-contents-list > li').on('mouseenter', function () {
-        $(this).find('.card-contents').css('color', '#FF7E5F');
+        var cardContents = $(this).find('.card-contents');
 
         var location = $(this).find('.locationContainer');
         var lat = parseFloat(location.attr('lat'));
         var lng = parseFloat(location.attr('lng'));
-
         var myLatLng = {lat: lat, lng: lng};
 
+        var iwTitle = cardContents.find('.card-contents-title').text();
+
+        cardContents.css('color', '#FF7E5F');
         map.panTo(myLatLng);
         // 맵상에서 인포윈도우 팝업 구현 필요
+        infoWindow.setContent(iwTitle);
+        infoWindow.open(map, marker);
     });
 
     $('.card-contents-list > li').on('mouseleave', function () {
