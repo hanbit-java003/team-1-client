@@ -4,11 +4,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',
         achievement: [{
-            emblem: '국밥충'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '돼지테리언'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '신촌멋쟁이'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_01.jpg',
         eaten: '돼지곰탕 특 1 그릇 14000 원',    // 이건 나중에 더 디테일하게 수정해야함. 메뉴, 그릇, 가격 다 나눠서..
@@ -24,11 +24,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',
         achievement: [{
-            emblem: '국밥충'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '돼지테리언'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '신촌멋쟁이'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_02.jpg',
         eaten: '간장게장 1 접시 12000 원',
@@ -44,11 +44,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '해파리지앵',
         achievement: [{
-            emblem: '면식범'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '식탐왕'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '강남제비'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_03.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',
@@ -89,11 +89,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '해파리지앵',
         achievement: [{
-            emblem: '면식범'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '식탐왕'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '강남제비'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_04.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',
@@ -116,11 +116,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '해파리지앵',
         achievement: [{
-            emblem: '면식범'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '식탐왕'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '강남제비'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_05.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',

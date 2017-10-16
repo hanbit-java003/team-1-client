@@ -6,7 +6,6 @@ var params = new UrlSearchParams(location.search);
 
 var common = require('./common');
 
-
 /**
  * 식당별 글들이 모여있는 모델
  * */
@@ -16,21 +15,36 @@ var restaurants = [
     require('./model/restaurants/mibundang')
 ];
 
-function init(restaurants) {
+/**
+ * 각 식당 별 템플릿
+ * 레이아웃 때문에 좌/우 두개로 나눠 담음
+ * */
+function setContent(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
-    var html;
 
+    for (var i = 0; i < restaurant[0].contents.length; i++) {
+        var html = template(restaurant[0].contents[i]);
+
+        if (i % 2 === 0) {
+            $('#cock-restaurants-left').append(html);
+        }
+        else {
+            $('#cock-restaurants-right').append(html);
+        }
+    }
+}
+
+function init(restaurants) {
     /**
      * 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를 비교해서
      * 맞을 경우에 템플릿에 담음
      * */
     for (var i = 0; i < restaurants.length; i++) {
         if (params.get('rid') === restaurants[i][0].rid) {
-            html = template(restaurants[i][0]);
+            var restaurant = restaurants[i];
+            setContent(restaurant);
         }
     }
-
-    $('.cock-restaurants').html(html);
 
     /**
      * 더보기 버튼
@@ -38,11 +52,21 @@ function init(restaurants) {
     $('.btn-more').on('click', function () {
         var detail = $(this).parent().find('.food-detail');
         $(this).toggle();
-        detail.css('width', 'auto');
-        detail.css('height', 'auto');
-        detail.css('white-space', 'normal');
+        detail.css({
+            'width': 'auto',
+            'height': 'auto',
+            'white-space': 'normal'
+        });
     });
 
+    /**
+     * 좋아요, 쓰레기 카운트는 나중에 DB 에서 받아오고
+     * 버튼 누를때마다 리프레시 해야하나
+     * 아니면 쓰레기는 개수가 아니라 첨엔 약간 투명하다가
+     * 쓰레기 많이 눌리면 진하게 표시되게 하는것도 괜찮을듯..
+     * */
+    var likeCount = 0;
+    var trashCount = 0;
 
     /**
      *  이 글에 동의합니다 버튼 (좋아요)
@@ -51,10 +75,14 @@ function init(restaurants) {
         if ($(this).hasClass('fa-heart-o')) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
             $(this).css('color', '#ff4461');
+            likeCount += 1;
+            $(this).parent().find('.food-like-count').html(likeCount);
         }
         else if ($(this).hasClass('fa-heart')) {
             $(this).removeClass('fa-heart').addClass('fa-heart-o');
             $(this).css('color', '#666');
+            likeCount = likeCount - 1;
+            $(this).parent().find('.food-like-count').html(likeCount);
         }
     });
 
@@ -65,10 +93,14 @@ function init(restaurants) {
         if ($(this).hasClass('fa-trash-o')) {
             $(this).removeClass('fa-trash-o').addClass('fa-trash');
             $(this).css('color', '#ff4461');
+            trashCount += 1;
+            $(this).parent().find('.food-trash-count').html(trashCount);
         }
         else if ($(this).hasClass('fa-trash')) {
             $(this).removeClass('fa-trash').addClass('fa-trash-o');
             $(this).css('color', '#bbb');
+            trashCount -= 1;
+            $(this).parent().find('.food-trash-count').html(trashCount);
         }
     });
 
@@ -100,5 +132,50 @@ function popImg(img) {
 
     winImg.document.write(data);
 }
+
+/**
+ * 맨 위로 버튼
+ * */
+$('.go-top-btn').on('click', function () {
+    $('body, html').animate({
+        scrollTop: 0
+    }, 100);
+    return false;
+});
+
+/**
+ * 맨 위로 버튼 보였다 안보였다
+ * */
+function relocateGoTopButton() {
+    var scrollTop = $(window).scrollTop();
+    var footerHeight = $('footer').outerHeight();
+    var bodyHeight = $('body').height();
+    var windowHeight = $(window).height();
+
+    if (scrollTop > 300) {
+        $('.go-top-btn').fadeIn(600);
+    }
+    else {
+        $('.go-top-btn').fadeOut(600);
+    }
+
+    if (bodyHeight - footerHeight - scrollTop < windowHeight) {
+        $('.go-top-btn').css({
+            position: 'absolute',
+            bottom: -55
+        });
+    }
+    else {
+        $('.go-top-btn').css({
+            position: 'fixed',
+            bottom: 20
+        });
+    }
+}
+
+$(window).on('scroll', function () {
+    relocateGoTopButton();
+});
+relocateGoTopButton();
 
 init(restaurants);

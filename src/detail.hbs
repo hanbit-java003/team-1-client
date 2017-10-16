@@ -8,10 +8,15 @@
 <body>
 {{> template/header}}
 <section class="cock-detail">
-    <div></div>
-    <div class="cock-restaurants columns">
-        <!-- template restaurants.hbs -->
+    <div class="cock-wrapper">
+        <div id="cock-restaurants-left" class="cock-restaurants">
+            <!-- template restaurants.hbs 홀수 -->
+        </div>
+        <div id="cock-restaurants-right" class="cock-restaurants">
+            <!-- template restaurants.hbs 짝 -->
+        </div>
     </div>
+    <button class="go-top-btn">맨위로</button>
 </section>
 {{> template/footer}}
 </body>

@@ -29,6 +29,27 @@ function searchBarToggle() {
 searchBarToggle();
 
 
+// 에러 코드 나올 시 사용할 수 있게끔. 모듈화
+function ajax(options) {
+
+
+    // 나머지 옵션은 그대로들은 똑같이 들어가고,
+    // 에러는 추가해서 들어가게끔
+    if (!options.error) {
+        options.error = function(jqXHR) {
+            var errorCode = jqXHR.responseJSON.errorCode;
+
+            if (errorCode === 403) {
+                $('.header-btn-member').click();
+            }
+
+            alert(jqXHR.responseJSON.message);
+        };
+    }
+
+    $.ajax(options);
+}
+
 /*
  *  로그인 레이아웃 나오게끔.
  */
@@ -105,7 +126,7 @@ function signIn(){
         return;
     }
 
-    $.ajax({
+    ajax({
         url:'/api/member/signin',
         method: 'POST',
         data: {
@@ -116,11 +137,8 @@ function signIn(){
         success: function (result) {
             alert(result.email+'님 반갑습니다.');
             location.href = './';
-        },
-        error: function (jqXHR) {
-            alert(jqXHR.responseJSON.message());
         }
-    })
+    });
 }
 
 function closeMemberLayer(callback){
@@ -138,4 +156,8 @@ function closeMemberLayer(callback){
             }
         }
     });
+}
+
+module.exports= {
+    ajax: ajax
 }
