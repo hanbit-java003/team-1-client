@@ -66,8 +66,12 @@ function init(restaurants) {
         var restaurant = restaurants[i][0];
 
         if (params.get('rid') === restaurant.rid) {
-            //setContent(restaurant);
-            setContentMobile(restaurant);
+            if (window.innerWidth <= 1024) {
+                setContentMobile(restaurant);
+            }
+            else if (window.innerWidth > 1024) {
+                setContent(restaurant);
+            }
         }
     }
 
