@@ -54,6 +54,9 @@ $('.cock-join-btn-save').on('click', function () {
     cockJoin();
 });
 
+
+
+
 function cockJoin() {
     // 검증  벨리데이션
     var email = $('#cock-join-email').val().trim();
@@ -61,9 +64,15 @@ function cockJoin() {
     var pw = $('#cock-join-pw').val().trim();
     var pwc = $('#cock-join-pwc').val().trim();
     var agree = $('.cock-join-check-input').prop('checked');
+    var re=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 
     if(!email) {
         alert('이메일을 입력하세요.');
+        $('#cock-join-email').focus();
+        return;
+    }
+    else if(!re.test(email)) {
+        alert('이메일 형식이 맞지 않습니다.');
         $('#cock-join-email').focus();
         return;
     }
