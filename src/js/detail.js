@@ -22,8 +22,8 @@ var restaurants = [
 function setContent(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
 
-    for (var i = 0; i < restaurant[0].contents.length; i++) {
-        var html = template(restaurant[0].contents[i]);
+    for (var i = 0; i < restaurant.contents.length; i++) {
+        var html = template(restaurant.contents[i]);
 
         if (i % 2 === 0) {
             $('#cock-restaurants-left').append(html);
@@ -34,15 +34,40 @@ function setContent(restaurant) {
     }
 }
 
+function setMobileLayout() {
+    $('.content-wrapper').css({
+        'width': '100%',
+        'max-width': '100%'
+    });
+
+    $('.food-text').css({
+        'float': 'right'
+    });
+}
+
+function setContentMobile(restaurant) {
+    var template = require('../template/detail/restaurant.hbs');
+
+    for (var i = 0; i < restaurant.contents.length; i++) {
+        var html = template(restaurant.contents[i]);
+
+        setMobileLayout();
+
+        $('#cock-restaurants-mobile').append(html);
+    }
+}
+
 function init(restaurants) {
     /**
      * 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를 비교해서
      * 맞을 경우에 템플릿에 담음
      * */
     for (var i = 0; i < restaurants.length; i++) {
-        if (params.get('rid') === restaurants[i][0].rid) {
-            var restaurant = restaurants[i];
-            setContent(restaurant);
+        var restaurant = restaurants[i][0];
+
+        if (params.get('rid') === restaurant.rid) {
+            //setContent(restaurant);
+            setContentMobile(restaurant);
         }
     }
 
