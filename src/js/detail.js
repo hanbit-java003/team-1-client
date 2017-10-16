@@ -6,7 +6,6 @@ var params = new UrlSearchParams(location.search);
 
 var common = require('./common');
 
-
 /**
  * 식당별 글들이 모여있는 모델
  * */
@@ -16,21 +15,36 @@ var restaurants = [
     require('./model/restaurants/mibundang')
 ];
 
-function init(restaurants) {
+/**
+ * 각 식당 별 템플릿
+ * 레이아웃 때문에 좌/우 두개로 나눠 담음
+ * */
+function setContent(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
-    var html;
 
+    for (var i = 0; i < restaurant[0].contents.length; i++) {
+        var html = template(restaurant[0].contents[i]);
+
+        if (i % 2 === 0) {
+            $('#cock-restaurants-left').append(html);
+        }
+        else {
+            $('#cock-restaurants-right').append(html);
+        }
+    }
+}
+
+function init(restaurants) {
     /**
      * 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를 비교해서
      * 맞을 경우에 템플릿에 담음
      * */
     for (var i = 0; i < restaurants.length; i++) {
         if (params.get('rid') === restaurants[i][0].rid) {
-            html = template(restaurants[i][0]);
+            var restaurant = restaurants[i];
+            setContent(restaurant);
         }
     }
-
-    $('.cock-restaurants').html(html);
 
     /**
      * 더보기 버튼
@@ -38,9 +52,11 @@ function init(restaurants) {
     $('.btn-more').on('click', function () {
         var detail = $(this).parent().find('.food-detail');
         $(this).toggle();
-        detail.css('width', 'auto');
-        detail.css('height', 'auto');
-        detail.css('white-space', 'normal');
+        detail.css({
+            'width': 'auto',
+            'height': 'auto',
+            'white-space': 'normal'
+        });
     });
 
     /**
