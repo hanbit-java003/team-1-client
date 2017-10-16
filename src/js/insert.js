@@ -544,11 +544,12 @@ $('.cc-btn-save').on('click', function () {
         var menuLi = $(imgsLi[i]).find('li');
         $(menuLi).each(function () {
             var menu = {
-                imgId: $(this).index(),
+                imgId: i,
+                id: $(this).index(),
                 x: parseInt($(this).css('left')),
                 y: parseInt($(this).css('top')),
                 menu: $(this).find('input').val()
-            }
+            };
             model.menus.push(menu);
         });
     }
@@ -567,4 +568,6 @@ $('.cc-btn-save').on('click', function () {
     });
 
     console.log(model);
+    console.log(images);
 });
+
