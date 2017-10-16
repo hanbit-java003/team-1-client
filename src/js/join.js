@@ -64,20 +64,27 @@ function cockJoin() {
     var pw = $('#cock-join-pw').val().trim();
     var pwc = $('#cock-join-pwc').val().trim();
     var agree = $('.cock-join-check-input').prop('checked');
-    var re=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+    var emailRe=/^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    var nickRe = /^[ㄱ-ㅎ가-힣a-zA-Z0-9/\/*]{2,6}$/;
+    var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
 
     if(!email) {
         alert('이메일을 입력하세요.');
         $('#cock-join-email').focus();
         return;
     }
-    else if(!re.test(email)) {
+    else if(!emailRe.test(email)) {
         alert('이메일 형식이 맞지 않습니다.');
         $('#cock-join-email').focus();
         return;
     }
     else if(!nick){
         alert('별명을 입력하세요.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+    else if(!nickRe.test(nick)){
+        alert('별명은 한글,영어,숫자 상관없이 2~6자 사이입니다.');
         $('#cock-join-nick').focus();
         return;
     }
@@ -94,6 +101,11 @@ function cockJoin() {
     else if(pw !== pwc) {
         alert('새 비밀번호 확인이 다릅니다.');
         $('#cock-join-pwc').focus();
+        return;
+    } // 비밀번호 영문 대소문자 6~20 / 최소 1개의 숫자 혹은 특수 문자 포함.
+    else if(!pwRe.test(pwc)) {
+        alert('비밀번호는 6~20자 영문 대 소문자, 최소 1개의 숫자,특수문자를 사용하세요.');
+        $('#cock-join-pw').focus();
         return;
     }
     else if(vall !== true) {
