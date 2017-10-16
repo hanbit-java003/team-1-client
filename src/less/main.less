@@ -8,30 +8,26 @@
   background-color: @main-background-color;
 }
 
-// 창 크기에 맞춰서 카드 크기 조절이 되기 위해 % 로 잡았음.
-.left-contents-wrapper {
-  display: inline-block;
-  width: 60%;
-  margin-bottom: 20px;
+.main-contents-wrapper {
+  padding: 0px 10px;
 }
 
+@main-min-width: 450px;
 @main-box-shadow: 1px 1px 10px rgba(0,0,0,0.3); // 카드 그림자
-@left-contents-min-width: 614px;
 
 #main-map {
-  width: 98%;
-  min-width: @left-contents-min-width;
+  width: 100%;
+  min-width: @main-min-width;
   height: 500px;
-  margin-right: 2%;
+  margin: 20px 0px;
   box-shadow: @main-box-shadow;
 }
 
 .article-ranking-wrapper {
-  display: inline-block;
-  width: 98%;
-  min-width: @left-contents-min-width;
+  width: 100%;
+  min-width: @main-min-width;
   height: 224px;
-  margin: 15px 2% 0px 0px;
+  margin: 20px 0px;
   background-color: #fff;
   box-shadow: @main-box-shadow;
 }
@@ -149,16 +145,10 @@
 
 }
 
-.right-contents-wrapper {
-  display: inline-block;
-  width: 40%;
-  min-width: 410px;
-  margin-bottom: 20px;
-  vertical-align: top;
-}
-
 .main-card-tab {
   width: 100%;
+  min-width: @main-min-width;
+  margin: 20px 0px;
   background-color: #fff;
   box-shadow: @main-box-shadow;
 }
