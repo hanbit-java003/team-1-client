@@ -5,9 +5,14 @@ body {
 }
 
 .cock-detail {
+  position: relative;
+}
+
+.cock-wrapper {
   max-width: 790px;
-  height: auto;
+  min-width: 790px;
   margin: 0 auto;
+  height: auto;
 }
 
 .cock-restaurants {
@@ -108,7 +113,7 @@ body {
   position: relative;
   margin: 10px;
   background-color: #fff;
-  letter-spacing: -1.25px;
+  letter-spacing: -1.2px;
 }
 
 .food-eaten {
@@ -119,15 +124,15 @@ body {
 }
 
 .food-detail {
-  margin: 30px;
+  margin: 24px 30px 30px 30px;
   width: 130px;
   height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  .food-menu {
-    margin: 40px 0 20px 0;
+  .food-tag {
+    margin: 30px 0 10px 0;
     color: #002395;
     text-align: left;
 
@@ -171,6 +176,26 @@ body {
   font-size: 12px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.go-top-btn {
+  position: fixed;
+  right: 200px;
+  bottom: 20px;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  background-color: #fff;
+  color: @footer-bg-color;
+  border-radius: 50px;
+  border: solid 1px #ddd;
+  outline: none;
+  z-index: 5000;
+}
+
+.go-top-btn:hover {
+  color: #fff;
+  background-color: @footer-bg-color;
 }
 
 /*@media (min-width: 300px) {

@@ -133,4 +133,49 @@ function popImg(img) {
     winImg.document.write(data);
 }
 
+/**
+ * 맨 위로 버튼
+ * */
+$('.go-top-btn').on('click', function () {
+    $('body, html').animate({
+        scrollTop: 0
+    }, 100);
+    return false;
+});
+
+/**
+ * 맨 위로 버튼 보였다 안보였다
+ * */
+function relocateGoTopButton() {
+    var scrollTop = $(window).scrollTop();
+    var footerHeight = $('footer').outerHeight();
+    var bodyHeight = $('body').height();
+    var windowHeight = $(window).height();
+
+    if (scrollTop > 300) {
+        $('.go-top-btn').fadeIn(600);
+    }
+    else {
+        $('.go-top-btn').fadeOut(600);
+    }
+
+    if (bodyHeight - footerHeight - scrollTop < windowHeight) {
+        $('.go-top-btn').css({
+            position: 'absolute',
+            bottom: -55
+        });
+    }
+    else {
+        $('.go-top-btn').css({
+            position: 'fixed',
+            bottom: 20
+        });
+    }
+}
+
+$(window).on('scroll', function () {
+    relocateGoTopButton();
+});
+relocateGoTopButton();
+
 init(restaurants);
