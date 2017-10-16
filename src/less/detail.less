@@ -1,217 +1,279 @@
 @import 'common';
 
 body {
-  background-color: #f7f7f7;
+    background-color: #f7f7f7;
 }
 
 .cock-detail {
-  position: relative;
+    position: relative;
 }
 
 .cock-wrapper {
-  max-width: 790px;
-  min-width: 790px;
-  margin: 0 auto;
-  height: auto;
-}
-
-.cock-restaurants {
-  display: inline-block;
-  width: 50%;
-  vertical-align: top;
-}
-
-#cock-restaurants-mobile {
-  width: 100%;
+    position: relative;
+    max-width: 790px;
+    min-width: 790px;
+    margin: 0 auto;
+    height: auto;
 }
 
 .content-wrapper {
-  position: relative;
-  margin: 3px 3px 10px;
-  max-width: 384px;
-  min-height: 474px;
-  border: 2px solid #fafafa;
-  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-  padding: 10px 10px 5px;
-  background-color: #fff;
+    position: relative;
+    margin: 3px 3px 10px;
+    border: 2px solid #fafafa;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    padding: 10px 10px 5px;
+    background-color: #fff;
 }
 
 .content-wrapper:hover {
-  box-shadow: 0 3px 10px rgba(34, 25, 25, 0.7);
+    box-shadow: 0 3px 10px rgba(34, 25, 25, 0.7);
 }
 
 .user-info {
-  position: relative;
-  background-color: #fff;
-}
-
-#user-img {
-  display: inline-block;
-  margin-right: 10px;
-  width: 48px;
-  height: 48px;
-  background-position: 50% 50%;
-  background-size: cover;
-  vertical-align: 50%;
-  cursor: pointer;
-}
-
-#user-name {
-  display: inline-block;
-  margin-right: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  vertical-align: 100%;
-  cursor: pointer;
-}
-
-.user-achievement {
-  position: absolute;
-  display: inline-block;
-  top: 15px;
-  right: 0;
-
-  li {
     position: relative;
-    display: inline-block;
-    margin: 0 5px;
-    width: 25px;
-    height: 25px;
-    background-position: center;
-    background-size: cover;
-    cursor: pointer;
-  }
+    background-color: #fff;
 
-  li .achievement-tooltip {
-    position: absolute;
-    min-width: 100px;
-    padding: 5px 10px;
-    top: -45px;
-    left: -50px;
-    background-color: rgba(5, 5, 5, 0.5);
-    border-radius: 6px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 11px;
-    text-align: center;
-    visibility: hidden;
-    z-index: 1000;
-  }
+    #user-img {
+        display: inline-block;
+        margin-right: 10px;
+        width: 48px;
+        height: 48px;
+        background-position: 50% 50%;
+        background-size: cover;
+        vertical-align: 50%;
+        cursor: pointer;
+    }
 
-  li:hover .achievement-tooltip {
-    visibility: visible;
-  }
+    #user-name {
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        vertical-align: 100%;
+        cursor: pointer;
+    }
+
+    .user-achievement {
+        position: absolute;
+        display: inline-block;
+        top: 15px;
+        right: 0;
+
+        li {
+            position: relative;
+            display: inline-block;
+            margin: 0 5px;
+            width: 25px;
+            height: 25px;
+            background-position: center;
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        li .achievement-tooltip {
+            position: absolute;
+            min-width: 100px;
+            padding: 5px 10px;
+            top: -45px;
+            left: -50px;
+            background-color: rgba(5, 5, 5, 0.5);
+            border-radius: 6px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        li:hover .achievement-tooltip {
+            visibility: visible;
+        }
+    }
 }
 
-#food-img {
-  display: inline-block;
-  margin-bottom: 10px;
-  width: 360px;
-  height: 284px;
-  background-position: center;
-  background-size: cover;
-  cursor: pointer;
+.food-img-wrapper {
+    display: inline-block;
+
+    #food-img {
+        display: inline-block;
+        height: auto;
+        margin-bottom: 10px;
+        background-position: center;
+        background-size: cover;
+        cursor: pointer;
+    }
 }
 
 .food-text {
-  position: relative;
-  margin: 10px;
-  background-color: #fff;
-  letter-spacing: -1.2px;
+    position: relative;
+    background-color: #fff;
+    letter-spacing: -1.2px;
 }
 
 .food-eaten {
-  width: 300px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #555;
+    width: 300px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
 }
 
-.food-detail {
-  margin: 24px 30px 30px 30px;
-  width: 130px;
-  height: 20px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  .food-tag {
-    margin: 30px 0 10px 0;
+.food-tag {
     color: #002395;
     text-align: left;
 
     li {
-      display: inline-block;
-      margin-right: 4px;
-      cursor: pointer;
+        display: inline-block;
+        margin-right: 4px;
+        cursor: pointer;
     }
-  }
+}
 
-  .food-icon {
+.food-icon {
     position: absolute;
-    bottom: -25px;
     right: 0;
+    bottom: 0;
     color: #666;
     font-size: 18px;
     list-style: none;
 
     li {
-      display: inline-block;
-      margin: 0 7px;
-      cursor: pointer;
+        display: inline-block;
+        margin: 0 7px;
+        cursor: pointer;
     }
 
     li:nth-child(2) {
-      color: #bbb;
+        color: #bbb;
     }
 
     li:nth-child(3) {
-      color: #ff4461;
+        color: #ff4461;
     }
-  }
-}
-
-.btn-more {
-  position: absolute;
-  bottom: 34px;
-  right: 160px;
-  margin-left: 10px;
-  color: #999;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .go-top-btn {
-  position: fixed;
-  right: 200px;
-  bottom: 20px;
-  width: 100px;
-  height: 40px;
-  font-size: 16px;
-  background-color: #fff;
-  color: @footer-bg-color;
-  border-radius: 50px;
-  border: solid 1px #ddd;
-  outline: none;
-  z-index: 5000;
+    position: fixed;
+    right: 200px;
+    bottom: 20px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #fff;
+    color: @footer-bg-color;
+    border-radius: 50px;
+    border: solid 1px #ddd;
+    outline: none;
+    z-index: 5000;
 }
 
 .go-top-btn:hover {
-  color: #fff;
-  background-color: @footer-bg-color;
+    color: #fff;
+    background-color: @footer-bg-color;
 }
+/* Mobile Device */
+@media all and (min-width:320px) and (max-width:1024px) {
+    #cock-restaurants-left,
+    #cock-restaurants-right {
+        display: none;
+    }
 
-/*@media (min-width: 300px) {
-  .columns {
-    -webkit-column-count: 1;
-    column-count: 1;
-  }
+    #cock-restaurants-mobile {
+        width: 100%;
+        vertical-align: top;
+    }
+
+    .content-wrapper {
+        display: inline-block;
+        max-width: 100%;
+        min-height: 274px;
+    }
+
+    .food-img-wrapper {
+        float: left;
+
+        #food-img {
+            width: 390px;
+        }
+    }
+
+    .food-text {
+        position: relative;
+        margin: 0 10px 10px 20px;
+        width: 340px;
+        height: auto;
+        float: left;
+
+        .food-detail {
+            margin: 24px 20px 10px 10px;
+            white-space: normal;
+        }
+
+        .food-tag {
+            margin: 20px 0 10px;
+        }
+    }
+
+    .food-icon {
+        margin: 30px 10px 10px;
+    }
+
+    .btn-more {
+        display: none;
+    }
 }
+/* Desktop Device */
+@media all and (min-width:1025px) {
+    #cock-restaurants-left,
+    #cock-restaurants-right {
+        display: inline-block;
+        width: 50%;
+        vertical-align: top;
+    }
 
-@media (min-width: 768px) {
-  .columns {
-    -webkit-column-count: 2;
-    column-count: 2;
-  }
-}*/
+    #cock-restaurants-mobile {
+        display: none;
+    }
+
+    .content-wrapper {
+        max-width: 384px;
+    }
+
+    .food-img-wrapper {
+        #food-img {
+            width: 360px;
+        }
+    }
+
+    .food-text {
+        margin: 10px;
+
+        .food-detail {
+            margin: 24px 30px 30px;
+            width: 130px;
+            height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .food-tag {
+            margin: 30px 0 10px;
+        }
+    }
+
+    .food-icon {
+        margin: 10px;
+    }
+
+    .btn-more {
+        position: absolute;
+        bottom: 34px;
+        right: 160px;
+        margin-left: 10px;
+        color: #999;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}

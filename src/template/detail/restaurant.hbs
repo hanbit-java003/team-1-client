@@ -10,7 +10,9 @@
             {{~/each~}}
         </ul>
     </div>
-    <img id="food-img" class="img-responsive" src='{{foodImg}}'>
+    <div class="food-img-wrapper">
+        <img id="food-img" class="img-responsive" src='{{foodImg}}'>
+    </div>
     <div class="food-text">
         {{~#each eaten~}}
             <li class="food-eaten">{{menu}}</li>
@@ -22,18 +24,18 @@
                     <li>#{{item}}</li>
                 {{~/each~}}
             </div>
-            <ul class="food-icon">
-                <li>
-                    <i class="food-like fa fa-heart-o"></i>
-                    <span class="food-like-count" style="font-size: 12px;font-weight: bold;">0</span>
-                </li>
-                <li>
-                    <i class="food-trash fa fa-trash-o"></i>
-                    <span class="food-trash-count" style="color: #666;font-size: 12px;font-weight: bold;">0</span>
-                </li>
-                <li><i class="food-report fa fa-ban"></i></li>
-            </ul>
         </div>
     </div>
+    <ul class="food-icon">
+        <li>
+            <i class="food-like fa fa-heart-o"></i>
+            <span class="food-like-count" style="font-size: 12px;font-weight: bold;">0</span>
+        </li>
+        <li>
+            <i class="food-trash fa fa-trash-o"></i>
+            <span class="food-trash-count" style="color: #666;font-size: 12px;font-weight: bold;">0</span>
+        </li>
+        <li><i class="food-report fa fa-ban"></i></li>
+    </ul>
     <a class="btn-more">더 보기</a>
 </div>
