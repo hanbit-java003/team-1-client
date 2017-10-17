@@ -44,13 +44,17 @@ function getLocation() {
 
 getLocation();
 
+var googleMaps;
 var map;
 var marker;
 var i;
+var spoon;
 var infoWindow;
 
+
 function initMainMap(position) {
-    loadGoogleMapsApi().then(function (googleMaps) {
+    loadGoogleMapsApi().then(function (_googleMaps) {
+        googleMaps = _googleMaps;
 
         infoWindow = new googleMaps.InfoWindow();
 
@@ -68,7 +72,7 @@ function initMainMap(position) {
             // 지도 생성
             map = new googleMaps.Map($('#main-map')[0], mapOptions);
             // 스푼 마커 이미지
-            var spoon = '../img/spoon_red.png';
+            spoon = '../img/spoon_red.png';
 
             // 마커 추가
             for (i = 0; i < contentsNearby.length; i++) {
@@ -117,7 +121,7 @@ function initMainMap(position) {
             };
 
             map = new googleMaps.Map($('#main-map')[0], mapOptions);
-            var spoon = '../img/spoon_blue.png';
+            spoon = '../img/spoon_blue.png';
 
             for (i = 0; i < contentsRecommend.length; i++) {
                 marker = new googleMaps.Marker({
@@ -333,8 +337,16 @@ function hoverContents() {
         cardContents.find('.card-contents-count').css('color', mainColor);
         map.panTo(myLatLng);
         // 맵상에서 인포윈도우 팝업 구현 필요
+
+        marker = new googleMaps.Marker({
+            position: new googleMaps.LatLng(myLatLng),
+            map: map,
+            icon: spoon
+        });
+
         infoWindow.setContent(iwTitle);
         infoWindow.open(map, marker);
+
     });
 
     $('.card-contents-list > li').on('mouseleave', function () {
