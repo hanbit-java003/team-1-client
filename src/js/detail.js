@@ -69,7 +69,8 @@ function setContents(restaurant) {
     }
 }
 
-$(window).resize(function() {});
+$(window).resize(function () {
+});
 
 function initContents(restaurants) {
     /* 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를
@@ -84,57 +85,71 @@ function initContents(restaurants) {
     }
 
     // 더보기 버튼
-    $('.btn-more').on('click', function() {
+    $('.btn-more').on('click', function () {
         var detail = $(this).parent().find('.food-detail');
-        $(this).toggle();
-        detail.css({
-            'width': 'auto',
-            'height': 'auto',
-            'white-space': 'normal'
-        });
+
+        if ($('.food-detail').hasClass('card-opened')) {
+            $('.food-detail').removeClass('card-opened');
+            $('.food-detail').css({
+                'width': '130',
+                'height': '20',
+                'white-space': 'nowrap',
+            });
+            $('.food-detail').addClass('card-closed');
+            $('.btn-more').addClass('card-closed');
+
+            if ($('.btn-more').hasClass('card-closed')) {
+                $('.btn-more').show();
+            }
+        }
+        if (detail.hasClass('card-closed')) {
+            detail.removeClass('card-closed');
+            detail.addClass('card-opened');
+            $(this).addClass('card-opened');
+            detail.css({
+                'width': 'auto',
+                'height': 'auto',
+                'white-space': 'normal'
+            });
+            if ($(this).hasClass('card-opened')) {
+                $(this).hide();
+            }
+        }
     });
 
-    /* 좋아요, 쓰레기 갯수 */
-    var likeCount = 0;
-    var trashCount = 0;
-
     // 이 글에 동의합니다 버튼 (좋아요)
-    $('.food-like').on('click', function() {
+    $('.food-like').on('click', function () {
         if ($(this).hasClass('fa-heart-o')) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
             $(this).css('color', '#ff4461');
-            likeCount += 1;
-            $(this).parent().find('.food-like-count').html(likeCount);
+            $(this).parent().find('.food-like-count').html();
         } else if ($(this).hasClass('fa-heart')) {
             $(this).removeClass('fa-heart').addClass('fa-heart-o');
             $(this).css('color', '#666');
-            likeCount = likeCount - 1;
-            $(this).parent().find('.food-like-count').html(likeCount);
+            $(this).parent().find('.food-like-count').html();
         }
     });
 
     // 이 글에 반대합니다 버튼 (쓰레기)
-    $('.food-trash').on('click', function() {
+    $('.food-trash').on('click', function () {
         if ($(this).hasClass('fa-trash-o')) {
             $(this).removeClass('fa-trash-o').addClass('fa-trash');
             $(this).css('color', '#ff4461');
-            trashCount += 1;
-            $(this).parent().find('.food-trash-count').html(trashCount);
+            $(this).parent().find('.food-trash-count').html();
         } else if ($(this).hasClass('fa-trash')) {
             $(this).removeClass('fa-trash').addClass('fa-trash-o');
             $(this).css('color', '#bbb');
-            trashCount -= 1;
-            $(this).parent().find('.food-trash-count').html(trashCount);
+            $(this).parent().find('.food-trash-count').html();
         }
     });
 
     // 신고 버튼
-    $('.food-report').on('click', function() {
+    $('.food-report').on('click', function () {
         location.href = './report.html';
     });
 
     // 사진 크게보기
-    $('.img-responsive').on('click', function() {
+    $('.img-responsive').on('click', function () {
         popImg(this);
     });
 }
@@ -154,7 +169,7 @@ function popImg(img) {
 }
 
 // 맨 위로 버튼
-$('.go-top-btn').on('click', function() {
+$('.go-top-btn').on('click', function () {
     $('body, html').animate({
         scrollTop: 0
     }, 100);
@@ -187,7 +202,7 @@ function relocateGoTopButton() {
     }
 }
 
-$(window).on('scroll', function() {
+$(window).on('scroll', function () {
     relocateGoTopButton();
 });
 relocateGoTopButton();

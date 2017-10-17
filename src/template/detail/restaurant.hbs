@@ -17,7 +17,7 @@
         {{~#each eaten~}}
             <li class="food-eaten">{{menu}}</li>
         {{~/each~}}
-        <div class="food-detail">
+        <div class="food-detail card-closed">
             {{{detail}}}
             <div class="food-tag">
                 {{~#each tag~}}
@@ -29,11 +29,11 @@
     <ul class="food-icon">
         <li>
             <i class="food-like fa fa-heart-o"></i>
-            <span class="food-like-count" style="font-size: 12px;font-weight: bold;">0</span>
+            <span class="food-like-count" style="font-size: 12px;font-weight: bold;">{{likeCount}}</span>
         </li>
         <li>
             <i class="food-trash fa fa-trash-o"></i>
-            <span class="food-trash-count" style="color: #666;font-size: 12px;font-weight: bold;">0</span>
+            <span class="food-trash-count" style="color: #666;font-size: 12px;font-weight: bold;">{{trashCount}}</span>
         </li>
         <li><i class="food-report fa fa-ban"></i></li>
     </ul>
