@@ -240,6 +240,7 @@ function initNearby(contentsNearby) {
     });
 
     clkFavorite();
+    clkTag();
     hoverContents();
 }
 
@@ -256,6 +257,7 @@ function initRecommend(contentsRecommend) {
     }
 
     clkFavorite();
+    clkTag();
     hoverContents();
 }
 
@@ -304,6 +306,17 @@ function signedInFavorite() {
     });
 }
 
+function clkTag() {
+    $('.card-contents-tags > li').on('click', function (event) {
+        event.stopPropagation();
+        
+        // 태그 클릭으로 검색 구현 필요함
+        alert('태그 클릭되었음');
+    })
+}
+
+var mainColor = '#f99595';
+
 // 맛집 리스트 마우스오버 이벤트
 function hoverContents() {
     $('.card-contents-list > li').on('mouseenter', function () {
@@ -316,7 +329,8 @@ function hoverContents() {
 
         var iwTitle = cardContents.find('.card-contents-title').text();
 
-        cardContents.css('color', '#FF7E5F');
+        cardContents.find('.card-contents-title').css('color', mainColor);
+        cardContents.find('.card-contents-count').css('color', mainColor);
         map.panTo(myLatLng);
         // 맵상에서 인포윈도우 팝업 구현 필요
         infoWindow.setContent(iwTitle);
@@ -324,7 +338,18 @@ function hoverContents() {
     });
 
     $('.card-contents-list > li').on('mouseleave', function () {
-        $(this).find('.card-contents').css('color', '#5e5e5e');
+        var cardContents = $(this).find('.card-contents');
+
+        cardContents.find('.card-contents-title').css('color', '#5e5e5e');
+        cardContents.find('.card-contents-count').css('color', '#5e5e5e');
+    });
+
+    $('.card-contents-tags > li').on('mouseover', function () {
+        $(this).css('color', mainColor);
+    });
+
+    $('.card-contents-tags > li').on('mouseout', function () {
+        $(this).css('color', '#5e5e5e');
     });
 }
 
