@@ -1,5 +1,6 @@
 module.exports = [{
     rid: 'mibundang',
+    name: '미분당',
     contents: [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',

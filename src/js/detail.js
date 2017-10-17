@@ -81,6 +81,8 @@ function initContents(restaurants) {
         if (params.get('rid') === restaurant.rid) {
             setDesktop(restaurant);
             setMobile(restaurant);
+
+            setLogo(restaurant);
         }
     }
 
@@ -93,7 +95,7 @@ function initContents(restaurants) {
             $('.food-detail').css({
                 'width': '130',
                 'height': '20',
-                'white-space': 'nowrap',
+                'white-space': 'nowrap'
             });
             $('.food-detail').addClass('card-closed');
             $('.btn-more').addClass('card-closed');
@@ -102,6 +104,7 @@ function initContents(restaurants) {
                 $('.btn-more').show();
             }
         }
+
         if (detail.hasClass('card-closed')) {
             detail.removeClass('card-closed');
             detail.addClass('card-opened');
@@ -200,6 +203,17 @@ function relocateGoTopButton() {
             bottom: 20
         });
     }
+}
+
+function setLogo(restaurant) {
+    $('.header-logo').text(restaurant.name);
+    $('.header-logo').css({
+        'background-image': 'none',
+        'margin': '20px 10px 10px 20px',
+        'width': 'auto',
+        'height': 'auto'
+    });
+    $('.back-button').css('display', 'inline-block');
 }
 
 $(window).on('scroll', function () {
