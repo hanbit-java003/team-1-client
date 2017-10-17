@@ -25,14 +25,15 @@ loadGoogleMapsApi.version = '3';
         article_id: 0,
         comment: 'comment',
         status: '',
+        uid: '3HgHeOlylIZR',
         imgs: [
             {
                 imgId: 0,
-                path: '../img/insert/duch.jpg'
+                path: '../img/insert/duch_0.jpg'
             },
             {
                 imgId: 1,
-                path: '../img/insert/jeju.jpg'
+                path: '../img/insert/jeju_1.jpg'
             }
         ]
     }],
@@ -42,21 +43,24 @@ loadGoogleMapsApi.version = '3';
             imgId: 0,
             x: 10,
             y: 10,
-            menu: 'img0_menu0'
+            menu: 'img0_menu0',
+            price: 1000
         },
         {
             id: 0,
             imgId: 1,
             x: 10,
             y: 10,
-            menu: 'img1_menu0'
+            menu: 'img1_menu0',
+            price: 2000
         },
         {
             id: 1,
             imgId: 1,
             x: 40,
             y: 40,
-            menu: 'img1_menu1'
+            menu: 'img1_menu1',
+            price: 3000
         }
     ],
     tags: [
@@ -68,15 +72,13 @@ loadGoogleMapsApi.version = '3';
             tagId: 1,
             tag: 'tag2'
         }
-    ],
-    uid: '3HgHeOlylIZR'
+    ]
 };*/
 
 var model = {
     articles: [{imgs: []}],
     menus: [],
-    tags: [],
-    uid: ''
+    tags: []
 }
 
 // 현재위치
@@ -148,7 +150,7 @@ else {
 }
 
 function init() {
-    model.uid = '3HgHeOlylIZR'; // 임시 TEST용
+    model.articles[0].uid = '3HgHeOlylIZR'; // 임시 TEST용
     getLocation();
 
     if (model.rid) {
@@ -190,10 +192,17 @@ function init() {
                     if (t.imgId === t2.imgId) {
                         t2.x += 'px';
                         t2.y += 'px';
+                        t2.menuNum = menuNum;
+                        menuNum++;
+
                         var template = require('../template/insert/menu-tag.hbs');
                         var html = template(t2);
                         var ul = $('li.cc-preview-img:last-child .background-preview');
                         $(ul).append(html);
+
+                        var template = require('../template/insert/menu-input.hbs');
+                        var html = template(t2);
+                        $('.cc-menu').append(html);
 
                         menuEvent(ul);
                     }
@@ -407,7 +416,7 @@ $('#cc-btn-background').on('change', function() {
 
 // 이미지 폭 = 380px
 var IMG_WIDTH = 380;
-
+var menuNum = 0;
 function setImage(image, save) {
     var width = image.width;
     var height = image.height;
@@ -451,14 +460,21 @@ function setImage(image, save) {
 
     $('.cc-preview > li:last-child .background-preview').on('dblclick', function () {
         var menu = {
+            menuNum: menuNum,
             x: 0 + 'px',
             y: 0 + 'px',
-            menu: ''
+            menu: '',
+            price: 0
         };
+
+        menuNum++;
 
         var template = require('../template/insert/menu-tag.hbs');
         var html = template(menu);
         $(this).append(html);
+        var template = require('../template/insert/menu-input.hbs');
+        var html = template(menu);
+        $('.cc-menu').append(html);
 
         menuEvent(this);
     });
@@ -492,8 +508,8 @@ function menuEvent(preview) {
         if (x > lX - 100) {
             x = lX - 100;
         }
-        if (y > lY - 21) {
-            y = lY - 21;
+        if (y > lY - 42) {
+            y = lY - 42;
         }
         $(drag).css({
             'top': y + 'px',
@@ -502,7 +518,18 @@ function menuEvent(preview) {
     });
 
     $(drag).find('.menu-btn-delete').on('click', function () {
-        $(this).parent('.menu-tag-cage').parent('li').remove();
+        var num = $(drag).closest('li').attr('menu-num');
+        $('li[menu-num=' + num +']').remove();
+    });
+
+    $(drag).find('.menu-tag-cage > input[type=text]').on('keydown', function(e){
+        var value = $(this).val();
+        $(this).closest('ul').append('<div id="virtual_dom">' + value + '</div>');
+
+        var inputWidth =  $('#virtual_dom').width() + 10; // 글자 하나의 대략적인 크기
+
+        $(this).closest('li').css('width', inputWidth);
+        $('#virtual_dom').remove();
     });
 }
 
@@ -548,7 +575,8 @@ $('.cc-btn-save').on('click', function () {
                 id: $(this).index(),
                 x: parseInt($(this).css('left')),
                 y: parseInt($(this).css('top')),
-                menu: $(this).find('input').val()
+                menu: $(this).find('.menuInputText').val(),
+                price: parseInt($(this).find('.menuInputNumber').val())
             };
             model.menus.push(menu);
         });
@@ -558,7 +586,9 @@ $('.cc-btn-save').on('click', function () {
     delete model.tags;
     model.tags = [];
     var t = $('#cc-hashtag-textarea').val();
-    model.tags = _.split(t, ',');
+    _.split(t, ',').forEach(function (value) {
+        model.tags.push({tag: value});
+    });
 
     var formData = new FormData();
     formData.append('model', JSON.stringify(model));
@@ -568,6 +598,21 @@ $('.cc-btn-save').on('click', function () {
     });
 
     console.log(model);
-    console.log(images);
+
+    $.ajax({
+        url: '/api/cock/insert/save',
+        method: 'POST',
+        contentType: false,
+        processData: false,
+        data: formData,
+        success: function(result) {
+            alert('정상적으로 저장되었습니다.');
+
+            location.href = 'insert.html?rid=' + result.rid + '&articleId=' + result.articleId;
+        },
+        error: function() {
+            alert('저장 중 오류가 발생하였습니다.');
+        }
+    });
 });
 
