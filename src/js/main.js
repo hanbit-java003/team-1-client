@@ -51,7 +51,6 @@ var i;
 var spoon;
 var infoWindow;
 
-
 function initMainMap(position) {
     loadGoogleMapsApi().then(function (_googleMaps) {
         googleMaps = _googleMaps;
@@ -335,8 +334,15 @@ function hoverContents() {
 
         cardContents.find('.card-contents-title').css('color', mainColor);
         cardContents.find('.card-contents-count').css('color', mainColor);
+
         map.panTo(myLatLng);
-        // 맵상에서 인포윈도우 팝업 구현 필요
+
+        if ($(this).parents('#nearby-rest-contents').hasClass('active')) {
+            spoon = '../img/spoon_blue.png';
+        }
+        else if ($(this).parents('#recommend-rest-contents').hasClass('active')) {
+            spoon = '../img/spoon_red.png';
+        }
 
         marker = new googleMaps.Marker({
             position: new googleMaps.LatLng(myLatLng),
@@ -354,6 +360,8 @@ function hoverContents() {
 
         cardContents.find('.card-contents-title').css('color', '#5e5e5e');
         cardContents.find('.card-contents-count').css('color', '#5e5e5e');
+
+        marker.setMap(null);
     });
 
     $('.card-contents-tags > li').on('mouseover', function () {
