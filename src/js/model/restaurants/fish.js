@@ -1,5 +1,6 @@
 module.exports = [{
     rid: 'fish',
+    name: '털보고된이 생선구이 신촌점',
     contents: [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '해파리',

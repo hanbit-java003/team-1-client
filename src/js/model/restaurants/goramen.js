@@ -1,9 +1,12 @@
 module.exports = [{
     rid: 'goramen',
+    name: '고라멘',
     contents: [{
         number: 1,
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',
+        likeCount: 0,
+        trashCount: 0,
         achievement: [{
             emblem: '../img/sc-img/achievement/noodle.svg',
             achieve: '면요리 100회 리뷰'
@@ -51,6 +54,8 @@ module.exports = [{
         number: 2,
         userImg: '../img/sc-img/members/Koala.jpg',
         userName: '알라코',
+        likeCount: 1,
+        trashCount: 2,
         achievement: [{
             emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
@@ -101,6 +106,8 @@ module.exports = [{
         number: 3,
         userImg: '../img/sc-img/members/Penguins.jpg',
         userName: '펭귄맨',
+        likeCount: 110,
+        trashCount: 11,
         achievement: [{
             emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
@@ -127,6 +134,8 @@ module.exports = [{
         number: 4,
         userImg: '../img/sc-img/members/Penguins.jpg',
         userName: '펭귄맨',
+        likeCount: 333,
+        trashCount: 222,
         achievement: [{
             emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
@@ -154,6 +163,8 @@ module.exports = [{
         number: 5,
         userImg: '../img/sc-img/members/Penguins.jpg',
         userName: '펭귄맨',
+        likeCount: 11,
+        trashCount: 11,
         achievement: [{
             emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
@@ -180,6 +191,8 @@ module.exports = [{
         number: 6,
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',
+        likeCount: 2,
+        trashCount: 0,
         achievement: [{
             emblem: '../img/sc-img/achievement/noodle.svg',
             achieve: '면요리 100회 리뷰'
