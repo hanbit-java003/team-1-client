@@ -51,7 +51,7 @@ function ajax(options) {
 /*
  *  로그인 레이아웃 나오게끔.
  */
-
+// 로그인 할 시 오른쪽 상단 이미지 보이게 하기 위해서.
 $.ajax({
     url: '/api/member/get',
     success: function (result) {
@@ -62,6 +62,7 @@ $.ajax({
 });
 
 
+// 오른쪽 상단 버튼
 $('.header-bt').on('click', function () {
     $.ajax({
         url: '/api/member/get',
@@ -87,12 +88,12 @@ function openMemberLayer(memberInfo) {
         complete: function () {
             if (!memberInfo.signedIn) {
                 // 엔터키 누르면 실행 되게끔.
-                $('#cock-login-email').keydown(function (key) {
+                $('#cock-login-email').keyup(function (key) {
                     if(key.keyCode == 13){// 키가 13이면 실행
                         $('#cock-login-btn').click();
                     }
                 });
-                $('#cock-login-pw').keydown(function (key) {
+                $('#cock-login-pw').keyup(function (key) {
                     if(key.keyCode == 13){// 키가 13이면 실행
                         $('#cock-login-btn').click();
                     }
@@ -107,6 +108,8 @@ function openMemberLayer(memberInfo) {
                 $('#cock-member-join-btn').on('click', function () {
                     location.href='../join.html';
                 });
+
+                $('#cock-login-email').focus();
             }
             else {
                 $('#cock-logout').on('click', function () {
@@ -201,7 +204,7 @@ function closeMemberLayer(callback) {
     }, {
         duration: 500,
         complete: function () {
-            $('.ht-member-layer').remove(); // 위 상단 메뉴 클릭시 나오는 메뉴 사라짐
+            $('.cock-member-layer').remove(); // 위 상단 메뉴 클릭시 나오는 메뉴 사라짐
             $('.overlay-layer').remove();  // 엘리먼트를 없애버린다.속성
             $('body').css('overflow', 'auto');  // 히든에서 클릭으로 속성을 바꿈.
 
