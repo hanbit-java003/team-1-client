@@ -44,12 +44,18 @@ function getLocation() {
 
 getLocation();
 
-function initMainMap(position) {
-    loadGoogleMapsApi().then(function (googleMaps) {
+var googleMaps;
+var map;
+var marker;
+var i;
+var spoon;
+var infoWindow;
 
-        var infowindow = new googleMaps.InfoWindow();
-        var marker;
-        var i;
+function initMainMap(position) {
+    loadGoogleMapsApi().then(function (_googleMaps) {
+        googleMaps = _googleMaps;
+
+        infoWindow = new googleMaps.InfoWindow();
 
         if ($('#nearby-rest').hasClass('active')) {
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
@@ -63,9 +69,9 @@ function initMainMap(position) {
             };
 
             // 지도 생성
-            var map = new googleMaps.Map($('#main-map')[0], mapOptions);
+            map = new googleMaps.Map($('#main-map')[0], mapOptions);
             // 스푼 마커 이미지
-            var spoon = '../img/spoon_red.png';
+            spoon = '../img/spoon_red.png';
 
             // 마커 추가
             for (i = 0; i < contentsNearby.length; i++) {
@@ -78,8 +84,8 @@ function initMainMap(position) {
                 // 마커 클릭시 타이틀 팝업
                 googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent(contentsNearby[i].title);
-                        infowindow.open(map, marker);
+                        infoWindow.setContent(contentsNearby[i].title);
+                        infoWindow.open(map, marker);
                     }
                 })(marker, i));
             }
@@ -113,8 +119,8 @@ function initMainMap(position) {
                 center: new googleMaps.LatLng(contentsRecommend[0].lat, contentsRecommend[0].lng)
             };
 
-            var map = new googleMaps.Map($('#main-map')[0], mapOptions);
-            var spoon = '../img/spoon_blue.png';
+            map = new googleMaps.Map($('#main-map')[0], mapOptions);
+            spoon = '../img/spoon_blue.png';
 
             for (i = 0; i < contentsRecommend.length; i++) {
                 marker = new googleMaps.Marker({
@@ -125,8 +131,8 @@ function initMainMap(position) {
 
                 googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent(contentsRecommend[i].title);
-                        infowindow.open(map, marker);
+                        infoWindow.setContent(contentsRecommend[i].title);
+                        infoWindow.open(map, marker);
                     }
                 })(marker, i));
             }
@@ -237,6 +243,7 @@ function initNearby(contentsNearby) {
     });
 
     clkFavorite();
+    clkTag();
     hoverContents();
 }
 
@@ -253,12 +260,13 @@ function initRecommend(contentsRecommend) {
     }
 
     clkFavorite();
+    clkTag();
     hoverContents();
 }
 
 // 즐겨찾기
 function clkFavorite() {
-    join.ajax({
+    common.ajax({
         url: '/api/member/get',
         success: function (result) {
             if (!result.signedIn) {
@@ -290,34 +298,78 @@ function signedInFavorite() {
             $(this).removeClass('fa-star-o');
             $(this).addClass('fa-star');
             alert('즐겨찾기에 추가되었습니다.');
-            // 즐겨찾기 저장 구현 필요함
+            // 서버에서 즐겨찾기 저장 구현 필요함
         }
         else {
             $(this).removeClass('fa-star');
             $(this).addClass('fa-star-o');
             alert('즐겨찾기에서 삭제되었습니다.');
-            // 즐겨찾기 삭제 구현 필요함
+            // 서버에서 즐겨찾기 삭제 구현 필요함
         }
     });
 }
 
+function clkTag() {
+    $('.card-contents-tags > li').on('click', function (event) {
+        event.stopPropagation();
+        
+        // 태그 클릭으로 검색 구현 필요함
+        alert('태그 클릭되었음');
+    })
+}
+
+var mainColor = '#f99595';
+
 // 맛집 리스트 마우스오버 이벤트
 function hoverContents() {
     $('.card-contents-list > li').on('mouseenter', function () {
-        $(this).find('.card-contents').css('color', '#FF7E5F');
+        var cardContents = $(this).find('.card-contents');
 
         var location = $(this).find('.locationContainer');
-        var lat = location.attr('lat');
-        var lng = location.attr('lng');
-
+        var lat = parseFloat(location.attr('lat'));
+        var lng = parseFloat(location.attr('lng'));
         var myLatLng = {lat: lat, lng: lng};
 
-        // console.log(myLatLng);
-        // 맵상에서 인포윈도우 팝업 구현 필요
+        var iwTitle = cardContents.find('.card-contents-title').text();
+
+        cardContents.find('.card-contents-title').css('color', mainColor);
+        cardContents.find('.card-contents-count').css('color', mainColor);
+
+        map.panTo(myLatLng);
+
+        if ($(this).parents('#nearby-rest-contents').hasClass('active')) {
+            spoon = '../img/spoon_blue.png';
+        }
+        else if ($(this).parents('#recommend-rest-contents').hasClass('active')) {
+            spoon = '../img/spoon_red.png';
+        }
+
+        marker = new googleMaps.Marker({
+            position: new googleMaps.LatLng(myLatLng),
+            map: map,
+            icon: spoon
+        });
+
+        infoWindow.setContent(iwTitle);
+        infoWindow.open(map, marker);
+
     });
 
     $('.card-contents-list > li').on('mouseleave', function () {
-        $(this).find('.card-contents').css('color', '#5e5e5e');
+        var cardContents = $(this).find('.card-contents');
+
+        cardContents.find('.card-contents-title').css('color', '#5e5e5e');
+        cardContents.find('.card-contents-count').css('color', '#5e5e5e');
+
+        marker.setMap(null);
+    });
+
+    $('.card-contents-tags > li').on('mouseover', function () {
+        $(this).css('color', mainColor);
+    });
+
+    $('.card-contents-tags > li').on('mouseout', function () {
+        $(this).css('color', '#5e5e5e');
     });
 }
 

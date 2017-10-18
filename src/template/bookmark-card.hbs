@@ -8,9 +8,14 @@
                     <i class="bookmark-btn fa fa-star"></i>
                 </button>
             </div>
-            <div class="commentary">
-                {{comment}}
+            <div class="commentary-container">
+                <ul class="commentary">
+                    {{#each commnet}}
+                    <li>#{{hashtag}}</li>
+                    {{/each}}
+                </ul>
             </div>
         </div>
     </div>
+    <div class="location-info" lat="{{lat}}" lng="{{lng}}"></div>
 </li>

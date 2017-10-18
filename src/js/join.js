@@ -10,6 +10,14 @@ window.verifyCallback = function() {
     vall = true;
 };
 
+/*window.onloadCallback = function() {
+    grecaptcha.render('cock-prevent', {
+        'sitekey' : '6Lc5fzIUAAAAAEehrbbislWASM_D5je_Q-LIudbG',
+        'theme' : 'light',
+        'callback' :verifyCallback
+    });
+};*/
+
 
 
 // 인증 연습
@@ -36,21 +44,6 @@ window.verifyCallback = function() {
 
 });*/
 
-function ajax(options) {
-
-
-    // 나머지 옵션은 그대로들은 똑같이 들어가고,
-    // 에러는 추가해서 들어가게끔
-    if (!options.error) {
-        options.error = function(jqXHR) {
-
-            alert(jqXHR.responseJSON.message);
-        };
-    }
-
-    $.ajax(options);
-}
-
 
 
 $('.cock-join-btn-cancel').on('click', function () {
@@ -61,6 +54,9 @@ $('.cock-join-btn-save').on('click', function () {
     cockJoin();
 });
 
+
+
+
 function cockJoin() {
     // 검증  벨리데이션
     var email = $('#cock-join-email').val().trim();
@@ -68,14 +64,27 @@ function cockJoin() {
     var pw = $('#cock-join-pw').val().trim();
     var pwc = $('#cock-join-pwc').val().trim();
     var agree = $('.cock-join-check-input').prop('checked');
+    var emailRe=/^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    var nickRe = /^[ㄱ-ㅎ가-힣a-zA-Z0-9/\/*]{2,6}$/;
+    var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
 
     if(!email) {
         alert('이메일을 입력하세요.');
         $('#cock-join-email').focus();
         return;
     }
+    else if(!emailRe.test(email)) {
+        alert('이메일 형식이 맞지 않습니다.');
+        $('#cock-join-email').focus();
+        return;
+    }
     else if(!nick){
         alert('별명을 입력하세요.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+    else if(!nickRe.test(nick)){
+        alert('별명은 한글,영어,숫자 상관없이 2~6자 사이입니다.');
         $('#cock-join-nick').focus();
         return;
     }
@@ -92,6 +101,11 @@ function cockJoin() {
     else if(pw !== pwc) {
         alert('새 비밀번호 확인이 다릅니다.');
         $('#cock-join-pwc').focus();
+        return;
+    } // 비밀번호 영문 대소문자 6~20 / 최소 1개의 숫자 혹은 특수 문자 포함.
+    else if(!pwRe.test(pwc)) {
+        alert('비밀번호는 6~20자 영문 대 소문자, 최소 1개의 숫자,특수문자를 사용하세요.');
+        $('#cock-join-pw').focus();
         return;
     }
     else if(vall !== true) {
@@ -122,6 +136,3 @@ function cockJoin() {
     });
 }
 
-module.exports = {
-    ajax: ajax
-};
