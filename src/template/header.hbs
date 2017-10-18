@@ -1,6 +1,6 @@
 <header>
     <div class="header-wrapper">
-        <div class="header-btn-member navicon"><i class="fa fa-navicon"></i></div>
+        <!--<div class="header-btn-member navicon"><i class="fa fa-navicon"></i></div>-->
         <div class="header-logo-wrapper">
             <div class="back-button">
                 <i class="fa fa-chevron-left"></i>
@@ -16,9 +16,21 @@
                 <input class="search-input" type="search" placeholder="검색창입니다.">
                 <span class="search-toggle header-close-icon">X</span>
             </div>
-            <button class="header-bt">
-                <i class="fa fa-user"></i>
-            </button>
+            {{#if signedIn}}
+                    {{# if avatar}}
+                        <button class="header-bt" style="background-image: url({{avatar}})">
+                        </button>
+                    {{else}}
+                        <button class="header-bt">
+                            <i class="fa fa-user"></i>
+                        </button>
+                    {{/if}}
+            {{else}}
+                    <button class="header-bt" >
+                        <i class="fa fa-user"></i>
+                    </button>
+            {{/if}}
+
         </div>
     </div>
 </header>

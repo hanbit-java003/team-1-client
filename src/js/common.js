@@ -6,9 +6,6 @@ $('.header-logo').on('click', function () {
     location.href = './';
 });
 
-$('.header-bt').on('click', function () {
-    location.href = './join.html';
-});
 
 // 검색 버튼 토글
 function searchBarToggle() {
@@ -39,7 +36,7 @@ function ajax(options) {
             var errorCode = jqXHR.responseJSON.errorCode;
 
             if (errorCode === 403) {
-                $('.header-btn-member').click();
+                $('.header-bt').click();
             }
 
             alert(jqXHR.responseJSON.message);
@@ -49,11 +46,23 @@ function ajax(options) {
     $.ajax(options);
 }
 
+
+
 /*
  *  로그인 레이아웃 나오게끔.
  */
 
-$('.header-btn-member').on('click', function () {
+$.ajax({
+    url: '/api/member/get',
+    success: function (result) {
+        if(result.signedIn){
+        templateHeader(result);
+        }
+    }
+});
+
+
+$('.header-bt').on('click', function () {
     $.ajax({
         url: '/api/member/get',
         success: function (result) {
@@ -61,42 +70,85 @@ $('.header-btn-member').on('click', function () {
         }
     });
 
-    function openMemberLayer(memberInfo) {
-        $('body').append('<div class="overlay-layer dark-layer"></div>');
-        $('body').css('overflow', 'hidden');
-        var memberLayerTemplate = require('../template/member-layer.hbs');
-        var memberLayer = memberLayerTemplate(memberInfo);
-
-        $('body').append(memberLayer);
-
-        $('.cock-member-layer').animate({
-            left: '0px' // 몇으로 바꿀건지.
-        }, {
-            duration: 500,
-            complete: function () {
-                if (!memberInfo.signedIn) {
-                    $('#cock-login-btn').on('click', function () {
-                        signIn();
-                    });
-                }
-                else {
-                    $('#cock-logout').on('click', function () {
-                        signOut();
-                    });
-                    $('#cock-setting').on('click', function () {
-                        location.href = '../setting.html';
-                    });
-                }
-            }
-        });
-
-        $('.overlay-layer').on('click', function () {
-            closeMemberLayer();
-        });
-
-    }
 });
 
+function openMemberLayer(memberInfo) {
+    $('body').append('<div class="overlay-layer dark-layer"></div>');
+    $('body').css('overflow', 'hidden');
+    var memberLayerTemplate = require('../template/member-layer.hbs');
+    var memberLayer = memberLayerTemplate(memberInfo);
+
+    $('body').append(memberLayer);
+
+    $('.cock-member-layer').animate({
+        right: '0px' // 몇으로 바꿀건지.
+    }, {
+        duration: 500,
+        complete: function () {
+            if (!memberInfo.signedIn) {
+                // 엔터키 누르면 실행 되게끔.
+                $('#cock-login-email').keydown(function (key) {
+                    if(key.keyCode == 13){// 키가 13이면 실행
+                        $('#cock-login-btn').click();
+                    }
+                });
+                $('#cock-login-pw').keydown(function (key) {
+                    if(key.keyCode == 13){// 키가 13이면 실행
+                        $('#cock-login-btn').click();
+                    }
+                });
+
+
+                $('#cock-login-btn').on('click', function () {
+                    signIn();
+                });
+
+
+                $('#cock-member-join-btn').on('click', function () {
+                    location.href='../join.html';
+                });
+            }
+            else {
+                $('#cock-logout').on('click', function () {
+                    signOut();
+                });
+                $('#cock-setting').on('click', function () {
+                    location.href = '../setting.html';
+                });
+            }
+        }
+    });
+
+    $('.overlay-layer').on('click', function () {
+        closeMemberLayer();
+    });
+
+}
+
+
+// 헤더부분 오른쪽 상단 아이콘 이미지 로그인 이후.
+function templateHeader(result) {
+
+    var template = require('../template/header.hbs');
+
+    var html = template(result);
+
+    $('header').replaceWith(html);
+
+    $('.header-bt').on('click', function () {
+        openMemberLayer(result);
+    });
+
+    $('.header-logo').on('click', function () {
+        location.href = './';
+    });
+
+    searchBarToggle();
+
+}
+
+
+//로그아웃
 function signOut() {
     $.ajax({
         url: '/api/member/signout',
@@ -106,6 +158,8 @@ function signOut() {
     });
 }
 
+
+//로그인
 function signIn() {
     var email = $('#cock-login-email').val().trim();
     var pw = $('#cock-login-pw').val().trim();
@@ -113,6 +167,7 @@ function signIn() {
 
     if (!email) {
         alert('이메일을 입력하세요.');
+
         $('#cock-login-email').focus();
         return;
     }
@@ -121,6 +176,7 @@ function signIn() {
         $('#cock-login-pw').focus();
         return;
     }
+
 
     ajax({
         url: '/api/member/signin',
@@ -137,9 +193,11 @@ function signIn() {
     });
 }
 
+
+// 닫아버려
 function closeMemberLayer(callback) {
     $('.cock-member-layer').animate({
-        left: '-333px'
+        right: '-333px'
     }, {
         duration: 500,
         complete: function () {

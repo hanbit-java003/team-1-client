@@ -285,7 +285,7 @@ function signedOutFavorite() {
         event.stopPropagation();
 
         alert('즐겨찾기 서비스 이용을 위해 로그인을 해주세요.');
-        $('.header-btn-member').trigger('click');
+        $('.header-bt').trigger('click');
     });
 }
 
