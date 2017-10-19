@@ -101,7 +101,7 @@ function openMemberLayer(memberInfo) {
 
 
                 $('#cock-login-btn').on('click', function () {
-                    signIn();
+                    signIn(memberInfo);
                 });
 
 
@@ -166,7 +166,7 @@ function signOut() {
 
 
 //로그인
-function signIn() {
+function signIn(memberInfo) {
     var email = $('#cock-login-email').val().trim();
     var pw = $('#cock-login-pw').val().trim();
     var remember = $('#cock-login-remember').prop('checked');
@@ -193,7 +193,7 @@ function signIn() {
             remember: remember
         },
         success: function (result) {
-            alert(result.email + '님 반갑습니다.');
+            alert(result.nick + '님 반갑습니다.');
             location.href = './';
         }
     });
