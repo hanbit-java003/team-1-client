@@ -12,7 +12,7 @@
   padding: 0px 10px;
 }
 
-@main-min-width: 450px;
+@main-min-width: 500px;
 @main-box-shadow: 1px 1px 10px rgba(0,0,0,0.3); // 카드 그림자
 
 #main-map {
@@ -56,7 +56,6 @@
   color: #3c3c3c;
   font-family: 'Hanna', serif;
   font-size: 30px;
-  font-weight: bold;
   vertical-align: top;
   line-height: 30px;
   opacity: 0.9;
@@ -281,25 +280,23 @@
 }
 
 .card-contents-tags {
-  width: 300px;
-  padding: 10px 15px;
+  min-width: 203px;
+  max-width: 692px;
+  padding: 5px 15px;
   font-size: 13px;
-  white-space: nowrap;
+  text-align: left;
+  // white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  // text-overflow: ellipsis;
 
   & > li {
     display: inline-block;
-    padding: 0px 5px;
-
-    &:first-child {
-      padding-left: 0px;
-    }
+    padding-right: 10px;
   }
 }
 
 .card-update-date {
-  padding: 10px 15px;
+  padding: 5px 15px;
   font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
