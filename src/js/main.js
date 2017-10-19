@@ -71,14 +71,14 @@ function initMainMap(position) {
             // 지도 생성
             map = new googleMaps.Map($('#main-map')[0], mapOptions);
             // 스푼 마커 이미지
-            spoon = '../img/spoon_red.png';
+            // spoon = '../img/spoon_red.png';
 
             // 마커 추가
             for (i = 0; i < contentsNearby.length; i++) {
                 marker = new googleMaps.Marker({
                     position: new googleMaps.LatLng(contentsNearby[i].lat, contentsNearby[i].lng),
                     map: map,
-                    icon: spoon
+                    icon: '../img/insert/red-dot.png'
                 });
 
                 // 마커 클릭시 타이틀 팝업
@@ -120,13 +120,13 @@ function initMainMap(position) {
             };
 
             map = new googleMaps.Map($('#main-map')[0], mapOptions);
-            spoon = '../img/spoon_blue.png';
+            // spoon = '../img/spoon_blue.png';
 
             for (i = 0; i < contentsRecommend.length; i++) {
                 marker = new googleMaps.Marker({
                     position: new googleMaps.LatLng(contentsRecommend[i].lat, contentsRecommend[i].lng),
                     map: map,
-                    icon: spoon
+                    icon: '../img/insert/blue-dot.png'
                 });
 
                 googleMaps.event.addListener(marker, 'click', (function (marker, i) {
@@ -314,7 +314,7 @@ function clkTag() {
         event.stopPropagation();
         
         // 태그 클릭으로 검색 구현 필요함
-        alert('태그 클릭되었음');
+        alert('태그 클릭되었음'); // 임시
     })
 }
 
@@ -338,10 +338,10 @@ function hoverContents() {
         map.panTo(myLatLng);
 
         if ($(this).parents('#nearby-rest-contents').hasClass('active')) {
-            spoon = '../img/spoon_blue.png';
+            spoon = '../img/insert/blue-dot.png'
         }
         else if ($(this).parents('#recommend-rest-contents').hasClass('active')) {
-            spoon = '../img/spoon_red.png';
+            spoon = '../img/insert/red-dot.png'
         }
 
         marker = new googleMaps.Marker({
