@@ -3,9 +3,14 @@
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
+html {
+  height: 100%;
+}
+
 body {
   position: relative;
   color: @font-color;
+  padding-top: @header-height + 20px;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -47,12 +52,16 @@ input::-webkit-input-placeholder {
 @header-margin-bottom: 40px;
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: @header-height;
   margin-bottom: @header-margin-bottom;
   color: #888;
   background-color: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .header-wrapper {

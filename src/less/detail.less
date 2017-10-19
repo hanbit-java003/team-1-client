@@ -172,6 +172,14 @@ body {
   background-color: @footer-bg-color;
 }
 
+.rest-submenu {
+  display: none;
+  position: absolute;
+  top: 100% + 20px;
+  right: 20px;
+  height: auto;
+}
+
 .rest-submenu:hover {
   box-shadow: 0 3px 10px rgba(34, 25, 25, 0.7);
 }
@@ -242,11 +250,7 @@ body {
   }
 
   .rest-submenu {
-    position: fixed;
-    top: 100px;
-    right: 0;
     width: 170px;
-    height: auto;
     background-color: rgba(0, 0, 0, 0.3);
     color: #fff;
     text-align: left;
@@ -327,11 +331,7 @@ body {
   }
 
   .rest-submenu {
-    position: fixed;
-    top: 122px;
-    right: 30px;
     width: 340px;
-    height: auto;
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     text-align: left;

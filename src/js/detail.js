@@ -71,7 +71,9 @@ function setContents(restaurant) {
     }
 }
 
+// 윈도우 크기가 바뀔때
 $(window).resize(function () {
+    attachRestInfoEvent();
 });
 
 function initContents(restaurants) {
@@ -212,41 +214,6 @@ function relocateGoTopButton() {
     }
 }
 
-// 팝업 위치 고정
-function relocateRestInfo() {
-    var scrollTop = $(window).scrollTop();
-    var footerHeight = $('footer').outerHeight();
-    var bodyHeight = $('body').height();
-    var windowHeight = $(window).height();
-
-    if (bodyHeight - footerHeight - scrollTop < windowHeight && desktopDevice.matches) {
-        $('.rest-submenu').css({
-            position: 'absolute',
-            top: 1220
-        });
-    }
-    else if (bodyHeight - footerHeight - scrollTop + $('.rest-submenu').height() < windowHeight && mobileDevice.matches) {
-        $('.rest-submenu').css({
-            position: 'absolute',
-            top: 2180
-        })
-    }
-    else {
-        if (desktopDevice.matches) {
-            $('.rest-submenu').css({
-                position: 'fixed',
-                top: 122
-            });
-        }
-        else {
-            $('.rest-submenu').css({
-                position: 'fixed',
-                top: 100
-            });
-        }
-    }
-}
-
 // 상세페이지 로고 -> 맛집 이름으로 변경
 function setLogo(restaurant) {
     $('.header-logo').css('display', 'none');
@@ -269,27 +236,41 @@ function initRestInfo(restaurant) {
     var html = template(restaurant);
 
     $('.rest-submenu').html(html);
-    $('.rest-submenu').hide();
 
     attachRestInfoEvent();
-    relocateRestInfo();
 }
 
-// 팝업 이벤트
+// 팝업창에 마우스 또는 터치 이벤트
 function attachRestInfoEvent() {
-    $('.header-title').on('click', function () {
-        $(this).parents().find('.rest-submenu').toggle();
-    });
+    if (desktopDevice.matches) {
+        $('.header-title').on('mouseover', function () {
+            $(this).parents().find('.rest-submenu').show(300);
+        });
+
+        $('.header-title').on('mouseout', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+
+        $('body').on('mousewheel', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+    }
+    else {
+        $('.header-title').on('touchstart', function () {
+            $(this).parents().find('.rest-submenu').show(300);
+        });
+
+        $('body').on('touchmove', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+    }
 }
 
-/* 창 스크롤 이벤트
-*  위로 버튼과 식당정보 팝업 위치 조정 
-**/
+// 윈도우 스크롤 할때
 $(window).on('scroll', function () {
-    relocateRestInfo();
     relocateGoTopButton();
 });
-relocateGoTopButton();
 
-// 컨텐츠 초기화
+// 페이지 초기화
 initContents(restaurants);
+relocateGoTopButton();
