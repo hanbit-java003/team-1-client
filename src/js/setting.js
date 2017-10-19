@@ -15,7 +15,6 @@ common.ajax({
     url:'/api/member/get',
     success: function (result) {
         if (!result.signedIn) {
-            alert('로그인이 필요한 페이지입니다.');
             location.href= '/'; // 기본홈으로 돌려보냄.
         }
         getMemberDetail();
