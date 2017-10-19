@@ -3,7 +3,9 @@ require('../less/member-layer.less');
 
 
 $('.header-logo').on('click', function () {
-    location.href = './';
+    if (true) {
+        location.href = '/';
+    }
 });
 
 
@@ -47,7 +49,6 @@ function ajax(options) {
 }
 
 
-
 /*
  *  로그인 레이아웃 나오게끔.
  */
@@ -55,8 +56,8 @@ function ajax(options) {
 $.ajax({
     url: '/api/member/get',
     success: function (result) {
-        if(result.signedIn){
-        templateHeader(result);
+        if (result.signedIn) {
+            templateHeader(result);
         }
     }
 });
@@ -89,12 +90,12 @@ function openMemberLayer(memberInfo) {
             if (!memberInfo.signedIn) {
                 // 엔터키 누르면 실행 되게끔.
                 $('#cock-login-email').keyup(function (key) {
-                    if(key.keyCode == 13){// 키가 13이면 실행
+                    if (key.keyCode == 13) {// 키가 13이면 실행
                         $('#cock-login-btn').click();
                     }
                 });
                 $('#cock-login-pw').keyup(function (key) {
-                    if(key.keyCode == 13){// 키가 13이면 실행
+                    if (key.keyCode == 13) {// 키가 13이면 실행
                         $('#cock-login-btn').click();
                     }
                 });
@@ -106,7 +107,7 @@ function openMemberLayer(memberInfo) {
 
 
                 $('#cock-member-join-btn').on('click', function () {
-                    location.href='../join.html';
+                    location.href = '../join.html';
                 });
 
                 $('#cock-login-email').focus();
@@ -214,11 +215,6 @@ function closeMemberLayer(callback) {
         }
     });
 }
-
-// 헤더 뒤로가기 버튼
-$('.back-button').on('click', function () {
-    history.back();
-});
 
 module.exports = {
     ajax: ajax
