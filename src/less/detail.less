@@ -19,10 +19,11 @@ body {
 .content-wrapper {
   position: relative;
   margin: 3px 3px 10px;
+  padding: 10px 10px 5px;
+  font-family: 'Noto Sans KR', serif;
+  background-color: #fff;
   border: 2px solid #fafafa;
   box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-  padding: 10px 10px 5px;
-  background-color: #fff;
 }
 
 .content-wrapper:hover {
@@ -172,6 +173,30 @@ body {
   background-color: @footer-bg-color;
 }
 
+.rest-submenu {
+  display: none;
+  position: absolute;
+  top: 100% + 20px;
+  right: 20px;
+  height: auto;
+}
+
+.rest-submenu:hover {
+  box-shadow: 0 3px 10px rgba(34, 25, 25, 0.7);
+}
+
+.rest-photo {
+  margin: 10px auto;
+  background-size: cover;
+  background-position: 0 0;
+}
+
+.rest-info {
+  position: relative;
+  padding: 10px 15px 10px 15px;
+  font-family: 'Hanna', serif;
+}
+
 /* Mobile Device */
 @media all and (min-width: 320px) and (max-width: 1024px) {
   #cock-restaurants-left,
@@ -223,6 +248,25 @@ body {
 
   .btn-more {
     display: none;
+  }
+
+  .rest-submenu {
+    width: 170px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    text-align: left;
+    line-height: -2px;
+    z-index: 500;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  }
+
+  .rest-photo {
+    width: 160px;
+    height: 90px;
+  }
+
+  .rest-info {
+    font-size: 11px;
   }
 
   .go-top-btn {
@@ -285,6 +329,21 @@ body {
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
+  }
+
+  .rest-submenu {
+    width: 340px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: left;
+    line-height: -2px;
+    z-index: 500;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  }
+
+  .rest-photo {
+    width: 320px;
+    height: 180px;
   }
 
   .go-top-btn {
