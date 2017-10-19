@@ -118,6 +118,8 @@ function openMemberLayer(memberInfo) {
                 $('#cock-setting').on('click', function () {
                     location.href = '../setting.html';
                 });
+
+                $('#cock-setting').focus();
             }
         }
     });
@@ -135,7 +137,8 @@ function templateHeader(result) {
     var template = require('../template/header.hbs');
 
     var html = template(result);
-
+    // 기존 헤더를 지우고
+    // 그 위에 로그인 하고 나서 그 안에 사진이 나오는..
     $('header').replaceWith(html);
 
     $('.header-bt').on('click', function () {
