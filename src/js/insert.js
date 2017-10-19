@@ -567,6 +567,13 @@ $('.cc-btn-save').on('click', function () {
     // menus
     model.menus = [];
     var imgsLi = $('.cc-preview-img');
+    imgsLi.each(function () {
+        if ($(this).css('display') === 'none') {
+            $(this).remove();
+        }
+    });
+
+    imgsLi = $('.cc-preview-img');
     for (var i=0; i<imgsLi.length; i++) {
         var menuLi = $(imgsLi[i]).find('li');
         $(menuLi).each(function () {
