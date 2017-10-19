@@ -44,10 +44,7 @@ input::-webkit-input-placeholder {
 }
 
 header {
-  position: relative;
-  display: inline-block;
   margin-bottom: 40px;
-  // min-width: 1220px;
   width: 100%;
   height: 80px;
   color: #888;
@@ -58,8 +55,6 @@ header {
 .header-wrapper {
   position: relative;
   margin: 0 auto;
-  // width: 1220px;
-  height: 40px;
   box-sizing: content-box;
   z-index: 101;
   text-align: center;
@@ -75,16 +70,17 @@ header {
 }
 
 .header-logo-wrapper {
+  display: inline-block;
   margin: 0 auto;
   color: #555;
   font-family: 'Hanna', serif;
   font-size: 34px;
-  cursor: pointer;
 }
 
 .back-button {
   display: none;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .header-logo {
@@ -94,6 +90,15 @@ header {
   height: 34.7px;
   background: url('../img/main-logo.png') 0 0;
   background-size: contain;
+  cursor: pointer;
+}
+
+.header-title {
+  display: none;
+  margin: 20px 10px 10px 20px;
+  width: auto;
+  height: auto;
+  cursor: pointer;
 }
 
 .search-wrapper {

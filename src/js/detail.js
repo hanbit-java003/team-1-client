@@ -206,15 +206,20 @@ function relocateGoTopButton() {
 }
 
 function setLogo(restaurant) {
-    $('.header-logo').text(restaurant.name);
-    $('.header-logo').css({
-        'background-image': 'none',
-        'margin': '20px 10px 10px 20px',
-        'width': 'auto',
-        'height': 'auto'
-    });
+    $('.header-logo').css('display', 'none');
+    $('.header-title').css('display', 'inline-block');
+    $('.header-title').text(restaurant.name);
     $('.back-button').css('display', 'inline-block');
 }
+
+// 헤더 뒤로가기 버튼. 누르면 홈으로 감
+$('.back-button').on('click', function () {
+    location.href = '/';
+});
+
+$('.header-title').on('click', function () {
+    alert('식당정보 팝업');
+});
 
 $(window).on('scroll', function () {
     relocateGoTopButton();
