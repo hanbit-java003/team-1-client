@@ -172,6 +172,22 @@ body {
   background-color: @footer-bg-color;
 }
 
+.rest-submenu:hover {
+  box-shadow: 0 3px 10px rgba(34, 25, 25, 0.7);
+}
+
+.rest-photo {
+  margin: 10px auto;
+  background-size: cover;
+  background-position: 0 0;
+}
+
+.rest-info {
+  position: relative;
+  padding: 10px 15px 10px 15px;
+  font-family: 'Hanna', serif;
+}
+
 /* Mobile Device */
 @media all and (min-width: 320px) and (max-width: 1024px) {
   #cock-restaurants-left,
@@ -223,6 +239,29 @@ body {
 
   .btn-more {
     display: none;
+  }
+
+  .rest-submenu {
+    position: fixed;
+    top: 100px;
+    right: 0;
+    width: 170px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    text-align: left;
+    line-height: -2px;
+    z-index: 500;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  }
+
+  .rest-photo {
+    width: 160px;
+    height: 90px;
+  }
+
+  .rest-info {
+    font-size: 11px;
   }
 
   .go-top-btn {
@@ -285,6 +324,25 @@ body {
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
+  }
+
+  .rest-submenu {
+    position: fixed;
+    top: 122px;
+    right: 30px;
+    width: 340px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: left;
+    line-height: -2px;
+    z-index: 500;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  }
+
+  .rest-photo {
+    width: 320px;
+    height: 180px;
   }
 
   .go-top-btn {
