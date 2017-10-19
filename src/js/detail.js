@@ -125,6 +125,11 @@ function initContents(restaurants) {
         }
     });
 
+    // 카드 수정/삭제 버튼
+    $('.card-setting').on('click', function () {
+        $(this).find('.setting-menu').css('visibility', 'visible');
+    });
+
     // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').on('click', function () {
         if ($(this).hasClass('fa-heart-o')) {
