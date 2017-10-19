@@ -1,10 +1,16 @@
 @font-color: #333;
 @global-width: 900px;
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+html {
+  height: 100%;
+}
 
 body {
   position: relative;
   color: @font-color;
+  padding-top: @header-height + 20px;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -42,23 +48,25 @@ input::-webkit-input-placeholder {
   z-index: 1000;
 }
 
+@header-height: 80px;
+@header-margin-bottom: 40px;
+
 header {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 40px;
-  // min-width: 1220px;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 80px;
+  height: @header-height;
+  margin-bottom: @header-margin-bottom;
   color: #888;
   background-color: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .header-wrapper {
   position: relative;
   margin: 0 auto;
-  // width: 1220px;
-  height: 40px;
   box-sizing: content-box;
   z-index: 101;
   text-align: center;
@@ -74,16 +82,17 @@ header {
 }
 
 .header-logo-wrapper {
+  display: inline-block;
   margin: 0 auto;
   color: #555;
   font-family: 'Hanna', serif;
   font-size: 34px;
-  cursor: pointer;
 }
 
 .back-button {
   display: none;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .header-logo {
@@ -93,6 +102,15 @@ header {
   height: 34.7px;
   background: url('../img/main-logo.png') 0 0;
   background-size: contain;
+  cursor: pointer;
+}
+
+.header-title {
+  display: none;
+  margin: 20px 10px 10px 20px;
+  width: auto;
+  height: auto;
+  cursor: pointer;
 }
 
 .search-wrapper {
@@ -119,8 +137,8 @@ header {
   font-size: 26px;
   cursor: pointer;
   margin-top: 5px;
-  margin-right: 35px; vertical-align: top;
-
+  margin-right: 35px;
+  vertical-align: top;
 }
 
 .header-close-icon {
@@ -138,14 +156,13 @@ header {
   text-align: center;
   font-size: 18px;
   color: #353744;
-  background-color: transparent;
   letter-spacing: 0;
   border: 1px solid #4a4a4a;
   border-radius: 25px;
   outline: none;
   cursor: pointer;
   background-size: cover;
-  background-position: 50% 50%;
+  background: transparent 50% 50%;
 }
 
 .header-bt:hover {

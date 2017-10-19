@@ -20,11 +20,12 @@ function setDesktop(restaurant) {
     for (var i = 0; i < restaurant.contents.length; i++) {
         var html = template(restaurant.contents[i]);
 
-        setDesktopCss();
+        //setDesktopCss();
 
         if (i % 2 === 0) {
             $('#cock-restaurants-left').append(html);
-        } else {
+        }
+        else {
             $('#cock-restaurants-right').append(html);
         }
     }
@@ -37,7 +38,7 @@ function setMobile(restaurant) {
     for (var i = 0; i < restaurant.contents.length; i++) {
         var html = template(restaurant.contents[i]);
 
-        setMobileCss();
+        //setMobileCss();
 
         $('#cock-restaurants-mobile').append(html);
     }
@@ -62,14 +63,17 @@ function setContents(restaurant) {
     if (desktopDevice.matches) {
         $('#cock-restaurants-mobile').empty();
         setDesktop(restaurant);
-    } else if (mobileDevice.matches) {
+    }
+    else if (mobileDevice.matches) {
         $('#cock-restaurants-left').empty();
         $('#cock-restaurants-right').empty();
         setMobile(restaurant);
     }
 }
 
+// 윈도우 크기가 바뀔때
 $(window).resize(function () {
+    attachRestInfoEvent();
 });
 
 function initContents(restaurants) {
@@ -83,6 +87,7 @@ function initContents(restaurants) {
             setMobile(restaurant);
 
             setLogo(restaurant);
+            initRestInfo(restaurant);
         }
     }
 
@@ -120,13 +125,19 @@ function initContents(restaurants) {
         }
     });
 
+    // 카드 수정/삭제 버튼
+    $('.card-setting').on('click', function () {
+        $(this).find('.setting-menu').css('visibility', 'visible');
+    });
+
     // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').on('click', function () {
         if ($(this).hasClass('fa-heart-o')) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
             $(this).css('color', '#ff4461');
             $(this).parent().find('.food-like-count').html();
-        } else if ($(this).hasClass('fa-heart')) {
+        }
+        else if ($(this).hasClass('fa-heart')) {
             $(this).removeClass('fa-heart').addClass('fa-heart-o');
             $(this).css('color', '#666');
             $(this).parent().find('.food-like-count').html();
@@ -139,7 +150,8 @@ function initContents(restaurants) {
             $(this).removeClass('fa-trash-o').addClass('fa-trash');
             $(this).css('color', '#ff4461');
             $(this).parent().find('.food-trash-count').html();
-        } else if ($(this).hasClass('fa-trash')) {
+        }
+        else if ($(this).hasClass('fa-trash')) {
             $(this).removeClass('fa-trash').addClass('fa-trash-o');
             $(this).css('color', '#bbb');
             $(this).parent().find('.food-trash-count').html();
@@ -179,7 +191,7 @@ $('.go-top-btn').on('click', function () {
     return false;
 });
 
-// 맨 위로 버튼 보였다 안보였다
+// 맨 위로 버튼 위치 및 숨김 효과
 function relocateGoTopButton() {
     var scrollTop = $(window).scrollTop();
     var footerHeight = $('footer').outerHeight();
@@ -188,7 +200,8 @@ function relocateGoTopButton() {
 
     if (scrollTop > 300) {
         $('.go-top-btn').fadeIn(600);
-    } else {
+    }
+    else {
         $('.go-top-btn').fadeOut(600);
     }
 
@@ -197,7 +210,8 @@ function relocateGoTopButton() {
             position: 'absolute',
             bottom: -55
         });
-    } else {
+    }
+    else {
         $('.go-top-btn').css({
             position: 'fixed',
             bottom: 20
@@ -205,20 +219,63 @@ function relocateGoTopButton() {
     }
 }
 
+// 상세페이지 로고 -> 맛집 이름으로 변경
 function setLogo(restaurant) {
-    $('.header-logo').text(restaurant.name);
-    $('.header-logo').css({
-        'background-image': 'none',
-        'margin': '20px 10px 10px 20px',
-        'width': 'auto',
-        'height': 'auto'
-    });
+    $('.header-logo').css('display', 'none');
+    $('.header-title').css('display', 'inline-block');
+    $('.header-title').text(restaurant.name);
     $('.back-button').css('display', 'inline-block');
 }
 
+// 헤더 뒤로가기 버튼. 누르면 홈으로 감
+$('.back-button').on('click', function () {
+    location.href = '/';
+});
+
+/* 맛집 간략정보 팝업 설정 */
+function initRestInfo(restaurant) {
+    var template = require('../template/rest-info.hbs');
+
+    $('.rest-submenu').empty();
+
+    var html = template(restaurant);
+
+    $('.rest-submenu').html(html);
+
+    attachRestInfoEvent();
+}
+
+// 팝업창에 마우스 또는 터치 이벤트
+function attachRestInfoEvent() {
+    if (desktopDevice.matches) {
+        $('.header-title').on('mouseover', function () {
+            $(this).parents().find('.rest-submenu').show(300);
+        });
+
+        $('.header-title').on('mouseout', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+
+        $('body').on('mousewheel', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+    }
+    else {
+        $('.header-title').on('touchstart', function () {
+            $(this).parents().find('.rest-submenu').show(300);
+        });
+
+        $('body').on('touchmove', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+    }
+}
+
+// 윈도우 스크롤 할때
 $(window).on('scroll', function () {
     relocateGoTopButton();
 });
-relocateGoTopButton();
 
+// 페이지 초기화
 initContents(restaurants);
+relocateGoTopButton();

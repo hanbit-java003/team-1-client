@@ -1,6 +1,12 @@
 module.exports = [{
     rid: 'goramen',
     name: '고라멘',
+    lat: 37.555344,
+    lng: 126.932692,
+    phone: '02-555-5555',
+    bh: '수~일 am 10:00 ~ pm 09:00',
+    rm: '고라멘 8,000 원, 돈코츠라멘 7,000 원, 부타동 7,000 원',
+    shopPhoto: '../img/sc-img/restaurants/goramen_shop.jpg',
     contents: [{
         number: 1,
         userImg: '../img/sc-img/members/Jellyfish.jpg',

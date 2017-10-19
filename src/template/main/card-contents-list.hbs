@@ -12,7 +12,7 @@
         <div class="card-contents-count">
             [ {{count}} ]
         </div>
-        <!-- 맛집 관련 태그 (한줄) -->
+        <!-- 맛집 관련 태그 -->
         <ul class="card-contents-tags">
             {{#each tag}}
                 <li>#{{item}}</li>
@@ -22,5 +22,6 @@
             최신 업데이트 시간 : {{updateDt}}
         </div>
     </div>
+    <!-- 위치정보만 담기 위한 태그 -->
     <div class="locationContainer" lat="{{lat}}" lng="{{lng}}"></div>
 </li>
