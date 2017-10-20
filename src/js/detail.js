@@ -7,41 +7,47 @@ var params = new UrlSearchParams(location.search);
 var common = require('./common');
 
 /* 식당별 글들이 모여있는 모델 */
-var restaurants = [
+/*var restaurants = [
     require('./model/restaurants/goramen'),
     require('./model/restaurants/fish'),
     require('./model/restaurants/mibundang')
-];
+];*/
+
+var rid = 2;
+var aid = 0;
+
+$.ajax({
+    url: 'api/cock/detail/' + rid + '/' + aid,
+    success: function (result) {
+        initContents(result);
+    }
+});
 
 /* 데스크탑 */
 function setDesktop(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
 
-    for (var i = 0; i < restaurant.contents.length; i++) {
-        var html = template(restaurant.contents[i]);
+        var html = template(restaurant);
 
         //setDesktopCss();
 
-        if (i % 2 === 0) {
+        if (restaurant.articles.articleId % 2 !== 0) {
             $('#cock-restaurants-left').append(html);
         }
         else {
             $('#cock-restaurants-right').append(html);
         }
-    }
 }
 
 /* 모바일 */
 function setMobile(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
 
-    for (var i = 0; i < restaurant.contents.length; i++) {
-        var html = template(restaurant.contents[i]);
+        var html = template(restaurant);
 
         //setMobileCss();
 
         $('#cock-restaurants-mobile').append(html);
-    }
 }
 
 /* 데스크탑 반응형 css */
@@ -76,20 +82,21 @@ $(window).resize(function () {
     attachRestInfoEvent();
 });
 
-function initContents(restaurants) {
+function initContents(restaurant) {
     /* 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를
     비교해서 맞을 경우에 템플릿에 담음 */
-    for (var i = 0; i < restaurants.length; i++) {
+   /* for (var i = 0; i < restaurants.length; i++) {
         var restaurant = restaurants[i][0];
 
         if (params.get('rid') === restaurant.rid) {
-            setDesktop(restaurant);
-            setMobile(restaurant);
 
-            setLogo(restaurant);
-            initRestInfo(restaurant);
         }
-    }
+    }*/
+    setDesktop(restaurant);
+    setMobile(restaurant);
+
+    setLogo(restaurant);
+    initRestInfo(restaurant);
 
     // 더보기 버튼
     $('.btn-more').on('click', function () {
@@ -277,5 +284,5 @@ $(window).on('scroll', function () {
 });
 
 // 페이지 초기화
-initContents(restaurants);
+//initContents(restaurants);
 relocateGoTopButton();
