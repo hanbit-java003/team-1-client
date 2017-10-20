@@ -124,11 +124,11 @@ $.ajax({
     }
 });
 
-if (!params.get('rid')) {
+if (params.get('rid') === null) {
     // 식당 입력
     init();
 }
-else if (params.get('rid') && !params.get('articleId')) {
+else if (params.get('rid') && params.get('articleId') === null) {
     // 식당의 후기 입력
     $.ajax({
         url: '/api/cock/insert/' + params.get('rid'),
@@ -150,7 +150,7 @@ else {
 }
 
 function init() {
-    model.articles[0].uid = '3HgHeOlylIZR'; // 임시 TEST용
+    model.articles[0].uid = 'b5Y4oufylok3'; // 임시 TEST용
     getLocation();
 
     if (model.rid) {
@@ -567,6 +567,13 @@ $('.cc-btn-save').on('click', function () {
     // menus
     model.menus = [];
     var imgsLi = $('.cc-preview-img');
+    imgsLi.each(function () {
+        if ($(this).css('display') === 'none') {
+            $(this).remove();
+        }
+    });
+
+    imgsLi = $('.cc-preview-img');
     for (var i=0; i<imgsLi.length; i++) {
         var menuLi = $(imgsLi[i]).find('li');
         $(menuLi).each(function () {
