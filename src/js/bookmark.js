@@ -27,6 +27,7 @@ var i;
 var bookmarkMaps;
 var marker;
 var googleMaps;
+var infowindow;
 
 
 function initBookmarkMap() {
@@ -125,9 +126,11 @@ function initBookmark(bookmarkModel) {
 //북마크 리스트 클릭 이벤트
 function bookmarkClick() {
 
-    $('.bookmark-container > li').on('click', function () {
+    var spoonMark;
 
-        var spoonMark = '../img/insert/red-dot.png';
+    $('.bookmark-container > li').on('mouseenter', function () {
+
+        spoonMark = '../img/insert/red-dot.png';
 
         var location = $(this).find('.location-info');
 
@@ -144,9 +147,33 @@ function bookmarkClick() {
            icon: spoonMark
         });
 
-        infowindow.setContent(bookmarkModel[i].title
-            + '<br/>' + bookmarkModel[i].address);
-        infowindow.open(bookmarkMaps, marker);
+        $(this).on('click', function () {
+            spoonMark = '../img/insert/blue-dot.png';
+
+            marker = new googleMaps.Marker({
+                position: new googleMaps.LatLng(locationLatLng),
+                map: bookmarkMaps,
+                icon: spoonMark
+            });
+
+            var title = bookmarkModel[i].title;
+            var address = bookmarkModel[i].address;
+
+            var markerContent = title + '<br/>' + address;
+
+            infowindow.setContent(markerContent);
+            infowindow.open(map, marker);
+
+        });
+
+        $(this).on('mouseleave', function () {
+            marker = new googleMaps.Marker({
+                position: new googleMaps.LatLng(locationLatLng),
+                map: bookmarkMaps,
+                icon: '../img/insert/red-dot.png'
+            });
+        });
+
     });
 
 }
