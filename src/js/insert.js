@@ -111,46 +111,43 @@ function getLocation() {
 $.ajax({
     url:'/api/member/get',
     success: function (result) {
-        /* TEST를 위해서 일단 없
         if (!result.signedIn) {
             alert('로그인이 필요한 페이지입니다.');
             location.href= '/'; // 기본홈으로 돌려보냄.
         }
 
-        model.uid = result.uid;
+        model.articles[0].uid = result.uid;
 
-        getRestAndArticle();
-        */
+        insertInit();
     }
 });
 
-if (!params.get('rid')) {
-    // 식당 입력
-    init();
-}
-else if (params.get('rid') && !params.get('articleId')) {
-    // 식당의 후기 입력
-    $.ajax({
-        url: '/api/cock/insert/' + params.get('rid'),
-        success: function(result) {
-            model = result;
-            init();
-        }
-    });
-}
-else {
-    // 식당의 후기 수정
-    $.ajax({
-        url: '/api/cock/insert/' + params.get('rid') + '/' + params.get('articleId'),
-        success: function(result) {
-            model = result;
-            init();
-        }
-    });
+function insertInit() {
+    if (params.get('rid') === null) { // 식당 입력
+        init();
+    }
+    else if (params.get('rid') && params.get('articleId') === null) { // 식당의 후기 입력
+        $.ajax({
+            url: '/api/cock/insert/' + params.get('rid'),
+            success: function(result) {
+                model = result;
+                init();
+            }
+        });
+    }
+    else { // 식당의 후기 수정
+        $.ajax({
+            url: '/api/cock/insert/' + params.get('rid') + '/' + params.get('articleId'),
+            success: function(result) {
+                model = result;
+                init();
+            }
+        });
+    }
 }
 
 function init() {
-    model.articles[0].uid = '3HgHeOlylIZR'; // 임시 TEST용
+    // model.articles[0].uid = '3HgHeOlylIZR'; // 임시 TEST용
     getLocation();
 
     if (model.rid) {
@@ -163,10 +160,8 @@ function init() {
         $('#locationCheck').hide();
         checkFlag = true;
 
-        latLng = {
-            lat: model.lat,
-            lng: model.lng
-        }
+        latLng.lat = parseFloat(model.lat);
+        latLng.lng = parseFloat(model.lng);
 
         if (model.articles) {
             $('#cc-comment-textarea').val(model.articles[0].comment);
@@ -183,10 +178,15 @@ function init() {
     }
 
     if (model.articles) {
+        imgNum = model.articles[0].imgs.length;
+
         model.articles[0].imgs.forEach(function (t) {
+            var addPreview = '<li class="cc-preview-img" img-num="' + t.imgId + '" saved="true"></li>'
+            $('.cc-preview').append(addPreview);
+
             var img = new Image();
             $(img).on('load', function () {
-                setImage(img, true);
+                setImage(img, t.imgId);
 
                 model.menus.forEach(function (t2) {
                     if (t.imgId === t2.imgId) {
@@ -197,18 +197,20 @@ function init() {
 
                         var template = require('../template/insert/menu-tag.hbs');
                         var html = template(t2);
-                        var ul = $('li.cc-preview-img:last-child .background-preview');
+                        var ul = $('.cc-preview-img[img-num=' + t2.imgId + '] .background-preview');
                         $(ul).append(html);
+                        setWidth(t2.menu, $(ul).find('li[menu-num=' + t2.menuNum + ']'));
 
                         var template = require('../template/insert/menu-input.hbs');
                         var html = template(t2);
-                        $('.cc-menu').append(html);
+                        $(ul).parent('li').find('.cc-menu').append(html);
 
                         menuEvent(ul);
                     }
                 });
             });
             img.src = t.path;
+
         });
     }
 
@@ -225,13 +227,16 @@ function init() {
 var map;
 var googleMaps;
 function initMap() {
-    if (latLng) {
+    if (!model.rid) { // TEST 용
         latLng.lat = 37.552320;
         latLng.lng = 126.937588;
     }
 
     map = new googleMaps.Map($('#google-map')[0], {
-        center: {lat:latLng.lat, lng: latLng.lng},
+        center: {
+            lat: latLng.lat,
+            lng: latLng.lng
+        },
         zoom: 16,
         scrollwheel: false
     });
@@ -402,11 +407,15 @@ $('#cc-btn-background').on('change', function() {
         images.push(file);
 
         fileReader.onload = function(event) {
+            var addPreview = '<li class="cc-preview-img" img-num="' + imgNum + '" saved="false"></li>'
+            $('.cc-preview').append(addPreview);
+
             var image = new Image();
             image.src = event.target.result;
 
             image.onload = function() {
-                setImage(image, false);
+                setImage(image, imgNum);
+                imgNum++;
             };
         };
 
@@ -417,7 +426,8 @@ $('#cc-btn-background').on('change', function() {
 // 이미지 폭 = 380px
 var IMG_WIDTH = 380;
 var menuNum = 0;
-function setImage(image, save) {
+var imgNum = 0;
+function setImage(image, num) {
     var width = image.width;
     var height = image.height;
 
@@ -428,22 +438,27 @@ function setImage(image, save) {
         height = height * ratio;
     }
 
-    var imgTemp = {
+    var imgSrc = {
         src: image.src,
         width: width,
-        height: height,
-        save: save
+        height: height
     };
 
     var template = require('../template/insert/preview-img.hbs');
-    var html = template(imgTemp);
-    $('.cc-preview').append(html);
+    var html = template(imgSrc);
+    $('.cc-preview-img[img-num=' + num + ']').append(html);
 
-    $('.cc-preview > li:last-child .cc-btn-delete').on('click', function() {
-        var img = $(this).parent('li');
+    $('.cc-preview-img[img-num=' + num + '] .background-preview .cc-btn-delete').on('click', function() {
+        var img = $(this).closest('li');
 
         var saved = img.attr('saved') === 'true';
-        var savedPhotoCount = model.articles[0].imgs ? model.articles[0].imgs.length : 0
+
+        if (params.get('rid') === null || params.get('articleId') === null) {
+            var savedPhotoCount = 0;
+        }
+        else {
+            var savedPhotoCount = model.articles[0].imgs ? model.articles[0].imgs.length : 0
+        }
 
         var index = saved ? img.index() : img.index() - savedPhotoCount;
 
@@ -458,12 +473,12 @@ function setImage(image, save) {
         }
     });
 
-    $('.cc-preview > li:last-child .background-preview').on('dblclick', function () {
+    $('.cc-preview-img[img-num=' + num + '] .background-preview').on('dblclick', function () {
         var menu = {
             menuNum: menuNum,
             x: 0 + 'px',
             y: 0 + 'px',
-            menu: '',
+            menu: '메뉴요',
             price: 0
         };
 
@@ -474,7 +489,7 @@ function setImage(image, save) {
         $(this).append(html);
         var template = require('../template/insert/menu-input.hbs');
         var html = template(menu);
-        $('.cc-menu').append(html);
+        $(this).parent('li').find('.cc-menu').append(html);
 
         menuEvent(this);
     });
@@ -497,6 +512,8 @@ function menuEvent(preview) {
 
     $(drag).on('dragend', function (e) {
         console.log('end');
+        var thisWidth = $(this).width();
+
         x = e.pageX - x;
         y = e.pageY - y;
         if (x < 0) {
@@ -505,11 +522,11 @@ function menuEvent(preview) {
         if (y < 0) {
             y = 0;
         }
-        if (x > lX - 100) {
-            x = lX - 100;
+        if (x > lX - thisWidth) {
+            x = lX - thisWidth;
         }
-        if (y > lY - 42) {
-            y = lY - 42;
+        if (y > lY - 21) {
+            y = lY - 21;
         }
         $(drag).css({
             'top': y + 'px',
@@ -522,15 +539,24 @@ function menuEvent(preview) {
         $('li[menu-num=' + num +']').remove();
     });
 
-    $(drag).find('.menu-tag-cage > input[type=text]').on('keydown', function(e){
+    $(drag).find('.menu-tag-cage > input[type=text]').on('keyup', function(e){
         var value = $(this).val();
-        $(this).closest('ul').append('<div id="virtual_dom">' + value + '</div>');
 
-        var inputWidth =  $('#virtual_dom').width() + 10; // 글자 하나의 대략적인 크기
+        setWidth(value, $(this).closest('li'));
+        var temp = $(this).closest('li');
+        var n = $(temp).attr('menu-num');
 
-        $(this).closest('li').css('width', inputWidth);
-        $('#virtual_dom').remove();
+        $('li[menu-num=' + n + ']').find('input.menu-input-text2').val(value);
     });
+}
+
+function setWidth(value, pos) {
+    $('.cc-preview').append('<div id="virtual_dom">' + value + '</div>');
+
+    var inputWidth =  $('#virtual_dom').width() + 20; // 글자 하나의 대략적인 크기
+
+    $(pos).css('width', inputWidth);
+    $('#virtual_dom').remove();
 }
 
 $('.cc-btn-save').on('click', function () {
@@ -582,8 +608,8 @@ $('.cc-btn-save').on('click', function () {
                 id: $(this).index(),
                 x: parseInt($(this).css('left')),
                 y: parseInt($(this).css('top')),
-                menu: $(this).find('.menuInputText').val(),
-                price: parseInt($(this).find('.menuInputNumber').val())
+                menu: $(this).find('.menu-input-text').val(),
+                price: parseInt($(this).find('.menu-input-number').val())
             };
             model.menus.push(menu);
         });
