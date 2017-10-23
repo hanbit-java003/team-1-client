@@ -22,7 +22,7 @@ loadGoogleMapsApi.version = '3';
     name: 'title',
     status: '',
     articles: [{
-        article_id: 0,
+        articleId: 0,
         comment: 'comment',
         status: '',
         uid: '3HgHeOlylIZR',
@@ -79,7 +79,7 @@ var model = {
     articles: [{imgs: []}],
     menus: [],
     tags: []
-}
+};
 
 // 현재위치
 var latLng = {};
@@ -116,14 +116,13 @@ $.ajax({
             location.href= '/'; // 기본홈으로 돌려보냄.
         }
 
-        model.articles[0].uid = result.uid;
-        console.log(result.uid);
+        var uid = result.uid;
 
-        insertInit();
+        insertInit(uid);
     }
 });
 
-function insertInit() {
+function insertInit(uid) {
     if (params.get('rid') === null) { // 식당 입력
         init();
     }
@@ -132,6 +131,10 @@ function insertInit() {
             url: '/api/cock/insert/' + params.get('rid'),
             success: function(result) {
                 model = result;
+                model.articles = [{
+                    uid: uid,
+                    imgs: []
+                }];
                 init();
             }
         });
@@ -141,6 +144,7 @@ function insertInit() {
             url: '/api/cock/insert/' + params.get('rid') + '/' + params.get('articleId'),
             success: function(result) {
                 model = result;
+                model.articles[0].uid = uid;
                 init();
             }
         });
@@ -178,7 +182,7 @@ function init() {
         $('#cc-hashtag-textarea').importTags(tagValue);
     }
 
-    if (model.articles) {
+    if (model.articles[0].articleId) {
         imgNum = model.articles[0].imgs.length;
 
         model.articles[0].imgs.forEach(function (t) {
@@ -245,13 +249,9 @@ function initMap() {
     addMarkers();
 
     if (model.rid) {
-        new googleMaps.Marker({
-            position: latLng,
-            map: map,
-            title: model.title,
-            icon: '../img/insert/red-dot.png'
-        });
+        selectMap(latLng);
     }
+
 
     if (!model.rid) {
         map.addListener('click', function (e) {
@@ -295,15 +295,7 @@ $('#locationCheck').on('click', function () {
         var index = $(this).index();
         var lo = loc[index];
 
-        $('#cc-lat').val(lo.lat);
-        $('#cc-lng').val(lo.lng);
-        $('#cc-rest-name').val(lo.title);
-        menuLockInput(true);
-
-        selectMap(lo);
-
-        clearDarkLayer();
-        checkFlag = true;
+        location.href = 'insert.html?rid=' + lo.rid;
     });
 });
 
@@ -334,33 +326,36 @@ var loc = [];
 
 // 지도 주변에 마커를 찍는 함수
 function addMarkers() {
-    // 임시 TEST용
-    loc = [{
-        lat: 37.552331, lng: 126.937588, title: 'hello1'
-    }, {
-        lat: 37.552777, lng: 126.937314, title: 'hello2'
-    }, {
-        lat: 37.552560, lng: 126.937043, title: 'hello3'
-    }, {
-        lat: 37.552188, lng: 126.937199, title: 'hello4'
-    }];
-
-    for (var i=0; i<loc.length; i++) {
-        var marker = new googleMaps.Marker({
-            position: loc[i],
-            map: map,
-            title: loc.title,
-            icon: '../img/insert/blue-dot.png'
-        });
-        markers.push(marker);
-    }
-
-    /*$.ajax({
-        url: '/api/cock/insert/position',
-        method: 'POST',
-        data: latLng,
+    $.ajax({
+        url: '/api/cock/insert/position/' + $('#cc-lat').val()
+           + ',' + $('#cc-lng').val() + '/',
         success: function(result) {
             loc = result;
+            console.log(loc);
+            for (var i=0; i<loc.length; i++) {
+                if (loc[i].rid !== model.rid) {
+                    var marker = new googleMaps.Marker({
+                        position: loc[i],
+                        map: map,
+                        title: loc.title,
+                        icon: '../img/insert/blue-dot.png'
+                    });
+
+                    markers.push(marker);
+                }
+            }
+        },
+        error: function () {
+            // 임시 TEST용
+            loc = [{
+                lat: 37.552331, lng: 126.937588, title: 'hello1'
+            }, {
+                lat: 37.552777, lng: 126.937314, title: 'hello2'
+            }, {
+                lat: 37.552560, lng: 126.937043, title: 'hello3'
+            }, {
+                lat: 37.552188, lng: 126.937199, title: 'hello4'
+            }];
 
             for (var i=0; i<loc.length; i++) {
                 var marker = new googleMaps.Marker({
@@ -372,7 +367,7 @@ function addMarkers() {
                 markers.push(marker);
             }
         }
-    });*/
+    });
 }
 
 // 마커를 없에고 배열에도 없에는 함수
@@ -676,6 +671,7 @@ $('.cc-btn-save').on('click', function () {
     });
 
     console.log(model);
+    console.log(images);
 
     $.ajax({
         url: '/api/cock/insert/save',
