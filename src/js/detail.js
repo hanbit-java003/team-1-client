@@ -14,10 +14,9 @@ var common = require('./common');
 ];*/
 
 var rid = 2;
-var aid = 0;
 
 $.ajax({
-    url: 'api/cock/detail/' + rid + '/' + aid,
+    url: 'api/cock/detail/' + rid,
     success: function (result) {
         initContents(result);
     }
@@ -27,27 +26,31 @@ $.ajax({
 function setDesktop(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
 
-        var html = template(restaurant);
+    //setDesktopCss();
 
-        //setDesktopCss();
+    for (var i = 0; i < restaurant.articles.length; i++) {
+        var html = template(restaurant.articles[i]);
 
-        if (restaurant.articles.articleId % 2 !== 0) {
+        if (restaurant.articles[i].articleId % 2 === 0) {
             $('#cock-restaurants-left').append(html);
         }
         else {
             $('#cock-restaurants-right').append(html);
         }
+    }
 }
 
 /* 모바일 */
 function setMobile(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
 
-        var html = template(restaurant);
+    //setMobileCss();
 
-        //setMobileCss();
+    for (var i = 0; i < restaurant.articles.length; i++) {
+        var html = template(restaurant.articles[i]);
 
         $('#cock-restaurants-mobile').append(html);
+    }
 }
 
 /* 데스크탑 반응형 css */
@@ -85,13 +88,13 @@ $(window).resize(function () {
 function initContents(restaurant) {
     /* 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를
     비교해서 맞을 경우에 템플릿에 담음 */
-   /* for (var i = 0; i < restaurants.length; i++) {
-        var restaurant = restaurants[i][0];
+    /* for (var i = 0; i < restaurants.length; i++) {
+         var restaurant = restaurants[i][0];
 
-        if (params.get('rid') === restaurant.rid) {
+         if (params.get('rid') === restaurant.rid) {
 
-        }
-    }*/
+         }
+     }*/
     setDesktop(restaurant);
     setMobile(restaurant);
 
