@@ -2,17 +2,22 @@
 @import './jquery.tagsinput.css';
 
 @insert-font-size: 15px;
+@main-color-red: #FE9595;
+@main-color-blue: #4AB2B6;
+@main-color-green: #A0EF93;
+@main-color-black: #3C3C3C;
 
 .cc-shop {
   width: @global-width;
   margin: 0px auto;
+  color: @main-color-black;
 }
 
 .cc-shop input {
   border: none;
   outline: none;
   box-shadow: none;
-  border-bottom: solid 1px #888b89;
+  border-bottom: solid 1px @main-color-black;
   border-radius: 0px;
 }
 
@@ -44,7 +49,7 @@
   padding: 10px;
   display: none;
   background-color: #ffffff;
-  border: solid 2px #888b89;
+  border: solid 2px @main-color-black;
   z-index: 1500;
 }
 
@@ -52,7 +57,7 @@
   width: 300px;
   margin-bottom: 5px;
   padding-bottom: 5px;
-  border-bottom: solid 2px #888b89;
+  border-bottom: solid 2px @main-color-black;
   text-align: center;
   font-size: 17px;
 }
@@ -65,7 +70,7 @@
 
   li {
     padding: 1px;
-    border-bottom: solid 1px #888b89;
+    border-bottom: solid 1px @main-color-black;
     cursor: pointer;
   }
 
@@ -87,7 +92,7 @@
   width: @global-width;
   margin: 0px auto;
   padding-top: 10px;
-  border-top: solid 2px #888b89;
+  border-top: solid 2px @main-color-black;
 }
 
 .cc-img-input {
@@ -98,13 +103,12 @@
   display: none;
 }
 
-.cc-menu {}
-
 @preview-width: 380px;
 
 .cc-preview {
   padding: 10px;
   width: 100%;
+  font-size: 15px;
 
   li {
     vertical-align: top;
@@ -115,25 +119,31 @@
   position: relative;
   display: inline-block;
   margin: 5px;
+  width: @preview-width;
 
   .background-preview {
+    position: relative;
     background-size: contain;
     background-repeat: no-repeat;
-  }
 
-  .cc-btn-delete {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 20px;
-    height: 20px;
-    font-size: 15px;
-    border-radius: 10px;
-    background-color: #ff1a37;
-    text-align: center;
-    line-height: 20px;
-    color: #dafaff;
+    .cc-btn-delete {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 20px;
+      height: 20px;
+      font-size: 15px;
+      border-radius: 10px;
+      background-color: #ff1a37;
+      text-align: center;
+      line-height: 20px;
+      color: #dafaff;
+    }
   }
+}
+
+#virtual_dom {
+  display: inline-block;
 }
 
 .menu-tag {
@@ -146,21 +156,30 @@
   .menu-tag-cage {
     position: relative;
     width: 100%;
+    font-size: 15px;
 
     input {
       padding: 0px;
       max-width: @preview-width;
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.4);
-      color: #181818;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: @main-color-black;
       font-size: 15px;
       border: none;
+    }
+
+    .menu-block-text {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-block-number {
+      display: none;
     }
 
     i {
       position: absolute;
       top: -5px;
-      right: -5px;
+      right: -20px;
       height: 20px;
       width: 20px;
       font-size: 15px;
@@ -171,6 +190,47 @@
       color: #dafaff;
     }
   }
+}
+
+.cc-menu-plus {
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: @main-color-red;
+  color: white;
+  line-height: 20px;
+}
+
+.cc-menu {
+  padding-left: 24px;
+  font-size: 15px;
+
+  li {
+    display: inline-block;
+    width: @preview-width;
+    font-size: 15px;
+  }
+}
+
+.menu-input-text2 {
+  padding-bottom: 0px;
+  color: @main-color-black;
+  background-color: #aaaaaa;
+  font-size: 15px;
+  width: 170px;
+}
+
+.menu-input-number2 {
+  padding-bottom: 0px;
+  color: @main-color-black;
+  background-color: #aaaaaa;
+  font-size: 15px;
+  width: 80px;
 }
 
 .cc-comment {
@@ -187,7 +247,7 @@
   width: @global-width;
   margin: 10px auto 10px;
   padding-top: 10px;
-  border-top: solid 2px #888b89;
+  border-top: solid 2px @main-color-black;
 
   div {
     text-align: center;
