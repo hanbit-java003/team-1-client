@@ -117,6 +117,7 @@ $.ajax({
         }
 
         model.articles[0].uid = result.uid;
+        console.log(result.uid);
 
         insertInit();
     }
@@ -254,9 +255,11 @@ function initMap() {
 
     if (!model.rid) {
         map.addListener('click', function (e) {
-            selectMap(e.latLng);
-            $('#cc-lat').val(e.latLng.lat);
-            $('#cc-lng').val(e.latLng.lng);
+            latLng = e.latLng;
+
+            selectMap(latLng);
+            $('#cc-lat').val(latLng.lat);
+            $('#cc-lng').val(latLng.lng);
             //주변 가게 가져오기 구현 필요
             deleteMarkers();
             addMarkers();
@@ -329,11 +332,8 @@ var markers = [];
 // 주변 위치를 담는 배열
 var loc = [];
 
-// 지도에 마커를 찍는 함수
+// 지도 주변에 마커를 찍는 함수
 function addMarkers() {
-    // 주변 위치 가져오기
-    //
-    //$.ajax();
     // 임시 TEST용
     loc = [{
         lat: 37.552331, lng: 126.937588, title: 'hello1'
@@ -354,6 +354,25 @@ function addMarkers() {
         });
         markers.push(marker);
     }
+
+    /*$.ajax({
+        url: '/api/cock/insert/position',
+        method: 'POST',
+        data: latLng,
+        success: function(result) {
+            loc = result;
+
+            for (var i=0; i<loc.length; i++) {
+                var marker = new googleMaps.Marker({
+                    position: loc[i],
+                    map: map,
+                    title: loc.title,
+                    icon: '../img/insert/blue-dot.png'
+                });
+                markers.push(marker);
+            }
+        }
+    });*/
 }
 
 // 마커를 없에고 배열에도 없에는 함수
@@ -449,7 +468,7 @@ function setImage(image, num) {
     $('.cc-preview-img[img-num=' + num + ']').append(html);
 
     $('.cc-preview-img[img-num=' + num + '] .background-preview .cc-btn-delete').on('click', function() {
-        var img = $(this).closest('li');
+        var img = $(this).parents('li');
 
         var saved = img.attr('saved') === 'true';
 
@@ -493,11 +512,34 @@ function setImage(image, num) {
 
         menuEvent(this);
     });
+
+    $('.cc-preview-img[img-num=' + num + '] .cc-menu-plus').on('click', function () {
+        var menu = {
+            menuNum: menuNum,
+            x: 0 + 'px',
+            y: 0 + 'px',
+            menu: '메뉴요',
+            price: 0
+        };
+
+        menuNum++;
+
+        var template = require('../template/insert/menu-tag.hbs');
+        var html = template(menu);
+        var tag = $(this).parent('.cc-preview-img').find('.background-preview');
+        $(tag).append(html);
+        var template = require('../template/insert/menu-input.hbs');
+        var html = template(menu);
+        $(this).parent('.cc-preview-img').find('.cc-menu').append(html);
+
+        menuEvent(tag);
+    });
+
 }
 
 // 메뉴 이벤트
 function menuEvent(preview) {
-    var drag = $(preview).find('li').last();
+    var drag = $(preview).find('.menu-tag').last(); // .menu-tag
 
     var x = $(drag).position().left; // 부모 기준으로 위치값
     var y = $(drag).position().top;
@@ -534,19 +576,22 @@ function menuEvent(preview) {
         });
     });
 
+    var eventMenuNum = $(drag).attr('menu-num');
+
     $(drag).find('.menu-btn-delete').on('click', function () {
-        var num = $(drag).closest('li').attr('menu-num');
-        $('li[menu-num=' + num +']').remove();
+        $('li[menu-num=' + eventMenuNum +']').remove();
     });
 
-    $(drag).find('.menu-tag-cage > input[type=text]').on('keyup', function(e){
+    $(preview).parent('li').find('.cc-menu > li[menu-num=' + eventMenuNum + '] .menu-input-text2').on('keyup', function(e){
         var value = $(this).val();
+        setWidth(value, drag);
 
-        setWidth(value, $(this).closest('li'));
-        var temp = $(this).closest('li');
-        var n = $(temp).attr('menu-num');
+        $(drag).find('.menu-block-text').text(value);
+    });
 
-        $('li[menu-num=' + n + ']').find('input.menu-input-text2').val(value);
+    $(preview).parent('li').find('.cc-menu > li[menu-num=' + eventMenuNum + '] .menu-input-number2').on('keyup', function(e){
+        var value = $(this).val();
+        $(drag).find('.menu-block-number').text(value);
     });
 }
 
@@ -601,15 +646,15 @@ $('.cc-btn-save').on('click', function () {
 
     imgsLi = $('.cc-preview-img');
     for (var i=0; i<imgsLi.length; i++) {
-        var menuLi = $(imgsLi[i]).find('li');
+        var menuLi = $(imgsLi[i]).find('.menu-tag');
         $(menuLi).each(function () {
             var menu = {
                 imgId: i,
                 id: $(this).index(),
                 x: parseInt($(this).css('left')),
                 y: parseInt($(this).css('top')),
-                menu: $(this).find('.menu-input-text').val(),
-                price: parseInt($(this).find('.menu-input-number').val())
+                menu: $(this).find('.menu-block-text').text(),
+                price: parseInt($(this).find('.menu-block-number').text())
             };
             model.menus.push(menu);
         });

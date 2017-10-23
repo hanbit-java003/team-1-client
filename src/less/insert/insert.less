@@ -116,6 +116,7 @@
 }
 
 .cc-preview-img {
+  position: relative;
   display: inline-block;
   margin: 5px;
   width: @preview-width;
@@ -167,7 +168,11 @@
       border: none;
     }
 
-    .menu-input-number {
+    .menu-block-text {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-block-number {
       display: none;
     }
 
@@ -187,22 +192,45 @@
   }
 }
 
-.cc-menu > li {
-  width: @preview-width;
+.cc-menu-plus {
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: @main-color-red;
+  color: white;
+  line-height: 20px;
+}
+
+.cc-menu {
+  padding-left: 24px;
   font-size: 15px;
 
-  .menu-input-text2 {
-    width: 190px;
-    padding-bottom: 0px;
+  li {
+    display: inline-block;
+    width: @preview-width;
     font-size: 15px;
-    color: @main-color-black;
   }
-  .menu-input-number2 {
-    width: 100px;
-    padding-bottom: 0px;
-    font-size: 15px;
-    color: @main-color-black;
-  }
+}
+
+.menu-input-text2 {
+  padding-bottom: 0px;
+  color: @main-color-black;
+  background-color: #aaaaaa;
+  font-size: 15px;
+  width: 170px;
+}
+
+.menu-input-number2 {
+  padding-bottom: 0px;
+  color: @main-color-black;
+  background-color: #aaaaaa;
+  font-size: 15px;
+  width: 80px;
 }
 
 .cc-comment {
