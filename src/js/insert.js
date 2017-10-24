@@ -183,7 +183,7 @@ function init() {
         $('#cc-hashtag-textarea').importTags(tagValue);
     }
 
-    if (model.articles[0].articleId) {
+    if (model.articles[0].articleId !== null) {
         imgNum = model.articles[0].imgs.length;
 
         model.articles[0].imgs.forEach(function (t) {
