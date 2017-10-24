@@ -5,7 +5,7 @@
     <title>사용자 정보 변경</title>
 </head>
 <body>
-{{> template/header }}
+{{> template/header info=false}}
 <section class="cock-join-main">
     <!--<div class="cock-setting-title">사용자 정보 변경</div>-->
     <div class="cock-setting">
@@ -39,7 +39,7 @@
         <div class="cock-setting-group">
             <label for="cock-member-nick-input">별명</label><br>
             <input type="text" class="form-control" id="cock-member-nick-input">
-            <button class="btn btn-info btn-sm">중복확인</button>
+            <button id="cock-setting-validation" class="btn btn-info btn-sm">중복확인</button>
         </div>
         <div class="cock-setting-group">
             <label for="cock-member-phone-input">전화번호</label>

@@ -3,92 +3,204 @@ require('../less/detail.less');
 
 var UrlSearchParams = require('url-search-params');
 var params = new UrlSearchParams(location.search);
+var rid = params.get('rid');
 
 var common = require('./common');
 
-
-/**
- * 식당별 글들이 모여있는 모델
- * */
-var restaurants = [
+/* 식당별 글들이 모여있는 모델 */
+/*var restaurants = [
     require('./model/restaurants/goramen'),
     require('./model/restaurants/fish'),
     require('./model/restaurants/mibundang')
-];
+];*/
 
-function init(restaurants) {
+$.ajax({
+    url: 'api/cock/detail/' + rid,
+    success: function (result) {
+        initContents(result);
+    }
+});
+
+/* 데스크탑 */
+function setDesktop(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
-    var html;
 
-    /**
-     * 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를 비교해서
-     * 맞을 경우에 템플릿에 담음
-     * */
-    for (var i = 0; i < restaurants.length; i++) {
-        if (params.get('rid') === restaurants[i][0].rid) {
-            html = template(restaurants[i][0]);
+    //setDesktopCss();
+
+    for (var i = 0; i < restaurant.articles.length; i++) {
+        var html = template(restaurant.articles[i]);
+
+        if (restaurant.articles[i].articleId % 2 === 0) {
+            $('#cock-restaurants-left').append(html);
+        }
+        else {
+            $('#cock-restaurants-right').append(html);
         }
     }
+}
 
-    $('.cock-restaurants').html(html);
+/* 모바일 */
+function setMobile(restaurant) {
+    var template = require('../template/detail/restaurant.hbs');
 
-    /**
-     * 더보기 버튼
-     */
+    //setMobileCss();
+
+    for (var i = 0; i < restaurant.articles.length; i++) {
+        var html = template(restaurant.articles[i]);
+
+        $('#cock-restaurants-mobile').append(html);
+    }
+}
+
+/* 데스크탑 반응형 css */
+function setDesktopCss() {
+
+}
+
+/* 모바일 반응형 css */
+function setMobileCss() {
+
+}
+
+var mobileDevice = window.matchMedia('all and (min-width:320px) and (max-width:1024px)');
+var desktopDevice = window.matchMedia('all and (min-width:1025px)');
+
+/* 윈도우 크기가 모바일일 경우와
+데스크탑일 경우 각각 뷰를 다르게 보여줌 */
+function setContents(restaurant) {
+    if (desktopDevice.matches) {
+        $('#cock-restaurants-mobile').empty();
+        setDesktop(restaurant);
+    }
+    else if (mobileDevice.matches) {
+        $('#cock-restaurants-left').empty();
+        $('#cock-restaurants-right').empty();
+        setMobile(restaurant);
+    }
+}
+
+// 윈도우 크기가 바뀔때
+$(window).resize(function () {
+    attachRestInfoEvent();
+});
+
+function initContents(restaurant) {
+    /* 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 을
+    비교해서 맞을 경우에 템플릿에 담음 */
+    setDesktop(restaurant);
+    setMobile(restaurant);
+
+    setLogo(restaurant);
+    initRestInfo(restaurant);
+
+    settingBtn();
+
+    // 더보기 버튼
     $('.btn-more').on('click', function () {
         var detail = $(this).parent().find('.food-detail');
-        $(this).toggle();
-        detail.css('width', 'auto');
-        detail.css('height', 'auto');
-        detail.css('white-space', 'normal');
+
+        if ($('.food-detail').hasClass('card-opened')) {
+            $('.food-detail').removeClass('card-opened');
+            $('.food-detail').css({
+                'width': '130',
+                'height': '20',
+                'white-space': 'nowrap'
+            });
+            $('.food-detail').addClass('card-closed');
+            $('.btn-more').addClass('card-closed');
+
+            if ($('.btn-more').hasClass('card-closed')) {
+                $('.btn-more').show();
+            }
+
+            console.log('더보기 닫기');
+        }
+
+        if (detail.hasClass('card-closed')) {
+            detail.removeClass('card-closed');
+            detail.addClass('card-opened');
+            $(this).addClass('card-opened');
+            detail.css({
+                'width': 'auto',
+                'height': 'auto',
+                'white-space': 'normal'
+            });
+            if ($(this).hasClass('card-opened')) {
+                $(this).hide();
+            }
+
+            console.log('더보기 열기');
+        }
     });
 
+    $('.card-setting').on('click', function () {
+        $(this).find('.setting-menu').css('visibility', 'visible');
+    });
 
-    /**
-     *  이 글에 동의합니다 버튼 (좋아요)
-     */
+    // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').on('click', function () {
         if ($(this).hasClass('fa-heart-o')) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
             $(this).css('color', '#ff4461');
+            $(this).parent().find('.food-like-count').html();
+            console.log('좋아요 추가');
         }
         else if ($(this).hasClass('fa-heart')) {
             $(this).removeClass('fa-heart').addClass('fa-heart-o');
             $(this).css('color', '#666');
+            $(this).parent().find('.food-like-count').html();
+            console.log('좋아요 삭제');
         }
     });
 
-    /**
-     * 이 글에 반대합니다 버튼 (쓰레기)
-     * */
+    // 이 글에 반대합니다 버튼 (쓰레기)
     $('.food-trash').on('click', function () {
         if ($(this).hasClass('fa-trash-o')) {
             $(this).removeClass('fa-trash-o').addClass('fa-trash');
             $(this).css('color', '#ff4461');
+            $(this).parent().find('.food-trash-count').html();
+            console.log('쓰레기 추가');
         }
         else if ($(this).hasClass('fa-trash')) {
             $(this).removeClass('fa-trash').addClass('fa-trash-o');
             $(this).css('color', '#bbb');
+            $(this).parent().find('.food-trash-count').html();
+            console.log('쓰레기 삭제');
         }
     });
 
-    /**
-     * 신고 버튼
-     * */
+    // 신고 버튼
     $('.food-report').on('click', function () {
         location.href = './report.html';
     });
 
+    // 사진 크게보기
     $('.img-responsive').on('click', function () {
         popImg(this);
     });
-
 }
 
-/**
- * 이미지 크게 보기
- * 창이 너무 안이쁨.. 바꿀거임
- */
+function settingBtn() {
+    $('.card-setting').on('click', function () {
+        $(this).find('.setting-menu').toggle();
+        $(this).find('.setting-menu').addClass('menu-opened');
+
+        if ($(this).find('.setting-menu').hasClass('menu-opened')) {
+            var articleId = $(this).parents('.content-wrapper').attr('articleId');
+            $(this).find('#update-article-' + articleId).on('click', function () {
+                // 수정페이지로 이동
+                location.href = '/' + articleId;
+            });
+
+            $(this).find('#delete-article-' + articleId).on('click', function () {
+                location.reload();  // 삭제
+            });
+        }
+    });
+}
+
+/* 이미지 크게 보기
+창이 너무 안이뻐서 바꿀거임.. */
 function popImg(img) {
     var winImg = window.open('', '', 'width=0, height=0, menubar=0, toolbar=0, directories=0, scrollbars=1, status=0, location=0, resizable=1');
     var data = "<html><head><title></title></head>";
@@ -101,4 +213,104 @@ function popImg(img) {
     winImg.document.write(data);
 }
 
-init(restaurants);
+// 맨 위로 버튼
+$('.go-top-btn').on('click', function () {
+    $('body, html').animate({
+        scrollTop: 0
+    }, 100);
+    return false;
+});
+
+// 맨 위로 버튼 위치 및 숨김 효과
+function relocateGoTopButton() {
+    var scrollTop = $(window).scrollTop();
+    var footerHeight = $('footer').outerHeight();
+    var bodyHeight = $('body').height();
+    var windowHeight = $(window).height();
+
+    if (scrollTop > 300) {
+        $('.go-top-btn').fadeIn(600);
+    }
+    else {
+        $('.go-top-btn').fadeOut(600);
+    }
+
+    if (bodyHeight - footerHeight - scrollTop < windowHeight) {
+        $('.go-top-btn').css({
+            position: 'absolute',
+            bottom: -55
+        });
+    }
+    else {
+        $('.go-top-btn').css({
+            position: 'fixed',
+            bottom: 20
+        });
+    }
+}
+
+// 상세페이지 로고 -> 맛집 이름으로 변경
+function setLogo(restaurant) {
+    $('.header-logo').css('display', 'none');
+    $('.header-title').css('display', 'inline-block');
+    $('.header-title').text(restaurant.name);
+    $('.back-button').css('display', 'inline-block');
+}
+
+// 헤더 뒤로가기 버튼. 누르면 홈으로 감
+$('.back-button').on('click', function () {
+    location.href = '/';
+});
+
+/* 맛집 간략정보 팝업 설정 */
+function initRestInfo(restaurant) {
+    var template = require('../template/rest-info.hbs');
+
+    $('.rest-submenu').empty();
+
+    var html = template(restaurant);
+
+    $('.rest-submenu').html(html);
+
+    attachRestInfoEvent();
+}
+
+// 카드 수정/삭제 버튼
+function updateDeleteBtn() {
+
+}
+
+// 팝업창에 마우스 또는 터치 이벤트
+function attachRestInfoEvent() {
+    if (desktopDevice.matches) {
+        $('.header-title').on('mouseover', function () {
+            $(this).parents().find('.rest-submenu').show(300);
+        });
+
+        $('.header-title').on('mouseout', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+
+        $('body').on('mousewheel', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+    }
+    else {
+        $('.header-title').on('touchstart', function () {
+            $(this).parents().find('.rest-submenu').show(300);
+        });
+
+        $('body').on('touchmove', function () {
+            $(this).parents().find('.rest-submenu').hide(300);
+        });
+    }
+}
+
+// 윈도우 스크롤 할때
+$(window).on('scroll', function () {
+    relocateGoTopButton();
+});
+
+// 페이지 초기화
+//initContents(restaurants);
+relocateGoTopButton();
