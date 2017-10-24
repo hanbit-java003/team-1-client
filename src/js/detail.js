@@ -3,6 +3,7 @@ require('../less/detail.less');
 
 var UrlSearchParams = require('url-search-params');
 var params = new UrlSearchParams(location.search);
+var rid = params.get('rid');
 
 var common = require('./common');
 
@@ -12,8 +13,6 @@ var common = require('./common');
     require('./model/restaurants/fish'),
     require('./model/restaurants/mibundang')
 ];*/
-
-var rid = 2;
 
 $.ajax({
     url: 'api/cock/detail/' + rid,
@@ -86,20 +85,15 @@ $(window).resize(function () {
 });
 
 function initContents(restaurant) {
-    /* 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 를
+    /* 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 name 을
     비교해서 맞을 경우에 템플릿에 담음 */
-    /* for (var i = 0; i < restaurants.length; i++) {
-         var restaurant = restaurants[i][0];
-
-         if (params.get('rid') === restaurant.rid) {
-
-         }
-     }*/
     setDesktop(restaurant);
     setMobile(restaurant);
 
     setLogo(restaurant);
     initRestInfo(restaurant);
+
+    console.log(restaurant.rid);
 
     // 더보기 버튼
     $('.btn-more').on('click', function () {
