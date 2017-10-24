@@ -124,6 +124,7 @@ $.ajax({
 
 function insertInit(uid) {
     if (params.get('rid') === null) { // 식당 입력
+        model.articles[0].uid = uid;
         init();
     }
     else if (params.get('rid') && params.get('articleId') === null) { // 식당의 후기 입력
@@ -669,9 +670,6 @@ $('.cc-btn-save').on('click', function () {
     images.forEach(function(img) {
         formData.append('imgs', img);
     });
-
-    console.log(model);
-    console.log(images);
 
     $.ajax({
         url: '/api/cock/insert/save',
