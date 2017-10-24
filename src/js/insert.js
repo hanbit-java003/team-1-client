@@ -124,6 +124,7 @@ $.ajax({
 
 function insertInit(uid) {
     if (params.get('rid') === null) { // 식당 입력
+        model.articles[0].uid = uid;
         init();
     }
     else if (params.get('rid') && params.get('articleId') === null) { // 식당의 후기 입력
