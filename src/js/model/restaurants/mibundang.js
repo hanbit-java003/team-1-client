@@ -1,19 +1,20 @@
 module.exports = [{
     rid: 'mibundang',
+    name: '미분당',
     contents: [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',
         achievement: [{
-            emblem: '국밥충'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '돼지테리언'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '신촌멋쟁이'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_01.jpg',
         eaten: '돼지곰탕 특 1 그릇 14000 원',    // 이건 나중에 더 디테일하게 수정해야함. 메뉴, 그릇, 가격 다 나눠서..
         detail: '합정역 근처 예술적인 맛집!!<br>하루 100 그릇 한정 판매!!<br>점심시간 지나서 가면 못먹어요~<br>',
-        menu: [{
+        tag: [{
             item: "돼지곰탕"
         }, {
             item: "특"
@@ -24,16 +25,16 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '알라코',
         achievement: [{
-            emblem: '국밥충'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '돼지테리언'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '신촌멋쟁이'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_02.jpg',
         eaten: '간장게장 1 접시 12000 원',
         detail: ' 밥도둑 간장게장한테<br>내 밥을 도둑맞았어요!!',
-        menu: [{
+        tag: [{
             item: "간장게장"
         }, {
             item: "간장새우"
@@ -44,11 +45,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '해파리지앵',
         achievement: [{
-            emblem: '면식범'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '식탐왕'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '강남제비'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_03.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',
@@ -60,7 +61,7 @@ module.exports = [{
         '그리고 육수농도(보통,진하게), 면(꼬들꼬들, 보통, 퍼진면) 염도(싱겁게, 보통, 짜게) ' +
         '를 커스텀마이징, 정할수 있어서 자기 취향에 맞는 라면을 먹을수 있다.<br>' +
         '밥, 김치는 무료로 제공해준다.(남길경우 5,000원)<br>',
-        menu: [{
+        tag: [{
             item: "돈코츠라멘"
         }, {
             item: "쇼유라멘"
@@ -89,11 +90,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '해파리지앵',
         achievement: [{
-            emblem: '면식범'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '식탐왕'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '강남제비'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_04.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',
@@ -105,7 +106,7 @@ module.exports = [{
         '그리고 육수농도(보통,진하게), 면(꼬들꼬들, 보통, 퍼진면) 염도(싱겁게, 보통, 짜게) ' +
         '를 커스텀마이징, 정할수 있어서 자기 취향에 맞는 라면을 먹을수 있다.<br>' +
         '밥, 김치는 무료로 제공해준다.(남길경우 5,000원)<br>',
-        menu: [{
+        tag: [{
             item: "돈코츠라멘"
         }, {
             item: "쇼유라멘"
@@ -116,11 +117,11 @@ module.exports = [{
         userImg: '../img/sc-img/members/Jellyfish.jpg',
         userName: '해파리지앵',
         achievement: [{
-            emblem: '면식범'
+            emblem: '../img/sc-img/achievement/noodle.svg'
         }, {
-            emblem: '식탐왕'
+            emblem: '../img/sc-img/achievement/bbq.svg'
         }, {
-            emblem: '강남제비'
+            emblem: '../img/sc-img/achievement/pizza.svg'
         }],
         foodImg: '../img/sc-img/restaurants/mibundang_05.jpg',
         eaten: '돈코츠라멘 1 그릇 6000 원',
@@ -132,7 +133,7 @@ module.exports = [{
         '그리고 육수농도(보통,진하게), 면(꼬들꼬들, 보통, 퍼진면) 염도(싱겁게, 보통, 짜게) ' +
         '를 커스텀마이징, 정할수 있어서 자기 취향에 맞는 라면을 먹을수 있다.<br>' +
         '밥, 김치는 무료로 제공해준다.(남길경우 5,000원)<br>',
-        menu: [{
+        tag: [{
             item: "돈코츠라멘"
         }, {
             item: "쇼유라멘"

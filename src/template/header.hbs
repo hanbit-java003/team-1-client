@@ -1,10 +1,16 @@
 <header>
     <div class="header-wrapper">
-        <div class="header-btn-member navicon"><i class="fa fa-navicon"></i></div>
-        <div class="back-button">
-            <i class="fa fa-caret-left"></i>
+        <!--<div class="header-btn-member navicon"><i class="fa fa-navicon"></i></div>-->
+        <div class="header-logo-wrapper">
+            <div class="back-button">
+                <i class="fa fa-chevron-left"></i>
+            </div>
+            <div class="header-logo"></div>
+            <div class="header-title"></div>
         </div>
-        <div class="header-logo"></div>
+        <div class="rest-submenu">
+            <!-- 식당정보 팝업 -->
+        </div>
         <div class="search-wrapper">
             <div class="search-toggle header-search-icon">
                 <i class="fa fa-search"></i>
@@ -14,9 +20,21 @@
                 <input class="search-input" type="search" placeholder="검색창입니다.">
                 <span class="search-toggle header-close-icon">X</span>
             </div>
-            <button class="header-bt">
-                <i class="fa fa-user"></i>
-            </button>
+            {{#if signedIn}}
+                    {{# if avatar}}
+                        <button class="header-bt" style="background-image: url({{avatar}})">
+                        </button>
+                    {{else}}
+                        <button class="header-bt">
+                            <i class="fa fa-user"></i>
+                        </button>
+                    {{/if}}
+            {{else}}
+                    <button class="header-bt" >
+                        <i class="fa fa-user"></i>
+                    </button>
+            {{/if}}
+
         </div>
     </div>
 </header>

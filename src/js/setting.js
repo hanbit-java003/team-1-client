@@ -11,11 +11,10 @@ var join = require('./join.js');
 
 
 
-join.ajax({
+common.ajax({
     url:'/api/member/get',
     success: function (result) {
         if (!result.signedIn) {
-            alert('로그인이 필요한 페이지입니다.');
             location.href= '/'; // 기본홈으로 돌려보냄.
         }
         getMemberDetail();
@@ -23,7 +22,7 @@ join.ajax({
 });
 
 function getMemberDetail() {
-    join.ajax({
+    common.ajax({
         url: '/api/member/detail',
         success: function (result) {
             init(result);
@@ -104,23 +103,43 @@ $('.cock-setting-cancel').on('click', function () {
     location.href = './';
 });
 
-$('.cock-setting-save').on('click', function () {
-    var member = {
-        currentPw: $('#cock-member-cpw-input').val().trim(),
-        password: $('#cock-member-npw-input').val().trim(),
-        nick: $('#cock-member-nick-input').val().trim(),
-        detail : {
-            phone: $('#cock-member-phone-input').val().trim(),
-            info: $('#cock-member-info-check')[0].checked ? 'Y' : 'N'
-        }
+var member = {
+    currentPw: $('#cock-member-cpw-input').val().trim(),
+    password: $('#cock-member-npw-input').val().trim(),
+    nick: $('#cock-member-nick-input').val().trim(),
+    detail : {
+        phone: $('#cock-member-phone-input').val().trim(),
+        info: $('#cock-member-info-check')[0].checked ? 'Y' : 'N'
     }
+};
+
+
+$('#cock-setting-validation').on('click', function () {
+    console.log('dsadsa');
+    var vall = init(member.nick);
+
+
+});
+
+$('.cock-setting-save').on('click', function () {
+
+
+
+    if(!member.nick) {
+        alert('별명을 입력해주세요.');
+        $('#cock-member-nick-input').focus();
+        return;
+    }
+
     var npwc = $('#cock-member-npwc-input').val().trim();
+    var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
     if (member.currentPw || member.password || npwc) {
         if(!member.currentPw) { //현재 비밀번호가 없으면?
             alert('현재 비밀번호를 입력해주세요.');
             $('#cock-member-cpw-input').focus();
             return;
-        }// 새 비밀번호가 없으면?
+        }
+        // 새 비밀번호가 없으면?
         else if(!member.password) {
             alert('새 비밀번호를 입력해주세요.');
             $('#cock-member-npw-input').focus();
@@ -136,6 +155,11 @@ $('.cock-setting-save').on('click', function () {
             $('#cock-member-npwc-input').focus();
             return;
         }
+        else if(!pwRe.test(npwc)){
+            alert('비밀번호는 6~20자 영문 대 소문자, 최소 1개의 숫자,특수문자를 사용하세요.');
+            $('#cock-member-npw-input').focus();
+            return;
+        }
     }
     console.log(member);
 
@@ -149,7 +173,7 @@ $('.cock-setting-save').on('click', function () {
         formData.append('avatar', images[0]);
     }
 
-    join.ajax ({
+    common.ajax ({
         url: '/api/member/save',
         method: 'POST',
         data: formData,
