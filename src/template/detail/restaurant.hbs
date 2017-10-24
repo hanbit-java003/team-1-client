@@ -1,4 +1,4 @@
-<div class="content-wrapper">
+<div class="content-wrapper" articleId="{{articleId}}">
     <div class="user-info">
         <div id="user-img" class="img-circle" style="background-image: url({{userImg}})"></div>
         <div id="user-name">{{userName}}</div>
@@ -11,10 +11,10 @@
         </ul>
         <div class="card-setting">
             <i class="fa fa-ellipsis-v"></i>
-            <ul class="setting-menu">
-                <li>수정</li>
-                <li>삭제</li>
-            </ul>
+            <div class="setting-menu">
+                <button id="update-article-{{articleId}}">수정</button>
+                <button id="delete-article-{{articleId}}">삭제</button>
+            </div>
         </div>
     </div>
     {{~#each imgs}}
