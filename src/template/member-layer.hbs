@@ -1,19 +1,39 @@
 <div class="cock-member-layer">
     {{# if signedIn}}
-        <section class="cock-sign-in">
+        <section class="cock-member-form">
             <button id="cock-logout" class="btn btn-primary">로그아웃</button>
             <button id="cock-setting" class="btn btn-primary">my page</button>
         </section>
     {{else}}
-        <section class="cock-sign-in">
-            <input id=cock-login-email type="email" placeholder="이메일주소">
-            <input id="cock-login-pw" type="password" placeholder="비밀번호">
-            <label>
-                <input id="cock-login-remember" type="checkbox">
-                자동로그인
-            </label>
-            <button id="cock-login-btn" class="btn btn-primary">로그인</button>
-            <button id="cock-member-join-btn" class="btn btn-primary">회원가입</button>
+        <section class="cock-member-form">
+            <div class="cock-member-layer-logo"></div>
+            <div class="cock-member-form-group">
+                <input id=cock-login-email type="email" placeholder="이메일주소">
+                <i class="fa fa-fw fa-envelope-o"></i>
+            </div>
+            <div class="cock-member-form-group">
+                <input id="cock-login-pw" type="password" placeholder="비밀번호">
+                <i class="fa fa-fw fa-lock"></i>
+            </div>
+                <div class="cock-member-form-group checkbox">
+                <label>
+                    <input id="cock-login-remember" type="checkbox">
+                    자동로그인
+                </label>
+                <div id="cock-login-btn" class="cock-login-btn">로그인</div>
+                <ul class="cock-member-sns">
+                    <li style="background-image: url(../img/member-layer/facebook.png)"></li>
+                    <li style="background-image: url(../img/member-layer/naver.png)"></li>
+                    <li style="background-image: url(../img/member-layer/kakao.jpg)"></li>
+                </ul>
+                <div class="cock-member-text">
+                    <span class="cock-highlight"><img src="../img/main-logo.png"></span>만의 맛집 정보를 받으시려면?<br>
+                    <div id="cock-member-join-btn">
+                        <span class="cock-link">회원가입</span>
+                    </div>
+                </div>
+
+            </div>
         </section>
     {{/if}}
 </div>

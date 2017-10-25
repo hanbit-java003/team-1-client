@@ -150,6 +150,10 @@ function templateHeader(result) {
         location.href = './';
     });
 
+    $('.back-button').on('click', function () {
+        location.href = '/';
+    });
+
     searchBarToggle();
 
 }
