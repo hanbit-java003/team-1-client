@@ -84,12 +84,15 @@ CREATE TABLE `cc_article` (
   `rid` int(11) NOT NULL,
   `comment` varchar(500) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
-  `like` int(11) DEFAULT NULL,
+  `likes` int(11) DEFAULT NULL,
   `hate` int(11) DEFAULT NULL,
   `write_dt` varchar(45) DEFAULT NULL,
+  `uid` varchar(45) NOT NULL,
   PRIMARY KEY (`article_id`,`rid`),
   KEY `fk_cc_article_cc_rest_idx` (`rid`),
-  CONSTRAINT `fk_cc_article_rid` FOREIGN KEY (`rid`) REFERENCES `cc_rest` (`rid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_cc_article_uid_idx` (`uid`),
+  CONSTRAINT `fk_cc_article_rid` FOREIGN KEY (`rid`) REFERENCES `cc_rest` (`rid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cc_article_uid` FOREIGN KEY (`uid`) REFERENCES `cc_member` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -99,6 +102,7 @@ CREATE TABLE `cc_article` (
 
 LOCK TABLES `cc_article` WRITE;
 /*!40000 ALTER TABLE `cc_article` DISABLE KEYS */;
+INSERT INTO `cc_article` VALUES (0,1,'comment','',0,0,'171009','3HgHeOlylIZR'),(0,2,'testtest',NULL,0,0,'2017-10-19 17:21:38','3HgHeOlylIZR');
 /*!40000 ALTER TABLE `cc_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +129,7 @@ CREATE TABLE `cc_file` (
 
 LOCK TABLES `cc_file` WRITE;
 /*!40000 ALTER TABLE `cc_file` DISABLE KEYS */;
-INSERT INTO `cc_file` VALUES ('avatar-78Vg3aGWjegY','/hanbit/webpack/cock-front/src/img/avatars/78Vg3aGWjegY.jpg','image/jpeg',6909,'78Vg3aGWjegY.jpg'),('avatar-l848n4EFj6qq','/hanbit/webpack/cock-front/src/img/avatars/l848n4EFj6qq.jpg','image/jpeg',5181,'l848n4EFj6qq.jpg'),('avatar-RGlvMjTqxGd2','/hanbit/webpack/cock-front/src/img/avatars/RGlvMjTqxGd2.jpg','image/jpeg',4830,'RGlvMjTqxGd2.jpg'),('avatar-vWAZe5ymb7re','/hanbit/webpack/cock-front/src/img/avatars/vWAZe5ymb7re.jpg','image/jpeg',6909,'vWAZe5ymb7re.jpg'),('avatar-xjQEFYzSvsPd','/hanbit/webpack/cock-front/src/img/avatars/xjQEFYzSvsPd.jpg','image/jpeg',4830,'xjQEFYzSvsPd.jpg'),('avatar-ZOHL4yppGlnR','/hanbit/webpack/cock-front/src/img/avatars/ZOHL4yppGlnR.jpg','image/jpeg',6758,'ZOHL4yppGlnR.jpg');
+INSERT INTO `cc_file` VALUES ('art-duch-1_0_0','/hanbit2/webpack/team-1-front/src/img/insert/art-duch-1_0_0.jpg','image/jpeg',30318,'art-duch-1_0_0.jpg'),('art-guam-dolphin-cruise_5-2_0_1','/hanbit2/webpack/team-1-front/src/img/insert/art-guam-dolphin-cruise_5-2_0_1.jpg','image/jpeg',780831,'art-guam-dolphin-cruise_5-2_0_1.jpg'),('art-guam-dolphin-cruise_6-2_0_0','/hanbit2/webpack/team-1-front/src/img/insert/art-guam-dolphin-cruise_6-2_0_0.jpg','image/jpeg',777835,'art-guam-dolphin-cruise_6-2_0_0.jpg'),('art-jeju-1_0_1','/hanbit2/webpack/team-1-front/src/img/insert/art-jeju-1_0_1.jpg','image/jpeg',435717,'art-jeju-1_0_1.jpg');
 /*!40000 ALTER TABLE `cc_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,6 +157,7 @@ CREATE TABLE `cc_img` (
 
 LOCK TABLES `cc_img` WRITE;
 /*!40000 ALTER TABLE `cc_img` DISABLE KEYS */;
+INSERT INTO `cc_img` VALUES (0,1,0,'/api/file/art-duch-1_0_0'),(0,2,0,'/api/file/art-guam-dolphin-cruise_6-2_0_0'),(1,1,0,'/api/file/art-jeju-1_0_1'),(1,2,0,'/api/file/art-guam-dolphin-cruise_5-2_0_1');
 /*!40000 ALTER TABLE `cc_img` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +187,7 @@ CREATE TABLE `cc_member` (
 
 LOCK TABLES `cc_member` WRITE;
 /*!40000 ALTER TABLE `cc_member` DISABLE KEYS */;
-INSERT INTO `cc_member` VALUES ('9WEpybUxfmUb','jmkjmk0629@naver.com','문기','c6a22b552c8caee36382dd1dc93b36ba049583b47d31bffa86eee003297a091d2390e4d29811ac2b','2017-10-16 12:31:01',NULL),('bulmzBAM3pUd','qwer@naver.com','메롱입니다아','c9080c3e16575642ac7cd00f801e5a2d1cbbf17b794ea1638457c6436fd5bac1a56dcff031c786e7','2017-10-16 12:37:25',NULL),('cPylL5Onjtth','jmk0629','바보','d8b7250b26e9ad7065fec24714f59e7299c7e0155da0e7e23b338a17c34f596c6c882d69d46d3e53','2017-10-13 09:53:15',NULL),('fejb1aeCIrdl','43242@yahoo.co.kr','안녕하세요','46ec7c2ad9665371bf179f93e30ccf89d410e4de0eb1e0f6dc9ec546ad701ee11dfbf26dcb878f42','2017-10-16 09:35:14',NULL),('TyHu9EL27akR','jmk0629@naver.co.kr','121','96d1e3a3647187307e45ab55da8c89fb7c26fbbc4a10697d36ebc559b0a8cdf3138f06ae74789cc0','2017-10-16 10:16:12',NULL),('vWAZe5ymb7re','jmk0629@naver.com','dsadsa','382bd14fcdbda9a0a2abd72b829727ee00ce8f3a3657477510010e47b214a33031737c2a5936c42b','2017-10-16 09:21:00',NULL),('WOkBFCzXwcWM','jmk0629@naver.co.kk','111','cb1f611d15967b65d2263568135b4494a83869a4548cedebb5f1cb0c5d7d10565293744e09ef7809','2017-10-16 10:18:06',NULL),('ZYtv6jaaFRiP','11111dsa@naver.com','11','9e7444e19524d65aa04cc28baca0944b0b9f9b1aebb4025aeed02c06d2c62341d3b51980e6256e21','2017-10-16 12:27:06',NULL);
+INSERT INTO `cc_member` VALUES ('3HgHeOlylIZR','asdf','asdf','f1f71c7547f55014e50f203cb117d005a1b85516a3988c0561d462be99dce4ae80f297f514fa2c0e','2017-10-12 15:01:24',NULL),('4Vnu0lJqziqC','1','1','682ce59dd2d6dcfaee3319cc26d98da8174fbcbe3a443992d2e53b9a779bf8e38e087d77e506f7c5','2017-10-12 15:41:30',NULL),('RGlvMjTqxGd2','JMK1234','뭉기1','c61bdb40ce6e7293b7b78ccbf84705a9b53b61c6516b76e7dcdfa87a636a6509b28523e8323e62f9','2017-10-10 09:15:13',NULL),('ZOHL4yppGlnR','jmk0629','뭉기','d3e409c25f79ab5fdb94606c98e8e7dbcf1e9921bfbe187d7786fb65c5c21efefb741d169f98852f','2017-10-10 09:12:11',NULL);
 /*!40000 ALTER TABLE `cc_member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +216,6 @@ CREATE TABLE `cc_member_detail` (
 
 LOCK TABLES `cc_member_detail` WRITE;
 /*!40000 ALTER TABLE `cc_member_detail` DISABLE KEYS */;
-INSERT INTO `cc_member_detail` VALUES ('vWAZe5ymb7re','','Y','/api/file/avatar-vWAZe5ymb7re',NULL);
 /*!40000 ALTER TABLE `cc_member_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,7 +262,8 @@ CREATE TABLE `cc_menu` (
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
   `menu` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`,`rid`,`article_id`,`img_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -268,6 +273,7 @@ CREATE TABLE `cc_menu` (
 
 LOCK TABLES `cc_menu` WRITE;
 /*!40000 ALTER TABLE `cc_menu` DISABLE KEYS */;
+INSERT INTO `cc_menu` VALUES (0,1,0,0,10,10,'img0_menu0',1000),(0,1,0,1,10,10,'img1_menu0',2000),(0,2,0,0,116,93,'test',1000),(0,2,0,1,104,113,'test2',2000),(1,1,0,1,40,40,'img1_menu1',3000),(1,2,0,0,185,29,'test3',3000);
 /*!40000 ALTER TABLE `cc_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,6 +300,7 @@ CREATE TABLE `cc_rest` (
 
 LOCK TABLES `cc_rest` WRITE;
 /*!40000 ALTER TABLE `cc_rest` DISABLE KEYS */;
+INSERT INTO `cc_rest` VALUES (1,37.55232,126.937588,'title',''),(2,37.55190971308509,126.93756937980652,'ㅁㄴㅇㄹ',NULL);
 /*!40000 ALTER TABLE `cc_rest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,6 +328,7 @@ CREATE TABLE `cc_tag` (
 
 LOCK TABLES `cc_tag` WRITE;
 /*!40000 ALTER TABLE `cc_tag` DISABLE KEYS */;
+INSERT INTO `cc_tag` VALUES (0,1,0,'tag1'),(0,2,0,'test'),(1,1,0,'tag1');
 /*!40000 ALTER TABLE `cc_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -333,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-17  9:11:07
+-- Dump completed on 2017-10-25 10:28:39

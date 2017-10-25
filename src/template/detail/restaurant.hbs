@@ -1,7 +1,7 @@
-<div class="content-wrapper">
+<div class="content-wrapper" articleId="{{articleId}}">
     <div class="user-info">
         <div id="user-img" class="img-circle" style="background-image: url({{userImg}})"></div>
-        <div id="user-name">{{userName}}</div>
+        <div id="user-name">{{uid}}</div>
         <ul class="user-achievement">
             {{~#each achievement~}}
                 <li class="achievement-icon" style="background-image: url({{emblem}})">
@@ -11,24 +11,26 @@
         </ul>
         <div class="card-setting">
             <i class="fa fa-ellipsis-v"></i>
-            <ul class="setting-menu">
-                <li>수정</li>
-                <li>삭제</li>
-            </ul>
+            <div class="setting-menu">
+                <button id="update-article-{{articleId}}">수정</button>
+                <button id="delete-article-{{articleId}}">삭제</button>
+            </div>
         </div>
     </div>
     <div class="food-img-wrapper">
-        <img id="food-img" class="img-responsive" src='{{foodImg}}'>
+        {{~#each imgs}}
+            <img id="food-img-{{imgId}}" class="img-responsive" src='{{path}}'>
+        {{/each}}
     </div>
     <div class="food-text">
-        {{~#each eaten~}}
-            <li class="food-eaten">{{menu}}</li>
+        {{~#each menus~}}
+            <li class="food-eaten">{{menu}} {{price}}원</li>
         {{~/each~}}
         <div class="food-detail card-closed">
-            {{{detail}}}
+            {{{comment}}}
             <div class="food-tag">
-                {{~#each tag~}}
-                    <li>#{{item}}</li>
+                {{~#each tags~}}
+                    <li>#{{tag}}</li>
                 {{~/each~}}
             </div>
         </div>
@@ -36,11 +38,12 @@
     <ul class="food-icon">
         <li>
             <i class="food-like fa fa-heart-o"></i>
-            <span class="food-like-count" style="font-size: 12px;font-weight: bold;">{{likeCount}}</span>
+            <span class="food-like-count" style="font-size: 12px;font-weight: bold;">{{likes}}</span>
         </li>
         <li>
             <i class="food-trash fa fa-trash-o"></i>
-            <span class="food-trash-count" style="color: #666;font-size: 12px;font-weight: bold;">{{trashCount}}</span>
+            <span class="food-trash-count"
+                  style="color: #666;font-size: 12px;font-weight: bold;">{{hate}}</span>
         </li>
         <li><i class="food-report fa fa-ban"></i></li>
     </ul>

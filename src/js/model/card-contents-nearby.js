@@ -1,7 +1,7 @@
 module.exports = [{
-    id: 'goramen',
-    title: '고라멘',
-    mainImg: './img/main-img/goramen.jpg',
+    rid: '2',
+    name: '고라멘',
+    img: './img/main-img/goramen.jpg',
     lat: 37.555344,
     lng: 126.932692,
     count: 14,
@@ -16,11 +16,11 @@ module.exports = [{
     }, {
         item: '차슈추가'
     }],
-    updateDt: '2017-09-07 15:32:08'
+    writeDt: '2017-09-07 15:32:08'
 }, {
-    id: 'mibundang',
-    title: '미분당',
-    mainImg: './img/main-img/mibundang.jpg',
+    rid: '3',
+    name: '미분당',
+    img: './img/main-img/mibundang.jpg',
     lat: 37.556792,
     lng: 126.933534,
     count: 22,
@@ -35,11 +35,11 @@ module.exports = [{
     }, {
         item: '기다림의미학'
     }],
-    updateDt: '2017-09-07 15:32:08'
+    writeDt: '2017-09-07 15:32:08'
 }, {
-    id: 'josun',
-    title: '조선의육개장',
-    mainImg: './img/main-img/josun.jpg',
+    rid: '1',
+    name: '조선의육개장',
+    img: './img/main-img/josun.jpg',
     lat: 37.557007,
     lng: 126.935057,
     count: 1,
@@ -54,11 +54,11 @@ module.exports = [{
     }, {
         item: '신촌맛집'
     }],
-    updateDt: '2017-09-07 15:32:08'
+    writeDt: '2017-09-07 15:32:08'
 }, {
-    id: 'marugame',
-    title: '마루가메제면 신촌점',
-    mainImg: './img/main-img/marugame.jpg',
+    rid: '0',
+    name: '마루가메제면 신촌점',
+    img: './img/main-img/marugame.jpg',
     lat: 37.555667,
     lng: 126.936178,
     count: 111,
@@ -73,11 +73,11 @@ module.exports = [{
     }, {
         item: '니쿠우동'
     }],
-    updateDt: '2017-09-07 15:32:08'
+    writeDt: '2017-09-07 15:32:08'
 }, {
-    id: 'fish',
-    title: '털보고된이생선구이 신촌점',
-    mainImg: './img/main-img/fish.jpg',
+    rid: '4',
+    name: '털보고된이생선구이 신촌점',
+    img: './img/main-img/fish.jpg',
     lat: 37.558257,
     lng: 126.934696,
     count: 56,
@@ -92,11 +92,11 @@ module.exports = [{
     }, {
         item: '임연수'
     }],
-    updateDt: '2017-09-07 15:32:08'
+    writeDt: '2017-09-07 15:32:08'
 }, {
-    id: 'crister',
-    title: '크리스터치킨 신촌점',
-    mainImg: './img/main-img/chicken.jpg',
+    rid: '5',
+    name: '크리스터치킨 신촌점',
+    img: './img/main-img/chicken.jpg',
     lat: 37.558037,
     lng: 126.934715,
     count: 90,
@@ -111,11 +111,11 @@ module.exports = [{
     }, {
         item: '크리스터'
     }],
-    updateDt: '2017-09-07 15:32:08'
+    writeDt: '2017-09-07 15:32:08'
 }, {
-    id: 'hwasang',
-    title: '화상손만두',
-    mainImg: './img/main-img/hwasang.jpg',
+    rid: '6',
+    name: '화상손만두',
+    img: './img/main-img/hwasang.jpg',
     lat: 37.558566,
     lng: 126.943284,
     count: 7,
@@ -130,5 +130,5 @@ module.exports = [{
     }, {
         item: '부추손만두'
     }],
-    updateDt: '2017-09-07 15:32:08'
+    writeDt: '2017-09-07 15:32:08'
 }];

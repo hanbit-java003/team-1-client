@@ -22,17 +22,17 @@
             </div>
             {{#if signedIn}}
                     {{# if avatar}}
-                        <button class="header-bt" style="background-image: url({{avatar}})">
-                        </button>
+                        <div class="header-bt" style="background-image: url({{avatar}})">
+                        </div>
                     {{else}}
-                        <button class="header-bt">
+                        <div class="header-bt">
                             <i class="fa fa-user"></i>
-                        </button>
+                        </div>
                     {{/if}}
             {{else}}
-                    <button class="header-bt" >
+                    <div class="header-bt" >
                         <i class="fa fa-user"></i>
-                    </button>
+                    </div>
             {{/if}}
 
         </div>

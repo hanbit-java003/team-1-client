@@ -103,15 +103,8 @@ $('.cock-setting-cancel').on('click', function () {
     location.href = './';
 });
 
-var member = {
-    currentPw: $('#cock-member-cpw-input').val().trim(),
-    password: $('#cock-member-npw-input').val().trim(),
-    nick: $('#cock-member-nick-input').val().trim(),
-    detail : {
-        phone: $('#cock-member-phone-input').val().trim(),
-        info: $('#cock-member-info-check')[0].checked ? 'Y' : 'N'
-    }
-};
+
+var member;
 
 
 $('#cock-setting-validation').on('click', function () {
@@ -121,18 +114,43 @@ $('#cock-setting-validation').on('click', function () {
 
 });
 
+
 $('.cock-setting-save').on('click', function () {
+    member = {
+        currentPw: $('#cock-member-cpw-input').val().trim(),
+        password: $('#cock-member-npw-input').val().trim(),
+        nick: $('#cock-member-nick-input').val().trim(),
+        detail : {
+            phone: $('#cock-member-phone-input').cleanVal().trim(),
+            info: $('#cock-member-info-check')[0].checked ? 'Y' : 'N'
+        }
+    };
 
 
 
-    if(!member.nick) {
-        alert('별명을 입력해주세요.');
-        $('#cock-member-nick-input').focus();
-        return;
-    }
+
+    /*    if(!member.nick) {
+            alert('별명을 입력해주세요.');
+            $('#cock-member-nick-input').focus();
+            return;
+        }*/
 
     var npwc = $('#cock-member-npwc-input').val().trim();
     var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+    var nickRe = /^[ㄱ-ㅎ가-힣a-zA-Z0-9/\/*]{2,6}$/;
+    //별명.
+    if(!member.nick){
+        alert('별명을 입력하세요.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+    else if(!nickRe.test(member.nick)){
+        alert('별명은 한글,영어,숫자 상관없이 2~6자 사이입니다.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+
+
     if (member.currentPw || member.password || npwc) {
         if(!member.currentPw) { //현재 비밀번호가 없으면?
             alert('현재 비밀번호를 입력해주세요.');
