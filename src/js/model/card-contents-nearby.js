@@ -1,5 +1,5 @@
 module.exports = [{
-    id: 'goramen',
+    id: '2',
     title: '고라멘',
     mainImg: './img/main-img/goramen.jpg',
     lat: 37.555344,
@@ -18,7 +18,7 @@ module.exports = [{
     }],
     updateDt: '2017-09-07 15:32:08'
 }, {
-    id: 'mibundang',
+    id: '3',
     title: '미분당',
     mainImg: './img/main-img/mibundang.jpg',
     lat: 37.556792,
@@ -37,7 +37,7 @@ module.exports = [{
     }],
     updateDt: '2017-09-07 15:32:08'
 }, {
-    id: 'josun',
+    id: '1',
     title: '조선의육개장',
     mainImg: './img/main-img/josun.jpg',
     lat: 37.557007,
@@ -56,7 +56,7 @@ module.exports = [{
     }],
     updateDt: '2017-09-07 15:32:08'
 }, {
-    id: 'marugame',
+    id: '0',
     title: '마루가메제면 신촌점',
     mainImg: './img/main-img/marugame.jpg',
     lat: 37.555667,
@@ -75,7 +75,7 @@ module.exports = [{
     }],
     updateDt: '2017-09-07 15:32:08'
 }, {
-    id: 'fish',
+    id: '4',
     title: '털보고된이생선구이 신촌점',
     mainImg: './img/main-img/fish.jpg',
     lat: 37.558257,
@@ -94,7 +94,7 @@ module.exports = [{
     }],
     updateDt: '2017-09-07 15:32:08'
 }, {
-    id: 'crister',
+    id: '5',
     title: '크리스터치킨 신촌점',
     mainImg: './img/main-img/chicken.jpg',
     lat: 37.558037,
@@ -113,7 +113,7 @@ module.exports = [{
     }],
     updateDt: '2017-09-07 15:32:08'
 }, {
-    id: 'hwasang',
+    id: '6',
     title: '화상손만두',
     mainImg: './img/main-img/hwasang.jpg',
     lat: 37.558566,

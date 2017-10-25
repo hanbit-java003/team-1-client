@@ -1,4 +1,4 @@
-<li class="bookmark-list" uid="{{id}}">
+<li class="bookmark-list" rid="{{id}}">
     <div class="bm-dark-layer"></div>
     <div class="bookmark-photo" style="background-image: url({{thumbnail}})">
         <div class="bookmark-element">
@@ -8,9 +8,14 @@
                     <i class="bookmark-btn fa fa-star"></i>
                 </button>
             </div>
-            <div class="commentary">
-                {{comment}}
+            <div class="commentary-container">
+                <ul class="commentary">
+                    {{#each comment}}
+                    <li>#{{hashtag}}</li>
+                    {{/each}}
+                </ul>
             </div>
         </div>
     </div>
+    <div class="location-info" lat="{{lat}}" lng="{{lng}}"></div>
 </li>

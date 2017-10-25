@@ -125,6 +125,7 @@ CREATE TABLE `cc_file` (
 
 LOCK TABLES `cc_file` WRITE;
 /*!40000 ALTER TABLE `cc_file` DISABLE KEYS */;
+INSERT INTO `cc_file` VALUES ('avatar-78Vg3aGWjegY','/hanbit/webpack/cock-front/src/img/avatars/78Vg3aGWjegY.jpg','image/jpeg',6909,'78Vg3aGWjegY.jpg'),('avatar-l848n4EFj6qq','/hanbit/webpack/cock-front/src/img/avatars/l848n4EFj6qq.jpg','image/jpeg',5181,'l848n4EFj6qq.jpg'),('avatar-RGlvMjTqxGd2','/hanbit/webpack/cock-front/src/img/avatars/RGlvMjTqxGd2.jpg','image/jpeg',4830,'RGlvMjTqxGd2.jpg'),('avatar-vWAZe5ymb7re','/hanbit/webpack/cock-front/src/img/avatars/vWAZe5ymb7re.jpg','image/jpeg',6909,'vWAZe5ymb7re.jpg'),('avatar-xjQEFYzSvsPd','/hanbit/webpack/cock-front/src/img/avatars/xjQEFYzSvsPd.jpg','image/jpeg',4830,'xjQEFYzSvsPd.jpg'),('avatar-ZOHL4yppGlnR','/hanbit/webpack/cock-front/src/img/avatars/ZOHL4yppGlnR.jpg','image/jpeg',6758,'ZOHL4yppGlnR.jpg');
 /*!40000 ALTER TABLE `cc_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +170,6 @@ CREATE TABLE `cc_member` (
   `password` varchar(300) NOT NULL,
   `create_dt` varchar(45) NOT NULL,
   `created_by` varchar(45) DEFAULT NULL,
-  `food` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `nick_UNIQUE` (`nick`)
@@ -182,7 +182,7 @@ CREATE TABLE `cc_member` (
 
 LOCK TABLES `cc_member` WRITE;
 /*!40000 ALTER TABLE `cc_member` DISABLE KEYS */;
-INSERT INTO `cc_member` VALUES ('RGlvMjTqxGd2','JMK1234','뭉기1','c61bdb40ce6e7293b7b78ccbf84705a9b53b61c6516b76e7dcdfa87a636a6509b28523e8323e62f9','2017-10-10 09:15:13',NULL,NULL),('ZOHL4yppGlnR','jmk0629','뭉기','d3e409c25f79ab5fdb94606c98e8e7dbcf1e9921bfbe187d7786fb65c5c21efefb741d169f98852f','2017-10-10 09:12:11',NULL,NULL);
+INSERT INTO `cc_member` VALUES ('9WEpybUxfmUb','jmkjmk0629@naver.com','문기','c6a22b552c8caee36382dd1dc93b36ba049583b47d31bffa86eee003297a091d2390e4d29811ac2b','2017-10-16 12:31:01',NULL),('bulmzBAM3pUd','qwer@naver.com','메롱입니다아','c9080c3e16575642ac7cd00f801e5a2d1cbbf17b794ea1638457c6436fd5bac1a56dcff031c786e7','2017-10-16 12:37:25',NULL),('cPylL5Onjtth','jmk0629','바보','d8b7250b26e9ad7065fec24714f59e7299c7e0155da0e7e23b338a17c34f596c6c882d69d46d3e53','2017-10-13 09:53:15',NULL),('fejb1aeCIrdl','43242@yahoo.co.kr','안녕하세요','46ec7c2ad9665371bf179f93e30ccf89d410e4de0eb1e0f6dc9ec546ad701ee11dfbf26dcb878f42','2017-10-16 09:35:14',NULL),('TyHu9EL27akR','jmk0629@naver.co.kr','121','96d1e3a3647187307e45ab55da8c89fb7c26fbbc4a10697d36ebc559b0a8cdf3138f06ae74789cc0','2017-10-16 10:16:12',NULL),('vWAZe5ymb7re','jmk0629@naver.com','dsadsa','382bd14fcdbda9a0a2abd72b829727ee00ce8f3a3657477510010e47b214a33031737c2a5936c42b','2017-10-16 09:21:00',NULL),('WOkBFCzXwcWM','jmk0629@naver.co.kk','111','cb1f611d15967b65d2263568135b4494a83869a4548cedebb5f1cb0c5d7d10565293744e09ef7809','2017-10-16 10:18:06',NULL),('ZYtv6jaaFRiP','11111dsa@naver.com','11','9e7444e19524d65aa04cc28baca0944b0b9f9b1aebb4025aeed02c06d2c62341d3b51980e6256e21','2017-10-16 12:27:06',NULL);
 /*!40000 ALTER TABLE `cc_member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,6 +198,7 @@ CREATE TABLE `cc_member_detail` (
   `phone` varchar(45) DEFAULT NULL,
   `info` char(1) NOT NULL DEFAULT 'N',
   `avatar` varchar(200) DEFAULT NULL,
+  `food` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   KEY `fk_cc_member_detail_cc_member1_idx` (`uid`),
   CONSTRAINT `fk_cc_member_detail_cc_member1` FOREIGN KEY (`uid`) REFERENCES `cc_member` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -210,7 +211,36 @@ CREATE TABLE `cc_member_detail` (
 
 LOCK TABLES `cc_member_detail` WRITE;
 /*!40000 ALTER TABLE `cc_member_detail` DISABLE KEYS */;
+INSERT INTO `cc_member_detail` VALUES ('vWAZe5ymb7re','','Y','/api/file/avatar-vWAZe5ymb7re',NULL);
 /*!40000 ALTER TABLE `cc_member_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cc_member_detail_feat`
+--
+
+DROP TABLE IF EXISTS `cc_member_detail_feat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_member_detail_feat` (
+  `uid` varchar(200) NOT NULL,
+  `icon` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `text` varchar(45) DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `eid` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  CONSTRAINT `fk_table1_cc_member_detail1` FOREIGN KEY (`uid`) REFERENCES `cc_member_detail` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_member_detail_feat`
+--
+
+LOCK TABLES `cc_member_detail_feat` WRITE;
+/*!40000 ALTER TABLE `cc_member_detail_feat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_member_detail_feat` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -303,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-10  9:20:56
+-- Dump completed on 2017-10-17  9:11:07

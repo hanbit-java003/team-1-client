@@ -8,44 +8,40 @@
   background-color: @main-background-color;
 }
 
-// 창 크기에 맞춰서 카드 크기 조절이 되기 위해 % 로 잡았음.
-.left-contents-wrapper {
-  display: inline-block;
-  width: 60%;
-  margin-bottom: 20px;
+.main-contents-wrapper {
+  padding: 0px 10px;
 }
 
+@main-min-width: 500px;
 @main-box-shadow: 1px 1px 10px rgba(0,0,0,0.3); // 카드 그림자
-@left-contents-min-width: 614px;
 
 #main-map {
-  width: 98%;
-  min-width: @left-contents-min-width;
-  height: 500px;
-  margin-right: 2%;
+  width: 100%;
+  min-width: @main-min-width;
+  height: 450px;
+  margin: 20px 0px;
   box-shadow: @main-box-shadow;
 }
 
 .article-ranking-wrapper {
-  display: inline-block;
-  width: 98%;
-  min-width: @left-contents-min-width;
-  height: 224px;
-  margin: 15px 2% 0px 0px;
+  width: 100%;
+  min-width: @main-min-width;
+  height: 240px;
+  margin-bottom: 20px;
   background-color: #fff;
   box-shadow: @main-box-shadow;
 }
 
 .ranking-top {
-  margin-top: 10px;
   width: 100%;
-  height: 30px;
+  height: 45px;
+  padding-top: 15px;
   text-align: center;
 }
 
 .rt-logo {
   display: inline-block;
-  width: 180px;
+  width: 175px;
   height: 100%;
   background-size: cover;
   background-position: 50% 50%;
@@ -55,17 +51,18 @@
 
 .rt-title {
   display: inline-block;
-  width: 120px;
+  width: 100px;
   height: 100%;
-  font-size: 20px;
-  font-weight: bold;
+  color: #3c3c3c;
+  font-family: 'Hanna', serif;
+  font-size: 30px;
   vertical-align: top;
   line-height: 30px;
-  letter-spacing: @main-letter-spacing;
+  opacity: 0.9;
 }
 
 .ranking-bottom {
-  margin: 10px 0px;
+  margin: 15px 0px;
 
   & > li {
     display: inline-block;
@@ -95,11 +92,12 @@
   height: @rb-order-width;
   background-color: @card-tab-color;
   color: #fff;
+  font-family: 'Hanna', serif;
   font-size: 20px;
-  font-weight: bold;
+  // font-weight: bold;
   text-align: center;
   line-height: @rb-order-width;
-  z-index: 3000;
+  z-index: 800;
 }
 
 .rb-dark-layer {
@@ -109,7 +107,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 1000;
+  z-index: 400;
 }
 
 .rb-img {
@@ -127,12 +125,12 @@
   color: #fff;
   font-weight: bold;
   text-align: center;
-  z-index: 2000;
+  z-index: 600;
 }
 
 .rbc-title {
+  font-family: 'Noto Sans KR', serif;
   font-size: 15px;
-  letter-spacing: @main-letter-spacing;
 }
 
 .rbc-count {
@@ -140,7 +138,7 @@
   font-size: 18px;
 
   i {
-    padding: 2px 2px 0px 0px;
+    padding-right: 5px;
   }
 }
 
@@ -149,29 +147,23 @@
 
 }
 
-.right-contents-wrapper {
-  display: inline-block;
-  width: 40%;
-  min-width: 410px;
-  margin-bottom: 20px;
-  vertical-align: top;
-}
-
 .main-card-tab {
   width: 100%;
+  min-width: @main-min-width;
+  margin: 20px 0px;
   background-color: #fff;
   box-shadow: @main-box-shadow;
 }
 
-@card-tab-color: #FF7E5F; // 우측 카드리스트 탭 버튼 색상. 추후 변경 가능
+@card-tab-color: #f99595; // 우측 카드리스트 탭 버튼 색상. 추후 변경 가능
 
 .card-tab-btns > li {
   display: inline-block;
   width: 50%;
-  padding: 10px 0px;
+  padding: 7px 0px;
   border-bottom: solid 1px @card-tab-color;
-  font-size: 20px;
-  font-weight: bold;
+  font-family: 'Hanna', serif;
+  font-size: 25px;
   text-align: center;
   color: @card-tab-color;
   cursor: pointer;
@@ -184,8 +176,10 @@
 }
 
 .card-contents-sort {
-  margin: 10px;
+  margin: 5px 10px 0px 10px;
+  font-family: 'Noto Sans KR', serif;
   font-size: 14px;
+  font-weight: bold;
   text-align: right;
 
   div {
@@ -197,7 +191,6 @@
 
     &.active {
       color: @card-tab-color;
-      font-weight: bold;
     }
   }
 }
@@ -211,7 +204,7 @@
 }
 
 .card-tab-contents {
-  height: 690px;
+  height: 660px;
   overflow: auto;
 }
 
@@ -224,7 +217,7 @@
 }
 
 .card-contents-list {
-  margin: 15px;
+  margin: 10px 15px;
 
   & > li {
     position: relative;
@@ -258,6 +251,7 @@
   height: 100%;
   padding-left: @card-img-width;
   color: #5e5e5e;
+  font-family: 'Noto Sans KR', serif;
 }
 
 .card-contents-favorite {
@@ -266,7 +260,6 @@
   color: @card-tab-color;
   text-align: right;
   line-height: 20px;
-  z-index: 2000;
 }
 
 .card-contents-title {
@@ -279,31 +272,32 @@
 
 .card-contents-count {
   display: inline-block;
-  padding: 3px 0px 7px 15px;
+  padding: 5px 0px 5px 15px;
   font-size: 17px;
   font-weight: bold;
+  vertical-align: top;
   letter-spacing: @main-letter-spacing;
 }
 
 .card-contents-tags {
-  padding: 10px 15px;
+  min-width: 203px;
+  max-width: 692px;
+  max-height: 44px;
+  padding: 5px 15px;
   font-size: 13px;
-  white-space: nowrap;
+  text-align: left;
+  // white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  // text-overflow: ellipsis;
 
   & > li {
     display: inline-block;
-    padding: 0px 5px;
-
-    &:first-child {
-      padding-left: 0px;
-    }
+    padding-right: 10px;
   }
 }
 
 .card-update-date {
-  padding: 10px 15px;
+  padding: 5px 15px;
   font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
