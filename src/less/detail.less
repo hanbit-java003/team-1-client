@@ -152,10 +152,15 @@ body {
 
 .food-img-wrapper {
   display: inline-block;
+  height: auto;
 
-  #food-img {
+  .img-responsive:first-child {
     display: inline-block;
-    height: auto;
+  }
+
+  .img-responsive {
+    display: none;
+    width: 360px;
     margin-bottom: 10px;
     background-position: center;
     background-size: cover;

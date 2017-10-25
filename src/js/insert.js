@@ -156,7 +156,7 @@ function init() {
     // model.articles[0].uid = '3HgHeOlylIZR'; // 임시 TEST용
     getLocation();
 
-    if (model.rid) {
+    if (model.rid !== null) {
         $('#cc-lat').val(model.lat);
         $('#cc-lng').val(model.lng);
         $('#cc-rest-name').val(model.name);
@@ -170,6 +170,8 @@ function init() {
         latLng.lng = parseFloat(model.lng);
 
         if (model.articles) {
+            var comment = model.articles[0].comment.replace(/<br\/>/ig, '\n');
+            comment = comment.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
             $('#cc-comment-textarea').val(model.articles[0].comment);
         }
 
@@ -233,7 +235,7 @@ function init() {
 var map;
 var googleMaps;
 function initMap() {
-    if (!model.rid) { // TEST 용
+    if (model.rid === null) { // TEST 용
         latLng.lat = 37.552320;
         latLng.lng = 126.937588;
     }
@@ -249,12 +251,12 @@ function initMap() {
 
     addMarkers();
 
-    if (model.rid) {
+    if (model.rid !== null) {
         selectMap(latLng);
     }
 
 
-    if (!model.rid) {
+    if (model.rid === null) {
         map.addListener('click', function (e) {
             latLng = e.latLng;
 
@@ -688,3 +690,6 @@ $('.cc-btn-save').on('click', function () {
     });
 });
 
+$('.cc-btn-cancel').on('click', function () {
+    history.back();
+});

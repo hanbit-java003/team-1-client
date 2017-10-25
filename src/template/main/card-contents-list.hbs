@@ -1,5 +1,5 @@
-<li rid="{{id}}">
-    <div class="card-img" style="background-image: url({{mainImg}})">
+<li rid="{{rid}}">
+    <div class="card-img" style="background-image: url({{img}})">
     </div>
     <div class="card-contents">
         <!-- 즐겨찾기 버튼 -->
@@ -7,7 +7,7 @@
             <i class="fa fa-star-o"></i>
         </div>
         <div class="card-contents-title">
-            {{~title~}}
+            {{~name~}}
         </div>
         <div class="card-contents-count">
             [ {{count}} ]
@@ -19,7 +19,7 @@
             {{/each}}
         </ul>
         <div class="card-update-date">
-            최신 업데이트 시간 : {{updateDt}}
+            최신 업데이트 시간 : {{writeDt}}
         </div>
     </div>
     <!-- 위치정보만 담기 위한 태그 -->

@@ -155,6 +155,7 @@ function templateHeader(result) {
         location.href = './';
     });
 
+    // 디테일 페이지에서 뒤로가기 버튼. 누르면 홈으로 감
     $('.back-button').on('click', function () {
         location.href = '/';
     });
