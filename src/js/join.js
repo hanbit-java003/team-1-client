@@ -105,6 +105,7 @@ function cockJoin() {
 
     if(!email) {
         alert('이메일을 입력하세요.');
+        $('')
         $('#cock-join-email').focus();
         return;
     }

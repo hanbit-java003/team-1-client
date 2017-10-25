@@ -8,6 +8,10 @@ $('.header-logo').on('click', function () {
     }
 });
 
+$('.back-button').on('click', function () {
+    location.href = '/';
+});
+
 
 // 검색 버튼 토글
 function searchBarToggle() {
@@ -102,7 +106,7 @@ function openMemberLayer(memberInfo) {
 
 
                 $('#cock-login-btn').on('click', function () {
-                    signIn(memberInfo);
+                    signIn();
                 });
 
 
@@ -119,8 +123,9 @@ function openMemberLayer(memberInfo) {
                 $('#cock-setting').on('click', function () {
                     location.href = '../setting.html';
                 });
-
-                $('#cock-setting').focus();
+                $('#cock-insert').on('click',function () {
+                   location.href = '../insert.html';
+                });
             }
         }
     });
@@ -171,7 +176,7 @@ function signOut() {
 
 
 //로그인
-function signIn(memberInfo) {
+function signIn() {
     var email = $('#cock-login-email').val().trim();
     var pw = $('#cock-login-pw').val().trim();
     var remember = $('#cock-login-remember').prop('checked');
