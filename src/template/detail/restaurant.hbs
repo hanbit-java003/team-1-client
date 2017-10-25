@@ -17,11 +17,11 @@
             </div>
         </div>
     </div>
-    {{~#each imgs}}
-        <div class="food-img-wrapper">
-            <img id="food-img" class="img-responsive" src='{{path}}'>
-        </div>
-    {{/each}}
+    <div class="food-img-wrapper">
+        {{~#each imgs}}
+            <img id="food-img-{{imgId}}" class="img-responsive" src='{{path}}'>
+        {{/each}}
+    </div>
     <div class="food-text">
         {{~#each menus~}}
             <li class="food-eaten">{{menu}} {{price}}원</li>

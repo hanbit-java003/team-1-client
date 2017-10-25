@@ -176,7 +176,7 @@ function initContents(restaurant) {
 
     // 사진 크게보기
     $('.img-responsive').on('click', function () {
-        popImg(this);
+        console.log('사진을 펼쳐라~!');
     });
 }
 
@@ -265,11 +265,6 @@ function setLogo(restaurant) {
     $('.header-title').text(restaurant.name);
     $('.back-button').css('display', 'inline-block');
 }
-
-// 헤더 뒤로가기 버튼. 누르면 홈으로 감
-$('.back-button').on('click', function () {
-    location.href = '/';
-});
 
 /* 맛집 간략정보 팝업 설정 */
 function initRestInfo(restaurant) {
