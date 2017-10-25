@@ -189,11 +189,20 @@ function settingBtn() {
             var articleId = $(this).parents('.content-wrapper').attr('articleId');
             $(this).find('#update-article-' + articleId).on('click', function () {
                 // 수정페이지로 이동
-                location.href = '/' + articleId;
+                location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
             });
 
             $(this).find('#delete-article-' + articleId).on('click', function () {
-                location.reload();  // 삭제
+                $.ajax({
+                    url: '/api/cock/detail/' + rid + '/' + articleId,
+                    method: 'DELETE',
+                    success: function (result) {
+                        location.href = 'detail.html?rid=' + rid;
+                    },
+                    error: function () {
+                        alert('삭제 실패');
+                    }
+                });
             });
         }
     });
