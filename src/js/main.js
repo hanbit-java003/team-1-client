@@ -6,11 +6,11 @@ var join = require('./join');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
 // 주변 맛집 모델
-var contentsNearby = require('./model/card-contents-nearby');
+// var contentsNearby = require('./model/card-contents-nearby');
 // 추천 맛집 모델
 var contentsRecommend = require('./model/card-contents-recommend');
 // 단골 맛집 모델
-var articleRanking = require('./model/article-ranking');
+// var articleRanking = require('./model/article-ranking');
 
 loadGoogleMapsApi.key = 'AIzaSyDmSxIrhoC4OAiGOtO6ddcFCwSMRbgfPGs';
 loadGoogleMapsApi.language = 'ko';
@@ -58,6 +58,7 @@ function initMainMap(position) {
         infoWindow = new googleMaps.InfoWindow();
 
         if ($('#nearby-rest').hasClass('active')) {
+
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
                 // 지도 확대 비율
@@ -73,24 +74,29 @@ function initMainMap(position) {
             // 스푼 마커 이미지
             // spoon = '../img/spoon_red.png';
 
-            // 마커 추가
-            for (i = 0; i < contentsNearby.length; i++) {
-                marker = new googleMaps.Marker({
-                    position: new googleMaps.LatLng(contentsNearby[i].lat, contentsNearby[i].lng),
-                    map: map,
-                    icon: '../img/insert/red-dot.png'
-                });
+            $.ajax({
+                url: '/api/cock/rest/list',
+                success: function (result) {
+                    // 마커 추가
+                    for (i = 0; i < result.length; i++) {
+                        marker = new googleMaps.Marker({
+                            position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                            map: map,
+                            icon: '../img/insert/red-dot.png'
+                        });
 
-                // 마커 클릭시 타이틀 팝업
-                googleMaps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infoWindow.setContent(contentsNearby[i].title);
-                        infoWindow.open(map, marker);
+                        // 마커 클릭시 타이틀 팝업
+                        googleMaps.event.addListener(marker, 'click', (function (marker, i) {
+                            return function () {
+                                infoWindow.setContent(result[i].name);
+                                infoWindow.open(map, marker);
+                            }
+                        })(marker, i));
                     }
-                })(marker, i));
-            }
 
-            initNearby(contentsNearby);
+                    initNearby(result);
+                }
+            });
 
             /*var circles = new googleMaps.Circle({
                 center : mapOptions.center,
@@ -143,6 +149,13 @@ function initMainMap(position) {
         console.error(error);
     });
 }
+
+$.ajax({
+    url: '/api/cock/rest/top4',
+    success: function (result) {
+        initRanking(result);
+    }
+});
 
 // 단골 맛집
 function initRanking(articleRanking) {
