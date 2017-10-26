@@ -3,9 +3,9 @@
         <div id="user-img" class="img-circle" style="background-image: url({{member.detail.avatar}})"></div>
         <div id="user-name">{{member.nick}}</div>
         <ul class="user-achievement">
-            {{~#each achievement~}}
-                <li class="achievement-icon" style="background-image: url({{emblem}})">
-                    <span class="achievement-tooltip">{{achieve}}</span>
+            {{~#each emblems~}}
+                <li class="achievement-icon" style="background-image: url({{img}})">
+                    <span class="achievement-tooltip">{{howAchieve}}</span>
                 </li>
             {{~/each~}}
         </ul>
