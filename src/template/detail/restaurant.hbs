@@ -1,7 +1,7 @@
 <div class="content-wrapper" articleId="{{articleId}}">
     <div class="user-info">
-        <div id="user-img" class="img-circle" style="background-image: url({{userImg}})"></div>
-        <div id="user-name">{{uid}}</div>
+        <div id="user-img" class="img-circle" style="background-image: url({{member.detail.avatar}})"></div>
+        <div id="user-name">{{member.nick}}</div>
         <ul class="user-achievement">
             {{~#each achievement~}}
                 <li class="achievement-icon" style="background-image: url({{emblem}})">
