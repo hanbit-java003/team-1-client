@@ -1,14 +1,12 @@
 <div class="cock-member-layer">
+    <section class="cock-member-form">
+        <div class="cock-member-layer-logo"></div>
     {{# if signedIn}}
-        <section class="cock-member-form">
-            <div class="cock-member-layer-logo"></div>
+            <div>{{nick}}님 반갑니다.</div>
             <div id="cock-logout" class="cock-login-btn">로그아웃</div>
             <div id="cock-setting" class="cock-login-btn">my page</div>
             <div id="cock-insert" class="cock-login-btn">맛집 추가</div>
-        </section>
     {{else}}
-        <section class="cock-member-form">
-            <div class="cock-member-layer-logo"></div>
             <div class="cock-member-form-group">
                 <input id=cock-login-email type="email" placeholder="이메일주소">
                 <i class="fa fa-fw fa-envelope-o"></i>
@@ -36,6 +34,6 @@
                 </div>
 
             </div>
-        </section>
     {{/if}}
+    </section>
 </div>

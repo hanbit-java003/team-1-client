@@ -13,7 +13,6 @@ var common = require('./common');
     require('./model/restaurants/fish'),
     require('./model/restaurants/mibundang')
 ];*/
-
 $.ajax({
     url: 'api/cock/detail/' + rid,
     success: function (result) {
