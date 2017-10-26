@@ -91,8 +91,16 @@ function getLocation() {
     // GPS 지원
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            latLng.lat = position.lat;
-            latLng.lng = position.lng;
+            latLng.lat = position.coords.latitude;
+            latLng.lng = position.coords.longitude;
+
+            loadGoogleMapsApi().then(function(_googleMaps) {
+                googleMaps = _googleMaps;
+                initMap();
+            }).catch(function(error) {
+                console.error(error);
+            });
+
         }, function (error) { // 위치 찾기 에러 시 콜백
             console.error(error);
         }, { // 옵션
@@ -117,7 +125,6 @@ $.ajax({
         }
 
         var uid = result.uid;
-
         insertInit(uid);
     }
 });
@@ -127,7 +134,7 @@ function insertInit(uid) {
         model.articles[0].uid = uid;
         init();
     }
-    else if (params.get('rid') && params.get('articleId') === null) { // 식당의 후기 입력
+    else if (params.get('rid') !== null && params.get('articleId') === null) { // 식당의 후기 입력
         $.ajax({
             url: '/api/cock/insert/' + params.get('rid'),
             success: function(result) {
@@ -154,25 +161,24 @@ function insertInit(uid) {
 
 function init() {
     // model.articles[0].uid = '3HgHeOlylIZR'; // 임시 TEST용
-    getLocation();
 
-    if (model.rid !== null) {
+    if (typeof model.rid === 'number') {
+        console.log(model.rid);
         $('#cc-lat').val(model.lat);
         $('#cc-lng').val(model.lng);
         $('#cc-rest-name').val(model.name);
-        $('#cc-lat').attr('disabled', 'true');
-        $('#cc-lng').attr('disabled', 'true');
-        $('#cc-rest-name').attr('disabled', 'true');
+        menuLockInput(true);
         $('#locationCheck').hide();
         checkFlag = true;
 
         latLng.lat = parseFloat(model.lat);
         latLng.lng = parseFloat(model.lng);
 
-        if (model.articles) {
-            var comment = model.articles[0].comment.replace(/<br\/>/ig, '\n');
-            comment = comment.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-            $('#cc-comment-textarea').val(model.articles[0].comment);
+        if (typeof model.articles[0].articleId === 'number') {
+            var textarea = $('#cc-comment-textarea');
+            $(textarea).val(model.articles[0].comment);
+            $(textarea).val().replace(/<br\/>/ig, '\n');
+            $(textarea).val().replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
         }
 
         var tagValue = '';
@@ -185,7 +191,7 @@ function init() {
         $('#cc-hashtag-textarea').importTags(tagValue);
     }
 
-    if (model.articles[0].articleId !== null) {
+    if (typeof model.articles[0].articleId === 'number') {
         imgNum = model.articles[0].imgs.length;
 
         model.articles[0].imgs.forEach(function (t) {
@@ -222,24 +228,13 @@ function init() {
         });
     }
 
-    loadGoogleMapsApi().then(function(_googleMaps) {
-        googleMaps = _googleMaps;
-        initMap();
-    }).catch(function(error) {
-        console.error(error);
-    });
-
+    getLocation();
 }
 
 // 지도 초기화
 var map;
 var googleMaps;
 function initMap() {
-    if (model.rid === null) { // TEST 용
-        latLng.lat = 37.552320;
-        latLng.lng = 126.937588;
-    }
-
     map = new googleMaps.Map($('#google-map')[0], {
         center: {
             lat: latLng.lat,
@@ -251,18 +246,16 @@ function initMap() {
 
     addMarkers();
 
-    if (model.rid !== null) {
-        selectMap(latLng);
-    }
-
-
-    if (model.rid === null) {
+    if (typeof model.rid !== 'number') {
         map.addListener('click', function (e) {
-            latLng = e.latLng;
+            selectMap(e.latLng);
 
-            selectMap(latLng);
-            $('#cc-lat').val(latLng.lat);
-            $('#cc-lng').val(latLng.lng);
+            $('#cc-lat').val(e.latLng.lat);
+            $('#cc-lng').val(e.latLng.lng);
+
+            latLng.lat = $('#cc-lat').val();
+            latLng.lng = $('#cc-lng').val();
+
             //주변 가게 가져오기 구현 필요
             deleteMarkers();
             addMarkers();
@@ -330,8 +323,8 @@ var loc = [];
 // 지도 주변에 마커를 찍는 함수
 function addMarkers() {
     $.ajax({
-        url: '/api/cock/insert/position/' + $('#cc-lat').val()
-           + ',' + $('#cc-lng').val() + '/',
+        url: '/api/cock/insert/position/' + latLng.lat
+           + ',' + latLng.lng + '/',
         success: function(result) {
             loc = result;
             console.log(loc);
@@ -470,12 +463,12 @@ function setImage(image, num) {
 
         var saved = img.attr('saved') === 'true';
 
-        if (params.get('rid') === null || params.get('articleId') === null) {
+        /*if (params.get('rid') === null || params.get('articleId') === null) {
             var savedPhotoCount = 0;
         }
-        else {
+        else {*/
             var savedPhotoCount = model.articles[0].imgs ? model.articles[0].imgs.length : 0
-        }
+        //}
 
         var index = saved ? img.index() : img.index() - savedPhotoCount;
 
@@ -607,7 +600,12 @@ $('.cc-btn-save').on('click', function () {
     model.lat = parseFloat($('#cc-lat').val());
     model.lng = parseFloat($('#cc-lng').val());
     model.name = $('#cc-rest-name').val();
-    if (!model.lat) {
+    if (!checkFlag) {
+        alert('중복 체크는 필수입니다.');
+        $('#cc-lat').focus();
+        return;
+    }
+    else if (!model.lat) {
         alert('위도를 입력하세요.');
         $('#cc-lat').focus();
         return;
