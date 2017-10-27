@@ -130,6 +130,11 @@ function openMemberLayer(memberInfo) {
                         location.href = '../insert.html';
                     });
                 });
+                $('#cock-bookmark').on('click', function () {
+                   closeMemberLayer(function () {
+                       location.href = '../bookmark.html';
+                   })
+                });
             }
         }
     });
