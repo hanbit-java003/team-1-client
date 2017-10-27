@@ -51,16 +51,6 @@ function setMobile(restaurant) {
     }
 }
 
-/* 데스크탑 반응형 css */
-function setDesktopCss() {
-
-}
-
-/* 모바일 반응형 css */
-function setMobileCss() {
-
-}
-
 var mobileDevice = window.matchMedia('all and (min-width:320px) and (max-width:1024px)');
 var desktopDevice = window.matchMedia('all and (min-width:1025px)');
 
@@ -92,7 +82,7 @@ function initContents(restaurant) {
     setLogo(restaurant);
     initRestInfo(restaurant);
 
-    settingBtn();
+    settingBtn(restaurant);
 
     // 더보기 버튼
     $('.btn-more').on('click', function () {
@@ -179,16 +169,33 @@ function initContents(restaurant) {
     });
 }
 
-function settingBtn() {
+function settingBtn(restaurant) {
     $('.card-setting').on('click', function () {
         $(this).find('.setting-menu').toggle();
         $(this).find('.setting-menu').addClass('menu-opened');
 
         if ($(this).find('.setting-menu').hasClass('menu-opened')) {
             var articleId = $(this).parents('.content-wrapper').attr('articleId');
+            var uid = $(this).parents('.content-wrapper').find('div').attr('uid');
+
             $(this).find('#update-article-' + articleId).on('click', function () {
                 // 수정페이지로 이동
-                location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
+                $.ajax({
+                    url: '/api/member/get',
+                    success: function (result) {
+                        if (!result.signedIn) {
+                            alert('로그인 상태가 아닙니다.');
+                        }
+                        else {
+                            if (result.uid !== uid) {
+                                alert('본인이 작성한 글만 수정 가능합니다.');
+                            }
+                            else {
+                                location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
+                            }
+                        }
+                    }
+                });
             });
 
             $(this).find('#delete-article-' + articleId).on('click', function () {
