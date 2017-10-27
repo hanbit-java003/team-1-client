@@ -121,10 +121,19 @@ function openMemberLayer(memberInfo) {
                     signOut();
                 });
                 $('#cock-setting').on('click', function () {
-                    location.href = '../setting.html';
+                    closeMemberLayer(function () {
+                        location.href = '../setting.html';
+                    });
                 });
                 $('#cock-insert').on('click',function () {
-                   location.href = '../insert.html';
+                    closeMemberLayer(function () {
+                        location.href = '../insert.html';
+                    });
+                });
+                $('#cock-bookmark').on('click', function () {
+                   closeMemberLayer(function () {
+                       location.href = '../bookmark.html';
+                   })
                 });
             }
         }
@@ -170,7 +179,10 @@ function signOut() {
     $.ajax({
         url: '/api/member/signout',
         success: function () {
-            location.href = '../';
+            closeMemberLayer(function () {
+                location.href = '../';
+            });
+
         }
     });
 }
@@ -205,7 +217,10 @@ function signIn() {
         },
         success: function (result) {
             alert(result.nick + '님 반갑습니다.');
-            location.href = './';
+            closeMemberLayer(function () {
+                    location.href = '../';
+                }
+            );
         }
     });
 }

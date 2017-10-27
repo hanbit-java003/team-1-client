@@ -5,12 +5,8 @@ var common = require('./common');
 var join = require('./join');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
-// 주변 맛집 모델
-// var contentsNearby = require('./model/card-contents-nearby');
 // 추천 맛집 모델
 var contentsRecommend = require('./model/card-contents-recommend');
-// 단골 맛집 모델
-// var articleRanking = require('./model/article-ranking');
 
 loadGoogleMapsApi.key = 'AIzaSyDmSxIrhoC4OAiGOtO6ddcFCwSMRbgfPGs';
 loadGoogleMapsApi.language = 'ko';
@@ -74,51 +70,11 @@ function initMainMap(position) {
             // 스푼 마커 이미지
             // spoon = '../img/spoon_red.png';
 
-            $.ajax({
-                url: '/api/cock/rest/list',
-                success: function (result) {
-                    // 마커 추가
-                    for (i = 0; i < result.length; i++) {
-                        marker = new googleMaps.Marker({
-                            position: new googleMaps.LatLng(result[i].lat, result[i].lng),
-                            map: map,
-                            icon: '../img/insert/red-dot.png'
-                        });
-
-                        // 마커 클릭시 타이틀 팝업
-                        googleMaps.event.addListener(marker, 'click', (function (marker, i) {
-                            return function () {
-                                infoWindow.setContent(result[i].name);
-                                infoWindow.open(map, marker);
-                            }
-                        })(marker, i));
-                    }
-
-                    initNearby(result);
-                }
-            });
-
-            /*var circles = new googleMaps.Circle({
-                center : mapOptions.center,
-                // 반지름 (m)
-                radius: 500,
-                // 외곽선 두께
-                strokeWeight: 1,
-                // 외곽선 색상
-                strokeColor: '#FF7E5F',
-                // 외곽선 불투명도 (0~1)
-                strokeOpacity: 0.7,
-                // 외곽선 스타일
-                strokeStyle: 'dashed',
-                // 원 내부 색상
-                fillColor: '#FF7E5F',
-                // 원 내부 불투명도 (0~1)
-                fillOpacity: 0.2
-            });
-
-            circles.setMap(map);*/
+            initSort();
+            initLatestRest();
         }
         else if ($('#recommend-rest').hasClass('active')) {
+
             var mapOptions = {
                 zoom: 16,
                 scrollwheel: false,
@@ -150,6 +106,7 @@ function initMainMap(position) {
     });
 }
 
+// CockCock Top4
 $.ajax({
     url: '/api/cock/rest/top4',
     success: function (result) {
@@ -171,8 +128,6 @@ function initRanking(articleRanking) {
 
     clkRanking();
 }
-
-
 
 // 리스트 클릭하면 상세 페이지로 이동
 function clkRanking() {
@@ -222,19 +177,78 @@ function initSort() {
     clkSort();
 }
 
-initSort();
-
 // 정렬 기준 버튼 클릭 이벤트
 function clkSort() {
-    $('.card-contents-sort div').on('click', function () {
+    $('#sort-latest').on('click', function () {
         if ($(this).hasClass('active')) {
             return;
         }
 
         $(this).parent('.card-contents-sort').find('div').removeClass('active');
         $(this).addClass('active');
-        
-        // 정렬 부분 구현 필요
+
+        initLatestRest();
+    });
+
+    $('#sort-article').on('click', function () {
+        if ($(this).hasClass('active')) {
+            return;
+        }
+
+        $(this).parent('.card-contents-sort').find('div').removeClass('active');
+        $(this).addClass('active');
+
+        initArticleRest();
+    });
+}
+
+function initLatestRest() {
+    $.ajax({
+        url: '/api/cock/rest/latest',
+        success: function (result) {
+            initNearby(result);
+
+            // 마커 추가
+            for (i = 0; i < result.length; i++) {
+                marker = new googleMaps.Marker({
+                    position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                    map: map,
+                    icon: '../img/insert/red-dot.png'
+                });
+
+                // 마커 클릭시 타이틀 팝업
+                googleMaps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infoWindow.setContent(result[i].name);
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+        }
+    });
+}
+
+function initArticleRest() {
+    $.ajax({
+        url: '/api/cock/rest/article',
+        success: function (result) {
+            initNearby(result);
+
+            for (i = 0; i < result.length; i++) {
+                marker = new googleMaps.Marker({
+                    position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                    map: map,
+                    icon: '../img/insert/red-dot.png'
+                });
+
+                googleMaps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infoWindow.setContent(result[i].name);
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+        }
     });
 }
 
@@ -397,3 +411,25 @@ $('#btn-join-test').on('click', function () {
 $('#btn-join-food-test').on('click', function () {
     location.href = 'join-food.html';
 });
+
+/* 구글 지도에 원 그리기
+var circles = new googleMaps.Circle({
+                center : mapOptions.center,
+                // 반지름 (m)
+                radius: 500,
+                // 외곽선 두께
+                strokeWeight: 1,
+                // 외곽선 색상
+                strokeColor: '#FF7E5F',
+                // 외곽선 불투명도 (0~1)
+                strokeOpacity: 0.7,
+                // 외곽선 스타일
+                strokeStyle: 'dashed',
+                // 원 내부 색상
+                fillColor: '#FF7E5F',
+                // 원 내부 불투명도 (0~1)
+                fillOpacity: 0.2
+            });
+
+            circles.setMap(map);
+*/
