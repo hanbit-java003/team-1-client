@@ -172,7 +172,7 @@ function initRanking(articleRanking) {
     clkRanking();
 }
 
-initRanking(articleRanking);
+
 
 // 리스트 클릭하면 상세 페이지로 이동
 function clkRanking() {

@@ -156,13 +156,19 @@ function bookmarkClick() {
                 icon: spoonMark
             });
 
+            var bookmarkContent = $(this).find('.bookmark-element');
+
+            var markerContents = bookmarkContent.find('.store-name').text()
+                + '<br/>' + bookmarkContent.find('.bookmark-address').text();
+
+            /*
             var title = bookmarkModel[i].title;
             var address = bookmarkModel[i].address;
 
-            var markerContent = title + '<br/>' + address;
+            var markerContent = title + '<br/>' + address;*/
 
-            infowindow.setContent(markerContent);
-            infowindow.open(map, marker);
+            infowindow.setContent(markerContents);
+            infowindow.open(bookmarkMaps, marker);
 
         });
 
