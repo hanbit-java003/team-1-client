@@ -20,6 +20,20 @@ $.ajax({
     }
 });
 
+$.ajax({
+    url: '/api/member/get',
+    success: function (result) {
+        if (result.signedIn) {
+            $('.write-button').css('visibility', 'visible');
+
+            $('.write-button').on('click', function () {
+                location.href = '../insert.html';
+            });
+        }
+    }
+});
+
+
 /* 데스크탑 */
 function setDesktop(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
@@ -185,6 +199,7 @@ function settingBtn(restaurant) {
                     success: function (result) {
                         if (!result.signedIn) {
                             alert('로그인 상태가 아닙니다.');
+                            location.reload();
                         }
                         else {
                             if (result.uid !== uid) {
