@@ -146,13 +146,33 @@ function initContents(restaurant) {
             $(this).removeClass('fa-heart-o').addClass('fa-heart');
             $(this).css('color', '#ff4461');
             $(this).parent().find('.food-like-count').html();
-            console.log('좋아요 추가');
+
+            var articleId = $(this).parents('.content-wrapper').attr('articleId');
+            var likeCount = $(this).parent().find('.food-like-count');
+
+            $.ajax({
+                url: '/api/cock/detail/inc/' + rid + '/' + articleId,
+                success: function (result) {
+                    console.log(restaurant.articles[articleId].likes);
+                    likeCount.html(restaurant.articles[articleId].likes + 1);
+                }
+            });
         }
         else if ($(this).hasClass('fa-heart')) {
             $(this).removeClass('fa-heart').addClass('fa-heart-o');
             $(this).css('color', '#666');
             $(this).parent().find('.food-like-count').html();
-            console.log('좋아요 삭제');
+
+            var articleId = $(this).parents('.content-wrapper').attr('articleId');
+            var likeCount = $(this).parent().find('.food-like-count');
+
+            $.ajax({
+                url: '/api/cock/detail/dec/' + rid + '/' + articleId,
+                success: function (result) {
+                    console.log(restaurant.articles[articleId].likes);
+                    likeCount.html(restaurant.articles[articleId].likes);
+                }
+            })
         }
     });
 
@@ -181,6 +201,16 @@ function initContents(restaurant) {
     $('.img-responsive').on('click', function () {
         console.log('사진을 펼쳐라~!');
     });
+}
+
+function likeThis(restaurant, articleId, likeCount) {
+    console.log(articleId);
+
+
+}
+
+function hateThis() {
+
 }
 
 function settingBtn(restaurant) {
