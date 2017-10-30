@@ -142,38 +142,49 @@ function initContents(restaurant) {
 
     // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').on('click', function () {
-        if ($(this).hasClass('fa-heart-o')) {
-            $(this).removeClass('fa-heart-o').addClass('fa-heart');
-            $(this).css('color', '#ff4461');
-            $(this).parent().find('.food-like-count').html();
-
-            var articleId = $(this).parents('.content-wrapper').attr('articleId');
-            var likeCount = $(this).parent().find('.food-like-count');
-
-            $.ajax({
-                url: '/api/cock/detail/inc/' + rid + '/' + articleId,
-                success: function (result) {
-                    console.log(restaurant.articles[articleId].likes);
-                    likeCount.html(restaurant.articles[articleId].likes + 1);
+        var likeElm = $(this);
+        $.ajax({
+            url: '/api/member/get',
+            success: function (result) {
+                if (!result.signedIn) {
+                    alert('로그인 상태가 아닙니다.');
                 }
-            });
-        }
-        else if ($(this).hasClass('fa-heart')) {
-            $(this).removeClass('fa-heart').addClass('fa-heart-o');
-            $(this).css('color', '#666');
-            $(this).parent().find('.food-like-count').html();
+                else {
+                    if (likeElm.hasClass('fa-heart-o')) {
+                        likeElm.removeClass('fa-heart-o').addClass('fa-heart');
+                        likeElm.css('color', '#ff4461');
+                        likeElm.parent().find('.food-like-count').html();
 
-            var articleId = $(this).parents('.content-wrapper').attr('articleId');
-            var likeCount = $(this).parent().find('.food-like-count');
+                        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+                        var likeCount = likeElm.parent().find('.food-like-count');
 
-            $.ajax({
-                url: '/api/cock/detail/dec/' + rid + '/' + articleId,
-                success: function (result) {
-                    console.log(restaurant.articles[articleId].likes);
-                    likeCount.html(restaurant.articles[articleId].likes);
+                        $.ajax({
+                            url: '/api/cock/detail/inc/' + rid + '/' + articleId,
+                            success: function (result) {
+                                console.log(restaurant.articles[articleId].likes);
+                                likeCount.html(restaurant.articles[articleId].likes + 1);
+                            }
+                        });
+                    }
+                    else if (likeElm.hasClass('fa-heart')) {
+                        likeElm.removeClass('fa-heart').addClass('fa-heart-o');
+                        likeElm.css('color', '#666');
+                        likeElm.parent().find('.food-like-count').html();
+
+                        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+                        var likeCount = likeElm.parent().find('.food-like-count');
+
+                        $.ajax({
+                            url: '/api/cock/detail/dec/' + rid + '/' + articleId,
+                            success: function (result) {
+                                console.log(restaurant.articles[articleId].likes);
+                                likeCount.html(restaurant.articles[articleId].likes);
+                            }
+                        });
+                    }
                 }
-            })
-        }
+            }
+        });
     });
 
     // 이 글에 반대합니다 버튼 (쓰레기)
