@@ -90,11 +90,9 @@ $('#cock-join-email-btn').on('click', function () {
     var email = $('#cock-join-email').val().trim();
     var emailRe=/^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
-    var emailCertification = $('.cock-join-certification').val();
 
     if(!email) {
         alert('이메일을 입력하세요.');
-        $('')
         $('#cock-join-email').focus();
         return;
     }
@@ -114,11 +112,19 @@ $('#cock-join-email-btn').on('click', function () {
             $.ajax({
                 url: 'api/email',
                 data:{
-                    email:email,
-                    authNum:emailCertification
+                    email:email
                 },
                 success: function (result) {
-                    check(result);
+                    console.log(result.authNum);
+
+                    $('.cock-sign-up').show(100);
+
+                    check(result.authNum);
+
+                },
+                error: function (jqXHR) { // Xml Http Request
+                    alert(jqXHR.responseJSON.message);
+
                 }
             });
         },
@@ -132,24 +138,35 @@ $('#cock-join-email-btn').on('click', function () {
 
 
 
-function check(authNum) {
-    var form = document.authenform;
 
-    if(!form.authnum.value) {
-        alert('인증번호를 입력하세요');
-        return false;
-    }
-    if(form.authnum.value!=authNum) {
-        alert('틀린 인증번호입니다. 인증번호를 다시 입력해주세요.');
-        form.authnum.value="";
-        return false;
-    }
-    if(form.authnum.value==authNum) {
-        alert("인증완료");
-        /*opener.document.userinput.mailCheck.value="인증완료";*/
-        self.close();
-    }
+function check(authNum) {
+    var form = $('#cock-join-certification');
+
+    console.log('check'+authNum);
+
+    $('#cock-join-email-certification-btn').on('click', function (authNum) {
+
+        console.log(authNum);
+
+        if(!form) {
+            alert('인증번호를 입력하세요');
+            return false;
+        }
+        else if(form!=authNum) {
+            alert('틀린 인증번호입니다. 인증번호를 다시 입력해주세요.');
+            form="";
+            return false;
+        }
+        else if(form==authNum) {
+            alert("인증완료");
+            /!*opener.document.userinput.mailCheck.value="인증완료";*!/
+            /*self.close();*/
+        }
+    });
+
+
 }
+
 
 
 function cockJoin() {
@@ -163,13 +180,8 @@ function cockJoin() {
     var nickRe = /^[ㄱ-ㅎ가-힣a-zA-Z0-9/\/*]{2,6}$/;
     var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
 
-
-
-
-
     if(!email) {
         alert('이메일을 입력하세요.');
-        $('')
         $('#cock-join-email').focus();
         return;
     }
