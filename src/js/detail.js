@@ -20,6 +20,20 @@ $.ajax({
     }
 });
 
+$.ajax({
+    url: '/api/member/get',
+    success: function (result) {
+        if (result.signedIn) {
+            $('.write-button').css('visibility', 'visible');
+
+            $('.write-button').on('click', function () {
+                location.href = '../insert.html';
+            });
+        }
+    }
+});
+
+
 /* 데스크탑 */
 function setDesktop(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
@@ -49,16 +63,6 @@ function setMobile(restaurant) {
 
         $('#cock-restaurants-mobile').append(html);
     }
-}
-
-/* 데스크탑 반응형 css */
-function setDesktopCss() {
-
-}
-
-/* 모바일 반응형 css */
-function setMobileCss() {
-
 }
 
 var mobileDevice = window.matchMedia('all and (min-width:320px) and (max-width:1024px)');
@@ -92,7 +96,7 @@ function initContents(restaurant) {
     setLogo(restaurant);
     initRestInfo(restaurant);
 
-    settingBtn();
+    settingBtn(restaurant);
 
     // 더보기 버튼
     $('.btn-more').on('click', function () {
@@ -138,18 +142,49 @@ function initContents(restaurant) {
 
     // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').on('click', function () {
-        if ($(this).hasClass('fa-heart-o')) {
-            $(this).removeClass('fa-heart-o').addClass('fa-heart');
-            $(this).css('color', '#ff4461');
-            $(this).parent().find('.food-like-count').html();
-            console.log('좋아요 추가');
-        }
-        else if ($(this).hasClass('fa-heart')) {
-            $(this).removeClass('fa-heart').addClass('fa-heart-o');
-            $(this).css('color', '#666');
-            $(this).parent().find('.food-like-count').html();
-            console.log('좋아요 삭제');
-        }
+        var likeElm = $(this);
+        $.ajax({
+            url: '/api/member/get',
+            success: function (result) {
+                if (!result.signedIn) {
+                    alert('로그인 상태가 아닙니다.');
+                }
+                else {
+                    if (likeElm.hasClass('fa-heart-o')) {
+                        likeElm.removeClass('fa-heart-o').addClass('fa-heart');
+                        likeElm.css('color', '#ff4461');
+                        likeElm.parent().find('.food-like-count').html();
+
+                        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+                        var likeCount = likeElm.parent().find('.food-like-count');
+
+                        $.ajax({
+                            url: '/api/cock/detail/inc/' + rid + '/' + articleId,
+                            success: function (result) {
+                                console.log(restaurant.articles[articleId].likes);
+                                likeCount.html(restaurant.articles[articleId].likes + 1);
+                            }
+                        });
+                    }
+                    else if (likeElm.hasClass('fa-heart')) {
+                        likeElm.removeClass('fa-heart').addClass('fa-heart-o');
+                        likeElm.css('color', '#666');
+                        likeElm.parent().find('.food-like-count').html();
+
+                        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+                        var likeCount = likeElm.parent().find('.food-like-count');
+
+                        $.ajax({
+                            url: '/api/cock/detail/dec/' + rid + '/' + articleId,
+                            success: function (result) {
+                                console.log(restaurant.articles[articleId].likes);
+                                likeCount.html(restaurant.articles[articleId].likes);
+                            }
+                        });
+                    }
+                }
+            }
+        });
     });
 
     // 이 글에 반대합니다 버튼 (쓰레기)
@@ -179,16 +214,44 @@ function initContents(restaurant) {
     });
 }
 
-function settingBtn() {
+function likeThis(restaurant, articleId, likeCount) {
+    console.log(articleId);
+
+
+}
+
+function hateThis() {
+
+}
+
+function settingBtn(restaurant) {
     $('.card-setting').on('click', function () {
         $(this).find('.setting-menu').toggle();
         $(this).find('.setting-menu').addClass('menu-opened');
 
         if ($(this).find('.setting-menu').hasClass('menu-opened')) {
             var articleId = $(this).parents('.content-wrapper').attr('articleId');
+            var uid = $(this).parents('.content-wrapper').find('div').attr('uid');
+
             $(this).find('#update-article-' + articleId).on('click', function () {
                 // 수정페이지로 이동
-                location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
+                $.ajax({
+                    url: '/api/member/get',
+                    success: function (result) {
+                        if (!result.signedIn) {
+                            alert('로그인 상태가 아닙니다.');
+                            location.reload();
+                        }
+                        else {
+                            if (result.uid !== uid) {
+                                alert('본인이 작성한 글만 수정 가능합니다.');
+                            }
+                            else {
+                                location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
+                            }
+                        }
+                    }
+                });
             });
 
             $(this).find('#delete-article-' + articleId).on('click', function () {

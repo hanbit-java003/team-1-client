@@ -54,6 +54,85 @@ $('.cock-join-btn-save').on('click', function () {
     cockJoin();
 });
 
+// nick 중복 확인.
+$('#cock-join-nickCheck').on('click', function () {
+    var nick = $('#cock-join-nick').val().trim();
+    var nickRe = /^[ㄱ-ㅎ가-힣a-zA-Z0-9/\/*]{2,6}$/;
+
+    if(!nick){
+        alert('별명을 입력하세요.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+    else if(!nickRe.test(nick)){
+        alert('별명은 한글,영어,숫자 상관없이 2~6자 사이입니다.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+
+    $.ajax({
+        url: '/api/member/nickCheck',
+        data: {
+            nick : nick
+        },
+        success: function () {
+            alert("사용하셔도 좋습니다.");
+        },
+        error: function (jqXHR) { // Xml Http Request
+            alert(jqXHR.responseJSON.message);
+        }
+
+    });
+});
+
+// 이메일 전송 및 중복확인
+$('#cock-join-email-btn').on('click', function () {
+    var email = $('#cock-join-email').val().trim();
+    var emailRe=/^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+
+    if(!email) {
+        alert('이메일을 입력하세요.');
+        $('#cock-join-email').focus();
+        return;
+    }
+    else if(!emailRe.test(email)) {
+        alert('이메일 형식이 맞지 않습니다.');
+        $('#cock-join-email').focus();
+        return;
+    }
+
+    $.ajax({
+        url: 'api/member/emailCheck',
+        data:{
+            email: email
+        },
+        success: function () {
+            alert('사용하셔도 좋습니다. 인증메일을 전송합니다.');
+            $.ajax({
+                url: 'api/email',
+                data:{
+                    email:email
+                },
+                success: function (result) {
+                    console.log(result.authNum);
+
+                    $('.cock-sign-up').show(100);
+
+                    check(result.authNum);
+
+                },
+                error: function (jqXHR) { // Xml Http Request
+                    alert(jqXHR.responseJSON.message);
+
+                }
+            });
+        },
+        error: function (jqXHR) { // Xml Http Request
+            alert(jqXHR.responseJSON.message);
+        }
+    });
+});
 
 
 
@@ -61,23 +140,33 @@ $('.cock-join-btn-save').on('click', function () {
 
 
 function check(authNum) {
-    var form = document.authenform;
+    var form = $('#cock-join-certification');
 
-    if(!form.authnum.value) {
-        alert('인증번호를 입력하세요');
-        return false;
-    }
-    if(form.authnum.value!=authNum) {
-        alert('틀린 인증번호입니다. 인증번호를 다시 입력해주세요.');
-        form.authnum.value="";
-        return false;
-    }
-    if(form.authnum.value==authNum) {
-        alert("인증완료");
-        /*opener.document.userinput.mailCheck.value="인증완료";*/
-        self.close();
-    }
+    console.log('check'+authNum);
+
+    $('#cock-join-email-certification-btn').on('click', function (authNum) {
+
+        console.log(authNum);
+
+        if(!form) {
+            alert('인증번호를 입력하세요');
+            return false;
+        }
+        else if(form!=authNum) {
+            alert('틀린 인증번호입니다. 인증번호를 다시 입력해주세요.');
+            form="";
+            return false;
+        }
+        else if(form==authNum) {
+            alert("인증완료");
+            /!*opener.document.userinput.mailCheck.value="인증완료";*!/
+            /*self.close();*/
+        }
+    });
+
+
 }
+
 
 
 function cockJoin() {
@@ -91,21 +180,8 @@ function cockJoin() {
     var nickRe = /^[ㄱ-ㅎ가-힣a-zA-Z0-9/\/*]{2,6}$/;
     var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
 
-   var emailCertification = $('.cock-join-certification').val();
-    $.ajax({
-        url: 'api/email',
-        data:{
-            email:email,
-            authNum:emailCertification
-        },
-        success: function (result) {
-            check(result);
-        }
-    });
-
     if(!email) {
         alert('이메일을 입력하세요.');
-        $('')
         $('#cock-join-email').focus();
         return;
     }
