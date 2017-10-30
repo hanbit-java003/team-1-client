@@ -91,6 +91,11 @@ function openMemberLayer(memberInfo) {
     }, {
         duration: 500,
         complete: function () {
+            $('.cock-member-layer-logo').on('click', function () {
+               closeMemberLayer(function () {
+                   location.href = '../';
+               }) ;
+            });
             if (!memberInfo.signedIn) {
                 // 엔터키 누르면 실행 되게끔.
                 $('#cock-login-email').keyup(function (key) {
@@ -111,7 +116,9 @@ function openMemberLayer(memberInfo) {
 
 
                 $('#cock-member-join-btn').on('click', function () {
-                    location.href = '../join.html';
+                    closeMemberLayer(function () {
+                        location.href = '../join.html';
+                    });
                 });
 
                 $('#cock-login-email').focus();
