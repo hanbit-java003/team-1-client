@@ -58,6 +58,8 @@ $('.cock-join-btn-save').on('click', function () {
     cockJoin();
 });
 
+var vallnick = false;
+
 // nick 중복 확인.
 $('#cock-join-nickCheck').on('click', function () {
     var nick = $('#cock-join-nick').val().trim();
@@ -81,6 +83,7 @@ $('#cock-join-nickCheck').on('click', function () {
         },
         success: function () {
             alert("사용하셔도 좋습니다.");
+            vallnick = true;
         },
         error: function (jqXHR) { // Xml Http Request
             alert(jqXHR.responseJSON.message);
@@ -90,6 +93,8 @@ $('#cock-join-nickCheck').on('click', function () {
 });
 
 var emailTimes;
+var vallEmail = false;
+var vallCertification = false;
 
 // 이메일 전송 및 중복확인
 $('#cock-join-email-btn').on('click', function () {
@@ -108,7 +113,6 @@ $('#cock-join-email-btn').on('click', function () {
         return;
     }
 
-    $('.cock-join-guid')
 
     clearTimeout(emailTimes);
     emailTimes = setTimeout(function () {
@@ -119,6 +123,8 @@ $('#cock-join-email-btn').on('click', function () {
             },
             success: function (result) {
                 alert('사용하셔도 좋습니다. 인증메일을 전송합니다.');
+
+                vallEmail = true;
 
                 console.log(result.authNum);
 
@@ -149,6 +155,7 @@ function check(authNum) {
 
         console.log(authNum);
 
+
         if(!form) {
             alert('인증번호를 입력하세요');
             console.log('form' + form);
@@ -168,6 +175,11 @@ function check(authNum) {
             alert("인증완료");
             console.log('form' + form);
             console.log('authNum' + authNum);
+            vallCertification = true;
+            $('#cock-join-email').attr('disabled', true);
+            $('.cock-sign-up1').show(100);
+            $('.cock-sign-up > .cock-join-group').remove();
+            $('#cock-join-email-btn').remove();
             $('#cock-join-nick').focus();
             return;
         }
@@ -189,7 +201,17 @@ function cockJoin() {
     var nickRe = /^[ㄱ-ㅎ가-힣a-zA-Z0-9/\/*]{2,6}$/;
     var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
 
-    if(!email) {
+    if(vallEmail !== true) {
+        alert('이메일 인증을 해주세요!');
+        $('#cock-join-email').focus();
+        return;
+    }
+    else if(vallCertification !== true) {
+        alert('인증번호를 입력해주세요!');
+        $('#cock-join-certification').focus();
+        return;
+    }
+    else if(!email) {
         alert('이메일을 입력하세요.');
         $('#cock-join-email').focus();
         return;
@@ -206,6 +228,11 @@ function cockJoin() {
     }
     else if(!nickRe.test(nick)){
         alert('별명은 한글,영어,숫자 상관없이 2~6자 사이입니다.');
+        $('#cock-join-nick').focus();
+        return;
+    }
+    else if(vallnick !== true) {
+        alert('별명 중복 체크를 해주세요!.');
         $('#cock-join-nick').focus();
         return;
     }
