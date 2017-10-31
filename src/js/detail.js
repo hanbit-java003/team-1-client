@@ -1,5 +1,6 @@
 require('bootstrap');
 require('../less/detail.less');
+require('../less/setting.less');
 
 var UrlSearchParams = require('url-search-params');
 var params = new UrlSearchParams(location.search);

@@ -1,6 +1,10 @@
 require('../less/join.less');
 
 var common = require('./common.js');
+
+var _ = require('lodash');
+
+
 $.getScript('https://www.google.com/recaptcha/api.js');
 
 // 캡차부분.
@@ -85,6 +89,8 @@ $('#cock-join-nickCheck').on('click', function () {
     });
 });
 
+var emailTimes;
+
 // 이메일 전송 및 중복확인
 $('#cock-join-email-btn').on('click', function () {
     var email = $('#cock-join-email').val().trim();
@@ -102,24 +108,30 @@ $('#cock-join-email-btn').on('click', function () {
         return;
     }
 
-    $.ajax({
-        url: 'api/email',
-        data:{
-            email: email
-        },
-        success: function (result) {
-            alert('사용하셔도 좋습니다. 인증메일을 전송합니다.');
+    $('.cock-join-guid')
 
-                    console.log(result.authNum);
+    clearTimeout(emailTimes);
+    emailTimes = setTimeout(function () {
+        $.ajax({
+            url: 'api/email',
+            data:{
+                email: email
+            },
+            success: function (result) {
+                alert('사용하셔도 좋습니다. 인증메일을 전송합니다.');
 
-                    $('.cock-sign-up').show(1000);
+                console.log(result.authNum);
 
-                    check(result.authNum);
-        },
-        error: function (jqXHR) { // Xml Http Request
-            alert(jqXHR.responseJSON.message);
-        }
-    });
+                $('.cock-sign-up').show(1000);
+
+                check(result.authNum);
+            },
+            error: function (jqXHR) { // Xml Http Request
+                alert(jqXHR.responseJSON.message);
+            }
+        });
+    },1500);
+
 });
 
 
