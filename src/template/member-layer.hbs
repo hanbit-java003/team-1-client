@@ -2,6 +2,15 @@
     <section class="cock-member-form">
         <div class="cock-member-layer-logo"></div>
     {{# if signedIn}}
+            <div class="cock-setting-avatar-picture">
+                <div class="cock-setting-avatar-border">
+                    {{#if avatar}}
+                    <div class="cock-setting-avatar-img" style = "background-image: url({{avatar}})"></div>
+                    {{else}}
+                        <div class="cock-setting-avatar-img"></div>
+                    {{/if}}
+                </div>
+            </div>
             <div class="cock-member-layer-greetings"><span class="cock-member-layer-nick">{{nick}}</span>님 반갑습니다.</div>
             <div id="cock-setting" class="cock-member-layer-btn">My Page</div>
             <div id="cock-insert" class="cock-member-layer-btn">맛집 추가</div>

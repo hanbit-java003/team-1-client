@@ -2,6 +2,7 @@ require('../less/common.less');
 require('../less/member-layer.less');
 
 
+
 $('.header-logo').on('click', function () {
     if (true) {
         location.href = '/';
@@ -151,6 +152,7 @@ function openMemberLayer(memberInfo) {
     });
 
 }
+
 
 
 // 헤더부분 오른쪽 상단 아이콘 이미지 로그인 이후.
