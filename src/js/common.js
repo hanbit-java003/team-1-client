@@ -125,12 +125,6 @@ function openMemberLayer(memberInfo) {
                 $('#cock-login-email').focus();
             }
             else {
-                ajax({
-                    url: '/api/member/detail',
-                    success: function (result) {
-                        memberLayerImg(result);
-                    }
-                });
                 $('#cock-logout').on('click', function () {
                     signOut();
                 });
@@ -159,11 +153,6 @@ function openMemberLayer(memberInfo) {
 
 }
 
-function memberLayerImg(member) {
-    if (member.detail.avatar) {
-        $('.cock-setting-avatar-img').css('background-image','url('+ member.detail.avatar+')');
-    }
-}
 
 
 // 헤더부분 오른쪽 상단 아이콘 이미지 로그인 이후.
