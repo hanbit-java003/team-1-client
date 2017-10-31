@@ -103,30 +103,18 @@ $('#cock-join-email-btn').on('click', function () {
     }
 
     $.ajax({
-        url: 'api/member/emailCheck',
+        url: 'api/email',
         data:{
             email: email
         },
-        success: function () {
+        success: function (result) {
             alert('사용하셔도 좋습니다. 인증메일을 전송합니다.');
-            $.ajax({
-                url: 'api/email',
-                data:{
-                    email:email
-                },
-                success: function (result) {
+
                     console.log(result.authNum);
 
-                    $('.cock-sign-up').show(100);
+                    $('.cock-sign-up').show(1000);
 
                     check(result.authNum);
-
-                },
-                error: function (jqXHR) { // Xml Http Request
-                    alert(jqXHR.responseJSON.message);
-
-                }
-            });
         },
         error: function (jqXHR) { // Xml Http Request
             alert(jqXHR.responseJSON.message);
@@ -140,27 +128,36 @@ $('#cock-join-email-btn').on('click', function () {
 
 
 function check(authNum) {
-    var form = $('#cock-join-certification');
 
     console.log('check'+authNum);
 
-    $('#cock-join-email-certification-btn').on('click', function (authNum) {
+    $('#cock-join-email-certification-btn').on('click', function () {
+
+        var form = $('#cock-join-certification').val().trim();
 
         console.log(authNum);
 
         if(!form) {
             alert('인증번호를 입력하세요');
+            console.log('form' + form);
+            console.log('authNum' + authNum);
+            $('#cock-join-certification').focus();
             return false;
         }
         else if(form!=authNum) {
             alert('틀린 인증번호입니다. 인증번호를 다시 입력해주세요.');
+            console.log('form'+form);
+            console.log('authNum' + authNum);
             form="";
+            $('#cock-join-certification').focus();
             return false;
         }
         else if(form==authNum) {
             alert("인증완료");
-            /!*opener.document.userinput.mailCheck.value="인증완료";*!/
-            /*self.close();*/
+            console.log('form' + form);
+            console.log('authNum' + authNum);
+            $('#cock-join-nick').focus();
+            return;
         }
     });
 
