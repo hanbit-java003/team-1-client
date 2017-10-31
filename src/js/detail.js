@@ -43,7 +43,7 @@ function setDesktop(restaurant) {
     for (var i = 0; i < restaurant.articles.length; i++) {
         var html = template(restaurant.articles[i]);
 
-        if (restaurant.articles[i].articleId % 2 === 0) {
+        if (i % 2 === 0) {
             $('#cock-restaurants-left').append(html);
         }
         else {
@@ -216,8 +216,6 @@ function initContents(restaurant) {
 
 function likeThis(restaurant, articleId, likeCount) {
     console.log(articleId);
-
-
 }
 
 function hateThis() {
@@ -245,6 +243,7 @@ function settingBtn(restaurant) {
                         else {
                             if (result.uid !== uid) {
                                 alert('본인이 작성한 글만 수정 가능합니다.');
+                                location.reload();
                             }
                             else {
                                 location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
@@ -256,15 +255,33 @@ function settingBtn(restaurant) {
 
             $(this).find('#delete-article-' + articleId).on('click', function () {
                 $.ajax({
-                    url: '/api/cock/detail/' + rid + '/' + articleId,
-                    method: 'DELETE',
+                    url: '/api/member/get',
                     success: function (result) {
-                        location.href = 'detail.html?rid=' + rid;
-                    },
-                    error: function () {
-                        alert('삭제 실패');
+                        if (!result.signedIn) {
+                            alert('로그인 상태가 아닙니다.');
+                            location.reload();
+                        }
+                        else {
+                            if (result.uid !== uid) {
+                                alert('본인이 작성한 글만 삭제 가능합니다.');
+                                location.reload();
+                            }
+                            else {
+                                $.ajax({
+                                    url: '/api/cock/detail/' + rid + '/' + articleId,
+                                    method: 'DELETE',
+                                    success: function (result) {
+                                        location.href = 'detail.html?rid=' + rid;
+                                    },
+                                    error: function () {
+                                        alert('삭제 실패');
+                                    }
+                                });
+                            }
+                        }
                     }
                 });
+
             });
         }
     });
