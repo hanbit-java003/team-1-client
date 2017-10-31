@@ -43,7 +43,7 @@ function setDesktop(restaurant) {
     for (var i = 0; i < restaurant.articles.length; i++) {
         var html = template(restaurant.articles[i]);
 
-        if (restaurant.articles[i].articleId % 2 === 0) {
+        if (i % 2 === 0) {
             $('#cock-restaurants-left').append(html);
         }
         else {
@@ -142,18 +142,49 @@ function initContents(restaurant) {
 
     // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').on('click', function () {
-        if ($(this).hasClass('fa-heart-o')) {
-            $(this).removeClass('fa-heart-o').addClass('fa-heart');
-            $(this).css('color', '#ff4461');
-            $(this).parent().find('.food-like-count').html();
-            console.log('좋아요 추가');
-        }
-        else if ($(this).hasClass('fa-heart')) {
-            $(this).removeClass('fa-heart').addClass('fa-heart-o');
-            $(this).css('color', '#666');
-            $(this).parent().find('.food-like-count').html();
-            console.log('좋아요 삭제');
-        }
+        var likeElm = $(this);
+        $.ajax({
+            url: '/api/member/get',
+            success: function (result) {
+                if (!result.signedIn) {
+                    alert('로그인 상태가 아닙니다.');
+                }
+                else {
+                    if (likeElm.hasClass('fa-heart-o')) {
+                        likeElm.removeClass('fa-heart-o').addClass('fa-heart');
+                        likeElm.css('color', '#ff4461');
+                        likeElm.parent().find('.food-like-count').html();
+
+                        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+                        var likeCount = likeElm.parent().find('.food-like-count');
+
+                        $.ajax({
+                            url: '/api/cock/detail/inc/' + rid + '/' + articleId,
+                            success: function (result) {
+                                console.log(restaurant.articles[articleId].likes);
+                                likeCount.html(restaurant.articles[articleId].likes + 1);
+                            }
+                        });
+                    }
+                    else if (likeElm.hasClass('fa-heart')) {
+                        likeElm.removeClass('fa-heart').addClass('fa-heart-o');
+                        likeElm.css('color', '#666');
+                        likeElm.parent().find('.food-like-count').html();
+
+                        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+                        var likeCount = likeElm.parent().find('.food-like-count');
+
+                        $.ajax({
+                            url: '/api/cock/detail/dec/' + rid + '/' + articleId,
+                            success: function (result) {
+                                console.log(restaurant.articles[articleId].likes);
+                                likeCount.html(restaurant.articles[articleId].likes);
+                            }
+                        });
+                    }
+                }
+            }
+        });
     });
 
     // 이 글에 반대합니다 버튼 (쓰레기)
@@ -183,6 +214,14 @@ function initContents(restaurant) {
     });
 }
 
+function likeThis(restaurant, articleId, likeCount) {
+    console.log(articleId);
+}
+
+function hateThis() {
+
+}
+
 function settingBtn(restaurant) {
     $('.card-setting').on('click', function () {
         $(this).find('.setting-menu').toggle();
@@ -204,6 +243,7 @@ function settingBtn(restaurant) {
                         else {
                             if (result.uid !== uid) {
                                 alert('본인이 작성한 글만 수정 가능합니다.');
+                                location.reload();
                             }
                             else {
                                 location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
@@ -215,15 +255,33 @@ function settingBtn(restaurant) {
 
             $(this).find('#delete-article-' + articleId).on('click', function () {
                 $.ajax({
-                    url: '/api/cock/detail/' + rid + '/' + articleId,
-                    method: 'DELETE',
+                    url: '/api/member/get',
                     success: function (result) {
-                        location.href = 'detail.html?rid=' + rid;
-                    },
-                    error: function () {
-                        alert('삭제 실패');
+                        if (!result.signedIn) {
+                            alert('로그인 상태가 아닙니다.');
+                            location.reload();
+                        }
+                        else {
+                            if (result.uid !== uid) {
+                                alert('본인이 작성한 글만 삭제 가능합니다.');
+                                location.reload();
+                            }
+                            else {
+                                $.ajax({
+                                    url: '/api/cock/detail/' + rid + '/' + articleId,
+                                    method: 'DELETE',
+                                    success: function (result) {
+                                        location.href = 'detail.html?rid=' + rid;
+                                    },
+                                    error: function () {
+                                        alert('삭제 실패');
+                                    }
+                                });
+                            }
+                        }
                     }
                 });
+
             });
         }
     });
