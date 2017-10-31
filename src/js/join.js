@@ -134,6 +134,8 @@ $('#cock-join-email-btn').on('click', function () {
             },
             error: function (jqXHR) { // Xml Http Request
                 alert(jqXHR.responseJSON.message);
+
+                vallEmail = false;
             }
         });
     },1500);
