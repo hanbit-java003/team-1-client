@@ -88,6 +88,10 @@ $(window).resize(function () {
 });
 
 function initContents(restaurant) {
+    if (restaurant.articles.length === 0) {
+        location.href = '/';
+    }
+
     /* 클릭하고 넘어온 페이지의 rid 값과 각 식당 모델의 rid 을
     비교해서 맞을 경우에 템플릿에 담음 */
     setDesktop(restaurant);
