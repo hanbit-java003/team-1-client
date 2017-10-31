@@ -2,6 +2,7 @@ require('../less/common.less');
 require('../less/member-layer.less');
 
 
+
 $('.header-logo').on('click', function () {
     if (true) {
         location.href = '/';
@@ -124,6 +125,12 @@ function openMemberLayer(memberInfo) {
                 $('#cock-login-email').focus();
             }
             else {
+                ajax({
+                    url: '/api/member/detail',
+                    success: function (result) {
+                        memberLayerImg(result);
+                    }
+                });
                 $('#cock-logout').on('click', function () {
                     signOut();
                 });
@@ -150,6 +157,12 @@ function openMemberLayer(memberInfo) {
         closeMemberLayer();
     });
 
+}
+
+function memberLayerImg(member) {
+    if (member.detail.avatar) {
+        $('.cock-setting-avatar-img').css('background-image','url('+ member.detail.avatar+')');
+    }
 }
 
 
