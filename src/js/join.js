@@ -113,6 +113,7 @@ $('#cock-join-email-btn').on('click', function () {
         return;
     }
 
+    $('#cock-join-email-btn').attr('disabled', true);
 
     clearTimeout(emailTimes);
     emailTimes = setTimeout(function () {
@@ -126,19 +127,24 @@ $('#cock-join-email-btn').on('click', function () {
 
                 vallEmail = true;
 
+                $('#cock-join-email-btn').attr('disabled', false);
+
                 console.log(result.authNum);
 
                 $('.cock-sign-up').show(1000);
 
                 check(result.authNum);
+
             },
             error: function (jqXHR) { // Xml Http Request
                 alert(jqXHR.responseJSON.message);
 
+                $('#cock-join-email-btn').attr('disabled', false);
+
                 vallEmail = false;
             }
         });
-    },1500);
+    },1);
 
 });
 
