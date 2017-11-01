@@ -133,8 +133,6 @@ $('#cock-join-email-btn').on('click', function () {
 
                 $('.cock-sign-up').show(1000);
 
-                check(result.authNum);
-
             },
             error: function (jqXHR) { // Xml Http Request
                 alert(jqXHR.responseJSON.message);
@@ -152,17 +150,12 @@ $('#cock-join-email-btn').on('click', function () {
 
 
 
-
-function check(authNum) {
-
-    console.log('check'+authNum);
+// E-mail 인증번호 검증.
+function check() {
 
     $('#cock-join-email-certification-btn').on('click', function () {
 
         var form = $('#cock-join-certification').val().trim();
-
-        console.log(authNum);
-
 
         if(!form) {
             alert('인증번호를 입력하세요');
@@ -171,7 +164,30 @@ function check(authNum) {
             $('#cock-join-certification').focus();
             return false;
         }
-        else if(form!=authNum) {
+
+        $.ajax({
+           url: '/api/authnum',
+            data:{
+                authNumvall:form
+            },
+            success: function () {
+                alert("인증완료");
+                vallCertification = true;
+                $('#cock-join-email').attr('disabled', true);
+                $('.cock-sign-up1').show(100);
+                $('.cock-sign-up > .cock-join-group').remove();
+                $('#cock-join-email-btn').remove();
+                $('#cock-join-nick').focus();
+            },
+            error: function (jqXHR) { // Xml Http Request
+                alert(jqXHR.responseJSON.message);
+                form="";
+                $('#cock-join-certification').focus();
+            }
+        });
+
+
+/*        else if(form!=authNum) {
             alert('틀린 인증번호입니다. 인증번호를 다시 입력해주세요.');
             console.log('form'+form);
             console.log('authNum' + authNum);
@@ -190,12 +206,11 @@ function check(authNum) {
             $('#cock-join-email-btn').remove();
             $('#cock-join-nick').focus();
             return;
-        }
+        }*/
     });
 
-
 }
-
+check();
 
 
 function cockJoin() {
