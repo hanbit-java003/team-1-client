@@ -87,6 +87,7 @@ $('#cock-join-nickCheck').on('click', function () {
         },
         error: function (jqXHR) { // Xml Http Request
             alert(jqXHR.responseJSON.message);
+            vallnick = false;
         }
 
     });
