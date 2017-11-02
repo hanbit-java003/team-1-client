@@ -7,21 +7,27 @@
 <body>
 {{> template/header }}
 <section class="bookmark-wrapper">
-    <section class="bookmark-right">
-        <section class="bookmark-map" id="main-map">
-        </section>
-        <section class="detail-container">
-            <ul class="detail-review">
-            </ul>
-        </section>
-    </section>
-    <section class="bookmark-page">
-        <div class="bookmark-page-top">
-            가고싶은 콕!
+    <div class="container-fluid">
+        <div class="row">
+            <div class="bookmark-page-container col-lg-7">
+                <div class="bookmark-map">
+                </div>
+                <div class="detail-container">
+                    <ul class="detail-review">
+                    </ul>
+                </div>
+            </div>
+            <div class="bookmark-page-container col-lg-5">
+                <div class="bookmark-page">
+                    <div class="bookmark-page-top">
+                        가고싶은 콕!
+                    </div>
+                    <ul class="bookmark-container">
+                    </ul>
+                </div>
+            </div>
         </div>
-        <ul class="bookmark-container">
-        </ul>
-    </section>
+    </div>
 </section>
 {{> template/footer }}
 </body>
