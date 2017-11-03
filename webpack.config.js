@@ -35,6 +35,9 @@ const pages = [{
 }, {
     html: 'setting',
     script: 'setting'
+}, {
+    html: 'search',
+    script: 'search'
 }];
 
 module.exports = {

@@ -1,0 +1,16 @@
+{{~#each rests~}}
+<li>
+    <ul class="search-rest-result-img">
+        {{#each imgs}}
+        <li {{#if @first}}class="active"{{/if}}  style="background-image: url({{this}})"></li>
+        {{/each}}
+    </ul>
+    <div class="search-rest-result-text">
+        <div class="search-rest-result-text-name">{{name}}</div>
+        <div class="search-rest-result-text-cnt"><i class="fa fa-comment-o"></i> <span>{{articleCnt}}</span></div>
+        <div class="search-rest-result-text-favo"><i class="fa fa-bookmark-o"></i> <span>{{FavoCnt}}</span></div>
+        <div class="search-rest-result-text-like">MAX <i class="fa fa-heart-o"></i> <span>{{likeCnt}}</span></div>
+        <div class="search-rest-result-text-adr">{{latLng}}</div>
+    </div>
+</li>
+{{~/each~}}

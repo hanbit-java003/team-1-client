@@ -1,0 +1,25 @@
+{{#each articles}}
+<li>
+    <ul class="search-article-result-img">
+        {{#each imgs}}
+            <li {{#if @first}}class="active"{{/if}}  style="background-image: url({{this}})"></li>
+        {{/each}}
+    </ul>
+    <div class="search-article-result-text">
+        <div class="search-article-result-name">{{name}}</div>
+        <ul class="search-article-result-menu">
+            {{#each menus}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        <div class="search-article-result-cmt">{{{comment}}}</div>
+        <ul class="search-article-result-tag">
+            {{#each tags}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        <div class="search-article-result-auth">{{nick}}</div>
+        <div class="search-article-result-date">{{writeDt}}</div>
+    </div>
+</li>
+{{/each}}

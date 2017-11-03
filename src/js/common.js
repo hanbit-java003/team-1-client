@@ -1,6 +1,11 @@
 require('../less/common.less');
 require('../less/member-layer.less');
 
+var _ = require('lodash');
+_.move = require('lodash-move').default;
+
+var Search = require('./search/search-service');
+var search = new Search($('#search-input'));
 
 $('.header-logo').on('click', function () {
     if (true) {
@@ -16,12 +21,8 @@ function searchBarToggle() {
         $('.header-search-bar').toggle('100');
     });
 
-    $('.search-input').on('keyup', function (event) {
-        if (event.keyCode === 13) {     // 엔터를 치면
-            var text = $('.search-input').val();
-            alert(text + ' 검색하시려구??');
-        }
-    });
+    // 검색 출력
+    
 }
 
 searchBarToggle();
