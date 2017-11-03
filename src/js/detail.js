@@ -15,7 +15,7 @@ var signedIn = false;
 var user;
 var sort = false;
 
-$.ajax({
+common.ajax({
     url: '/api/member/get',
     success: function (result) {
         if (result.signedIn) {
@@ -336,30 +336,24 @@ function likes(likeElm, restaurant) {
         likeElm.css('color', '#ff4461');
         likeElm.parent().find('.food-like-count').html();
 
-        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
-        var likeCount = likeElm.parent().find('.food-like-count');
-
-        $.ajax({
-            url: '/api/cock/detail/inc/' + rid + '/' + articleId,
-            success: function () {
-                likeCount.html(restaurant.articles[articleId].likes + 1);
-            }
-        });
+        alert('좋아요!');
     }
     else if (likeElm.hasClass('fa-heart')) {
         likeElm.removeClass('fa-heart').addClass('fa-heart-o');
         likeElm.css('color', '#666');
         likeElm.parent().find('.food-like-count').html();
 
+        alert('안좋아요!');
+
         var articleId = likeElm.parents('.content-wrapper').attr('articleId');
         var likeCount = likeElm.parent().find('.food-like-count');
 
-        $.ajax({
+        /*common.ajax({
             url: '/api/cock/detail/dec/' + rid + '/' + articleId,
-            success: function (result) {
-                likeCount.html(restaurant.articles[articleId].likes);
+            success: function () {
+                likeCount.html(restaurant.articles[i].likes + 1);
             }
-        });
+        });*/
     }
 }
 
@@ -373,5 +367,5 @@ $(window).on('scroll', function () {
     relocateGoTopButton();
 });
 
-init(true);
+init(false);
 relocateGoTopButton();
