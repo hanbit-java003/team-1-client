@@ -42,7 +42,13 @@ body {
     cursor: pointer;
 
     &:hover {
-      background-color: #444;
+      background-color: #fff;
+      color: #222;
+    }
+
+    &.active {
+      background-color: #fff;
+      color: #222;
     }
   }
 }
@@ -50,5 +56,14 @@ body {
 .admin-contents {
   min-height: @admin-menu-height;
   margin: 20px 20px 0px 240px;
+}
+
+.admin-rest-title {
+  padding: 10px 0px;
+  color: #5e5e5e;
+  font-family: 'Noto Sans KR', serif;
+  font-size: 25px;
+  font-weight: bold;
+  border-bottom: 1px solid #5e5e5e;
 }
 

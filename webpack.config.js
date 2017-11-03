@@ -38,6 +38,15 @@ const pages = [{
 }, {
     html: 'admin/index',
     script: 'admin/main'
+}, {
+    html: 'admin/admin-rest',
+    script: 'admin/admin-rest'
+}, {
+    html: 'admin/admin-article',
+    script: 'admin/admin-article'
+}, {
+    html: 'admin/admin-member',
+    script: 'admin/admin-member'
 }];
 
 module.exports = {
