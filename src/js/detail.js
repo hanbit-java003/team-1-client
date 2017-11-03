@@ -372,5 +372,6 @@ $(window).resize(function () {
 $(window).on('scroll', function () {
     relocateGoTopButton();
 });
+
 init(true);
 relocateGoTopButton();
