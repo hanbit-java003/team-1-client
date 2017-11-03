@@ -35,6 +35,9 @@ const pages = [{
 }, {
     html: 'setting',
     script: 'setting'
+}, {
+    html: 'admin/index',
+    script: 'admin/main'
 }];
 
 module.exports = {

@@ -256,3 +256,7 @@ function closeMemberLayer(callback) {
 module.exports = {
     ajax: ajax
 }
+
+$('#admin-btn').on('click', function () {
+    location.href = '/admin'
+});
