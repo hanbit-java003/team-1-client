@@ -15,7 +15,7 @@ var common = require('./common');
     require('./model/restaurants/mibundang')
 ];*/
 $.ajax({
-    url: 'api/cock/detail/' + rid,
+    url: 'api/cock/detail/' + rid + '/false',
     success: function (result) {
         initContents(result);
     }
