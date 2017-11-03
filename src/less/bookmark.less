@@ -17,39 +17,43 @@
   z-index: 900;
 }
 
-.bookmark-right,
-.bookmark-page {
-  display: inline-block;
+.bookmark-page-container {
+  padding: 0px 10px;
 }
 
 .bookmark-map {
   display:inline-block;
-  height:500px;
+  width: 100%;
+  min-width: 500px;
+  height: 500px;
   box-shadow:1px 1px 5px rgba(0,0,0,0.3);
-}
-
-.bookmark-right {
-  display: inline-block;
-  max-width:58%;
 }
 
 .detail-container {
   font-family: 'Noto Sans KR', serif;
+  width: 100%;
   position: relative;
-  min-height: 347px;
+  min-width: 500px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  min-height: 334px;
   box-shadow:1px 1px 5px rgba(0,0,0,0.3);
   padding: 10px 0 60px;
 }
 
 .detail-review {
   color: #000;
-  margin-top: 30px;
-  margin-left: 20px;
-  width: 90%;
+  margin: 30px auto;
+  width: 100%;
+  min-width: 500px;
+}
+
+.detail-list {
+  //margin: 0 auto;
 }
 
 .detail-review-top {
-  margin-left: 20px;
+  margin: 0 20px;
   border-bottom: solid 1px #dbdbdb;
 }
 
@@ -90,11 +94,8 @@
 }
 
 .bookmark-page {
-  display: inline-block;
-  width: 40%;
-  margin-top: 20px;
-  margin-left: 24px;
-  vertical-align:top;
+  width: 100%;
+  min-width: 500px;
   box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
   //스크롤부여
 }
@@ -115,7 +116,7 @@
 .bookmark-container {
   padding: 10px;
   overflow: auto;
-  max-height: 750px;
+  max-height: 773px;
   font-family: 'Noto Sans KR', serif;
 }
 
@@ -177,6 +178,10 @@
   border: 0;
   outline: none;
   vertical-align: middle;
+}
+
+.bookmark-address {
+  display: none;
 }
 
 .commentary-container {

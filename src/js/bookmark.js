@@ -1,6 +1,5 @@
 require('../less/bookmark.less');
 require('bootstrap');
-require('./main.js');
 
 var common = require('./common');
 
@@ -27,22 +26,43 @@ var i;
 var bookmarkMaps;
 var marker;
 var googleMaps;
-var infowindow;
+var infoWindow;
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            initBookmarkMap(position);
+        }, function (error) { // 위치 찾기 에러 시 콜백
+            console.error(error);
+            alert('내 위치 확인을 허용해 주세요.');
+            initBookmarkMap();
+        }, {
+            enableHighAccuracy: false,
+            maximumAge: 0,
+            timeout: Infinity
+        });
+    }
+    else {
+        alert('GPS를 지원하지 않습니다.');
+    }
+}
+
+getLocation();
 
 
-function initBookmarkMap() {
+function initBookmarkMap(position) {
 
     loadGoogleMapsApi().then(function (_googleMaps) {
 
         googleMaps = _googleMaps;
 
-        var infowindow = new googleMaps.InfoWindow();
+        infoWindow = new googleMaps.InfoWindow();
 
         var mapOptions = {
             zoom: 16,
             scrollwheel: false,
             center:
-                new googleMaps.LatLng(bookmarkModel[0].lat, bookmarkModel[0].lng)
+                new googleMaps.LatLng(position.coords.latitude, position.coords.longitude)
         };
 
         bookmarkMaps = new googleMaps.Map($('.bookmark-map')[0], mapOptions);
@@ -60,9 +80,9 @@ function initBookmarkMap() {
 
             googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                 return function () {
-                    infowindow.setContent(bookmarkModel[i].title
+                    infoWindow.setContent(bookmarkModel[i].title
                         + '<br/>' + bookmarkModel[i].address);
-                    infowindow.open(bookmarkMaps, marker);
+                    infoWindow.open(bookmarkMaps, marker);
                 }
 
             })(marker, i));
@@ -78,22 +98,40 @@ function initBookmarkMap() {
 initBookmarkMap();
 
 
-function bookmarkReview() {
+function bookmarkReview(bookmarkModel) {
 
-    $('.detail-container').empty();
+    $('.bookmark-container > li').on('click', function () {
 
-    for (var i=0; i<bookmarkReviewModel.length; i++) {
+        var reviewId = $(this).attr('rid');
 
-        var reviewHtml = bookmarkReviewTemplate(bookmarkReviewModel[i]);
+        console.log(reviewId);
 
-        $('.detail-container').append(reviewHtml).css('list-style', 'none');
+        for(i=0; i<bookmarkModel.length; i++) {
 
-    }
+            if(reviewId === bookmarkModel[i].id) {
 
+                var html = bookmarkReviewTemplate(bookmarkModel[i]);
+
+                $('.detail-review').html(html);
+
+            }
+
+        }
+
+    });
+
+    clickDetail();
 }
 
-bookmarkReview();
+function clickDetail() {
+    $('.btn-goDetail').on('click', function () {
+        var goId = $(this).attr('rid');
 
+        bookmarkToDetail(goId);
+
+        console.log(goId);
+    });
+}
 
 
 function initBookmark(bookmarkModel) {
@@ -116,11 +154,13 @@ function initBookmark(bookmarkModel) {
             $(this).removeClass('fa-star-o').addClass('fa-star');
             $(this).css('color', mainColor);
             alert("즐겨찾기 목록에 추가되었습니다.");
-            /*이 알람이 필요할런지 모르겠지만 일단은 추가함.*/
+            /*이 alert이 필요할런지 모르겠지만 일단은 추가함.*/
         }
     });
 
-    bookmarkClick(bookmarkModel);
+    bookmarkClick();
+    bookmarkReview(bookmarkModel);
+
 }
 
 //북마크 리스트 클릭 이벤트
@@ -156,13 +196,13 @@ function bookmarkClick() {
                 icon: spoonMark
             });
 
-            var title = bookmarkModel[i].title;
-            var address = bookmarkModel[i].address;
+            var bookmarkContent = $(this).find('.bookmark-element');
 
-            var markerContent = title + '<br/>' + address;
+            var markerContents = bookmarkContent.find('.store-name').text()
+                + '<br/>' + bookmarkContent.find('.bookmark-address').text();
 
-            infowindow.setContent(markerContent);
-            infowindow.open(map, marker);
+            infoWindow.setContent(markerContents);
+            infoWindow.open(bookmarkMaps, marker);
 
         });
 
