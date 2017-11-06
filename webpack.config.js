@@ -42,6 +42,9 @@ const pages = [{
     html: 'admin/admin-rest',
     script: 'admin/admin-rest'
 }, {
+    html: 'admin/admin-rest-edit',
+    script: 'admin/admin-rest-edit'
+}, {
     html: 'admin/admin-article',
     script: 'admin/admin-article'
 }, {

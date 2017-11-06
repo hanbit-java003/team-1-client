@@ -20,6 +20,12 @@ function setList(list) {
     var adminRestHtml = adminRestTemplate(list);
 
     $('.admin-rest-table tbody').html(adminRestHtml);
+
+    $('.rest-edit-btn').on('click', function () {
+        var restId = $(this).attr('restId');
+
+        location = './admin-rest-edit.html?rid=' + restId;
+    });
 }
 
 // cock cock 에 등록된 총 맛집 수
