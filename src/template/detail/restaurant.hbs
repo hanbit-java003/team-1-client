@@ -19,9 +19,11 @@
     </div>
     <div class="food-img-wrapper">
         {{~#each imgs~}}
-            <div class="food-img-tag">
-                <img id="food-img-{{imgId}}" class="img-responsive" src='{{path}}'>
-                <div class="food-menus"></div>
+            <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
+                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
+                <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
+                    <!-- menu-tags -->
+                </div>
             </div>
         {{~/each~}}
     </div>
