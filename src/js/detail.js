@@ -63,6 +63,7 @@ function setMobile(restaurant) {
     }
 }
 
+// article 수정/삭제 버튼
 function settingBtn() {
     $('.card-setting').on('mouseover', function () {
         $(this).find('.setting-menu').show();
@@ -193,6 +194,7 @@ function attachRestInfoEvent() {
     }
 }
 
+// articles 정렬 버튼 (최신순/좋아요순)
 function sortBtn() {
     $('#detail-sort-latest').on('click', function () {
         if ($(this).hasClass('active')) {
@@ -217,6 +219,7 @@ function sortBtn() {
     });
 }
 
+// 페이지 초기화
 function init(sort) {
     common.ajax({
         url: 'api/cock/detail/' + rid + '/' + sort,
@@ -226,6 +229,7 @@ function init(sort) {
     });
 }
 
+// articles 초기화
 function initContents(restaurant) {
     if (restaurant.articles.length === 0) {
         location.href = '/';
@@ -312,6 +316,7 @@ function articleOpen(more) {
     }
 }
 
+// 좋아요
 function likes(likeElm, restaurant) {
     if (!signedIn) {
         alert('로그인 상태가 아닙니다.');
