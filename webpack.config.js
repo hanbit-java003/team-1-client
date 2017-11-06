@@ -72,7 +72,10 @@ module.exports = {
             })
         }, {
             test: /\.hbs$/,
-            loader: 'handlebars-loader'
+            loader: 'handlebars-loader',
+            query: {
+                helperDirs: path.resolve(__dirname, 'src/template/helpers')
+            }
         }]
     },
     devServer: {

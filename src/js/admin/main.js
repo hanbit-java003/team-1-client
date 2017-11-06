@@ -9,7 +9,7 @@ function initAdminMain() {
         success: function (result) {
             $('.count-rest').empty();
 
-            $('.count-rest').html(result);
+            $('.count-rest').text(result);
         }
     });
 
@@ -18,7 +18,7 @@ function initAdminMain() {
         success: function (result) {
             $('.count-article').empty();
 
-            $('.count-article').html(result);
+            $('.count-article').text(result);
         }
     });
 
@@ -27,7 +27,7 @@ function initAdminMain() {
         success: function (result) {
             $('.count-member').empty();
 
-            $('.count-member').html(result);
+            $('.count-member').text(result);
         }
     });
 }
