@@ -10,10 +10,10 @@ const port = {
 
 const pages = [{
     html: 'index',
-    script: 'main',
+    script: 'main'
 }, {
     html: 'bookmark',
-    script: 'bookmark',
+    script: 'bookmark'
 }, {
     html: 'sub',
     script: 'sub'
