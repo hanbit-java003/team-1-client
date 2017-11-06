@@ -18,9 +18,12 @@
         </div>
     </div>
     <div class="food-img-wrapper">
-        {{~#each imgs}}
-            <img id="food-img-{{imgId}}" class="img-responsive" src='{{path}}'>
-        {{/each}}
+        {{~#each imgs~}}
+            <div class="food-img-tag">
+                <img id="food-img-{{imgId}}" class="img-responsive" src='{{path}}'>
+                <div class="food-menus"></div>
+            </div>
+        {{~/each~}}
     </div>
     <div class="food-text">
         {{~#each menus~}}
@@ -38,7 +41,8 @@
     <ul class="food-icon">
         <li>
             <i class="food-like fa fa-heart-o"></i>
-            <span id="likes-{{articleId}}" class="food-like-count" style="font-size: 12px;font-weight: bold;">{{likes}}</span>
+            <span id="likes-{{articleId}}" class="food-like-count"
+                  style="font-size: 12px;font-weight: bold;">{{likes}}</span>
         </li>
         <li>
             <i class="food-trash fa fa-trash-o"></i>

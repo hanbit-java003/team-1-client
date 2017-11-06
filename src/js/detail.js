@@ -276,6 +276,18 @@ function initContents(restaurant) {
         location.href = './report.html';
     });
 
+    var menuTemplate = require('../template/detail/menu-tags.hbs');
+
+    $('.food-menus').empty();
+
+    for (var i = 0; i < restaurant.articles.length; i++) {
+        for (var j = 0; j< restaurant.articles[i].menus.length; j++) {
+            var menuHtml = menuTemplate(restaurant.articles[i].menus[j]);
+        }
+    }
+
+    $('.food-menus').html(menuHtml);
+
     // 사진 크게보기
     $('.img-responsive').unbind('click').on('click', function () {
         console.log('사진을 펼쳐라~!');

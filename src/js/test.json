@@ -1,0 +1,133 @@
+{
+  "rid": 12,
+  "name": "갑이다짬뽕",
+  "lat": 37.557291587178696,
+  "lng": 126.93784967064857,
+  "status": null,
+  "articles": [
+    {
+      "articleId": 1,
+      "rid": 12,
+      "comment": "국물이 시원",
+      "status": null,
+      "likes": 0,
+      "hate": 0,
+      "writeDt": "2017-10-25 15:29:14",
+      "uid": "2XlRehENs3kP",
+      "nick": "야옹",
+      "avatar": "/api/file/avatar-2XlRehENs3kP",
+      "imgs": [
+        {
+          "imgId": 0,
+          "rid": 12,
+          "articleId": 1,
+          "path": "/api/file/art-21820108_1737838573176763_4845528300291883008_n-12_1_0"
+        }
+      ],
+      "tags": [
+        {
+          "tagId": 0,
+          "rid": 12,
+          "articleId": 1,
+          "tag": "백짬뽕"
+        },
+        {
+          "tagId": 1,
+          "rid": 12,
+          "articleId": 1,
+          "tag": "짬뽕"
+        },
+        {
+          "tagId": 2,
+          "rid": 12,
+          "articleId": 1,
+          "tag": "갑이다짬뽕"
+        },
+        {
+          "tagId": 3,
+          "rid": 12,
+          "articleId": 1,
+          "tag": "신촌맛집"
+        }
+      ],
+      "menus": [
+        {
+          "id": 1,
+          "rid": 12,
+          "articleId": 1,
+          "imgId": 0,
+          "x": 136,
+          "y": 317,
+          "menu": "환상백짬뽕",
+          "price": 7000
+        }
+      ],
+      "emblems": [
+        {
+          "name": "signin",
+          "img": "../img/emblem/confetti.png",
+          "howAchieve": "회원가입을 축하합니다."
+        }
+      ]
+    },
+    {
+      "articleId": 0,
+      "rid": 12,
+      "comment": "숙주와 버섯이 듬뿍!",
+      "status": null,
+      "likes": 0,
+      "hate": 0,
+      "writeDt": "2017-10-25 15:27:46",
+      "uid": "2XlRehENs3kP",
+      "nick": "야옹",
+      "avatar": "/api/file/avatar-2XlRehENs3kP",
+      "imgs": [
+        {
+          "imgId": 0,
+          "rid": 12,
+          "articleId": 0,
+          "path": "/api/file/art-17332331_724414791069542_2826375848439840768_n-12_0_0"
+        }
+      ],
+      "tags": [
+        {
+          "tagId": 0,
+          "rid": 12,
+          "articleId": 0,
+          "tag": "짬뽕"
+        },
+        {
+          "tagId": 1,
+          "rid": 12,
+          "articleId": 0,
+          "tag": "갑이다짬뽕"
+        },
+        {
+          "tagId": 2,
+          "rid": 12,
+          "articleId": 0,
+          "tag": "신촌맛집"
+        }
+      ],
+      "menus": [
+        {
+          "id": 1,
+          "rid": 12,
+          "articleId": 0,
+          "imgId": 0,
+          "x": 107,
+          "y": 332,
+          "menu": "갑이다짬뽕",
+          "price": 6000
+        }
+      ],
+      "emblems": [
+        {
+          "name": "signin",
+          "img": "../img/emblem/confetti.png",
+          "howAchieve": "회원가입을 축하합니다."
+        }
+      ]
+    }
+  ]
+}
