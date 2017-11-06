@@ -7,6 +7,8 @@ $.ajax({
     url: '/api/cock/admin/rest',
     success: function (result) {
         setList(result);
+
+        console.log(result);
     }
 });
 
