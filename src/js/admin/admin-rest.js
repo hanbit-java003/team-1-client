@@ -3,6 +3,7 @@ require('../../less/admin/admin-rest.less');
 
 var common = require('./common');
 
+// rid, name, count(article_id), lat, lng 만 가져옴.
 $.ajax({
     url: '/api/cock/admin/rest',
     success: function (result) {
@@ -21,6 +22,7 @@ function setList(list) {
     $('.admin-rest-table tbody').html(adminRestHtml);
 }
 
+// cock cock 에 등록된 총 맛집 수
 $.ajax({
     url: '/api/cock/admin/count/rest',
     success: function (result) {

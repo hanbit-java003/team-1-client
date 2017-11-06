@@ -315,8 +315,8 @@ DROP TABLE IF EXISTS `cc_rest_detail`;
 CREATE TABLE `cc_rest_detail` (
   `rid` int(11) NOT NULL,
   `address` varchar(150) DEFAULT NULL,
-  `call` varchar(45) DEFAULT NULL,
-  `time` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `operating` varchar(45) DEFAULT NULL,
   `signature` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`rid`),
   CONSTRAINT `fk_cc_rest_detail_cc_rest1` FOREIGN KEY (`rid`) REFERENCES `cc_rest` (`rid`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -452,4 +452,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-06 11:53:37
+-- Dump completed on 2017-11-06 12:10:49

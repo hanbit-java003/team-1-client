@@ -4,6 +4,7 @@ require('../../less/admin/main.less');
 var common = require('./common');
 
 function initAdminMain() {
+    // 등록된 맛집 수
     $.ajax({
         url: '/api/cock/admin/count/rest',
         success: function (result) {
@@ -13,6 +14,7 @@ function initAdminMain() {
         }
     });
 
+    // 등록된 게시글 수
     $.ajax({
         url: '/api/cock/admin/count/article',
         success: function (result) {
@@ -22,6 +24,7 @@ function initAdminMain() {
         }
     });
 
+    // 가입 회원 수
     $.ajax({
         url: '/api/cock/admin/count/member',
         success: function (result) {
