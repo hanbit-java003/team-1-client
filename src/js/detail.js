@@ -64,57 +64,49 @@ function setMobile(restaurant) {
 }
 
 function settingBtn() {
-    $('.card-setting').on('click', function () {
-        $(this).find('.setting-menu').toggle();
-        $(this).find('.setting-menu').addClass('menu-opened');
+    $('.card-setting').on('mouseover', function () {
+        $(this).find('.setting-menu').show();
 
-        if ($(this).find('.setting-menu').hasClass('menu-opened')) {
-            var articleId = $(this).parents('.content-wrapper').attr('articleId');
-            var uid = $(this).parents('.content-wrapper').find('div').attr('uid');
+        var articleId = $(this).parents('.content-wrapper').attr('articleId');
+        var uid = $(this).parents('.content-wrapper').find('div').attr('uid');
 
-            $(this).find('#update-article-' + articleId).on('click', function () {
-                // 수정페이지로 이동
-                if (!signedIn) {
-                    alert('로그인 상태가 아닙니다.');
-                    location.reload();
+        $(this).find('#update-article-' + articleId).unbind('click').on('click', function () {
+            if (!signedIn) {
+                alert('로그인 상태가 아닙니다.');
+            }
+            else {
+                if (user !== uid) {
+                    alert('본인이 작성한 글만 수정 가능합니다.');
                 }
                 else {
-                    if (user !== uid) {
-                        alert('본인이 작성한 글만 수정 가능합니다.');
-                        location.reload();
-                    }
-                    else {
-                        location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
-                    }
+                    location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
                 }
-            });
+            }
+        });
 
-            $(this).find('#delete-article-' + articleId).on('click', function () {
-                if (!signedIn) {
-                    alert('로그인 상태가 아닙니다.');
-                    location.reload();
+        $(this).find('#delete-article-' + articleId).unbind('click').on('click', function () {
+            if (!signedIn) {
+                alert('로그인 상태가 아닙니다.');
+            }
+            else {
+                if (user !== uid) {
+                    alert('본인이 작성한 글만 삭제 가능합니다.');
                 }
                 else {
-                    if (user !== uid) {
-                        alert('본인이 작성한 글만 삭제 가능합니다.');
-                        location.reload();
-                    }
-                    else {
-                        $.ajax({
-                            url: '/api/cock/detail/' + rid + '/' + articleId,
-                            method: 'DELETE',
-                            success: function (result) {
-                                location.href = 'detail.html?rid=' + rid;
-                            },
-                            error: function () {
-                                alert('삭제 실패');
-                            }
-                        });
-                    }
+                    common.ajax({
+                        url: '/api/cock/detail/' + rid + '/' + articleId,
+                        method: 'DELETE',
+                        success: function (result) {
+                            location.href = 'detail.html?rid=' + rid;
+                        }
+                    });
                 }
+            }
+        });
+    });
 
-            });
-        }
+    $('.card-setting').on('mouseout', function () {
+        $(this).find('.setting-menu').hide();
     });
 }
 
@@ -226,7 +218,7 @@ function sortBtn() {
 }
 
 function init(sort) {
-    $.ajax({
+    common.ajax({
         url: 'api/cock/detail/' + rid + '/' + sort,
         success: function (result) {
             initContents(result);
@@ -245,27 +237,22 @@ function initContents(restaurant) {
     setLogo(restaurant);
     initRestInfo(restaurant);
 
-    settingBtn();
-
     sortBtn();
 
+    settingBtn();
+
     // 더보기 버튼
-    $('.btn-more').on('click', function () {
+    $('.btn-more').unbind('click').on('click', function () {
         articleOpen($(this));
     });
 
-    // 설정 버튼
-    $('.card-setting').on('click', function () {
-        $(this).find('.setting-menu').css('visibility', 'visible');
-    });
-
     // 이 글에 동의합니다 버튼 (좋아요)
-    $('.food-like').on('click', function () {
+    $('.food-like').unbind('click').on('click', function () {
         likes($(this), restaurant);
     });
 
     // 이 글에 반대합니다 버튼 (쓰레기)
-    $('.food-trash').on('click', function () {
+    $('.food-trash').unbind('click').on('click', function () {
         if ($(this).hasClass('fa-trash-o')) {
             $(this).removeClass('fa-trash-o').addClass('fa-trash');
             $(this).css('color', '#ff4461');
@@ -281,12 +268,12 @@ function initContents(restaurant) {
     });
 
     // 신고 버튼
-    $('.food-report').on('click', function () {
+    $('.food-report').unbind('click').on('click', function () {
         location.href = './report.html';
     });
 
     // 사진 크게보기
-    $('.img-responsive').on('click', function () {
+    $('.img-responsive').unbind('click').on('click', function () {
         console.log('사진을 펼쳐라~!');
     });
 }
@@ -369,3 +356,4 @@ $(window).on('scroll', function () {
 
 init(false);
 relocateGoTopButton();
+
