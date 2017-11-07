@@ -7,15 +7,10 @@ _.move = require('lodash-move').default;
 var Search = require('./search/search-service');
 var search = new Search($('#search-input'));
 
-
 $('.header-logo').on('click', function () {
     if (true) {
         location.href = '/';
     }
-});
-
-$('.back-button').on('click', function () {
-    location.href = '/';
 });
 
 
@@ -93,11 +88,6 @@ function openMemberLayer(memberInfo) {
     }, {
         duration: 500,
         complete: function () {
-            $('.cock-member-layer-logo').on('click', function () {
-               closeMemberLayer(function () {
-                   location.href = '../';
-               }) ;
-            });
             if (!memberInfo.signedIn) {
                 // 엔터키 누르면 실행 되게끔.
                 $('#cock-login-email').keyup(function (key) {
@@ -113,14 +103,12 @@ function openMemberLayer(memberInfo) {
 
 
                 $('#cock-login-btn').on('click', function () {
-                    signIn();
+                    signIn(memberInfo);
                 });
 
 
                 $('#cock-member-join-btn').on('click', function () {
-                    closeMemberLayer(function () {
-                        location.href = '../join.html';
-                    });
+                    location.href = '../join.html';
                 });
 
                 $('#cock-login-email').focus();
@@ -130,20 +118,10 @@ function openMemberLayer(memberInfo) {
                     signOut();
                 });
                 $('#cock-setting').on('click', function () {
-                    closeMemberLayer(function () {
-                        location.href = '../setting.html';
-                    });
+                    location.href = '../setting.html';
                 });
-                $('#cock-insert').on('click',function () {
-                    closeMemberLayer(function () {
-                        location.href = '../insert.html';
-                    });
-                });
-                $('#cock-bookmark').on('click', function () {
-                   closeMemberLayer(function () {
-                       location.href = '../bookmark.html';
-                   })
-                });
+
+                $('#cock-setting').focus();
             }
         }
     });
@@ -153,7 +131,6 @@ function openMemberLayer(memberInfo) {
     });
 
 }
-
 
 
 // 헤더부분 오른쪽 상단 아이콘 이미지 로그인 이후.
@@ -174,7 +151,6 @@ function templateHeader(result) {
         location.href = './';
     });
 
-    // 디테일 페이지에서 뒤로가기 버튼. 누르면 홈으로 감
     $('.back-button').on('click', function () {
         location.href = '/';
     });
@@ -189,17 +165,14 @@ function signOut() {
     $.ajax({
         url: '/api/member/signout',
         success: function () {
-            closeMemberLayer(function () {
-                location.href = '../';
-            });
-
+            location.href = '../';
         }
     });
 }
 
 
 //로그인
-function signIn() {
+function signIn(memberInfo) {
     var email = $('#cock-login-email').val().trim();
     var pw = $('#cock-login-pw').val().trim();
     var remember = $('#cock-login-remember').prop('checked');
@@ -227,10 +200,7 @@ function signIn() {
         },
         success: function (result) {
             alert(result.nick + '님 반갑습니다.');
-            closeMemberLayer(function () {
-                    location.href = '../';
-                }
-            );
+            location.href = './';
         }
     });
 }
@@ -257,7 +227,3 @@ function closeMemberLayer(callback) {
 module.exports = {
     ajax: ajax
 }
-
-$('#admin-btn').on('click', function () {
-    location.href = '/admin'
-});

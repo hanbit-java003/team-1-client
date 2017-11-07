@@ -34,7 +34,7 @@ function Search(searchinput) {
             }
 
             searchTimer = setTimeout(function () {
-                search();
+                //search(); - 임시
             }, delay);
         });
     }
