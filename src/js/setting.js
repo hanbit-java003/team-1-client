@@ -191,7 +191,7 @@ $('.cock-setting-save').on('click', function () {
         formData.append('avatar', images[0]);
     }
 
-    common.ajax ({
+    $.ajax ({
         url: '/api/member/save',
         method: 'POST',
         data: formData,
@@ -201,6 +201,10 @@ $('.cock-setting-save').on('click', function () {
             alert('정상적으로 저장되었습니다.');
 
             location.reload();
+        },
+        error : function () {
+            alert('중복된 별명입니다. 확인해 주시기 바랍니다.');
+            $('#cock-member-nick-input').focus();
         }
     });
 

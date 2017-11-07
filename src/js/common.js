@@ -134,6 +134,12 @@ function openMemberLayer(memberInfo) {
                         location.href = '../setting.html';
                     });
                 });
+                $('#cock-member-info').on('click',function () {
+                    closeMemberLayer(function () {
+                       location.href = '../member.html';
+                    });
+                });
+
                 $('#cock-insert').on('click',function () {
                     closeMemberLayer(function () {
                         location.href = '../insert.html';

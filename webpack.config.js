@@ -50,6 +50,9 @@ const pages = [{
 }, {
     html: 'admin/admin-member',
     script: 'admin/admin-member'
+}, {
+    html: 'member',
+    script: 'member'
 }];
 
 module.exports = {
