@@ -22,7 +22,12 @@
             <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
                 <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
                 <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
-                    <!-- menu-tags -->
+                    {{#each menus}}
+                        <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
+                             style="position: absolute; top: {{y}}px; left: {{x}}px">
+                            {{~menu~}}
+                        </div>
+                    {{/each}}
                 </div>
             </div>
         {{~/each~}}

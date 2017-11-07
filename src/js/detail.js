@@ -276,22 +276,6 @@ function initContents(restaurant) {
         location.href = './report.html';
     });
 
-    // 메뉴 태그
-    var menuTemplate = require('../template/detail/menu-tags.hbs');
-    $('.food-menus').empty();
-
-    for (var i = 0; i < restaurant.articles.length; i++) {
-        var foodMenu = $('#food-menus-'+ restaurant.articles[i].articleId + '-' + restaurant.articles[i].imgs[0].imgId);
-        var menuHtml = menuTemplate(restaurant.articles[i].menus[0]);
-
-        foodMenu.append(menuHtml);
-
-        $('#menu-tag-'+ restaurant.articles[i].articleId + '-' + restaurant.articles[i].imgs[0].imgId).css({
-            'top': restaurant.articles[i].menus[0].y,
-            'left': restaurant.articles[i].menus[0].x
-        });
-    }
-
     // 사진 크게보기
     $('.img-responsive').unbind('click').on('click', function () {
         console.log('사진을 펼쳐라~!');
@@ -375,5 +359,5 @@ $(window).on('scroll', function () {
     relocateGoTopButton();
 });
 
-init(false);
+init(sort);
 relocateGoTopButton();
