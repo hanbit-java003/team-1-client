@@ -124,6 +124,18 @@ function openMemberLayer(memberInfo) {
                     });
                 });
 
+                $('.cock-member-sns-fb').on('click', function () {
+                    alert('페이스북 준비중 입니다.');
+                });
+
+                $('.cock-member-sns-naver').on('click', function () {
+                    alert('네이버 준비중 입니다.');
+                });
+
+                $('.cock-member-sns-kakao').on('click', function () {
+                    alert('카카오 준비중 입니다.');
+                });
+
                 $('#cock-login-email').focus();
             }
             else {
@@ -270,3 +282,4 @@ module.exports = {
 $('#admin-btn').on('click', function () {
     location.href = '/admin'
 });
+

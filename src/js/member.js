@@ -19,13 +19,12 @@ function getMemberDetail() {
         url: '/api/member/detail',
         success: function (result) {
             init(result);
-            console.log(result.nick+1);
         }
     });
 }
 
 function init(member) {
-    $('.cock-member-info-welcome').append(member.nick+'님 반갑습니다.');
+    $('.cock-member-info-welcome').append('<span class="cock-member-info-nick">'+member.nick+'</span>'+'님의 회원 정보');
 
     $('.cock-member-tab-btns > li').on('click', function () {
        if ($(this).hasClass('active')) {
