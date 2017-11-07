@@ -24,6 +24,7 @@ function searchBarToggle() {
     $('.search-toggle').on('click', function () {
         $('.header-search-icon').toggle();
         $('.header-search-bar').toggle('100');
+        $('#search-input').focus();
     });
 
     // 검색 출력
