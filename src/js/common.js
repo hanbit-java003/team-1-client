@@ -186,6 +186,8 @@ function templateHeader(result) {
         location.href = '/';
     });
 
+    var search = new Search($('#search-input'));
+
     searchBarToggle();
 
 }
