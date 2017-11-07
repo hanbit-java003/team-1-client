@@ -18,14 +18,24 @@
         </div>
     </div>
     <div class="food-img-wrapper">
-        {{~#each imgs}}
-            <img id="food-img-{{imgId}}" class="img-responsive" src='{{path}}'>
-        {{/each}}
+        {{~#each imgs~}}
+            <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
+                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
+                <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
+                    {{#each menus}}
+                        <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
+                             style="position: absolute; top: {{y}}px; left: {{x}}px">
+                            {{~menu~}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{~#each menus~}}
+                <li class="food-eaten">{{menu}} {{price}}원</li>
+            {{~/each~}}
+        {{~/each~}}
     </div>
     <div class="food-text">
-        {{~#each menus~}}
-            <li class="food-eaten">{{menu}} {{price}}원</li>
-        {{~/each~}}
         <div class="food-detail card-closed">
             {{{comment}}}
             <div class="food-tag">
@@ -38,7 +48,8 @@
     <ul class="food-icon">
         <li>
             <i class="food-like fa fa-heart-o"></i>
-            <span id="likes-{{articleId}}" class="food-like-count" style="font-size: 12px;font-weight: bold;">{{likes}}</span>
+            <span id="likes-{{articleId}}" class="food-like-count"
+                  style="font-size: 12px;font-weight: bold;">{{likes}}</span>
         </li>
         <li>
             <i class="food-trash fa fa-trash-o"></i>
