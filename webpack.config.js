@@ -36,6 +36,21 @@ const pages = [{
     html: 'setting',
     script: 'setting'
 }, {
+    html: 'admin/index',
+    script: 'admin/main'
+}, {
+    html: 'admin/admin-rest',
+    script: 'admin/admin-rest'
+}, {
+    html: 'admin/admin-rest-edit',
+    script: 'admin/admin-rest-edit'
+}, {
+    html: 'admin/admin-article',
+    script: 'admin/admin-article'
+}, {
+    html: 'admin/admin-member',
+    script: 'admin/admin-member'
+}, {
     html: 'search',
     script: 'search'
 }];
@@ -63,7 +78,10 @@ module.exports = {
             })
         }, {
             test: /\.hbs$/,
-            loader: 'handlebars-loader'
+            loader: 'handlebars-loader',
+            query: {
+                helperDirs: path.resolve(__dirname, 'src/template/helpers')
+            }
         }]
     },
     devServer: {
