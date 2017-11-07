@@ -30,12 +30,12 @@
                     {{/each}}
                 </div>
             </div>
+            {{~#each menus~}}
+                <li class="food-eaten">{{menu}} {{price}}원</li>
+            {{~/each~}}
         {{~/each~}}
     </div>
     <div class="food-text">
-        {{~#each menus~}}
-            <li class="food-eaten">{{menu}} {{price}}원</li>
-        {{~/each~}}
         <div class="food-detail card-closed">
             {{{comment}}}
             <div class="food-tag">
