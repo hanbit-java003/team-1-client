@@ -29,9 +29,7 @@ CREATE TABLE `cc_alert_article` (
   `uid` varchar(45) NOT NULL,
   `report` varchar(100) NOT NULL,
   `status` varchar(45) NOT NULL,
-  PRIMARY KEY (`aaid`),
-  KEY `fk_cc_alert_article_cc_article1_idx` (`article_id`,`rid`),
-  CONSTRAINT `fk_cc_alert_article_cc_article1` FOREIGN KEY (`article_id`, `rid`) REFERENCES `cc_article` (`article_id`, `rid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`aaid`,`rid`,`article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -57,9 +55,7 @@ CREATE TABLE `cc_alert_rest` (
   `uid` varchar(100) NOT NULL,
   `report` varchar(100) NOT NULL,
   `status` varchar(45) NOT NULL,
-  PRIMARY KEY (`arid`),
-  KEY `fk_cc_alert_rest_cc_rest1_idx` (`rid`),
-  CONSTRAINT `fk_cc_alert_rest_cc_rest1` FOREIGN KEY (`rid`) REFERENCES `cc_rest` (`rid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`arid`,`rid`,`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -453,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-08 11:56:39
+-- Dump completed on 2017-11-08 17:31:14
