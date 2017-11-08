@@ -1,4 +1,5 @@
 require('../less/bookmark.less');
+require('../less/setting.less');
 require('bootstrap');
 
 var common = require('./common');
