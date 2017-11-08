@@ -1,0 +1,29 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#cock-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="../../img/main-logo.png">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="cock-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">
+                        LOGOUT
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<ul class="admin-menu">
+    <li id="admin-main" {{#if admin-main}}class="active"{{/if}}>Main</li>
+    <li id="admin-rest" {{#if admin-rest}}class="active"{{/if}}>맛집 관리</li>
+    <li id="admin-article" {{#if admin-article}}class="active"{{/if}}>게시글 관리</li>
+    <li id="admin-member" {{#if admin-member}}class="active"{{/if}}>회원 관리</li>
+</ul>

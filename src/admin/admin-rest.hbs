@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Cock Cock Admin</title>
+</head>
+<body>
+{{> ../template/admin/menu admin-rest="true"}}
+<div class="admin-contents">
+    <div class="container-fluid">
+        <div class="admin-rest-title">
+            맛집 관리
+        </div>
+        <table class="admin-rest-table table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>맛집ID</th>
+                    <th>맛집이름</th>
+                    <th>게시글 수</th>
+                    <th>주소</th>
+                    <th>전화번호</th>
+                    <th>영업시간</th>
+                    <th>대표메뉴</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="8">
+                        총 맛집 수 :
+                        <span class="count-total-rest"></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</body>
+</html>

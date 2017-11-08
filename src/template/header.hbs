@@ -7,6 +7,9 @@
             </div>
             <div class="header-logo"></div>
             <div class="header-title"></div>
+            <div class="write-button">
+                <i class="fa fa-pencil-square"></i>
+            </div>
         </div>
         <div class="rest-submenu">
             <!-- 식당정보 팝업 -->
@@ -17,22 +20,22 @@
             </div>
             <div class="header-search-bar">
                 <i class="fa fa-search"></i>
-                <input id="search-input" type="search" placeholder="검색창입니다.">
+                <input id="search-input" type="search" placeholder="검색할 단어를 입력하세요.">
                 <span class="search-toggle header-close-icon">X</span>
             </div>
             {{#if signedIn}}
                     {{# if avatar}}
-                        <button class="header-bt" style="background-image: url({{avatar}})">
-                        </button>
+                        <div class="header-bt" style="background-image: url({{avatar}})">
+                        </div>
                     {{else}}
-                        <button class="header-bt">
+                        <div class="header-bt">
                             <i class="fa fa-user"></i>
-                        </button>
+                        </div>
                     {{/if}}
             {{else}}
-                    <button class="header-bt" >
+                    <div class="header-bt" >
                         <i class="fa fa-user"></i>
-                    </button>
+                    </div>
             {{/if}}
 
         </div>

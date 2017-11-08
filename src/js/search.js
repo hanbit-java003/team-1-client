@@ -70,11 +70,6 @@ function setList() {
 
         $('.cock-search-rest .search-title > span').text(rests.length);
 
-        $('.search-rest-result-text').on('click', function () {
-            var li = $(this).parent('li');
-            location.href = 'detail.html?rid=' + li.attr('rid');
-        });
-
         setRestImgs();
     }
     
@@ -86,13 +81,9 @@ function setList() {
 
         $('.cock-search-article .search-title > span').text(articles.length);
 
-        $('.search-article-result-text').on('click', function () {
-            var li = $(this).parent('li');
-            location.href = 'detail.html?rid=' + li.attr('rid');
-        });
-
         setArticleImgs();
     }
+
 }
 
 function setRestImgs() {
@@ -162,6 +153,6 @@ function imgClickEvent(ul) {
 
 function addCntTag(ul) {
     var size = ul.find('li').length;
-    var html = '<div class="result-img-cnt">'+ size +'</div>';
+    var html = '<div class="result-img-cnt">'+ size +'+</div>';
     ul.append(html);
 }
