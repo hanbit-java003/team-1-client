@@ -191,6 +191,7 @@ function init() {
         }
 
         $('#cc-hashtag-textarea').importTags(tagValue);
+
     }
 
     if (params.get('articleId') !== null) {
@@ -222,6 +223,7 @@ function init() {
                         $(ul).parent('li').find('.cc-menu').append(html);
 
                         menuEvent(ul);
+                        refMenuEvent();
                     }
                 });
             });
@@ -507,6 +509,7 @@ function setImage(image, num) {
         $(this).parent('li').find('.cc-menu').append(html);
 
         menuEvent(this);
+        refMenuEvent();
     });
 
     $('.cc-preview-img[img-num=' + num + '] .cc-menu-plus').on('click', function () {
@@ -529,8 +532,84 @@ function setImage(image, num) {
         $(this).parent('.cc-preview-img').find('.cc-menu').append(html);
 
         menuEvent(tag);
+        refMenuEvent();
     });
 
+}
+
+// 기존 메뉴 알림 페이지 이벤트
+var searchTimer;
+var lastSearchTime = _.now();
+function refMenuEvent() {
+    $('.cc-menu li .menu-input-text2').off('input');
+    $('.cc-menu li .menu-input-text2').on('input', function () {
+        if (typeof model.rid === 'number') {
+            clearTimeout(searchTimer);
+            var delay = 500;
+            var now = _.now();
+            var input = $(this);
+            var menuText = $(this).val();
+
+            if (now - lastSearchTime > 1000) {
+                delay = 0;
+            }
+
+            searchTimer = setTimeout(function () {
+                $.ajax({
+                    url:'/api/cock/insert/get/menu/' + model.rid + '/' + menuText + '/',
+                    success: function (result) {
+                        var refMenu = result;
+
+                        /*var refMenu = [
+                            {menu: 'asdf1', price: 100},
+                            {menu: 'asdf2', price: 200},
+                            {menu: 'asdf3', price: 300}
+                        ];*/
+
+                        refMenuList(input, refMenu);
+
+                        lastSearchTime = _.now();
+                    }
+                });
+            }, delay);
+
+        }
+    });
+}
+
+function refMenuList(input, ref) {
+    var li = input.parent('li');
+    if (li.find('.ref-menu')) {
+        li.find('.ref-menu').empty();
+    }
+    var template = require('../template/insert/ref-menu.hbs');
+    var html = template(ref);
+    li.append(html);
+
+    var menuNum = li.attr('menu-num');
+    li.find('.ref-menu > li').on('click', function () {
+        var text = $(this).find('.ref-menu-text').text();
+        var price = $(this).find('.ref-menu-price').text();
+        $('li[menu-num='+ menuNum +']').each(function () {
+            $(this).find('.menu-input-text2').val(text);
+            $(this).find('.menu-input-number2').val(price);
+
+            $(this).find('.menu-block-text').text(text);
+            $(this).find('.menu-block-number').text(price);
+            setWidth(text, $(this).find('.menu-block-text'));
+        });
+
+        $(this).parent('ul').empty();
+    });
+
+    $('body').off('click');
+    $('body').on('click', function (e) {
+        if ($('.ref-menu').css('display') === 'block') {
+            if (!$('.ref-menu').has(e.target).length) {
+                $('.ref-menu').empty();
+            }
+        }
+    });
 }
 
 // 메뉴 이벤트
