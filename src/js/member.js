@@ -3,6 +3,8 @@ require('../less/member.less');
 
 var common = require('./common.js');
 
+var bookmark = require('../js/bookmark-review.js');
+
 
 common.ajax({
     url:'/api/member/get',
@@ -42,7 +44,52 @@ function init(member) {
         var tabContents = $(this).parents('.cock-member-tab').find('.cock-member-tab-contents > li');
         tabContents.removeClass('active');
         $(tabContents[tabIndex]).addClass('active');
+    });
+    $.ajax({
+        url: '/api/cock/member/wrote',
+        data: {
+            uid : member.uid
+        },
+        success: function (result) {
+            setWroteList(result);
+        }
+    });
 
+    $.ajax({
+        url:'/api/cock/member/count/article',
+        data : {
+            uid : member.uid
+        },
+        success: function (result) {
+            $('.cock-member-count-total-wrote-article').empty();
+
+            $('.cock-member-count-total-wrote-article').text(result);
+        }
 
     });
 }
+
+function setWroteList(list) {
+    $('.cock-member-contents-wrote-table tbody').empty();
+
+
+    var memberWroteTemplate = require('../template/member/member-wrote.hbs');
+    var memberWroteHtml = memberWroteTemplate(list);
+
+    $('.cock-member-contents-wrote-table tbody').html(memberWroteHtml);
+}
+
+function setBookmarkList(list) {
+       $('.cock-member-contents-bookmark-table tbody').empty();
+
+       var memberBookmarkTemplate = require('../template/member/member-bookmark.hbs');
+       var memberBookmarkHtml = memberBookmarkTemplate(list);
+
+       $('.cock-member-contents-bookmark-table tbody').html(memberBookmarkHtml);
+}
+
+setBookmarkList(bookmark);
+
+
+
+
