@@ -103,25 +103,35 @@ $('#rest-edit-save').on('click', function () {
                 operating: model.time,
                 signature: model.signature
             },
-            success: function (result) {
+            success: function () {
                 alert('정상적으로 저장되었습니다.');
-                location.href = '/admin/admin-rest.html';
+                location.reload();
             },
             error: function () {
                 alert('저장 중 오류가 발생하였습니다.');
             }
         });
+        console.log('insertType');
     }
     else if (saveType === 'edit') {
         $.ajax({
-           url: '/api/cock/admin/rest/edit/' + rid,
-            success: function (result) {
+            url: '/api/cock/admin/rest/edit',
+            data: {
+                rid: model.rid,
+                address: model.address,
+                phone: model.phone,
+                operating: model.time,
+                signature: model.signature
+            },
+            success: function () {
                 alert('정상적으로 저장되었습니다.');
+                location.reload();
             },
             error: function () {
                 alert('저장 중 오류가 발생하였습니다.');
             }
         });
+        console.log('editType');
     }
 
 });
