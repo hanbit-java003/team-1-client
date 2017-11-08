@@ -24,6 +24,7 @@ function searchBarToggle() {
     $('.search-toggle').on('click', function () {
         $('.header-search-icon').toggle();
         $('.header-search-bar').toggle('100');
+        $('#search-input').focus();
     });
 
     // 검색 출력
@@ -123,6 +124,18 @@ function openMemberLayer(memberInfo) {
                     });
                 });
 
+                $('.cock-member-sns-fb').on('click', function () {
+                    alert('페이스북 준비중 입니다.');
+                });
+
+                $('.cock-member-sns-naver').on('click', function () {
+                    alert('네이버 준비중 입니다.');
+                });
+
+                $('.cock-member-sns-kakao').on('click', function () {
+                    alert('카카오 준비중 입니다.');
+                });
+
                 $('#cock-login-email').focus();
             }
             else {
@@ -134,6 +147,12 @@ function openMemberLayer(memberInfo) {
                         location.href = '../setting.html';
                     });
                 });
+                $('#cock-member-info').on('click',function () {
+                    closeMemberLayer(function () {
+                       location.href = '../member.html';
+                    });
+                });
+
                 $('#cock-insert').on('click',function () {
                     closeMemberLayer(function () {
                         location.href = '../insert.html';
@@ -178,6 +197,8 @@ function templateHeader(result) {
     $('.back-button').on('click', function () {
         location.href = '/';
     });
+
+    var search = new Search($('#search-input'));
 
     searchBarToggle();
 
@@ -261,3 +282,4 @@ module.exports = {
 $('#admin-btn').on('click', function () {
     location.href = '/admin'
 });
+

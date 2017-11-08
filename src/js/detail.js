@@ -276,9 +276,16 @@ function initContents(restaurant) {
         location.href = './report.html';
     });
 
-    // 사진 크게보기
+    // 사진 클릭
     $('.img-responsive').unbind('click').on('click', function () {
-        console.log('사진을 펼쳐라~!');
+        if ($(this).parent().find($('.detail-menu-tag')).hasClass('visible')) {
+            $(this).parent().find($('.detail-menu-tag')).css('visibility', 'hidden');
+            $(this).parent().find($('.detail-menu-tag')).removeClass('visible');
+        }
+        else {
+            $(this).parent().find($('.detail-menu-tag')).css('visibility', 'visible');
+            $(this).parent().find($('.detail-menu-tag')).addClass('visible');
+        }
     });
 }
 
@@ -359,6 +366,5 @@ $(window).on('scroll', function () {
     relocateGoTopButton();
 });
 
-init(false);
+init(sort);
 relocateGoTopButton();
-

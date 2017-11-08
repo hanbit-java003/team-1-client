@@ -1,9 +1,7 @@
-{{#each articles}}
-<li>
+{{#each this}}
+<li rid="{{rid}}" article-id="{{articleId}}">
     <ul class="search-article-result-img">
-        {{#each imgs}}
-            <li {{#if @first}}class="active"{{/if}}  style="background-image: url({{this}})"></li>
-        {{/each}}
+        <li class="active"></li>
     </ul>
     <div class="search-article-result-text">
         <div class="search-article-result-name">{{name}}</div>
@@ -18,6 +16,7 @@
                 <li>{{this}}</li>
             {{/each}}
         </ul>
+        <div class="search-article-result-like"><i class="fa fa-heart-o"></i> {{likes}}</div>
         <div class="search-article-result-auth">{{nick}}</div>
         <div class="search-article-result-date">{{writeDt}}</div>
     </div>

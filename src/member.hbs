@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보</title>
+</head>
+<body>
+{{> template/header info=false}}
+<section class="cock-join-main">
+    <div class="cock-member-info">
+        <div class="cock-member-info-welcome"></div>
+        <div class="cock-member-tab">
+            <ul class="cock-member-tab-btns">
+                <li class="cock-member-bookmark active" >즐겨찾기</li>
+                <li class="cock-member-wrote">내가 쓴 글</li>
+            </ul>
+            <ul class="cock-member-tab-contents">
+                <li class="cock-member-contents-bookmark active" >즐겨찾기</li>
+                <li class="cock-member-contents-wrote">내가 쓴 글</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{{> template/footer }}
+</body>
+</html>
