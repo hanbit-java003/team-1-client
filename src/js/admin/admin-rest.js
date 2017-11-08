@@ -13,6 +13,7 @@ $.ajax({
     }
 });
 
+// 맛집 관리 리스트
 function setList(list) {
     $('.admin-rest-table tbody').empty();
 
