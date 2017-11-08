@@ -91,7 +91,7 @@ $('#rest-edit-save').on('click', function () {
         return;
     }
 
-    console.log(model);
+    // console.log(model);
 
     if (saveType === 'insert') {
         $.ajax({
@@ -111,7 +111,7 @@ $('#rest-edit-save').on('click', function () {
                 alert('저장 중 오류가 발생하였습니다.');
             }
         });
-        console.log('insertType');
+        // console.log('insertType');
     }
     else if (saveType === 'edit') {
         $.ajax({
@@ -131,13 +131,36 @@ $('#rest-edit-save').on('click', function () {
                 alert('저장 중 오류가 발생하였습니다.');
             }
         });
-        console.log('editType');
+        // console.log('editType');
     }
 
 });
 
 $('#rest-edit-delete').on('click', function () {
-    alert('delete');
+    common.openDialog({
+        body: '정말 삭제하시겠습니까?',
+        buttons: [{
+            id: 'delete',
+            name: '삭제',
+            style: 'danger'
+        }],
+        handler: function (btnId) {
+            if (btnId == 'delete') {
+                $.ajax({
+                    url: '/api/cock/admin/rest/' + rid,
+                    method: 'DELETE',
+                    success: function (result) {
+                        location.href = './admin-rest.html';
+                    },
+                    error: function () {
+                        alert('해당 맛집에 게시글이 남아 있으면 삭제할 수 없습니다.');
+                    }
+                });
+
+                common.closeDialog();
+            }
+        }
+    })
 });
 
 $('#rest-edit-cancel').on('click', function () {
