@@ -211,6 +211,7 @@
   font-size: 15px;
 
   li {
+    position: relative;
     display: inline-block;
     width: @preview-width;
     font-size: 15px;
@@ -256,4 +257,17 @@
       width: 200px;
     }
   }
+}
+
+.ref-menu {
+  position: absolute;
+  width: 150px;
+  top: 22px;
+  left: 42px;
+  z-index: 100;
+}
+
+.ref-menu > li {
+  width: 150px;
+  background-color: rgba(97, 122, 149, 0.8);
 }
