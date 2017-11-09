@@ -14,66 +14,6 @@ loadGoogleMapsApi.key = 'AIzaSyDfasnDjKf4JZvuEqVnp3N7Ezv3Cm-qAII';
 loadGoogleMapsApi.language = 'ko';
 loadGoogleMapsApi.version = '3';
 
-// 임시 모델
-/*var model = {
-    rid: 1,
-    lat: 37.552320,
-    lng: 126.937588,
-    name: 'title',
-    status: '',
-    articles: [{
-        articleId: 0,
-        comment: 'comment',
-        status: '',
-        uid: '3HgHeOlylIZR',
-        imgs: [
-            {
-                imgId: 0,
-                path: '../img/insert/duch_0.jpg'
-            },
-            {
-                imgId: 1,
-                path: '../img/insert/jeju_1.jpg'
-            }
-        ]
-    }],
-    menus: [
-        {
-            id: 0,
-            imgId: 0,
-            x: 10,
-            y: 10,
-            menu: 'img0_menu0',
-            price: 1000
-        },
-        {
-            id: 0,
-            imgId: 1,
-            x: 10,
-            y: 10,
-            menu: 'img1_menu0',
-            price: 2000
-        },
-        {
-            id: 1,
-            imgId: 1,
-            x: 40,
-            y: 40,
-            menu: 'img1_menu1',
-            price: 3000
-        }
-    ],
-    tags: [
-        {
-            tagId: 0,
-            tag: 'tag1'
-        },
-        {
-            tagId: 1,
-            tag: 'tag2'
-        }
-    ]
-};*/
 
 var model = {
     articles: [{imgs: []}],
@@ -119,6 +59,7 @@ function getLocation() {
 }
 
 // 시작
+var uid;
 $.ajax({
     url:'/api/member/get',
     success: function (result) {
@@ -127,7 +68,7 @@ $.ajax({
             location.href= '/'; // 기본홈으로 돌려보냄.
         }
 
-        var uid = result.uid;
+        uid = result.uid;
         insertInit(uid);
     }
 });
@@ -155,7 +96,14 @@ function insertInit(uid) {
             url: '/api/cock/insert/' + params.get('rid') + '/' + params.get('articleId'),
             success: function(result) {
                 model = result;
-                model.articles[0].uid = uid;
+
+                // 다른 유저가 접근하면
+                if (uid !== model.articles[0].uid) {
+                    history.back();
+                    location.href= '/'; // 기본홈으로 돌려보냄.
+                }
+
+                $('.cc-btn-delete').show();
                 init();
             }
         });
@@ -163,8 +111,6 @@ function insertInit(uid) {
 }
 
 function init() {
-    // model.articles[0].uid = '3HgHeOlylIZR'; // 임시 TEST용
-
     if (params.get('rid') !== null) {
         $('#cc-lat').val(model.lat);
         $('#cc-lng').val(model.lng);
@@ -247,6 +193,7 @@ function initMap() {
         zoom: 16,
         scrollwheel: false
     });
+    infowindow = new googleMaps.InfoWindow();
 
     addMarkers();
 
@@ -326,7 +273,7 @@ var markers = [];
 
 // 주변 위치를 담는 배열
 var loc = [];
-
+var infowindow;
 // 지도 주변에 마커를 찍는 함수
 function addMarkers() {
     $.ajax({
@@ -340,8 +287,14 @@ function addMarkers() {
                     var marker = new googleMaps.Marker({
                         position: loc[i],
                         map: map,
-                        title: loc.title,
+                        title: loc[i].title,
                         icon: '../img/insert/blue-dot.png'
+                    });
+
+                    marker.addListener("click", function() {
+                        infowindow.close();
+                        infowindow.setContent(this.title);
+                        infowindow.open(map, this);
                     });
 
                     markers.push(marker);
@@ -774,4 +727,21 @@ $('.cc-btn-save').on('click', function () {
 
 $('.cc-btn-cancel').on('click', function () {
     history.back();
+});
+
+$('.cc-btn-delete').on('click', function () {
+    var result = confirm('정말로 삭제하시겠습니까?');
+    if (result) {
+        $.ajax({
+            url: 'api/cock/insert/delete/'+ params.get('rid') +'/'+ params.get('articleId') +'/'+ uid +'/',
+            async: false,
+            success: function (result) {
+                alert('정상적으로 삭제되었습니다.');
+                location.href = 'detail.html?rid=' + model.rid;
+            }
+        });
+    }
+    else {
+
+    }
 });
