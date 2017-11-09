@@ -1,7 +1,7 @@
 <div class="content-wrapper" articleId="{{articleId}}">
-    <div class="user-info">
+    <div class="user-info" uid="{{uid}}">
         <div id="user-img" class="img-circle" style="background-image: url({{avatar}})"></div>
-        <div id="user-name">{{email}}</div>
+        <div id="user-name">{{nick}}</div>
         <ul class="user-achievement">
             {{~#each emblems~}}
                 <li class="achievement-icon" style="background-image: url({{img}})">
@@ -17,15 +17,25 @@
             </div>
         </div>
     </div>
-    {{~#each imgs}}
-        <div class="food-img-wrapper">
-            <img id="food-img" class="img-responsive" src='{{path}}'>
-        </div>
-    {{/each}}
-    <div class="food-text">
-        {{~#each menus~}}
-            <li class="food-eaten">{{menu}} {{price}}원</li>
+    <div class="food-img-wrapper">
+        {{~#each imgs~}}
+            <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
+                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
+                <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
+                    {{#each menus}}
+                        <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
+                             style="position: absolute; top: {{y}}px; left: {{x}}px">
+                            {{~menu~}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{~#each menus~}}
+                <li class="food-eaten">{{menu}} {{price}}원</li>
+            {{~/each~}}
         {{~/each~}}
+    </div>
+    <div class="food-text">
         <div class="food-detail card-closed">
             {{{comment}}}
             <div class="food-tag">
@@ -38,7 +48,8 @@
     <ul class="food-icon">
         <li>
             <i class="food-like fa fa-heart-o"></i>
-            <span class="food-like-count" style="font-size: 12px;font-weight: bold;">{{likes}}</span>
+            <span id="likes-{{articleId}}" class="food-like-count"
+                  style="font-size: 12px;font-weight: bold;">{{likes}}</span>
         </li>
         <li>
             <i class="food-trash fa fa-trash-o"></i>

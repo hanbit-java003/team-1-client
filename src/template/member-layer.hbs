@@ -1,12 +1,23 @@
 <div class="cock-member-layer">
+    <section class="cock-member-form">
+        <div class="cock-member-layer-logo"></div>
     {{# if signedIn}}
-        <section class="cock-member-form">
-            <button id="cock-logout" class="btn btn-primary">로그아웃</button>
-            <button id="cock-setting" class="btn btn-primary">my page</button>
-        </section>
+            <div class="cock-setting-avatar-picture">
+                <div class="cock-setting-avatar-border">
+                    {{#if avatar}}
+                    <div class="cock-setting-avatar-img" style = "background-image: url({{avatar}})"></div>
+                    {{else}}
+                        <div class="cock-setting-avatar-img"></div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="cock-member-layer-greetings"><span class="cock-member-layer-nick">{{nick}}</span>님 반갑습니다.</div>
+            <div id="cock-setting" class="cock-member-layer-btn">My Page</div>
+            <div id="cock-member-info" class="cock-member-layer-btn">회원 정보</div>
+            <div id="cock-insert" class="cock-member-layer-btn">맛집 추가</div>
+            <div id="cock-bookmark" class="cock-member-layer-btn">즐겨찾기</div>
+            <div id="cock-logout" class="cock-member-layer-btn">로그아웃</div>
     {{else}}
-        <section class="cock-member-form">
-            <div class="cock-member-layer-logo"></div>
             <div class="cock-member-form-group">
                 <input id=cock-login-email type="email" placeholder="이메일주소">
                 <i class="fa fa-fw fa-envelope-o"></i>
@@ -20,20 +31,20 @@
                     <input id="cock-login-remember" type="checkbox">
                     자동로그인
                 </label>
-                <div id="cock-login-btn" class="cock-login-btn">로그인</div>
-                <ul class="cock-member-sns">
-                    <li style="background-image: url(../img/member-layer/facebook.png)"></li>
-                    <li style="background-image: url(../img/member-layer/naver.png)"></li>
-                    <li style="background-image: url(../img/member-layer/kakao.jpg)"></li>
-                </ul>
+                <div id="cock-login-btn" class="cock-member-layer-btn">로그인</div>
                 <div class="cock-member-text">
                     <span class="cock-highlight"><img src="../img/main-logo.png"></span>만의 맛집 정보를 받으시려면?<br>
-                    <div id="cock-member-join-btn">
-                        <span class="cock-link">회원가입</span>
+                    <div id="cock-member-join-btn" class="cock-member-layer-btn cock-member-layer-join">
+                        회원가입
                     </div>
                 </div>
-
+                    <div class="cock-member-sns-text">SNS 로그인 및 회원가입</div>
+                <ul class="cock-member-sns">
+                    <li class="cock-member-sns-fb" style="background-image: url(../img/member-layer/facebook.png)"></li>
+                    <li class="cock-member-sns-naver" style="background-image: url(../img/member-layer/naver.png)"></li>
+                    <li class="cock-member-sns-kakao" style="background-image: url(../img/member-layer/kakao.jpg)"></li>
+                </ul>
             </div>
-        </section>
     {{/if}}
+    </section>
 </div>

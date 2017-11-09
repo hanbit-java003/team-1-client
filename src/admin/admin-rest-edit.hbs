@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Cock Cock Admin</title>
+</head>
+<body>
+{{> ../template/admin/menu admin-rest="true"}}
+<div class="admin-contents">
+    <div class="container-fluid">
+        <div class="admin-title">
+        </div>
+        <div class="edit-contents">
+            <div class="contents-description">
+                <span class="rest-icon glyphicon glyphicon-minus-sign"></span>
+                기본 입력사항
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-barcode"></i>
+                                맛집ID :
+                            </span>
+                            <input type="text" class="form-control input-short" id="rest-edit-rid" placeholder="맛집ID">
+                        </div>
+                        <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-pencil-square-o"></i>
+                                게시글 수 :
+                            </span>
+                            <input type="text" class="form-control input-short" id="rest-edit-count" placeholder="게시글 수">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-map-marker"></i>
+                                위도 :
+                            </span>
+                            <input type="text" class="form-control input-short" id="rest-edit-lat" placeholder="위도">
+                        </div>
+                        <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-map-marker"></i>
+                                경도 :
+                            </span>
+                            <input type="text" class="form-control input-short" id="rest-edit-lng" placeholder="경도">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contents-description">
+                <span class="rest-icon glyphicon glyphicon-plus-sign"></span>
+                추가 입력사항
+            </div>
+            <div class="container">
+                <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-address-card-o"></i>
+                                주소 :
+                            </span>
+                    <input type="text" class="form-control input-long" id="rest-edit-address" placeholder="주소">
+                </div>
+                <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-phone"></i>
+                                전화번호 :
+                            </span>
+                    <input type="text" class="form-control input-long" id="rest-edit-phone" placeholder="전화번호">
+                </div>
+                <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-clock-o"></i>
+                                영업시간 :
+                            </span>
+                    <input type="text" class="form-control input-long" id="rest-edit-time" placeholder="영업시간     예) 09:00 ~ 21:00">
+                </div>
+                <div class="form-group sm">
+                            <span class="rest-label">
+                                <i class="rest-icon fa fa-thumbs-o-up"></i>
+                                대표메뉴 :
+                            </span>
+                    <input type="text" class="form-control input-long" id="rest-edit-signature" placeholder="대표메뉴">
+                </div>
+            </div>
+            <div class="edit-buttons">
+                <button type="button" id="rest-edit-save" class="btn btn-success">저장</button>
+                <button type="button" id="rest-edit-delete" class="btn btn-danger">삭제</button>
+                <button type="button" id="rest-edit-cancel" class="btn btn-default">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

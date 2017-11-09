@@ -1,0 +1,118 @@
+@import 'common.less';
+@import 'join.less';
+@import "main.less";
+
+.cock-member-info {
+  position: relative;
+  max-width: 800px;
+  min-width: 750px;
+  margin: 20px auto;
+  border: solid 1px #8e8e8e;
+  padding: 40px 60px ;
+  background-color: #fff;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.04);
+}
+
+.cock-member-info-welcome {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #999;
+  font-size: 25px;
+}
+
+.cock-member-info-nick {
+  font-size: 30px;
+  font-weight: bold;
+  color: #000;
+}
+
+.cock-member-tab {
+  min-width: 650px;
+  min-height: 500px;
+  box-shadow: @main-box-shadow;
+  margin-bottom: 20px;
+}
+
+.cock-member-tab-btns > li {
+  display: inline-block;
+  width: 50%;
+  padding: 7px 0px;
+  border-bottom: solid 1px @card-tab-color;
+  font-family: 'Hanna', serif;
+  font-size: 25px;
+  text-align: center;
+  color: @card-tab-color;
+  cursor: pointer;
+  letter-spacing: @main-letter-spacing;
+  &.active {
+    background-color: @card-tab-color;
+    color: #fff;
+  }
+}
+
+.cock-member-tab-contents > li {
+  display: none;
+  &.active{
+    display: block;
+  }
+}
+
+.cock-member-contents-wrote {
+  padding: 0 30px 20px 30px;
+}
+
+.cock-member-contents-wrote-table {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.cock-member-contents-wrote-table > thead > tr > th:last-child{
+  border-right: 0;
+}
+
+.cock-member-contents-wrote-table > thead > tr > th{
+  text-align: center;
+  border-right: solid 2px #dddddd;
+}
+
+.cock-member-contents-wrote-table > tbody > tr > td:first-child {
+  text-align: center;
+  width: 60px;
+  border-right: solid 1px #dddddd;
+}
+
+.cock-member-contents-wrote-table > tbody > tr > td:last-child {
+  width: 350px;
+  border-left: solid 1px #dddddd;
+}
+
+.cock-member-contents-wrote-table > tfoot > tr > td {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cock-member-count-total-wrote-article{
+  color: #4285f4;
+}
+
+.cock-member-contents-bookmark {
+  text-align: center;
+  padding: 0 30px 20px 30px;
+}
+
+.cock-member-contents-bookmark-table{
+  text-align: center;
+  margin: 20px 0;
+}
+
+.cock-member-contents-bookmark-table > thead > tr > th{
+  text-align: center;
+}
+
+.cock-member-contents-bookmark-table > tfoot > tr > td {
+  font-size: 20px;
+  font-weight: bold;
+}
+

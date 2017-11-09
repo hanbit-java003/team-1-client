@@ -10,7 +10,7 @@ const port = {
 
 const pages = [{
     html: 'index',
-    script: 'main',
+    script: 'main'
 }, {
     html: 'bookmark',
     script: 'bookmark',
@@ -35,6 +35,30 @@ const pages = [{
 }, {
     html: 'setting',
     script: 'setting'
+}, {
+    html: 'admin/index',
+    script: 'admin/main'
+}, {
+    html: 'admin/admin-rest',
+    script: 'admin/admin-rest'
+}, {
+    html: 'admin/admin-rest-edit',
+    script: 'admin/admin-rest-edit'
+}, {
+    html: 'admin/admin-article',
+    script: 'admin/admin-article'
+}, {
+    html: 'admin/admin-member',
+    script: 'admin/admin-member'
+}, {
+    html: 'admin/admin-alert-rest',
+    script: 'admin/admin-alert-rest'
+}, {
+    html: 'admin/admin-alert-article',
+    script: 'admin/admin-alert-article'
+}, {
+    html: 'member',
+    script: 'member'
 }, {
     html: 'search',
     script: 'search'
@@ -63,7 +87,10 @@ module.exports = {
             })
         }, {
             test: /\.hbs$/,
-            loader: 'handlebars-loader'
+            loader: 'handlebars-loader',
+            query: {
+                helperDirs: path.resolve(__dirname, 'src/template/helpers')
+            }
         }]
     },
     devServer: {

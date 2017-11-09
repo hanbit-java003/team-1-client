@@ -16,20 +16,6 @@ module.exports = [{
         hashtag: '체인점'
     },{
         hashtag: '체인점'
-    },{
-        hashtag: '체인점'
-    },{
-        hashtag: '체인점'
-    },{
-        hashtag: '체인점'
-    },{
-        hashtag: '체인점'
-    },{
-        hashtag: '체인점'
-    },{
-        hashtag: '체인점'
-    },{
-        hashtag: '체인점'
     }]
 }, {
     id:'goramen',
@@ -38,6 +24,7 @@ module.exports = [{
     address: '서울 마포구 신촌로12길 23',
     lat: 37.555344,
     lng: 126.932692,
+    review: '진득한 육수의 제대로 된 역대급 일본라멘',
     comment :[{
         hashtag: '라멘집'
     },{
@@ -50,6 +37,7 @@ module.exports = [{
     address: '서울 서대문구 연세로5나길 20',
     lat: 37.557007,
     lng: 126.935057,
+    review: '막걸리를 주는 저렴한 신촌칼국수 맛집',
     comment :[{
         hashtag: '육개장'
     },{
@@ -62,6 +50,7 @@ module.exports = [{
     address: '서울 서대문구 신촌로 87-4',
     lat: 37.555667,
     lng: 126.936178,
+    review: '신촌역 마루가메 제면에서 맛있는 우동과 튀김',
     comment :[{
         hashtag: '정통 우동집'
     },{
@@ -76,6 +65,7 @@ module.exports = [{
     address: '서울 서대문구 연세로5길 26-7',
     lat: 37.556792,
     lng: 126.933534,
+    review: '신촌쌀국수 맛집으로 유명한 미분당 베트남쌀국수',
     comment :[{
         hashtag: '쌀국수'
     },{
@@ -88,6 +78,7 @@ module.exports = [{
     address: '서울 서대문구 연세로7안길 38',
     lat: 37.558257,
     lng: 126.934696,
+    review: '오징어볶음과 고등어구이가 맛있는 신촌 맛집',
     comment :[{
         hashtag: '생선구이'
     },{
@@ -100,6 +91,7 @@ module.exports = [{
     address: '서울 서대문구 연세로11길 30',
     lat: 37.558037,
     lng: 126.934715,
+    review: '간장마늘치킨과 강렬했던 신촌맥주',
     comment :[{
         hashtag: '치킨집'
     },{

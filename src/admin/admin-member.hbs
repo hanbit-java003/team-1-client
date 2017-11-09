@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Cock Cock Admin</title>
+</head>
+<body>
+{{> ../template/admin/menu admin-member="true"}}
+<div class="admin-contents">
+    <div class="container-fluid">
+        <div class="admin-title">
+            회원 관리
+        </div>
+        <table class="admin-member-table table table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>회원 ID</th>
+                    <th>가입 이메일</th>
+                    <th>닉네임</th>
+                    <th>가입 날짜</th>
+                    <th>전화번호</th>
+                    <th>작성 게시물</th>
+                    <th>이메일 수신</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="8">
+                    가입 회원 수 :
+                    <span class="count-total-member"></span>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</body>
+</html>

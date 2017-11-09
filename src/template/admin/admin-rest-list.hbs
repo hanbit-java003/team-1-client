@@ -1,0 +1,15 @@
+{{#each this~}}
+<tr>
+    <td>{{sum @index 1}}</td>
+    <td>{{rid}}</td>
+    <td>{{name}}</td>
+    <td>{{count}}</td>
+    <td>{{address}}</td>
+    <td>{{phone}}</td>
+    <td>{{operating}}</td>
+    <td>{{signature}}</td>
+    <td class="edit-button">
+        <button restId="{{rid}}" class="rest-edit-btn btn btn-default btn-sm">수정</button>
+    </td>
+</tr>
+{{/each}}
