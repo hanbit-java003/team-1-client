@@ -10,7 +10,7 @@ const port = {
 
 const pages = [{
     html: 'index',
-    script: 'main',
+    script: 'main'
 }, {
     html: 'bookmark',
     script: 'bookmark',
@@ -50,6 +50,12 @@ const pages = [{
 }, {
     html: 'admin/admin-member',
     script: 'admin/admin-member'
+}, {
+    html: 'admin/admin-alert-rest',
+    script: 'admin/admin-alert-rest'
+}, {
+    html: 'admin/admin-alert-article',
+    script: 'admin/admin-alert-article'
 }, {
     html: 'member',
     script: 'member'
