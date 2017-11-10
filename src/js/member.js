@@ -226,7 +226,7 @@ function setPagingBookmark(total) {
 
     for(var i = startPage; i<=endPage; i++) {
         pagingHtml += '<li';
-        if(i === currentPageWrote) {
+        if(i === currentPageBookmark) {
             pagingHtml += ' class="active"';
         }
 
@@ -267,8 +267,6 @@ function handlePagingEventBookmark() {
             $('.board-page-bookmark').parent('li').removeClass('active');
             $(this).parent('li').addClass('active');
 
-
-
     });
 }
 
@@ -295,7 +293,7 @@ function requestBookmarkList(page) {
         },
         success: function (result) {
             console.log('실행실행');
-            currentPageWrote = page;
+            currentPageBookmark = page;
             setBookmarkList(result);
         }
     })
