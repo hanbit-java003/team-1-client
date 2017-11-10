@@ -158,9 +158,11 @@ function clkTab() {
         $(tabContents[tabIndex]).addClass('active');
 
         if ($('#nearby-rest').hasClass('active')) {
+            console.log('주변 맛집');
             getLocation();
         }
         else {
+            console.log('추천 맛집');
             initMainMap();
         }
     });

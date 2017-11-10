@@ -28,7 +28,7 @@ $.ajax({
 });
 
 var currentPage = 1;
-var rowsPerPage = 20;
+var rowsPerPage = 2;
 var pagesToShow = 5;
 
 // 페이지 계산 & 페이지네이션 태그 생성
@@ -41,7 +41,6 @@ function setPaging(total) {
     var prevPage = startPage - 1;
     var nextPage = endPage + 1;
 
-    /*
     console.log('totalPages: ' + totalPages);
     console.log('firstPage: ' + firstPage);
     console.log('lastPage: ' + lastPage);
@@ -49,7 +48,6 @@ function setPaging(total) {
     console.log('endPage: ' + endPage);
     console.log('prevPage: ' + prevPage);
     console.log('nextPage: ' + nextPage);
-    */
 
     $('.admin-article-pagination .pagination').empty();
 
