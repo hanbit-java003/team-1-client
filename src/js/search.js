@@ -4,6 +4,7 @@ require('../less/search.less');
 var common = require('./common');
 var UrlSearchParams = require('url-search-params');
 var params = new UrlSearchParams(location.search);
+var moment = require('moment');
 
 var rests = [
     {
@@ -12,10 +13,8 @@ var rests = [
         articleCnt: 10,
         favoCnt: 5,
         likeCnt: 20,
-        latLng: {
-            lat: 37.54246763588839,
-            lng: 126.94284796714783
-        }
+        lat: 37.54246763588839,
+        lng: 126.94284796714783
     }
 ];
 
@@ -59,10 +58,6 @@ function init() {
 }
 
 function setList() {
-    // 사전 데이터 작업
-    // 검색 식당 수 입력
-    // 검색 기사 수 입력
-    // latLng - 주소로 변환
     if (rests) {
         var template = require('../template/search/search-rest.hbs');
         var html = template(rests);
@@ -71,9 +66,9 @@ function setList() {
         $('.cock-search-rest .search-title > span').text(rests.length);
 
         setRestImgs();
+        reverseGeocoding(rests);
     }
     
-    // writeDt - 단순 시간으로 할지 지난 시간으로 표시할지 고민
     if (articles) {
         var template2 = require('../template/search/search-article.hbs');
         var html2 = template2(articles);
@@ -82,8 +77,58 @@ function setList() {
         $('.cock-search-article .search-title > span').text(articles.length);
 
         setArticleImgs();
+        wrteDate(articles);
     }
 
+}
+
+function reverseGeocoding(rests) {
+
+    $.each(rests, function (i, v) {
+        var lat = v.lat;
+        var lng = v.lng;
+
+        var geocode = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&sensor=false';
+
+        $.ajax({
+            url: geocode,
+            type: 'POST',
+            success: function(result){
+                if(result.status == 'OK') {
+                    $('li[rid='+ v.rid +'] .search-rest-result-text-adr').text(result.results[0].formatted_address);
+                }
+            }
+        });
+    });
+}
+
+function wrteDate(articles) {
+    $.each(articles, function () {
+        var writeDt = this.writeDt;
+        var a = moment(writeDt);
+        var b = moment(_.now());
+        var c = Math.abs(a.diff(b, 'minute'));
+
+        if (c < 60) {
+            var text = c + '분 전';
+            $('li[rid='+ this.rid +'][article-id='+ this.articleId +'] .search-article-result-date').text(text);
+            return;
+        }
+        c = Math.abs(a.diff(b, 'hour'));
+        if (c < 24) {
+            var text = c + '시간 전';
+            $('li[rid='+ this.rid +'][article-id='+ this.articleId +'] .search-article-result-date').text(text);
+            return;
+        }
+        c = Math.abs(a.diff(b, 'day'));
+        if (c < 30) {
+            var text = c + '일 전';
+            $('li[rid='+ this.rid +'][article-id='+ this.articleId +'] .search-article-result-date').text(text);
+            return;
+        }
+        var text = a.format('YY년MM월DD일');
+        $('li[rid='+ this.rid +'][article-id='+ this.articleId +'] .search-article-result-date').text(text);
+    });
 }
 
 function setRestImgs() {
