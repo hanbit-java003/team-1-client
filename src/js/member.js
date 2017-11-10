@@ -44,39 +44,80 @@ function init(member) {
         var tabContents = $(this).parents('.cock-member-tab').find('.cock-member-tab-contents > li');
         tabContents.removeClass('active');
         $(tabContents[tabIndex]).addClass('active');
+
+        if($('.cock-member-wrote').hasClass('active')){
+            console.log('실행1');
+            // 내가쓴 맛집 수 개수
+            setCountWrote(member.uid);
+            /*// 내가쓴 맛집 리스트
+            setWroteList(member.uid);*/
+            // 페이징 처리를 위한 토탈..
+            setTotalWrote(member.uid);
+            // 내가 쓴 맛집 리스트 페이지 처리후.
+            requestWroteList(currentPage);
+
+            return;
+        }
+        else if($('.cock-member-bookmark').hasClass('active')){
+            console.log('실행2');
+            // 즐겨찾기 한 맛집 개수
+            setCountBookmark();
+            // 페이징 처리를 위한 토탈..
+            setTotalBookmark();
+
+            requestBookmarkList(1);
+
+            return;
+        }
     });
 
-    // 내가쓴 맛집 수 개수
-    setCountWrote(member.uid);
-    // 내가쓴 맛집 리스트
-    setWroteList(member.uid);
-    // 페이징 처리를 위한 토탈..
-    setTotalWrote(member.uid);
+        // 내가쓴 맛집 수 개수
+        setCountWrote(member.uid);
+        /*// 내가쓴 맛집 리스트
+        setWroteList(member.uid);*/
+        // 페이징 처리를 위한 토탈..
+        setTotalWrote(member.uid);
+        // 내가 쓴 맛집 리스트 페이지 처리후.
+        requestWroteList(currentPage);
 
 
 
-}
-// 페이징 처리를 위한 토탈..
+
+}// 페이징 처리를 위한 토탈..
 function setTotalWrote(uid) {
     $.ajax({
-        url:'/api/cock/member/total',
+        url:'/api/cock/member/total/article',
         data:{
             uid : uid
         },
         success: function (result) {
             var total = result.total;
 
-            console.log(total);
+           /* console.log(total);*/
 
             setPaging(total);
         }
-    })
+    });
 }
 
+// 페이징 처리를 위한 토탈..
+function setTotalBookmark() {
+    $.ajax({
+       url:'/api/cock/member/total/bookmark',
+       success: function (result) {
+           var total = result.total;
+
+           console.log(total+'total');
+
+           setPaging(total);
+       }
+    });
+}
+
+
 var currentPage = 1;  // 현재페이지
-var rowsPerPage = 5;  // 페이지내에서 보여지는 게시글의 수
-var pagesToShow = 2;  // 페이지 넘기는거 몇개씩 보여주는거
-var currentNo; //변수선언
+var rowsPerPage = 10;  // 페이지내에서 보여지는 게시글의 수
+var pagesToShow = 10;  // 페이지 넘기는거 몇개씩 보여주는거
 
 // 페이징 처리를 하기 위해서 만든 메소드
 function setPaging(total) {
@@ -143,21 +184,42 @@ function handlePagingEvent() {
         }
 
         var page= parseInt($(this).attr('page')); //클릭된 어트리뷰트의 페이지
-        console.log(page);
-        requestList(page); // 이걸 통해서 리스트 페이지를 넘겨준다.
+        /*console.log(page);*/
+        if($('.cock-member-wrote').hasClass('active')){
+        requestWroteList(page); // 이걸 통해서 리스트 페이지를 넘겨준다.
+        }else if($('.cock-member-bookmark').hasClass('active')){
+        requestBookmarkList(page);
+        }
+
+        $('.board-page').parent('li').removeClass('active');
+        $(this).parent('li').addClass('active');
     });
 }
-
-function requestList(page) {
+// 내가쓴 맛집 리스트 페이지 처리를 해서 나옴.
+function requestWroteList(page) {
     $.ajax({
-        url: '/api/cock/member/list',
+        url: '/api/cock/member/wrote/list',
         data: {
             page: page
         },
         success: function (result) {
             currentPage = page;
-            console.log(result);
-            setWroteListTemplate(result);
+            setWroteList(result);
+        }
+    })
+}
+
+// 내가 즐겨찾기 한 맛집 리스트가 페이지 처리를 해서 나옴.
+function requestBookmarkList(page) {
+    $.ajax({
+        url: '/api/cock/member/bookmark/list',
+        data: {
+            page: page
+        },
+        success: function (result) {
+            console.log('실행실행');
+            currentPage = page;
+            setBookmarkList(result);
         }
     })
 }
@@ -177,9 +239,21 @@ function setCountWrote(uid) {
     });
 }
 
+// 즐겨찾기 한 맛집 개수
+function setCountBookmark() {
+    $.ajax({
+       url: '/api/cock/member/count/bookmark',
+        success: function (result) {
+           console.log(result+'맛 집 개수');
+            $('.cock-member-count-total-bookmark-article').empty();
+
+            $('.cock-member-count-total-bookmark-article').text(result);
+        }
+    });
+}
 
 // 내가쓴 맛집 리스트
-function setWroteList(uid) {
+/*function setWroteList(uid) {
 
     $.ajax({
         url: '/api/cock/member/wrote',
@@ -191,14 +265,11 @@ function setWroteList(uid) {
             setWroteListTemplate(result);
         }
     });
-
-
-}
+}*/
 // 내가쓴 맛집 리스트
-function setWroteListTemplate(list){
+function setWroteList(list){
     $('.cock-member-contents-wrote-table tbody').empty();
     for (var i=0; i<list.length; i++){
-        var row = list[i];
         var memberWroteTemplate = require('../template/member/member-wrote.hbs');
         var memberWroteHtml = memberWroteTemplate(list);
 
@@ -214,8 +285,6 @@ function setBookmarkList(list) {
 
        $('.cock-member-contents-bookmark-table tbody').html(memberBookmarkHtml);
 }
-
-setBookmarkList(bookmark);
 
 
 

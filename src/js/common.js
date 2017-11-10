@@ -175,6 +175,7 @@ function openMemberLayer(memberInfo) {
 
 
 
+
 // 헤더부분 오른쪽 상단 아이콘 이미지 로그인 이후.
 function templateHeader(result) {
 
@@ -281,5 +282,9 @@ module.exports = {
 
 $('#admin-btn').on('click', function () {
     location.href = '/admin'
+});
+
+$('.cock-admin-btn').on('click', function () {
+   location.href = '/admin'
 });
 
