@@ -117,7 +117,7 @@ function handlePagination() {
 
 function requestList(page) {
     $.ajax({
-        url: '/api/cock/admin/article/page',
+        url: '/api/cock/admin/article',
         data: {
             page: page
         },

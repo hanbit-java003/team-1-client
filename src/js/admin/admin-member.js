@@ -3,6 +3,7 @@ require('../../less/admin/admin-member.less');
 
 var common = require('./common');
 
+// 회원 관리 리스트
 $.ajax({
     url: '/api/cock/admin/member',
     success: function (result) {
@@ -12,7 +13,6 @@ $.ajax({
     }
 });
 
-// 회원 관리 리스트
 function setList(list) {
     $('.admin-member-table tbody').empty();
 
