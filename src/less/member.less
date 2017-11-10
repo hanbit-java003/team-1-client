@@ -30,7 +30,7 @@
 
 .cock-member-tab {
   min-width: 650px;
-  min-height: 500px;
+  min-height: 300px;
   box-shadow: @main-box-shadow;
   margin-bottom: 20px;
 }
@@ -111,13 +111,33 @@
 }
 
 .cock-member-contents-bookmark-table > thead > tr > th{
+  border-right: solid 2px #dddddd;
   text-align: center;
+}
+.cock-member-contents-bookmark-table > thead > tr > th:last-child{
+  border-right: 0px;
+  text-align: center;
+}
+
+.cock-member-contents-bookmark-table > tbody > tr > td {
+  border-right: solid 1px #dddddd;
+  cursor: pointer;
+}
+
+.cock-member-contents-bookmark-table > tbody > tr > td:last-child {
+  border-right: 0px;
+  cursor: pointer;
 }
 
 .cock-member-contents-bookmark-table > tfoot > tr > td {
   font-size: 20px;
   font-weight: bold;
 }
+
+.cock-member-count-total-bookmark-article{
+  color: #4285f4;
+}
+
 
 .board-list{
   position: relative;
