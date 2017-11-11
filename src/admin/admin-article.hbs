@@ -8,9 +8,52 @@
 {{> ../template/admin/menu admin-article="true"}}
 <div class="admin-contents">
     <div class="container-fluid">
-        <div class="admin-rest-title">
+        <div class="admin-title">
             게시글 관리
         </div>
+        <table class="admin-article-table table table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>게시글ID</th>
+                    <th>맛집ID</th>
+                    <th>내용</th>
+                    <th>좋아요</th>
+                    <th>싫어요</th>
+                    <th>작성 날짜</th>
+                    <th>작성자ID</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="8">
+                        총 게시글 수 :
+                        <span class="count-total-article"></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <nav class="admin-article-pagination">
+            <ul class="pagination">
+                <li>
+                    <a class="board-page" page="prevPage" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 </body>

@@ -65,7 +65,7 @@ function setMobile(restaurant) {
 
 // article 수정/삭제 버튼
 function settingBtn() {
-    $('.card-setting').on('mouseover', function () {
+    $('.card-setting').unbind('click').on('click', function (e) {
         $(this).find('.setting-menu').show();
 
         var articleId = $(this).parents('.content-wrapper').attr('articleId');
@@ -105,10 +105,13 @@ function settingBtn() {
             }
         });
     });
+}
 
-    $('.card-setting').on('mouseout', function () {
-        $(this).find('.setting-menu').hide();
-    });
+function closeSetting(e) {
+    var container = $('.setting-menu');
+    if (container.has(e.target).length === 0) {
+        container.hide();
+    }
 }
 
 // 맨 위로 버튼
@@ -364,6 +367,10 @@ $(window).resize(function () {
 // 윈도우 스크롤 할때
 $(window).on('scroll', function () {
     relocateGoTopButton();
+});
+
+$(document).mouseup(function (e) {
+    closeSetting(e);
 });
 
 init(sort);

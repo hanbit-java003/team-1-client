@@ -3,6 +3,7 @@ require('../../less/admin/admin-rest.less');
 
 var common = require('./common');
 
+// 맛집 관리 리스트
 // rid, name, count(article_id), lat, lng 만 가져옴.
 $.ajax({
     url: '/api/cock/admin/rest',
@@ -13,7 +14,6 @@ $.ajax({
     }
 });
 
-// 맛집 관리 리스트
 function setList(list) {
     $('.admin-rest-table tbody').empty();
 

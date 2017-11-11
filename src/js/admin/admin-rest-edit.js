@@ -10,6 +10,7 @@ var rid = params.get('rid');
 var model = {};
 var saveType;
 
+// 맛집 수정 페이지
 $.ajax({
     url: '/api/cock/admin/rest/' + rid,
     success: function (result) {
@@ -63,6 +64,7 @@ $.ajax({
     }
 });
 
+// 맛집 추가 입력사항 저장
 $('#rest-edit-save').on('click', function () {
     model.rid = $('#rest-edit-rid').val().trim();
     model.address = $('#rest-edit-address').val().trim();
@@ -136,6 +138,7 @@ $('#rest-edit-save').on('click', function () {
 
 });
 
+// 맛집 기본 & 추가 입력사항 삭제
 $('#rest-edit-delete').on('click', function () {
     common.openDialog({
         body: '정말 삭제하시겠습니까?',

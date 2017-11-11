@@ -17,6 +17,14 @@ $('#admin-member').on('click', function () {
     location.href = '/admin/admin-member.html';
 });
 
+$('#admin-alert-rest').on('click', function () {
+    location.href = '/admin/admin-alert-rest.html';
+});
+
+$('#admin-alert-article').on('click', function () {
+    location.href = '/admin/admin-alert-article.html';
+});
+
 // modal 열림
 function openDialog(options) {
     var modalTemplate =require('../../template/admin/modal.hbs');
