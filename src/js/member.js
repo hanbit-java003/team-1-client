@@ -46,7 +46,7 @@ function init(member) {
         $(tabContents[tabIndex]).addClass('active');
 
         if($('.cock-member-wrote').hasClass('active')){
-            console.log('실행1');
+            /*console.log('실행1');*/
             // 내가쓴 맛집 수 개수
             setCountWrote(member.uid);
             /*// 내가쓴 맛집 리스트
@@ -58,7 +58,7 @@ function init(member) {
 
         }
         else if($('.cock-member-bookmark').hasClass('active')){
-            console.log('실행2');
+            /*console.log('실행2');*/
             // 즐겨찾기 한 맛집 개수
             setCountBookmark();
             // 페이징 처리를 위한 토탈..
@@ -185,7 +185,7 @@ function setTotalBookmark() {
         success: function (result) {
             var total = result.total;
 
-            console.log(total+'total');
+            /*console.log(total+'total');*/
 
             setPagingBookmark(total);
         }
@@ -292,7 +292,7 @@ function requestBookmarkList(page) {
             page: page
         },
         success: function (result) {
-            console.log('실행실행');
+            /*console.log('실행실행');*/
             currentPageBookmark = page;
             setBookmarkList(result);
         }
@@ -319,7 +319,7 @@ function setCountBookmark() {
     $.ajax({
        url: '/api/cock/member/count/bookmark',
         success: function (result) {
-           console.log(result+'맛 집 개수');
+           /*console.log(result+'맛 집 개수');*/
             $('.cock-member-count-total-bookmark-article').empty();
 
             $('.cock-member-count-total-bookmark-article').text(result);

@@ -321,13 +321,13 @@ function signedOutFavorite() {
 
 // 로그인 상태에서 즐겨찾기 가져오기
 function cockSignedInFavorite() {
-    $.ajax({
+/*    $.ajax({
         url: '/api/cock/member/bookmark',
         success: function (result) {
             $(this).removeClass('fa-star-o');
             $(this).addClass('fa-star');
         }
-    });
+    });*/
 }
 
 // 로그인 상태의 즐겨찾기 클릭 이벤트
