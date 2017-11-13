@@ -13,43 +13,17 @@
             <label class="control-label" for="report-restaurant">식당이름</label><br>
             <input type="text" class="form-control" id="" placeholder="식당이름을 입력해주세요!">
         </div>
-        <div class="cock-sign-up">
+        <div class="report-text">
             <div class="cc-coordinate form-group">
-                <label class="control-label">신고 내용</label>
+                <label class="control-label">신고내용</label>
                 <div class="">
-                    <textarea id="cc-comment-textarea" type="text" class="form-control" rows="3"></textarea>
+                    <textarea id="report-textarea" type="text" class="form-control" rows="3"></textarea>
                 </div>
             </div>
         </div>
-        <div class="cock-join-group">
-            <label for="cock-join-pw">비밀번호</label><br>
-            <input type="password" class="form-control" id="cock-join-pw"
-                   placeholder="6~20자 영문 대 소문자,1개의 숫자,특수문자를 사용하세요.">
-            <span role="alert" class="cock-errormsg" id="pw-error"></span>
-        </div>
-        <div class="cock-join-group">
-            <label for="cock-join-pwc">비밀번호 재확인</label><br>
-            <input type="password" class="form-control" id="cock-join-pwc" placeholder="비밀번호를 다시 입력해주세요.">
-            <span role="alert" class="cock-errormsg" id="pwc-error"></span>
-        </div>
-        <div class="cock-join-group">
-            <label for="cock-join-pw">자동등록방지</label>
-            <div class="cock-join-capcha">
-                <form action="?" mothod="POST">
-                    <div id="cock-prevent" class="g-recaptcha" data-sitekey="6Lc5fzIUAAAAAEehrbbislWASM_D5je_Q-LIudbG"
-                         data-callback="verifyCallback"></div>
-                </form>
-            </div>
-        </div>
-        <div class="cock-join-check">
-            <label class="cock-join-check-label">
-                <input type="checkbox" class="cock-join-check-input">
-                약관동의
-            </label>
-        </div>
-        <div class="cock-join-btn">
-            <button type="button" class="cock-join-btn-cancel btn btn-danger">취소</button>
-            <button type="button" class="cock-join-btn-save btn btn-primary">회원가입</button>
+        <div class="report-btn">
+            <button type="button" class="report-btn-cancel btn btn-danger">취소</button>
+            <button type="button" class="report-btn-save btn btn-primary">신고</button>
         </div>
     </div>
 </section>
