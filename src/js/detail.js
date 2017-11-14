@@ -22,7 +22,7 @@ common.ajax({
             $('.write-button').css('visibility', 'visible');
 
             $('.write-button').on('click', function () {
-                location.href = '../insert.html';
+                location.href = '../insert.html?rid=' + rid;
             });
 
             signedIn = true;
