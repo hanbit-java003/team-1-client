@@ -80,6 +80,11 @@ function setList() {
         wrteDate(articles);
     }
 
+    $('.search-article-result-text').on('click', function () {
+        var rid = $(this).parent('li').attr('rid');
+
+        location.href = 'detail.html?rid=' + rid;
+    });
 }
 
 function reverseGeocoding(rests) {
