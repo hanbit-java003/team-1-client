@@ -236,6 +236,8 @@ function initArticleRest() {
         success: function (result) {
             initNearby(result);
 
+
+
             for (i = 0; i < result.length; i++) {
                 marker = new googleMaps.Marker({
                     position: new googleMaps.LatLng(result[i].lat, result[i].lng),
@@ -249,6 +251,29 @@ function initArticleRest() {
                         infoWindow.open(map, marker);
                     }
                 })(marker, i));
+
+
+            }
+        }
+    });
+}
+
+
+// 로그인 상태에서 즐겨찾기 가져오기
+function cockSignedInFavorite(article) {
+    console.log(article);
+    $.ajax({
+        url: '/api/cock/member/bookmark',
+        success: function (result) {
+            console.log(result);
+            for(var i= 0; i < result.length; i++){
+                for(var j = 0; j<article.length; j++){
+                    if(article[j].rid === result[i].rid){
+                        $('.card-contents-list li[rid='+ article[j].rid +'] .card-contents-favorite i').removeClass('fa-star-o');
+                        $('.card-contents-list li[rid='+ article[j].rid +'] .card-contents-favorite i').addClass('fa-star');
+                        break;
+                    }
+                }
             }
         }
     });
@@ -274,6 +299,7 @@ function initNearby(contentsNearby) {
     clkFavorite();
     clkTag();
     hoverContents();
+    cockSignedInFavorite(contentsNearby);
 }
 
 // 추천 맛집 리스트
@@ -303,7 +329,7 @@ function clkFavorite() {
             }
             else {
                 signedInFavorite();
-                cockSignedInFavorite();
+                /*cockSignedInFavorite();*/
             }
         }
     });
@@ -319,16 +345,7 @@ function signedOutFavorite() {
     });
 }
 
-// 로그인 상태에서 즐겨찾기 가져오기
-function cockSignedInFavorite() {
-/*    $.ajax({
-        url: '/api/cock/member/bookmark',
-        success: function (result) {
-            $(this).removeClass('fa-star-o');
-            $(this).addClass('fa-star');
-        }
-    });*/
-}
+
 
 // 로그인 상태의 즐겨찾기 클릭 이벤트
 function signedInFavorite() {
