@@ -22,7 +22,7 @@ common.ajax({
             $('.write-button').css('visibility', 'visible');
 
             $('.write-button').on('click', function () {
-                location.href = '../insert.html';
+                location.href = '../insert.html?rid=' + rid;
             });
 
             signedIn = true;
@@ -338,24 +338,29 @@ function likes(likeElm, restaurant) {
         likeElm.css('color', '#ff4461');
         likeElm.parent().find('.food-like-count').html();
 
-        alert('좋아요!');
+        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+
+        common.ajax({
+            url: '/api/cock/detail/inc/' + restaurant.rid + '/' + articleId,
+            success: function () {
+                console.log('좋아염');
+            }
+        });
     }
     else if (likeElm.hasClass('fa-heart')) {
         likeElm.removeClass('fa-heart').addClass('fa-heart-o');
         likeElm.css('color', '#666');
         likeElm.parent().find('.food-like-count').html();
 
-        alert('안좋아요!');
-
         var articleId = likeElm.parents('.content-wrapper').attr('articleId');
         var likeCount = likeElm.parent().find('.food-like-count');
 
-        /*common.ajax({
-            url: '/api/cock/detail/dec/' + rid + '/' + articleId,
+        common.ajax({
+            url: '/api/cock/detail/dec/' + restaurant.rid + '/' + articleId,
             success: function () {
-                likeCount.html(restaurant.articles[i].likes + 1);
+                console.log('안좋아염');
             }
-        });*/
+        });
     }
 }
 
