@@ -23,6 +23,7 @@ $.ajax({
         var restPhoneNo = result[0].phone;
         var restTime = result[0].operating;
         var restSignature = result[0].signature;
+        var restStatus = result[0].status;
 
         $('.admin-rest-title').text(restName);
 
@@ -54,9 +55,15 @@ $.ajax({
             $('#rest-edit-signature').val(restSignature);
         }
 
+        if (restStatus) {
+            $('#rest-edit-status').val(restStatus);
+        }
+
+        // 추가 입력사항이 입력되어 있지 않으면 insert 타입.
         if (!restAddress && !restPhoneNo && !restTime && !restSignature) {
             saveType = 'insert';
         }
+        //      "       이 입력되어 있으면 edit 타입.
         else {
             saveType = 'edit';
         }
@@ -71,6 +78,7 @@ $('#rest-edit-save').on('click', function () {
     model.phone = $('#rest-edit-phone').val().trim();
     model.time = $('#rest-edit-time').val().trim();
     model.signature = $('#rest-edit-signature').val().trim();
+    model.status = $('#rest-edit-status').val().trim();
 
     if (!model.address) {
         alert('주소를 입력하세요.');
@@ -92,6 +100,11 @@ $('#rest-edit-save').on('click', function () {
         $('#rest-edit-signature').focus();
         return;
     }
+    else if (!model.status) {
+        alert('상태를 입력하세요.');
+        $('#rest-edit-status').focus();
+        return;
+    }
 
     // console.log(model);
 
@@ -103,7 +116,8 @@ $('#rest-edit-save').on('click', function () {
                 address: model.address,
                 phone: model.phone,
                 operating: model.time,
-                signature: model.signature
+                signature: model.signature,
+                status: model.status
             },
             success: function () {
                 alert('정상적으로 저장되었습니다.');
@@ -123,7 +137,8 @@ $('#rest-edit-save').on('click', function () {
                 address: model.address,
                 phone: model.phone,
                 operating: model.time,
-                signature: model.signature
+                signature: model.signature,
+                status: model.status
             },
             success: function () {
                 alert('정상적으로 저장되었습니다.');
