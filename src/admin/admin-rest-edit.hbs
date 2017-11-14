@@ -57,32 +57,44 @@
             </div>
             <div class="container">
                 <div class="form-group sm">
-                            <span class="rest-label">
-                                <i class="rest-icon fa fa-address-card-o"></i>
-                                주소 :
-                            </span>
+                    <span class="rest-label">
+                        <i class="rest-icon fa fa-address-card-o"></i>
+                        주소 :
+                    </span>
                     <input type="text" class="form-control input-long" id="rest-edit-address" placeholder="주소">
                 </div>
                 <div class="form-group sm">
-                            <span class="rest-label">
-                                <i class="rest-icon fa fa-phone"></i>
-                                전화번호 :
-                            </span>
+                    <span class="rest-label">
+                        <i class="rest-icon fa fa-phone"></i>
+                        전화번호 :
+                    </span>
                     <input type="text" class="form-control input-long" id="rest-edit-phone" placeholder="전화번호">
                 </div>
                 <div class="form-group sm">
-                            <span class="rest-label">
-                                <i class="rest-icon fa fa-clock-o"></i>
-                                영업시간 :
-                            </span>
+                    <span class="rest-label">
+                        <i class="rest-icon fa fa-clock-o"></i>
+                        영업시간 :
+                    </span>
                     <input type="text" class="form-control input-long" id="rest-edit-time" placeholder="영업시간     예) 09:00 ~ 21:00">
                 </div>
                 <div class="form-group sm">
-                            <span class="rest-label">
-                                <i class="rest-icon fa fa-thumbs-o-up"></i>
-                                대표메뉴 :
-                            </span>
+                    <span class="rest-label">
+                        <i class="rest-icon fa fa-thumbs-o-up"></i>
+                        대표메뉴 :
+                    </span>
                     <input type="text" class="form-control input-long" id="rest-edit-signature" placeholder="대표메뉴">
+                </div>
+                <div class="form-group sm">
+                    <span class="rest-label">
+                        <i class="rest-icon fa fa-question" style="padding-right: 5px"></i>
+                        상태 :
+                    </span>
+                    <input type="text" class="form-control input-long" id="rest-edit-status" name="status" list="statusList" placeholder="선택해주세요.">
+                    <datalist id="statusList">
+                        <option value="영업">
+                        <option value="휴업">
+                        <option value="폐업">
+                    </datalist>
                 </div>
             </div>
             <div class="edit-buttons">

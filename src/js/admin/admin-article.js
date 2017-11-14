@@ -28,7 +28,7 @@ $.ajax({
 });
 
 var currentPage = 1;
-var rowsPerPage = 2;
+var rowsPerPage = 20;
 var pagesToShow = 5;
 
 // 페이지 계산 & 페이지네이션 태그 생성
@@ -66,7 +66,7 @@ function setPaging(total) {
     pagingHtml += '</li>';
 
     // page 버튼
-    for (var i=startPage; i<=endPage; i++) {
+    for (var i=startPage; i<=lastPage; i++) {
         pagingHtml += '<li';
 
         if (i === currentPage) {
@@ -121,6 +121,8 @@ function requestList(page) {
         },
         success: function(result) {
             currentPage = page;
+
+            console.log(currentPage);
 
             setList(result);
         }
