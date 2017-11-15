@@ -27,6 +27,12 @@ common.ajax({
 
             signedIn = true;
             user = result.uid;
+
+            $('.master-button').css('visibility', 'visible');
+
+            $('.master-button').on('click', function () {
+                alert('영자');
+            });
         }
     }
 });
