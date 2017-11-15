@@ -28,11 +28,13 @@ common.ajax({
             signedIn = true;
             user = result.uid;
 
-            $('.master-button').css('visibility', 'visible');
+            if (result.master === 'Y') {
+                $('.master-button').css('visibility', 'visible');
 
-            $('.master-button').on('click', function () {
-                alert('영자');
-            });
+                $('.master-button').on('click', function () {
+                    location.href = './admin/admin-rest-edit.html?rid=' + rid;
+                });
+            }
         }
     }
 });
