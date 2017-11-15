@@ -20,9 +20,7 @@
     <div class="food-img-wrapper">
         {{~#each imgs~}}
             <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
-                <div class="img-wrapper">
-                    <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
-                </div>
+                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
                 <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
                     {{#each menus}}
                         <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
