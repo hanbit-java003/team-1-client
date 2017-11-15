@@ -32,13 +32,13 @@ function setPaging(total) {
     var prevPage = startPage - 1;
     var nextPage = endPage + 1;
 
-    console.log('totalPages: ' + totalPages);
-    console.log('firstPage: ' + firstPage);
-    console.log('lastPage: ' + lastPage);
-    console.log('startPage: ' + startPage);
-    console.log('endPage: ' + endPage);
-    console.log('prevPage: ' + prevPage);
-    console.log('nextPage: ' + nextPage);
+    // console.log('totalPages: ' + totalPages);
+    // console.log('firstPage: ' + firstPage);
+    // console.log('lastPage: ' + lastPage);
+    // console.log('startPage: ' + startPage);
+    // console.log('endPage: ' + endPage);
+    // console.log('prevPage: ' + prevPage);
+    // console.log('nextPage: ' + nextPage);
 
     $('.admin-article-pagination .pagination').empty();
 
@@ -113,7 +113,7 @@ function requestList(page) {
         success: function(result) {
             currentPage = page;
 
-            console.log(currentPage);
+            // console.log(currentPage);
 
             setList(result);
         }
@@ -131,8 +131,8 @@ function setList(list) {
     $('.article-delete-btn').on('click', function () {
         var rid = $(this).attr('rid');
         var articleId = $(this).attr('articleId');
-        console.log('rid = ' + rid);
-        console.log('articleId = ' + articleId);
+        // console.log('rid = ' + rid);
+        // console.log('articleId = ' + articleId);
 
         common.openDialog({
             body: '&lt; WARNING!! &gt;' + '<br>' + '<br>' + '음란, 불법 게시글 및 광고 이외에는 작성자에게 확인 후 삭제해주십시오.' + '<br>' + '<br>' + '정말 삭제하시겠습니까?',
