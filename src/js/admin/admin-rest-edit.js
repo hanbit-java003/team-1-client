@@ -25,7 +25,7 @@ $.ajax({
         var restSignature = result[0].signature;
         var restStatus = result[0].status;
 
-        $('.admin-rest-title').text(restName);
+        $('.admin-title').text(restName);
 
         $('#rest-edit-count').val(restArticleCount);
         $('#rest-edit-count').attr('disabled', true);
