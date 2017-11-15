@@ -25,7 +25,7 @@ $.ajax({
         var restSignature = result[0].signature;
         var restStatus = result[0].status;
 
-        $('.admin-rest-title').text(restName);
+        $('.admin-title').text(restName);
 
         $('#rest-edit-count').val(restArticleCount);
         $('#rest-edit-count').attr('disabled', true);
@@ -165,7 +165,7 @@ $('#rest-edit-delete').on('click', function () {
         handler: function (btnId) {
             if (btnId == 'delete') {
                 $.ajax({
-                    url: '/api/cock/admin/rest/' + rid,
+                    url: '/api/cock/admin/' + rid,
                     method: 'DELETE',
                     success: function (result) {
                         location.href = './admin-rest.html';
