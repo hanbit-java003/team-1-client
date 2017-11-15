@@ -352,7 +352,7 @@ function signedOutFavorite() {
 // 로그인 상태의 즐겨찾기 클릭 이벤트
 /*문기*/
 function signedInFavorite() {
-    $('.card-contents-list li .card-contents-favorite > i').on('click', function(event) {
+    $('.card-contents-list li .card-contents-favorite > i').unbind('click').on('click', function(event) {
         event.stopPropagation();
         var rid = $(this).parents('li').attr('rid');
 
