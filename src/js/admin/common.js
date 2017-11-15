@@ -34,7 +34,6 @@ function openDialog(options) {
         buttons: options.buttons || []
     });
 
-    console.log(modalHtml);
     var dialog = $(modalHtml);
 
     $('body').append(dialog);

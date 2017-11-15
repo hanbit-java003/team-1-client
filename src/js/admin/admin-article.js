@@ -6,15 +6,6 @@ var common = require('./common');
 // 게시글 관리 1페이지
 requestList(1);
 
-function setList(list) {
-    $('.admin-article-table tbody').empty();
-
-    var adminArticleTemplate = require('../../template/admin/admin-article-list.hbs');
-    var adminArticleHtml = adminArticleTemplate(list);
-
-    $('.admin-article-table tbody').html(adminArticleHtml);
-}
-
 // cock cock 에 등록된 총 게시글 수
 $.ajax({
     url: '/api/cock/admin/count/article',
@@ -127,4 +118,46 @@ function requestList(page) {
             setList(result);
         }
     });
+}
+
+function setList(list) {
+    $('.admin-article-table tbody').empty();
+
+    var adminArticleTemplate = require('../../template/admin/admin-article-list.hbs');
+    var adminArticleHtml = adminArticleTemplate(list);
+
+    $('.admin-article-table tbody').html(adminArticleHtml);
+
+    $('.article-delete-btn').on('click', function () {
+        var rid = $(this).attr('rid');
+        var articleId = $(this).attr('articleId');
+        console.log('rid = ' + rid);
+        console.log('articleId = ' + articleId);
+
+        common.openDialog({
+            body: '&lt; WARNING!! &gt;' + '<br>' + '<br>' + '음란, 불법 게시글 및 광고 이외에는 작성자에게 확인 후 삭제해주십시오.' + '<br>' + '<br>' + '정말 삭제하시겠습니까?',
+            buttons: [{
+                id: 'delete',
+                name: '삭제',
+                style: 'danger'
+            }],
+            handler: function (btnId) {
+                if (btnId == 'delete') {
+                    $.ajax({
+                        url: '/api/cock/admin/' + rid + '/' + articleId,
+                        method: 'DELETE',
+                        success: function (result) {
+                            location.href = './admin-article.html';
+                        },
+                        error: function () {
+                            alert('삭제 중 오류가 발생하였습니다.');
+                        }
+                    });
+
+                    common.closeDialog();
+                }
+            }
+        })
+    });
+
 }

@@ -165,7 +165,7 @@ $('#rest-edit-delete').on('click', function () {
         handler: function (btnId) {
             if (btnId == 'delete') {
                 $.ajax({
-                    url: '/api/cock/admin/rest/' + rid,
+                    url: '/api/cock/admin/' + rid,
                     method: 'DELETE',
                     success: function (result) {
                         location.href = './admin-rest.html';
