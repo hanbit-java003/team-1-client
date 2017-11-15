@@ -20,7 +20,9 @@
     <div class="food-img-wrapper">
         {{~#each imgs~}}
             <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
-                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
+                <div class="img-wrapper">
+                    <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
+                </div>
                 <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
                     {{#each menus}}
                         <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
@@ -28,6 +30,9 @@
                             {{~menu~}}
                         </div>
                     {{/each}}
+                </div>
+                <div id="img-more-{{articleId}}" class="img-more">
+                    <i class="fa fa-plus-square"></i>
                 </div>
             </div>
             {{~#each menus~}}

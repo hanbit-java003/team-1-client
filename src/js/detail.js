@@ -302,6 +302,12 @@ function initContents(restaurant) {
             $(this).parent().find($('.detail-menu-tag')).addClass('visible');
         }
     });
+
+    for (var i = 0; i < restaurant.articles.length; i++) {
+        if (restaurant.articles[i].imgs.length > 1) {
+            $('#img-more-' + restaurant.articles[i].articleId).css('visibility', 'visible');
+        }
+    }
 }
 
 // 더보기
