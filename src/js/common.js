@@ -250,7 +250,7 @@ function signIn() {
         success: function (result) {
             alert(result.nick + '님 반갑습니다.');
             closeMemberLayer(function () {
-                    location.href = '../';
+                    location.href = location.href;
                 }
             );
         }

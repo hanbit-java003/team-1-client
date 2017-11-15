@@ -204,11 +204,15 @@ function clkSort() {
     });
 }
 
+
+var latestArticle;
 function initLatestRest() {
     $.ajax({
         url: '/api/cock/rest/latest',
         success: function (result) {
             initNearby(result);
+
+            latestArticle = result;
 
             // 마커 추가
             for (i = 0; i < result.length; i++) {
@@ -260,12 +264,12 @@ function initArticleRest() {
 
 
 // 로그인 상태에서 즐겨찾기 가져오기
+/* 문기*/
 function cockSignedInFavorite(article) {
-    console.log(article);
     $.ajax({
         url: '/api/cock/member/bookmark',
         success: function (result) {
-            console.log(result);
+            /*console.log(result);*/
             for(var i= 0; i < result.length; i++){
                 for(var j = 0; j<article.length; j++){
                     if(article[j].rid === result[i].rid){
@@ -329,7 +333,6 @@ function clkFavorite() {
             }
             else {
                 signedInFavorite();
-                /*cockSignedInFavorite();*/
             }
         }
     });
@@ -346,26 +349,75 @@ function signedOutFavorite() {
 }
 
 
-
 // 로그인 상태의 즐겨찾기 클릭 이벤트
+/*문기*/
 function signedInFavorite() {
-    $('.card-contents-favorite i').on('click', function (event) {
+    $('.card-contents-list li .card-contents-favorite > i').unbind('click').on('click', function(event) {
         event.stopPropagation();
-
+        var rid = $(this).parents('li').attr('rid');
 
         if ($(this).hasClass('fa-star-o')) {
+
             $(this).removeClass('fa-star-o');
             $(this).addClass('fa-star');
-            alert('즐겨찾기에 추가되었습니다.');
-            // 서버에서 즐겨찾기 저장 구현 필요함
+
+            $.ajax({
+                url: '/api/cock/member/bookmark/save',
+                data: {
+                    rid: rid
+                },
+                success: function (result) {
+                    alert('즐겨찾기에 추가되었습니다.');
+                }
+            });
         }
-        else {
+        else{
             $(this).removeClass('fa-star');
             $(this).addClass('fa-star-o');
-            alert('즐겨찾기에서 삭제되었습니다.');
-            // 서버에서 즐겨찾기 삭제 구현 필요함
+
+            $.ajax({
+                url: '/api/cock/member/bookmark/remove',
+                data: {
+                    rid: rid
+                },
+                success: function (result) {
+                    alert('즐겨찾기에서 삭제되었습니다.');
+                }
+            });
+
         }
     });
+
+    /*for(var i=0; i < latestArticle.length; i++){
+        latestArticleVall =latestArticle[i].rid;
+        console.log(latestArticleVall);
+        $('.card-contents-list li[rid='+ latestArticle[i].rid +'] .card-contents-favorite i').unbind('click').on('click', function (event) {
+        event.stopPropagation();
+        /!*.card-contents-list li[rid='+ article[j].rid +'] .card-contents-favorite i*!/
+        if ($(this).hasClass('fa-star-o')) {
+                $(this).removeClass('fa-star-o');
+                $(this).addClass('fa-star');
+            $.ajax({
+                url: '/api/cock/member/bookmark/save',
+                data: {
+                    rid : latestArticle[i].rid
+                },
+                success: function (result) {
+                    alert('즐겨찾기에 추가되었습니다.');
+                    // 서버에서 즐겨찾기 저장 구현 필요함
+                    console.log(latestArticle);
+                }
+            });
+        }
+        else{
+                $(this).removeClass('fa-star');
+                $(this).addClass('fa-star-o');
+                alert('즐겨찾기에서 삭제되었습니다.');
+                // 서버에서 즐겨찾기 삭제 구현 필요함
+            }
+        });
+    }*/
+
 }
 
 function clkTag() {

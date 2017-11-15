@@ -164,9 +164,13 @@ function initRestInfo(restaurant) {
 
     $('.rest-submenu').empty();
 
-    var html = template(restaurant);
-
-    $('.rest-submenu').html(html);
+    common.ajax({
+        url: '/api/cock/detail/info/' + rid,
+        success: function (result) {
+            var html = template(result);
+            $('.rest-submenu').html(html);
+        }
+    });
 
     attachRestInfoEvent();
 }
