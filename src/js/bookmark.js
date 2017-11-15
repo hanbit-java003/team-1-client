@@ -14,9 +14,6 @@ loadGoogleMapsApi.version = '3';
 var bookmarkModel = require('./bookmark-card');
 // model은 bookmark-card.js
 
-var bookmarkReviewModel = require('./bookmark-review');
-// model은 bookmark-review.js
-
 var bookmarkCardTemplate = require('../template/bookmark/bookmark-card.hbs');
 
 var bookmarkReviewTemplate = require('../template/bookmark/bookmark-review.hbs');
@@ -50,7 +47,6 @@ function getLocation() {
 
 getLocation();
 
-
 function initBookmarkMap(position) {
 
     loadGoogleMapsApi().then(function (_googleMaps) {
@@ -68,20 +64,20 @@ function initBookmarkMap(position) {
 
         bookmarkMaps = new googleMaps.Map($('.bookmark-map')[0], mapOptions);
 
-        var spoonMark = '../img/insert/red-dot.png';
+        //var spoonMark = '../img/insert/red-dot.png';
 
         for (i=0; i<bookmarkModel.length; i++) {
             marker = new googleMaps.Marker({
                 position: new googleMaps.LatLng(bookmarkModel[i].lat, bookmarkModel[i].lng),
                 map: bookmarkMaps,
-                icon: spoonMark
+                icon: '../img/insert/red-dot.png'
             });
 
             //marker 클릭 시 점포 이름과 주소가 같이 출력
 
             googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                 return function () {
-                    infoWindow.setContent(bookmarkModel[i].title
+                    infoWindow.setContent(bookmarkModel[i].name
                         + '<br/>' + bookmarkModel[i].address);
                     infoWindow.open(bookmarkMaps, marker);
                 }
@@ -94,6 +90,8 @@ function initBookmarkMap(position) {
         console.error(error);
     });
 
+    getBookmark();
+
 }
 
 initBookmarkMap();
@@ -104,8 +102,6 @@ function bookmarkReview(bookmarkModel) {
     $('.bookmark-container > li').on('click', function () {
 
         var reviewId = $(this).attr('rid');
-
-        console.log(reviewId);
 
         for(i=0; i<bookmarkModel.length; i++) {
 
@@ -121,7 +117,6 @@ function bookmarkReview(bookmarkModel) {
 
     });
 
-    clickDetail();
 }
 
 function clickDetail() {
@@ -129,13 +124,48 @@ function clickDetail() {
         var goId = $(this).attr('rid');
 
         bookmarkToDetail(goId);
-
-        console.log(goId);
     });
 }
 
 
+clickDetail();
+
+var bookmarkContents;
+
+function getBookmark() {
+
+    $.ajax({
+        url: '/api/cock/bookmark/bookmarks',
+        success: function (result) {
+            initBookmark(result);
+            initBookmarkMap(result);
+
+            bookmarkContents = result;
+
+            for(i=0; i < result.length; i++) {
+                marker = new googleMaps.Marker({
+                   position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                    map: map,
+                    icon: '../img/insert/red-dot.png'
+                });
+            }
+            
+            googleMaps.event.addListener(marker, 'click', (function (marker, i) {
+               return function () {
+                   infoWindow.setContent(result[i].name + '</br>' + result[i].address);
+                   infoWindow.open(map, marker);
+               }
+            })(marker, i));
+
+        }
+    });
+}
+
+
+
 function initBookmark(bookmarkModel) {
+
+    $('.bookmark-container').empty();
 
     for (var i=0; i<bookmarkModel.length; i++) {
 
@@ -159,10 +189,14 @@ function initBookmark(bookmarkModel) {
         }
     });
 
+    //getBookmark();
+
     bookmarkClick();
     bookmarkReview(bookmarkModel);
 
 }
+
+initBookmark(bookmarkModel);
 
 //북마크 리스트 클릭 이벤트
 function bookmarkClick() {
@@ -219,7 +253,7 @@ function bookmarkClick() {
 
 }
 
-initBookmark(bookmarkModel);
+
 
 
 function bookmarkToDetail(rid) {
