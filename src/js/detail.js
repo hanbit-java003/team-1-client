@@ -27,6 +27,14 @@ common.ajax({
 
             signedIn = true;
             user = result.uid;
+
+            if (result.master === 'Y') {
+                $('.master-button').css('visibility', 'visible');
+
+                $('.master-button').on('click', function () {
+                    location.href = './admin/admin-rest-edit.html?rid=' + rid;
+                });
+            }
         }
     }
 });
