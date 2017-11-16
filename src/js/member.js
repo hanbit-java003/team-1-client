@@ -344,14 +344,30 @@ function setCountBookmark() {
 // 내가쓴 맛집 리스트
 function setWroteList(list){
     $('.cock-member-contents-wrote-table tbody').empty();
-    for (var i=0; i<list.length; i++){
-        var memberWroteTemplate = require('../template/member/member-wrote.hbs');
-        var memberWroteHtml = memberWroteTemplate(list);
 
-        $('.cock-member-contents-wrote-table tbody').html(memberWroteHtml);
+    var memberWroteTemplate = require('../template/member/member-wrote.hbs');
+    var memberWroteHtml = memberWroteTemplate(list);
+
+    $('.cock-member-contents-wrote-table tbody').html(memberWroteHtml);
+
+    // 리스트 에서 클릭시 수정 및 삭제
+    $('.cock-member-contents-wrote-table tbody tr').on('click', function () {
+        console.log('실행');
+        /*goDetail($(this).attr('rid'));*/
+    });
+
+    function closeSetting(e) {
+        var container = $('.setting-menu');
+        if (container.has(e.target).length === 0) {
+            container.hide();
+        }
     }
+    $(document).mouseup(function (e) {
+        closeSetting(e);
+    });
 }
 
+// 내가 즐겨찾기 한 리스트
 function setBookmarkList(list) {
        $('.cock-member-contents-bookmark-table tbody').empty();
 
@@ -359,7 +375,19 @@ function setBookmarkList(list) {
        var memberBookmarkHtml = memberBookmarkTemplate(list);
 
        $('.cock-member-contents-bookmark-table tbody').html(memberBookmarkHtml);
+
+       // 리스트 에서 클릭시 detail 페이지로 넘어감.
+    $('.cock-member-contents-bookmark-table tbody tr').on('click', function () {
+        goDetail($(this).attr('rid'));
+    });
+
+    function goDetail(rid) {
+        location.href = 'detail.html?rid=' + rid;
+    }
 }
+
+
+
 
 
 

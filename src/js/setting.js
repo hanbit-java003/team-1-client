@@ -4,6 +4,8 @@ require('jquery-mask-plugin');
 
 var common = require('./common.js');
 
+var adminCommon = require('./admin/common.js');
+
 var food = require('./join-food.js');
 
 var join = require('./join.js');
@@ -92,10 +94,16 @@ function init(member) {
 
 }
 
-
+// 선호하는음식 열고 닫기
 $('.cock-member-food-span').on('click', function () {
     $('.cock-sign-in').toggle(100);
     $('.cock-sign-up').toggle(100);
+});
+
+// 회원탈퇴 열고 닫기
+$('.cock-member-leave-span').on('click', function () {
+   $('.cock-sign-in-leave').toggle(100);
+   $('.cock-sign-up-leave').toggle(100);
 });
 
 
@@ -107,14 +115,83 @@ $('.cock-setting-cancel').on('click', function () {
 var member;
 
 
-$('#cock-setting-validation').on('click', function () {
+/*$('#cock-setting-validation').on('click', function () {
     console.log('dsadsa');
     var vall = init(member.nick);
+
+});*/
+
+// 회원탈퇴
+$('.cock-setting-leave').on('click', function () {
+    var bannPw= {
+        currentPw :  $('#cock-member-pw-leave').val().trim()
+    }
+    var oath = $('#cock-member-oath-leave').val().trim();
+    var oathVall = '회원탈퇴합니다';
+
+    if(!bannPw.currentPw) {
+        alert('비밀번호를 입력해주세요.');
+        $('#cock-member-pw-leave').focus();
+        return;
+    }
+    else if(!oath) {
+        alert('회원탈퇴합니다를 입력해주세요.');
+        $('#cock-member-oath-leave').focus();
+        return;
+    }
+    else if(oathVall !== oath) {
+        alert('회원탈퇴합니다를 정확히 입력해주세요.');
+        $('#cock-member-oath-leave').focus();
+        return;
+    }
+
+    // 회원탈퇴 버튼 클릭시 비밀번호 확인.
+    $.ajax({
+        url: '/api/member/bann/pw',
+        method: 'POST',
+        data: {
+          currentPw : bannPw.currentPw
+        },
+        success: function (result) {
+            adminCommon.openDialog({
+                body: '&lt; 회원탈퇴 &gt;'+'<br>' + '<br>' + '회원을 탈퇴하시면 관리자에 의해서 조만간 아이디가 삭제됩니다.'+'<br>' + '<br>' + '정말 탈퇴하시겠습니까?',
+                title: 'CockCock 회원 탈퇴',
+                buttons: [{
+                    id: 'delete',
+                    name: '회원탈퇴',
+                    style: 'danger'
+                }],
+                handler: function (btnId) {
+                    if (btnId == 'delete'){
+                        $.ajax({
+                            url: '/api/member/bann',
+                            data: {
+                                bann : 'Y'
+                            },
+                            success : function (result) {
+                                alert('회원탈퇴 되셨습니다.');
+                                common.signOut();
+                            },
+                            error: function (jqXHR) {
+                                alert(jqXHR.responseJSON.message);
+                            }
+                        });
+
+                    }
+                }
+            });
+        },
+        error: function (jqXHR) { // Xml Http Request
+            alert(jqXHR.responseJSON.message);
+            $('#cock-member-pw-leave').focus();
+        }
+    });
 
 
 });
 
 
+// 저장.
 $('.cock-setting-save').on('click', function () {
     member = {
         currentPw: $('#cock-member-cpw-input').val().trim(),
@@ -202,9 +279,15 @@ $('.cock-setting-save').on('click', function () {
 
             location.reload();
         },
-        error : function () {
-            alert('중복된 별명입니다. 확인해 주시기 바랍니다.');
-            $('#cock-member-nick-input').focus();
+        error : function (jqXHR) { // Xml Http Request
+            if(jqXHR.responseJSON.message ==='현재 패스워드가 일치하지 않습니다.'){
+            alert(jqXHR.responseJSON.message);
+                $('#cock-member-pw-input').focus();
+            }
+            else{
+                alert('중복된 별명이 있습니다.');
+                $('#cock-member-nick-input').focus();
+            }
         }
     });
 

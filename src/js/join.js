@@ -175,7 +175,7 @@ function check() {
                 alert("인증완료");
                 vallCertification = true;
                 $('#cock-join-email').attr('disabled', true);
-                $('.cock-sign-up1').show(100);
+                $('.cock-sign-up-certification').show(100);
                 $('.cock-sign-up > .cock-join-group').remove();
                 $('#cock-join-email-btn').remove();
                 $('#cock-join-nick').focus();

@@ -8,22 +8,26 @@ var params = new UrlSearchParams(location.search);
 
 var rid = params.get('rid');
 var model = {};
+var restDetail = {};
 var saveType;
 
 // 맛집 수정 페이지
 $.ajax({
     url: '/api/cock/admin/rest/' + rid,
     success: function (result) {
-        var restName = result[0].name;
-        var restId = result[0].rid;
-        var restArticleCount = result[0].count;
-        var restLat = result[0].lat;
-        var restLng = result[0].lng;
-        var restAddress = result[0].address;
-        var restPhoneNo = result[0].phone;
-        var restTime = result[0].operating;
-        var restSignature = result[0].signature;
-        var restStatus = result[0].status;
+        model = result;
+
+        var restName = model[0].name;
+        var restId = model[0].rid;
+        var restArticleCount = model[0].count;
+        var restLat = model[0].lat;
+        var restLng = model[0].lng;
+        var restAddress = model[0].address;
+        var restPhoneNo = model[0].phone;
+        var restTime = model[0].operating;
+        var restSignature = model[0].signature;
+        var restStatus = model[0].status;
+        var restPhoto = model[0].photo;
 
         $('.admin-title').text(restName);
 
@@ -59,6 +63,12 @@ $.ajax({
             $('#rest-edit-status').val(restStatus);
         }
 
+        if (restPhoto) {
+            $('#rest-photo-preview').empty();
+
+            $('#rest-photo-preview').append('<img src="' + restPhoto + '">');
+        }
+
         // 추가 입력사항이 입력되어 있지 않으면 insert 타입.
         if (!restAddress && !restPhoneNo && !restTime && !restSignature) {
             saveType = 'insert';
@@ -68,7 +78,50 @@ $.ajax({
             saveType = 'edit';
         }
 
+        restDetail.rid = restId;
+        restDetail.address = restAddress;
+        restDetail.phone = restPhoneNo;
+        restDetail.operating = restTime;
+        restDetail.signature = restSignature;
+        restDetail.status = restStatus;
     }
+});
+
+$('.rest-file-select').on('click', function () {
+    var fileInputId = $(this).attr('for'); // rest-edit-photo 를 받아옴.
+
+    $('#' + fileInputId).click(); // rest-edit-photo 를 클릭한 것과 같음.
+});
+
+$('#rest-edit-photo').on('change', function () {
+    // console.log($(this).val());
+    // console.log(this.files);
+    // console.log(this.files.length);
+
+    if (this.files.length === 0) {
+        return;
+    }
+
+    for (var i=0; i<this.files.length; i++) {
+        var file = this.files[i];
+
+        if (!file.type.startsWith('image/')) {
+            alert('이미지 파일이 아닙니다.');
+            return;
+        }
+    }
+
+    var fileReader = new FileReader();
+
+    fileReader.onload = function (event) {
+        $('#rest-photo-preview').empty();
+
+        $('#rest-photo-preview').append('<img src="' + event.target.result + '">');
+
+        // console.log(event.target.result);
+    };
+
+    fileReader.readAsDataURL(this.files[0]);
 });
 
 // 맛집 추가 입력사항 저장
@@ -105,9 +158,44 @@ $('#rest-edit-save').on('click', function () {
         $('#rest-edit-status').focus();
         return;
     }
+    else if (!model[0].photo && $('#rest-edit-photo')[0].files.length === 0) { // jQuery 로 가져오면 list 로 가져오게 됨. id 는 하나이기 때문에 [0] 을 붙여줌.
+        alert('사진을 선택하세요.'); // file 의 length 가 0 이라는 것은 파일이 선택이 안되었다는 것. 폼 검증.
+        return;
+    }
 
-    // console.log(model);
+    var url;
 
+    if (saveType === 'insert') {
+        url = '/api/cock/admin/rest/save';
+    }
+    else if (saveType === 'edit') {
+        url = '/api/cock/admin/rest/edit/' + restDetail.rid;
+    }
+
+    var formData = new FormData();
+    formData.append('json', JSON.stringify(restDetail));
+
+    var photo = $('#rest-edit-photo')[0].files;
+
+    if (photo.length > 0) {
+        formData.append('photo', photo[0]);
+    }
+
+    $.ajax({
+       url: url,
+       method: 'POST',
+       contentType: false,
+       processData: false,
+       data: formData,
+       success: function(result) {
+           alert('정상적으로 저장되었습니다.');
+           // location.reload();
+       },
+        error: function () {
+            alert('저장 중 오류가 발생하였습니다.');
+        }
+    });
+    /*
     if (saveType === 'insert') {
         $.ajax({
             url: '/api/cock/admin/rest/save',
@@ -142,7 +230,7 @@ $('#rest-edit-save').on('click', function () {
             },
             success: function () {
                 alert('정상적으로 저장되었습니다.');
-                location.reload();
+                // location.reload();
             },
             error: function () {
                 alert('저장 중 오류가 발생하였습니다.');
@@ -150,7 +238,7 @@ $('#rest-edit-save').on('click', function () {
         });
         // console.log('editType');
     }
-
+    */
 });
 
 // 맛집 기본 & 추가 입력사항 삭제
