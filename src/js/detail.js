@@ -360,8 +360,13 @@ function likes(likeElm, restaurant) {
 
         common.ajax({
             url: '/api/cock/detail/inc/' + restaurant.rid + '/' + articleId,
-            success: function () {
-                console.log('좋아염');
+            data:{
+                uid : user
+            },
+            success: function (result) {
+                var ok = result.ok;
+
+                likeElm.parent().find('#likes-' + articleId).html(ok + 1);
             }
         });
     }
