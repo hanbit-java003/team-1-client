@@ -350,6 +350,7 @@ function setWroteList(list){
 
         $('.cock-member-contents-wrote-table tbody').html(memberWroteHtml);
     }
+
 }
 
 function setBookmarkList(list) {
