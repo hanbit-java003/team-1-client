@@ -211,15 +211,17 @@ function signOut() {
     $.ajax({
         url: '/api/member/signout',
         success: function () {
-            closeMemberLayer(function () {
-                location.href = '../';
-            });
-
+            // 탈퇴한 회원인지 아닌지 확인 하기 위해서
+            if(bannVall === 'Y') {
+                alert('탈퇴한 계정입니다.');
+                return;
+            }
+            location.href = '../';
         }
     });
 }
 
-
+var bannVall;
 //로그인
 function signIn() {
     var email = $('#cock-login-email').val().trim();
@@ -248,11 +250,25 @@ function signIn() {
             remember: remember
         },
         success: function (result) {
-            alert(result.nick + '님 반갑습니다.');
-            closeMemberLayer(function () {
-                    location.href = location.href;
+            // 탈퇴한 회원인지 아닌지 확인 하기 위해서
+            $.ajax({
+                url: '/api/member/get',
+                success: function (bann) {
+                    if (bann.bann === 'Y') {
+                        bannVall = bann.bann;
+                        signOut();
+                        return;
+                    }
+                    else {
+                        alert(result.nick + '님 반갑습니다.');
+                        closeMemberLayer(function () {
+                                location.href = location.href;
+                            }
+                        );
+                    }
                 }
-            );
+            });
+
         }
     });
 }
@@ -277,7 +293,8 @@ function closeMemberLayer(callback) {
 }
 
 module.exports = {
-    ajax: ajax
+    ajax: ajax,
+    signOut : signOut
 }
 
 $('#admin-btn').on('click', function () {
