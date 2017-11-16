@@ -155,7 +155,7 @@ $('.cock-setting-leave').on('click', function () {
         success: function (result) {
             adminCommon.openDialog({
                 body: '&lt; 회원탈퇴 &gt;'+'<br>' + '<br>' + '회원을 탈퇴하시면 관리자에 의해서 조만간 아이디가 삭제됩니다.'+'<br>' + '<br>' + '정말 탈퇴하시겠습니까?',
-                title: '회원 탈퇴',
+                title: 'CockCock 회원 탈퇴',
                 buttons: [{
                     id: 'delete',
                     name: '회원탈퇴',
