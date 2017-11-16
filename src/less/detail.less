@@ -178,11 +178,18 @@ body {
     margin-bottom: 10px;
     background-position: center;
     background-size: cover;
-    cursor: pointer;
   }
 }
 
-.food-img-select {
+.img-more {
+  position: absolute;
+  margin: 0 8px 2px 0;
+  bottom: 0px;
+  right: 0px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  visibility: hidden;
 }
 
 .detail-menu-tag {
@@ -267,10 +274,11 @@ body {
   top: 100% + 20px;
   right: 20px;
   height: auto;
-}
-
-.rest-submenu:hover {
-  box-shadow: 0 3px 10px rgba(34, 25, 25, 0.7);
+  text-align: left;
+  color: #fff;
+  line-height: -2px;
+  z-index: 500;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
 }
 
 .rest-photo {
@@ -342,12 +350,7 @@ body {
   .rest-submenu {
     margin-top: 40px;
     width: 170px;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #fff;
-    text-align: left;
-    line-height: -2px;
-    z-index: 500;
-    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    background-color: rgba(5, 5, 5, 0.4);
   }
 
   .rest-photo {
@@ -373,7 +376,6 @@ body {
     font-size: 14px;
     color: #555;
   }
-
 }
 
 /* Desktop Device */
@@ -434,12 +436,7 @@ body {
   .rest-submenu {
     margin-top: 50px;
     width: 340px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    text-align: left;
-    line-height: -2px;
-    z-index: 500;
-    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    background-color: rgba(5, 5, 5, 0.8);
   }
 
   .rest-photo {
