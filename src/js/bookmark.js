@@ -138,29 +138,31 @@ function getBookmark() {
         url: '/api/cock/bookmark/bookmarks',
         success: function (result) {
             initBookmark(result);
-            initBookmarkMap(result);
 
             bookmarkContents = result;
+            console.log(result[i].address);
 
             for(i=0; i < result.length; i++) {
                 marker = new googleMaps.Marker({
-                   position: new googleMaps.LatLng(result[i].lat, result[i].lng),
-                    map: map,
+                    position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                    map: bookmarkMaps,
                     icon: '../img/insert/red-dot.png'
                 });
             }
             
             googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                return function () {
-                   infoWindow.setContent(result[i].name + '</br>' + result[i].address);
+                   infoWindow.setContent(result[i].name + '<br/>' + result[i].address);
                    infoWindow.open(map, marker);
                }
+
             })(marker, i));
 
         }
-    });
-}
 
+    });
+
+}
 
 
 function initBookmark(bookmarkModel) {
@@ -189,14 +191,11 @@ function initBookmark(bookmarkModel) {
         }
     });
 
-    //getBookmark();
-
     bookmarkClick();
     bookmarkReview(bookmarkModel);
 
 }
 
-initBookmark(bookmarkModel);
 
 //북마크 리스트 클릭 이벤트
 function bookmarkClick() {
@@ -216,11 +215,11 @@ function bookmarkClick() {
 
         bookmarkMaps.panTo(locationLatLng);
 
-        marker = new googleMaps.Marker({
+        /*marker = new googleMaps.Marker({
            position: new googleMaps.LatLng(locationLatLng),
            map: bookmarkMaps,
            icon: spoonMark
-        });
+        });*/
 
         $(this).on('click', function () {
             spoonMark = '../img/insert/blue-dot.png';
