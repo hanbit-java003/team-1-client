@@ -35,6 +35,7 @@ common.ajax({
                     location.href = './admin/admin-rest-edit.html?rid=' + rid;
                 });
             }
+
         }
     }
 });
@@ -244,20 +245,35 @@ function init(sort) {
     });
 }
 
+function initLikes(restaurant) {
+    common.ajax({
+        url: 'api/cock/detail/likes/' + rid,
+        success: function (result) {
+            for (var i = 0; i < restaurant.articles.length; i++) {
+                for (var j = 0; j < result.length; j++) {
+                    if (user === result[j].uid) {
+                        $('#like-icon-' + result[j].articleId).removeClass('fa-heart-o').addClass('fa-heart').css('color', '#ff4461');
+                    }
+                }
+            }
+        }
+    });
+}
+
 // articles 초기화
 function initContents(restaurant) {
     if (restaurant.articles.length === 0) {
         location.href = '/';
     }
 
+    setLogo(restaurant);
     setDesktop(restaurant);
     setMobile(restaurant);
 
-    setLogo(restaurant);
     initRestInfo(restaurant);
+    initLikes(restaurant);
 
     sortBtn();
-
     settingBtn();
 
     // 더보기 버튼
@@ -352,36 +368,41 @@ function likes(likeElm, restaurant) {
     }
 
     if (likeElm.hasClass('fa-heart-o')) {
-        likeElm.removeClass('fa-heart-o').addClass('fa-heart');
-        likeElm.css('color', '#ff4461');
-        likeElm.parent().find('.food-like-count').html();
 
         var articleId = likeElm.parents('.content-wrapper').attr('articleId');
 
         common.ajax({
             url: '/api/cock/detail/inc/' + restaurant.rid + '/' + articleId,
-            data:{
-                uid : user
+            data: {
+                uid: user
             },
             success: function (result) {
-                var ok = result.ok;
+                var like = result.like;
 
-                likeElm.parent().find('#likes-' + articleId).html(ok + 1);
+                likeElm.removeClass('fa-heart-o').addClass('fa-heart');
+                likeElm.css('color', '#ff4461');
+                likeElm.parent().find('.food-like-count').html();
+
+                likeElm.parent().find('#likes-' + articleId).html(like + 1);
             }
         });
     }
     else if (likeElm.hasClass('fa-heart')) {
-        likeElm.removeClass('fa-heart').addClass('fa-heart-o');
-        likeElm.css('color', '#666');
-        likeElm.parent().find('.food-like-count').html();
+
 
         var articleId = likeElm.parents('.content-wrapper').attr('articleId');
-        var likeCount = likeElm.parent().find('.food-like-count');
 
         common.ajax({
             url: '/api/cock/detail/dec/' + restaurant.rid + '/' + articleId,
-            success: function () {
-                console.log('안좋아염');
+            data: {
+                uid: user
+            },
+            success: function (result) {
+                var like = result.like;
+                likeElm.removeClass('fa-heart').addClass('fa-heart-o');
+                likeElm.css('color', '#666');
+                likeElm.parent().find('.food-like-count').html();
+                likeElm.parent().find('#likes-' + articleId).html(like - 1);
             }
         });
     }
