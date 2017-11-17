@@ -9,8 +9,8 @@ var rid = params.get('rid');
 var common = require('./common');
 var adminCommon = require('./admin/common.js');
 
-var mobileDevice = window.matchMedia('all and (min-width:320px) and (max-width:1024px)');
-var desktopDevice = window.matchMedia('all and (min-width:1025px)');
+var mobileDevice = window.matchMedia('screen and (min-width:320px) and (max-width:1024px)');
+var desktopDevice = window.matchMedia('screen and (min-width:1025px)');
 
 var signedIn = false;
 var user;
@@ -110,7 +110,6 @@ function settingBtn() {
                             }
                         }
                     });
-
                 }
             }
         });
@@ -200,7 +199,7 @@ function attachRestInfoEvent() {
             $(this).parents().find('.rest-submenu').hide(300);
         });
     }
-    else {
+    else if (mobileDevice.matches) {
         $('.header-title').on('touchstart', function () {
             $(this).parents().find('.rest-submenu').show(300);
         });
@@ -256,7 +255,7 @@ function initContents(restaurant) {
     setTemplate(restaurant);
 
     initRestInfo(restaurant);
-    initLikes(restaurant);
+    initLikes();
 
     sortBtn();
     settingBtn();
@@ -388,8 +387,8 @@ function likes(likeElm, restaurant) {
 
 // 윈도우 크기가 바뀔때
 $(window).resize(function () {
+    location.reload();
     attachRestInfoEvent();
-    initLikes();
 });
 
 // 윈도우 스크롤 할때
