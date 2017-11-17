@@ -251,26 +251,31 @@ function signIn() {
         },
         success: function (result) {
             // 탈퇴한 회원인지 아닌지 확인 하기 위해서
-            $.ajax({
-                url: '/api/member/get',
-                success: function (bann) {
-                    if (bann.bann === 'Y') {
-                        bannVall = bann.bann;
-                        signOut();
-                        return;
-                    }
-                    else {
-                        alert(result.nick + '님 반갑습니다.');
-                        closeMemberLayer(function () {
-                                location.href = location.href;
-                            }
-                        );
-                    }
+            if (result.bann === 'Y') {
+                bannVall = result.bann;
+                signOut();
+                return;
+            }
+            else {
+                // 관리자 인지 아닌지 확인하기 위해서.
+                if(result.master === 'Y'){
+                    alert('<관리자>' +  result.nick + '님 반갑습니다.');
+                    closeMemberLayer(function () {
+                            location.href = location.href;
+                        }
+                    );
+                }else{
+                    alert(result.nick + '님 반갑습니다.');
+                    closeMemberLayer(function () {
+                            location.href = location.href;
+                        }
+                    );
                 }
-            });
-
+            }
         }
     });
+
+
 }
 
 

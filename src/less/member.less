@@ -67,7 +67,7 @@
   text-align: center;
   margin: 20px 0 0 0;
 }
-
+// 내가 쓴글 리스트
 .cock-member-contents-wrote-table > thead > tr > th:last-child{
   border-right: 0;
 }
@@ -82,7 +82,7 @@
 
 .cock-member-contents-wrote-table > tbody > tr > td:first-child {
   text-align: center;
-  width: 60px;
+  max-width: 40px;
   border-right: solid 1px #dddddd;
 }
 
@@ -111,6 +111,7 @@
   color: #4285f4;
 }
 
+// 내가 즐겨찾기 한 맛집 리스트
 .cock-member-contents-bookmark {
   text-align: center;
   padding: 0 30px 20px 30px;
@@ -125,6 +126,8 @@
   border-right: solid 2px #dddddd;
   text-align: center;
 }
+
+
 .cock-member-contents-bookmark-table > thead > tr > th:last-child{
   border-right: 0px;
   text-align: center;
@@ -135,9 +138,18 @@
   cursor: pointer;
 }
 
+.cock-member-contents-bookmark-table > tbody > tr > td:first-child {
+  max-width: 40px;
+}
+
+.cock-member-contents-bookmark-table > tbody > tr > td:nth-child(n+4) {
+  width: 105px;
+}
+
 .cock-member-contents-bookmark-table > tbody > tr > td:last-child {
   border-right: 0px;
   cursor: pointer;
+  width: 10px;
 }
 
 .cock-member-contents-bookmark-table > tfoot > tr > td {

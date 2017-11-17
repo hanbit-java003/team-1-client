@@ -300,7 +300,7 @@ function cockJoin() {
         },
         success: function (result) {
             alert('정상적으로 가입되셨습니다.');
-            location.href = './join-food.html';
+            location.href = '../';
         },
         error: function (jqXHR) { // Xml Http Request
             alert(jqXHR.responseJSON.message);
