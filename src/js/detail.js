@@ -48,6 +48,7 @@ function setDesktop(restaurant) {
     $('#cock-restaurants-right').empty();
 
     for (var i = 0; i < restaurant.articles.length; i++) {
+        restaurant.articles[i].comment = _.replace(restaurant.articles[i].comment, /(?:\r\n|\r|\n)/g, '<br/>');
         var html = template(restaurant.articles[i]);
 
         if (i % 2 === 0) {
@@ -304,7 +305,8 @@ function initContents(restaurant) {
 
     // 신고 버튼
     $('.food-report').unbind('click').on('click', function () {
-        location.href = './report.html';
+        var articleId = $(this).parents('.content-wrapper').attr('articleId');
+        location.href = './report.html?rid='+ rid +'&articleId='+ articleId;
     });
 
     // 사진 클릭

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Cock Cock Admin</title>
+</head>
+<body>
+{{> ../template/admin/menu admin-alert-article="true"}}
+<div class="admin-contents">
+    <div class="contents-description">
+        <span class="rest-icon glyphicon glyphicon-minus-sign"></span>
+        신고 입력 내용
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="alert-title col-md-3">
+                맛집ID:
+            </div>
+            <div class="alert-article-rid cc-border col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="alert-title col-md-3">
+                기사ID:
+            </div>
+            <div class="alert-article-articleId cc-border col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="alert-title col-md-3">
+                신고ID:
+            </div>
+            <div class="alert-article-aaid cc-border col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="alert-title col-md-3">
+                신고 내용:
+            </div>
+            <div class="alert-article-report cc-border col-md-7"></div>
+        </div>
+        <div class="row">
+            <div class="alert-title col-md-3">
+                신고자:
+            </div>
+            <div class="alert-article-uid cc-border col-md-3"></div>
+        </div>
+    </div>
+    <div class="contents-description">
+        <span class="rest-icon glyphicon glyphicon-minus-sign"></span>
+        처리 대응 사항
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="dropdown col-md-2">
+                <button class="btn btn-default" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    상태 변경
+                    <span class="caret"></span>
+                </button>
+                <ul class="alert-dropdown dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li>
+                        정상
+                    </li>
+                    <li>
+                        보류
+                    </li>
+                    <li>
+                        삭제 대기
+                    </li>
+                    <li>
+                        삭제
+                    </li>
+                </ul>
+            </div>
+            <button class="alert-article-link btn btn-primary col-md-2">
+                해당식당으로 이동
+            </button>
+        </div>
+        <div class="row" style="margin-top: 15px">
+            <div class="form-group col-md-7">
+                <textarea id="article-textarea-apply" class="form-control" placeholder="처리사항 및 날짜를 입력해주세요."></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="contents-description">
+        <span class="rest-icon glyphicon glyphicon-minus-sign"></span>
+        처리 사항 적용
+    </div>
+    <div class="container">
+        <div class="row">
+            <button class="alert-article-save btn btn-success col-md-2">
+                처리사항 저장
+            </button>
+            <button class="alert-article-remove btn btn-danger col-md-2">
+                기사신고 삭제
+            </button>
+            <button class="alert-article-cencel btn btn-default col-md-2">
+                취소
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

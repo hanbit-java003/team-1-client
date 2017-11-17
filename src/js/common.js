@@ -64,11 +64,17 @@ $.ajax({
     url: '/api/member/get',
     success: function (result) {
         if (result.signedIn) {
+            user = result;
             templateHeader(result);
         }
     }
 });
 
+var user;
+
+function getUser() {
+    return user;
+}
 
 // 오른쪽 상단 버튼
 $('.header-bt').on('click', function () {
@@ -294,8 +300,9 @@ function closeMemberLayer(callback) {
 
 module.exports = {
     ajax: ajax,
+    getUser: getUser,
     signOut : signOut
-}
+};
 
 $('#admin-btn').on('click', function () {
     location.href = '/admin'
