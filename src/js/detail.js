@@ -7,6 +7,7 @@ var params = new UrlSearchParams(location.search);
 var rid = params.get('rid');
 
 var common = require('./common');
+var adminCommon = require('./admin/common.js');
 
 var mobileDevice = window.matchMedia('all and (min-width:320px) and (max-width:1024px)');
 var desktopDevice = window.matchMedia('all and (min-width:1025px)');
@@ -103,13 +104,27 @@ function settingBtn() {
                     alert('본인이 작성한 글만 삭제 가능합니다.');
                 }
                 else {
-                    common.ajax({
-                        url: '/api/cock/detail/' + rid + '/' + articleId,
-                        method: 'DELETE',
-                        success: function (result) {
-                            location.href = 'detail.html?rid=' + rid;
+                    adminCommon.openDialog({
+                        body: '&lt; 게시글 삭제 &gt;' +'<br>' + '<br>' + '정말 삭제하시겠습니까?',
+                        title: 'CockCock 게시글 삭제',
+                        buttons:[{
+                            id: 'delete',
+                            name: '게시글 삭제',
+                            style: 'danger'
+                        }],
+                        handler: function (btnId) {
+                            if (btnId == 'delete') {
+                                common.ajax({
+                                    url: '/api/cock/detail/' + rid + '/' + articleId,
+                                    method: 'DELETE',
+                                    success: function (result) {
+                                        location.href = 'detail.html?rid=' + rid;
+                                    }
+                                });
+                            }
                         }
                     });
+
                 }
             }
         });
