@@ -110,13 +110,9 @@ function bookmarkReview(bookmarkModel) {
                 var html = bookmarkReviewTemplate(bookmarkModel[i]);
 
                 $('.detail-review').html(html);
-
             }
-
         }
-
     });
-
 }
 
 function clickDetail() {
