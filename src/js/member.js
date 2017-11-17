@@ -343,6 +343,7 @@ function setCountBookmark() {
         }
     });
 }*/
+
 // 내가쓴 맛집 리스트
 function setWroteList(list){
     $('.cock-member-contents-wrote-table tbody').empty();
@@ -375,10 +376,10 @@ function setWroteList(list){
     // 리스트에서 클릭시 삭제
     $('.cock-member-contents-wrote-table tbody tr .cock-member-wrote-remove-btn').on('click', function (event) {
         event.stopPropagation();
-        DetailRemove($(this).attr('rid'), $(this).attr('articleId'));
+        WroteRemove($(this).attr('rid'), $(this).attr('articleId'));
     });
     
-    function DetailRemove(rid,articleId) {
+    function WroteRemove(rid,articleId) {
         adminCommon.openDialog({
            body: '&lt; 게시글 삭제 &gt;' +'<br>' + '<br>' + '정말 삭제하시겠습니까?',
            title: 'CockCock 게시글 삭제',
@@ -400,7 +401,6 @@ function setWroteList(list){
                 }
             }
         });
-        console.log(rid, articleId);
     }
 
 }
@@ -421,6 +421,41 @@ function setBookmarkList(list) {
 
     function goDetail(rid) {
         location.href = 'detail.html?rid=' + rid;
+    }
+
+    // 리스트 에서 클릭시 즐겨찾기 삭제
+    $('.cock-member-contents-bookmark-table tbody tr .cock-member-bookmark-remove-btn').on('click', function (event) {
+        event.stopPropagation();
+
+        BookmarkRemove($(this).attr('rid'));
+
+    });
+
+    function BookmarkRemove(rid) {
+        adminCommon.openDialog({
+            body: '&lt; 즐겨찾기 삭제 &gt;' +'<br>' + '<br>' + '정말 삭제하시겠습니까?',
+            title: 'CockCock 즐겨찾기 삭제',
+            buttons:[{
+                id: 'delete',
+                name: '즐겨찾기 삭제',
+                style: 'danger'
+            }],
+            handler: function (btnId) {
+                if(btnId === 'delete'){
+                    $.ajax({
+                        url: '/api/cock/member/bookmark/remove',
+                        data: {
+                            rid: rid
+                        },
+                        success: function (result) {
+                            alert('즐겨찾기에서 삭제되었습니다.');
+                            location.href = location.href;
+                        }
+                    });
+                }
+
+            }
+        });
     }
 }
 
