@@ -45,6 +45,10 @@ function setTemplate(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
     var mTemplate = require('../template/detail/retaurant_m.hbs');
 
+    $('#cock-restaurants-left').empty();
+    $('#cock-restaurants-right').empty();
+    $('#cock-restaurants-mobile').empty();
+
     for (var i = 0; i < restaurant.articles.length; i++) {
         var html = template(restaurant.articles[i]);
         var mHtml = mTemplate(restaurant.articles[i]);
