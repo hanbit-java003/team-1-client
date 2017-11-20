@@ -161,9 +161,8 @@ function openMemberLayer(memberInfo) {
             }
             else {
                 $('#cock-logout').on('click', function () {
-                    signOut();
                     kakaoLogout();
-                    location.href = '../';
+                    signOut();
                 });
                 $('#cock-setting').on('click', function () {
                     closeMemberLayer(function () {
@@ -239,6 +238,7 @@ function signOut() {
                 alert('탈퇴한 계정입니다.');
                 return;
             }
+            location.href = '../';
         }
     });
 }
