@@ -158,8 +158,8 @@ function openMemberLayer(memberInfo) {
             }
             else {
                 $('#cock-logout').on('click', function () {
-                    kakaoLogout();
                     signOut();
+                    kakaoLogout();
                     location.href = '../';
                 });
                 $('#cock-setting').on('click', function () {
@@ -351,6 +351,7 @@ function kakaoLogout() {
     if(Kakao.Auth.getRefreshToken()!=undefined&&Kakao.Auth.getRefreshToken().replace(/ /gi,"")!=""){
         kakaoLogout();
     }
+    location.href = '../';
 }
 
 
