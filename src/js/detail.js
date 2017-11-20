@@ -95,9 +95,9 @@ function settingBtn() {
                 }
                 else {
                     adminCommon.openDialog({
-                        body: '&lt; 게시글 삭제 &gt;' +'<br>' + '<br>' + '정말 삭제하시겠습니까?',
+                        body: '&lt; 게시글 삭제 &gt;' + '<br>' + '<br>' + '정말 삭제하시겠습니까?',
                         title: 'CockCock 게시글 삭제',
-                        buttons:[{
+                        buttons: [{
                             id: 'delete',
                             name: '게시글 삭제',
                             style: 'danger'
@@ -292,10 +292,36 @@ function initContents(restaurant) {
     });
 
     for (var i = 0; i < restaurant.articles.length; i++) {
+        var articleId = restaurant.articles[i].articleId;
         if (restaurant.articles[i].imgs.length > 1) {
-            $('#img-more-' + restaurant.articles[i].articleId).css('visibility', 'visible');
+            $('#img-more-' + articleId).css('visibility', 'visible');
+            $('#m-img-more-' + articleId).css('visibility', 'visible');
+
+            $('#img-more-' + articleId).unbind('click').on('click', function () {
+                initGallery(articleId);
+            });
+            $('#m-img-more-' + articleId).unbind('click').on('click', function () {
+                initGallery(articleId);
+            });
         }
     }
+}
+
+function initGallery(articleId) {
+    var template = require('../template/detail/gallery.hbs');
+    $('.detail-gallery-wrapper').empty();
+
+    common.ajax({
+        url: '/api/cock/detail/img/' + rid + '/' + articleId,
+        success: function (result) {
+            for (var i = 0; i < result.length; i++) {
+                var html = template(result[i]);
+                $('.detail-gallery-wrapper').append(html);
+                $('.detail-gallery-wrapper').css('visibility', 'visible');
+                console.log(html);
+            }
+        }
+    });
 }
 
 // 더보기
