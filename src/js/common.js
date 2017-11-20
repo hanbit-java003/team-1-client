@@ -6,6 +6,16 @@ _.move = require('lodash-move').default;
 
 var Search = require('./search/search-service');
 var search = new Search($('#search-input'));
+var script = require('scriptjs');
+
+script('//developers.kakao.com/sdk/js/kakao.min.js', function() {
+});
+
+// kakaoTalk 로그인
+/*scriptjs('//developers.kakao.com/sdk/js/kakao.js', function () {
+    kakaoLogin();
+});*/
+
 
 
 $('.header-logo').on('click', function () {
@@ -89,6 +99,10 @@ function openMemberLayer(memberInfo) {
 
     $('body').append(memberLayer);
 
+    // kakaoTalk 로그인
+    script('//developers.kakao.com/sdk/js/kakao.min.js', function() {
+    });
+
     $('.cock-member-layer').animate({
         right: '0px' // 몇으로 바꿀건지.
     }, {
@@ -133,7 +147,11 @@ function openMemberLayer(memberInfo) {
                 });
 
                 $('.cock-member-sns-kakao').on('click', function () {
-                    alert('카카오 준비중 입니다.');
+                    kakaoLogin();
+                });
+
+                $('#kakao-logout').on('click', function () {
+                   kakaoLogout();
                 });
 
                 $('#cock-login-email').focus();
@@ -141,6 +159,8 @@ function openMemberLayer(memberInfo) {
             else {
                 $('#cock-logout').on('click', function () {
                     signOut();
+                    kakaoLogout();
+                    location.href = '../';
                 });
                 $('#cock-setting').on('click', function () {
                     closeMemberLayer(function () {
@@ -216,7 +236,6 @@ function signOut() {
                 alert('탈퇴한 계정입니다.');
                 return;
             }
-            location.href = '../';
         }
     });
 }
@@ -276,6 +295,63 @@ function signIn() {
     });
 
 
+}
+
+
+// kakaoTalk 로그인
+function kakaoLogin() {
+    //카카오에서 받은 키
+    Kakao.init("53aaee2d65e52a4b5117bf7ed31572fc");
+    Kakao.Auth.login({
+       success: function (result) {
+           Kakao.API.request({
+              url: '/v1/user/me',
+              success: function (kakao) {
+                  snsSignIn(kakao);
+              }
+           });
+       }
+    });
+}
+
+function snsSignIn(kakao) {
+    var nick = kakao.properties.nickname;
+    var avatar = kakao.properties.profile_image;
+
+    console.log(nick);
+    console.log(avatar);
+
+
+    $.ajax({
+       url:'/api/member/snsSignin',
+        method: 'POST',
+        data : {
+           nick : nick,
+           avatar: avatar
+        },
+        success: function (result) {
+            closeMemberLayer(function () {
+                    alert('<카카오톡>'+ nick + '님 반갑습니다.');
+                    location.href = location.href;
+                }
+            );
+        },
+        error: function (jqXHR) {
+            alert(jqXHR.responseJSON.message);
+        }
+    });
+
+}
+
+//카카오톡 로그아웃
+function kakaoLogout() {
+    //카카오에서 받은 키
+    Kakao.init("53aaee2d65e52a4b5117bf7ed31572fc");
+    Kakao.Auth.logout();
+    if(Kakao.Auth.getRefreshToken()!=undefined&&Kakao.Auth.getRefreshToken().replace(/ /gi,"")!=""){
+        kakaoLogout();
+    }
+    location.href = '../';
 }
 
 
