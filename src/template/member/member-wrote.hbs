@@ -1,7 +1,9 @@
 {{~#each this~}}
-<tr rid="{{rid}}">
+<tr rid="{{rid}}" articleId = "{{articleId}}">
     <td>{{no}}</td>
     <td>{{name}}</td>
     <td>{{comment}}</td>
+    <td><button class="cock-member-wrote-info-btn btn btn-info btn-sm" rid="{{rid}}" articleId = "{{articleId}}">수정</button>
+        <button class="cock-member-wrote-remove-btn btn btn-danger btn-sm" rid="{{rid}}" articleId = "{{articleId}}">삭제</button></td>
 </tr>
 {{~/each}}

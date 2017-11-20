@@ -1,87 +1,38 @@
-{
-  "rid": 0,
-  "name": "미분당 신촌2호점",
-  "lat": 37.55662605051876,
-  "lng": 126.93523351103067,
-  "status": null,
-  "articles": [
-    {
-      "articleId": 0,
-      "rid": 0,
-      "comment": "국물이 끝내줌",
-      "status": null,
-      "likes": 0,
-      "hate": 0,
-      "writeDt": "2017-10-24 10:27:08",
-      "uid": "2XlRehENs3kP",
-      "nick": "야옹",
-      "avatar": "/api/file/avatar-2XlRehENs3kP",
-      "imgs": [
-        {
-          "imgId": 0,
-          "rid": 0,
-          "articleId": 0,
-          "path": "/api/file/art-DSC06911-0_0_0",
-          "menus": [
-            {
-              "id": 1,
-              "rid": 0,
-              "articleId": 0,
-              "imgId": 0,
-              "x": 163,
-              "y": 196,
-              "menu": "차돌박이 쌀국수",
-              "price": 7500
-            }
-          ]
-        },
-        {
-          "imgId": 1,
-          "rid": 0,
-          "articleId": 0,
-          "path": "/api/file/art-20150930_7703-0_0_1",
-          "menus": [
-            {
-              "id": 1,
-              "rid": 0,
-              "articleId": 0,
-              "imgId": 1,
-              "x": 124,
-              "y": 202,
-              "menu": "차돌 양지 쌀국수",
-              "price": 8000
-            }
-          ]
-        }
-      ],
-      "tags": [
-        {
-          "tagId": 0,
-          "rid": 0,
-          "articleId": 0,
-          "tag": "쌀국수"
-        },
-        {
-          "tagId": 1,
-          "rid": 0,
-          "articleId": 0,
-          "tag": "미분당"
-        },
-        {
-          "tagId": 2,
-          "rid": 0,
-          "articleId": 0,
-          "tag": "신촌맛집"
-        }
-      ],
-      "menus": null,
-      "emblems": [
-        {
-          "name": "signin",
-          "img": "../img/emblem/confetti.png",
-          "howAchieve": "회원가입을 축하합니다."
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "imgId": 0,
+    "rid": 0,
+    "articleId": 0,
+    "path": "/api/file/art-DSC06911-0_0_0",
+    "menus": [
+      {
+        "id": 1,
+        "rid": 0,
+        "articleId": 0,
+        "imgId": 0,
+        "x": 163,
+        "y": 196,
+        "menu": "차돌박이 쌀국수",
+        "price": 7500
+      }
+    ]
+  },
+  {
+    "imgId": 1,
+    "rid": 0,
+    "articleId": 0,
+    "path": "/api/file/art-20150930_7703-0_0_1",
+    "menus": [
+      {
+        "id": 1,
+        "rid": 0,
+        "articleId": 0,
+        "imgId": 1,
+        "x": 124,
+        "y": 202,
+        "menu": "차돌 양지 쌀국수",
+        "price": 8000
+      }
+    ]
+  }
+]

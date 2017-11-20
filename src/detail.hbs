@@ -24,10 +24,22 @@
             <!-- template restaurants.hbs 전부 -->
         </div>
     </div>
+    <div class="fotorama-wrap detail-gallery-wrapper">
+        <div class="fotorama"
+             data-width="700"
+             data-ratio="3/2"
+             data-nav="thumbs"
+             data-thumbheight="48">
+
+        </div>
+    </div>
     <button class="go-top-btn">
         <i class="fa fa-chevron-up"></i>
     </button>
 </section>
 {{> template/footer}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
 </body>
 </html>

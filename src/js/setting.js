@@ -282,7 +282,7 @@ $('.cock-setting-save').on('click', function () {
         error : function (jqXHR) { // Xml Http Request
             if(jqXHR.responseJSON.message ==='현재 패스워드가 일치하지 않습니다.'){
             alert(jqXHR.responseJSON.message);
-                $('#cock-member-pw-input').focus();
+                $('#cock-member-cpw-input').focus();
             }
             else{
                 alert('중복된 별명이 있습니다.');

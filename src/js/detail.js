@@ -7,9 +7,10 @@ var params = new UrlSearchParams(location.search);
 var rid = params.get('rid');
 
 var common = require('./common');
+var adminCommon = require('./admin/common.js');
 
-var mobileDevice = window.matchMedia('all and (min-width:320px) and (max-width:1024px)');
-var desktopDevice = window.matchMedia('all and (min-width:1025px)');
+var mobileDevice = window.matchMedia('screen and (min-width:320px) and (max-width:1024px)');
+var desktopDevice = window.matchMedia('screen and (min-width:1025px)');
 
 var signedIn = false;
 var user;
@@ -40,15 +41,17 @@ common.ajax({
     }
 });
 
-/* 데스크탑 */
-function setDesktop(restaurant) {
+function setTemplate(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
+    var mTemplate = require('../template/detail/retaurant_m.hbs');
 
     $('#cock-restaurants-left').empty();
     $('#cock-restaurants-right').empty();
+    $('#cock-restaurants-mobile').empty();
 
     for (var i = 0; i < restaurant.articles.length; i++) {
         var html = template(restaurant.articles[i]);
+        var mHtml = mTemplate(restaurant.articles[i]);
 
         if (i % 2 === 0) {
             $('#cock-restaurants-left').append(html);
@@ -56,25 +59,13 @@ function setDesktop(restaurant) {
         else {
             $('#cock-restaurants-right').append(html);
         }
-    }
-}
-
-/* 모바일 */
-function setMobile(restaurant) {
-    var template = require('../template/detail/restaurant.hbs');
-
-    $('#cock-restaurants-mobile').empty();
-
-    for (var i = 0; i < restaurant.articles.length; i++) {
-        var html = template(restaurant.articles[i]);
-
-        $('#cock-restaurants-mobile').append(html);
+        $('#cock-restaurants-mobile').append(mHtml);
     }
 }
 
 // article 수정/삭제 버튼
 function settingBtn() {
-    $('.card-setting').unbind('click').on('click', function (e) {
+    $('.card-setting').unbind('click').on('click', function () {
         $(this).find('.setting-menu').show();
 
         var articleId = $(this).parents('.content-wrapper').attr('articleId');
@@ -103,11 +94,24 @@ function settingBtn() {
                     alert('본인이 작성한 글만 삭제 가능합니다.');
                 }
                 else {
-                    common.ajax({
-                        url: '/api/cock/detail/' + rid + '/' + articleId,
-                        method: 'DELETE',
-                        success: function (result) {
-                            location.href = 'detail.html?rid=' + rid;
+                    adminCommon.openDialog({
+                        body: '&lt; 게시글 삭제 &gt;' + '<br>' + '<br>' + '정말 삭제하시겠습니까?',
+                        title: 'CockCock 게시글 삭제',
+                        buttons: [{
+                            id: 'delete',
+                            name: '게시글 삭제',
+                            style: 'danger'
+                        }],
+                        handler: function (btnId) {
+                            if (btnId == 'delete') {
+                                common.ajax({
+                                    url: '/api/cock/detail/' + rid + '/' + articleId,
+                                    method: 'DELETE',
+                                    success: function (result) {
+                                        location.href = 'detail.html?rid=' + rid;
+                                    }
+                                });
+                            }
                         }
                     });
                 }
@@ -168,7 +172,7 @@ function setLogo(restaurant) {
 }
 
 /* 맛집 간략정보 팝업 설정 */
-function initRestInfo(restaurant) {
+function initRestInfo() {
     var template = require('../template/rest-info.hbs');
 
     $('.rest-submenu').empty();
@@ -199,7 +203,7 @@ function attachRestInfoEvent() {
             $(this).parents().find('.rest-submenu').hide(300);
         });
     }
-    else {
+    else if (mobileDevice.matches) {
         $('.header-title').on('touchstart', function () {
             $(this).parents().find('.rest-submenu').show(300);
         });
@@ -245,21 +249,6 @@ function init(sort) {
     });
 }
 
-function initLikes(restaurant) {
-    common.ajax({
-        url: 'api/cock/detail/likes/' + rid,
-        success: function (result) {
-            for (var i = 0; i < restaurant.articles.length; i++) {
-                for (var j = 0; j < result.length; j++) {
-                    if (user === result[j].uid) {
-                        $('#like-icon-' + result[j].articleId).removeClass('fa-heart-o').addClass('fa-heart').css('color', '#ff4461');
-                    }
-                }
-            }
-        }
-    });
-}
-
 // articles 초기화
 function initContents(restaurant) {
     if (restaurant.articles.length === 0) {
@@ -267,11 +256,10 @@ function initContents(restaurant) {
     }
 
     setLogo(restaurant);
-    setDesktop(restaurant);
-    setMobile(restaurant);
+    setTemplate(restaurant);
 
     initRestInfo(restaurant);
-    initLikes(restaurant);
+    initLikes();
 
     sortBtn();
     settingBtn();
@@ -284,22 +272,6 @@ function initContents(restaurant) {
     // 이 글에 동의합니다 버튼 (좋아요)
     $('.food-like').unbind('click').on('click', function () {
         likes($(this), restaurant);
-    });
-
-    // 이 글에 반대합니다 버튼 (쓰레기)
-    $('.food-trash').unbind('click').on('click', function () {
-        if ($(this).hasClass('fa-trash-o')) {
-            $(this).removeClass('fa-trash-o').addClass('fa-trash');
-            $(this).css('color', '#ff4461');
-            $(this).parent().find('.food-trash-count').html();
-            console.log('쓰레기 추가');
-        }
-        else if ($(this).hasClass('fa-trash')) {
-            $(this).removeClass('fa-trash').addClass('fa-trash-o');
-            $(this).css('color', '#bbb');
-            $(this).parent().find('.food-trash-count').html();
-            console.log('쓰레기 삭제');
-        }
     });
 
     // 신고 버튼
@@ -320,10 +292,36 @@ function initContents(restaurant) {
     });
 
     for (var i = 0; i < restaurant.articles.length; i++) {
+        var articleId = restaurant.articles[i].articleId;
         if (restaurant.articles[i].imgs.length > 1) {
-            $('#img-more-' + restaurant.articles[i].articleId).css('visibility', 'visible');
+            $('#img-more-' + articleId).css('visibility', 'visible');
+            $('#m-img-more-' + articleId).css('visibility', 'visible');
+
+            $('#img-more-' + articleId).unbind('click').on('click', function () {
+                initGallery(articleId);
+            });
+            $('#m-img-more-' + articleId).unbind('click').on('click', function () {
+                initGallery(articleId);
+            });
         }
     }
+}
+
+function initGallery(articleId) {
+    var template = require('../template/detail/gallery.hbs');
+    $('.detail-gallery-wrapper').empty();
+
+    common.ajax({
+        url: '/api/cock/detail/img/' + rid + '/' + articleId,
+        success: function (result) {
+            for (var i = 0; i < result.length; i++) {
+                var html = template(result[i]);
+                $('.detail-gallery-wrapper').append(html);
+                $('.detail-gallery-wrapper').css('visibility', 'visible');
+                console.log(html);
+            }
+        }
+    });
 }
 
 // 더보기
@@ -361,16 +359,33 @@ function articleOpen(more) {
 }
 
 // 좋아요
+function initLikes() {
+    common.ajax({
+        url: 'api/cock/detail/likes/' + rid,
+        success: function (result) {
+            for (var i = 0; i < result.length; i++) {
+                if (user === result[i].uid) {
+                    $('#like-icon-' + result[i].articleId)
+                        .removeClass('fa-heart-o').addClass('fa-heart')
+                        .css('color', '#ff4461');
+                    $('#m-like-icon-' + result[i].articleId)
+                        .removeClass('fa-heart-o').addClass('fa-heart')
+                        .css('color', '#ff4461');
+                }
+            }
+        }
+    });
+}
+
 function likes(likeElm, restaurant) {
     if (!signedIn) {
         alert('로그인 상태가 아닙니다.');
         return;
     }
 
+    var articleId = likeElm.parents('.content-wrapper').attr('articleId');
+
     if (likeElm.hasClass('fa-heart-o')) {
-
-        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
-
         common.ajax({
             url: '/api/cock/detail/inc/' + restaurant.rid + '/' + articleId,
             data: {
@@ -378,20 +393,13 @@ function likes(likeElm, restaurant) {
             },
             success: function (result) {
                 var like = result.like;
-
                 likeElm.removeClass('fa-heart-o').addClass('fa-heart');
                 likeElm.css('color', '#ff4461');
-                likeElm.parent().find('.food-like-count').html();
-
                 likeElm.parent().find('#likes-' + articleId).html(like + 1);
             }
         });
     }
     else if (likeElm.hasClass('fa-heart')) {
-
-
-        var articleId = likeElm.parents('.content-wrapper').attr('articleId');
-
         common.ajax({
             url: '/api/cock/detail/dec/' + restaurant.rid + '/' + articleId,
             data: {
@@ -401,7 +409,6 @@ function likes(likeElm, restaurant) {
                 var like = result.like;
                 likeElm.removeClass('fa-heart').addClass('fa-heart-o');
                 likeElm.css('color', '#666');
-                likeElm.parent().find('.food-like-count').html();
                 likeElm.parent().find('#likes-' + articleId).html(like - 1);
             }
         });
@@ -410,6 +417,7 @@ function likes(likeElm, restaurant) {
 
 // 윈도우 크기가 바뀔때
 $(window).resize(function () {
+    location.reload();
     attachRestInfoEvent();
 });
 

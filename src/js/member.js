@@ -3,6 +3,8 @@ require('../less/member.less');
 
 var common = require('./common.js');
 
+var adminCommon = require('./admin/common');
+
 var bookmark = require('../js/bookmark-review.js');
 
 
@@ -341,6 +343,7 @@ function setCountBookmark() {
         }
     });
 }*/
+
 // 내가쓴 맛집 리스트
 function setWroteList(list){
     $('.cock-member-contents-wrote-table tbody').empty();
@@ -350,21 +353,56 @@ function setWroteList(list){
 
     $('.cock-member-contents-wrote-table tbody').html(memberWroteHtml);
 
-    // 리스트 에서 클릭시 수정 및 삭제
+    // 리스트 에서 클릭시 detail 페이지로 넘어감.
     $('.cock-member-contents-wrote-table tbody tr').on('click', function () {
-        console.log('실행');
-        /*goDetail($(this).attr('rid'));*/
+        goDetail($(this).attr('rid'));
     });
 
-    function closeSetting(e) {
-        var container = $('.setting-menu');
-        if (container.has(e.target).length === 0) {
-            container.hide();
-        }
+    function goDetail(rid) {
+        location.href = 'detail.html?rid=' + rid;
     }
-    $(document).mouseup(function (e) {
-        closeSetting(e);
+
+    // 리스트 에서 클릭시 수정
+    $('.cock-member-contents-wrote-table tbody tr .cock-member-wrote-info-btn').on('click', function (event) {
+        event.stopPropagation();
+        goDetailModify($(this).attr('rid'), $(this).attr('articleId'));
     });
+    
+    function goDetailModify(rid,articleId) {
+        location.href = './insert.html?rid=' + rid + '&articleId=' + articleId;
+    }
+
+
+    // 리스트에서 클릭시 삭제
+    $('.cock-member-contents-wrote-table tbody tr .cock-member-wrote-remove-btn').on('click', function (event) {
+        event.stopPropagation();
+        WroteRemove($(this).attr('rid'), $(this).attr('articleId'));
+    });
+    
+    function WroteRemove(rid,articleId) {
+        adminCommon.openDialog({
+           body: '&lt; 게시글 삭제 &gt;' +'<br>' + '<br>' + '정말 삭제하시겠습니까?',
+           title: 'CockCock 게시글 삭제',
+            buttons:[{
+                id: 'delete',
+                name: '게시글 삭제',
+                style: 'danger'
+            }],
+            handler: function (btnId) {
+                if (btnId == 'delete') {
+                    common.ajax({
+                        url: '/api/cock/detail/' + rid + '/' + articleId,
+                        method: 'DELETE',
+                        success: function (result) {
+                            alert('게시글이 삭제 되었습니다.');
+                            location.href = location.href;
+                        }
+                    });
+                }
+            }
+        });
+    }
+
 }
 
 // 내가 즐겨찾기 한 리스트
@@ -383,6 +421,41 @@ function setBookmarkList(list) {
 
     function goDetail(rid) {
         location.href = 'detail.html?rid=' + rid;
+    }
+
+    // 리스트 에서 클릭시 즐겨찾기 삭제
+    $('.cock-member-contents-bookmark-table tbody tr .cock-member-bookmark-remove-btn').on('click', function (event) {
+        event.stopPropagation();
+
+        BookmarkRemove($(this).attr('rid'));
+
+    });
+
+    function BookmarkRemove(rid) {
+        adminCommon.openDialog({
+            body: '&lt; 즐겨찾기 삭제 &gt;' +'<br>' + '<br>' + '정말 삭제하시겠습니까?',
+            title: 'CockCock 즐겨찾기 삭제',
+            buttons:[{
+                id: 'delete',
+                name: '즐겨찾기 삭제',
+                style: 'danger'
+            }],
+            handler: function (btnId) {
+                if(btnId === 'delete'){
+                    $.ajax({
+                        url: '/api/cock/member/bookmark/remove',
+                        data: {
+                            rid: rid
+                        },
+                        success: function (result) {
+                            alert('즐겨찾기에서 삭제되었습니다.');
+                            location.href = location.href;
+                        }
+                    });
+                }
+
+            }
+        });
     }
 }
 
