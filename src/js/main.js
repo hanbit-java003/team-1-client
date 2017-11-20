@@ -46,6 +46,7 @@ var marker;
 var i;
 var spoon;
 var infoWindow;
+var currentPosition = {};
 
 function initMainMap(position) {
     loadGoogleMapsApi().then(function (_googleMaps) {
@@ -55,6 +56,9 @@ function initMainMap(position) {
 
         if ($('#nearby-rest').hasClass('active')) {
 
+            currentPosition.lat = position.coords.latitude;
+            currentPosition.lng = position.coords.longitude;
+
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
                 // 지도 확대 비율
@@ -62,16 +66,28 @@ function initMainMap(position) {
                 // 지도 스크롤 설정 off
                 scrollwheel: false,
                 // 지도 센터 설정
-                center: new googleMaps.LatLng(position.coords.latitude, position.coords.longitude) // 현재 위치
+                center: new googleMaps.LatLng(currentPosition.lat, currentPosition.lng) // 현재 위치
             };
 
             // 지도 생성
             map = new googleMaps.Map($('#main-map')[0], mapOptions);
-            // 스푼 마커 이미지
-            // spoon = '../img/spoon_red.png';
+
+            map.addListener('dragend', function () {
+                currentPosition.lat = map.getCenter().lat();
+                currentPosition.lng = map.getCenter().lng();
+
+                if ($('#sort-latest').hasClass('active')) {
+                    initLatestRest();
+                }
+                else if ($('#sort-article').hasClass('active')) {
+                    initArticleRest();
+                }
+
+            });
 
             initSort();
             initLatestRest();
+
         }
         else if ($('#recommend-rest').hasClass('active')) {
 
@@ -99,7 +115,9 @@ function initMainMap(position) {
                 })(marker, i));
             }
 
+            initSort();
             initRecommend(contentsRecommend);
+
         }
     }).catch(function (error) {
         console.error(error);
@@ -204,31 +222,41 @@ function clkSort() {
     });
 }
 
+// var latestArticle;
 
-var latestArticle;
 function initLatestRest() {
     $.ajax({
-        url: '/api/cock/rest/latest',
+        url: '/api/cock/rest/latest/' + currentPosition.lat + ',' + currentPosition.lng + '/',
         success: function (result) {
-            initNearby(result);
+            if (result.length === 0) {
+                $('.contents-nearby').empty();
+                $('.card-contents-sort').hide();
+                $('.result_empty').show();
+            }
+            else {
+                $('.card-contents-sort').show();
+                $('.result_empty').hide();
 
-            latestArticle = result;
+                initNearby(result);
 
-            // 마커 추가
-            for (i = 0; i < result.length; i++) {
-                marker = new googleMaps.Marker({
-                    position: new googleMaps.LatLng(result[i].lat, result[i].lng),
-                    map: map,
-                    icon: '../img/insert/red-dot.png'
-                });
+                // latestArticle = result;
 
-                // 마커 클릭시 타이틀 팝업
-                googleMaps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infoWindow.setContent(result[i].name);
-                        infoWindow.open(map, marker);
-                    }
-                })(marker, i));
+                // 마커 추가
+                for (i = 0; i < result.length; i++) {
+                    marker = new googleMaps.Marker({
+                        position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                        map: map,
+                        icon: '../img/insert/red-dot.png'
+                    });
+
+                    // 마커 클릭시 타이틀 팝업
+                    googleMaps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infoWindow.setContent(result[i].name);
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
             }
         }
     });
@@ -236,32 +264,39 @@ function initLatestRest() {
 
 function initArticleRest() {
     $.ajax({
-        url: '/api/cock/rest/article',
+        url: '/api/cock/rest/article/' + currentPosition.lat + ',' + currentPosition.lng + '/',
         success: function (result) {
-            initNearby(result);
+            if (result.length === 0) {
+                $('.contents-nearby').empty();
+                $('.card-contents-sort').hide();
+                $('.result_empty').show();
+            }
+            else {
+                $('.card-contents-sort').show();
+                $('.result_empty').hide();
 
+                initNearby(result);
 
+                for (i = 0; i < result.length; i++) {
+                    marker = new googleMaps.Marker({
+                        position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                        map: map,
+                        icon: '../img/insert/red-dot.png'
+                    });
 
-            for (i = 0; i < result.length; i++) {
-                marker = new googleMaps.Marker({
-                    position: new googleMaps.LatLng(result[i].lat, result[i].lng),
-                    map: map,
-                    icon: '../img/insert/red-dot.png'
-                });
-
-                googleMaps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infoWindow.setContent(result[i].name);
-                        infoWindow.open(map, marker);
-                    }
-                })(marker, i));
-
-
+                    googleMaps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infoWindow.setContent(result[i].name);
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
             }
         }
     });
 }
 
+// dragMap();
 
 // 로그인 상태에서 즐겨찾기 가져오기
 /* 문기*/
@@ -295,6 +330,28 @@ function initNearby(contentsNearby) {
         $('.contents-nearby').append(nearbyHtml);
     }
 
+    $.ajax({
+        url: '/api/cock/rest/tags',
+        success: function (result) {
+            // console.log(result);
+
+            var restTags = {
+                rid: {},
+                tag: [{
+                    item: {}
+                }]
+            };
+
+            for (var i=0; i<result.length; i++) {
+                restTags.rid = result[i].rid;
+                restTags.tag.item = result[i].tag.split(',');
+
+                // console.log(restTags.rid);
+                // console.log(restTags.tag.item);
+            }
+        }
+    });
+
     // 리스트 클릭하면 상세 페이지로 이동
     $('.card-contents-list > li').on('click', function () {
         goDetail($(this).attr('rid'));
@@ -322,6 +379,12 @@ function initRecommend(contentsRecommend) {
     clkTag();
     hoverContents();
 }
+
+function initTags() {
+
+}
+
+initTags();
 
 // 즐겨찾기
 function clkFavorite() {
