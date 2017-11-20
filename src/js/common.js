@@ -102,6 +102,9 @@ function openMemberLayer(memberInfo) {
     // kakaoTalk 로그인
     script('//developers.kakao.com/sdk/js/kakao.min.js', function() {
     });
+    // 네이버 로그인
+    script("https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js", function () {
+    });
 
     $('.cock-member-layer').animate({
         right: '0px' // 몇으로 바꿀건지.
@@ -143,7 +146,7 @@ function openMemberLayer(memberInfo) {
                 });
 
                 $('.cock-member-sns-naver').on('click', function () {
-                    alert('네이버 준비중 입니다.');
+                    naverLogin();
                 });
 
                 $('.cock-member-sns-kakao').on('click', function () {
@@ -305,7 +308,7 @@ function kakaoLogin() {
     Kakao.Auth.login({
        success: function (result) {
            Kakao.API.request({
-              url: '/v1/user/me',
+               url: '/v1/user/me',
               success: function (kakao) {
                   snsSignIn(kakao);
               }
@@ -351,9 +354,22 @@ function kakaoLogout() {
     if(Kakao.Auth.getRefreshToken()!=undefined&&Kakao.Auth.getRefreshToken().replace(/ /gi,"")!=""){
         kakaoLogout();
     }
-    location.href = '../';
 }
 
+// 네이버 로그인
+function naverLogin() {                     //클라이언트 id         //콜백 url
+    var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/");
+    var state = naverIdLogin; // 서비스 url
+    naverIdLogin.setDomain("http://localhost:88/");
+    naverIdLogin.setState(state);
+    naverIdLogin.setPopup();
+    naverIdLogin.init_naver_id_login();
+
+    naverCallback(naverIdLogin);
+}
+
+function naverCallback(naverIdLogin) {
+}
 
 // 닫아버려
 function closeMemberLayer(callback) {
