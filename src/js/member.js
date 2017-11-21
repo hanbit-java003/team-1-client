@@ -281,8 +281,16 @@ function requestWroteList(page) {
             page: page
         },
         success: function (result) {
-            currentPageWrote = page;
-            setWroteList(result);
+            if(result.length === 0){
+                $('.cock-member-contents-wrote-table').hide();
+                $('.paging-box .pagination-wrote').hide();
+                $('.cock-member-result-wrote').show();
+            }
+            else{
+                currentPageWrote = page;
+                setWroteList(result);
+            }
+
         }
     })
 }
@@ -295,9 +303,17 @@ function requestBookmarkList(page) {
             page: page
         },
         success: function (result) {
-            /*console.log('실행실행');*/
-            currentPageBookmark = page;
-            setBookmarkList(result);
+            if(result.length === 0) {
+                $('.cock-member-contents-bookmark-table').hide();
+                $('.paging-box .pagination-bookmark').hide();
+                $('.cock-member-result-bookmark').show();
+            }
+            else{
+                /*console.log('실행실행');*/
+                currentPageBookmark = page;
+                setBookmarkList(result);
+            }
+
         }
     })
 }

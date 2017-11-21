@@ -372,18 +372,29 @@ function kakaoLogout() {
 
 // 네이버 로그인
 function naverLogin() {                     //클라이언트 id         //콜백 url
-    var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/");
+    var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://naver.com");
     var state = naverIdLogin; // 서비스 url
     naverIdLogin.setDomain("http://localhost:88/");
     naverIdLogin.setState(state);
     naverIdLogin.setPopup();
     naverIdLogin.init_naver_id_login();
+    console.log(naverIdLogin);
 
-    naverCallback(naverIdLogin);
+    naverCallback();
 }
 
-function naverCallback(naverIdLogin) {
-
+function naverCallback() {
+    var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/");
+    // 접근 토큰 값 출력
+    console.log(naverIdLogin.oauthParams.access_token);
+    // 네이버 사용자 프로필 조회
+    naverIdLogin.get_naver_userprofile(naverSignInCallback());
+    // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+    function naverSignInCallback() {
+        console.log(naverIdLogin.getProfileData('email'));
+        console.log(naverIdLogin.getProfileData('nickname'));
+        console.log(naverIdLogin.getProfileData('age'));
+    }
 }
 
 //페이스북 로그인
