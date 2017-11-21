@@ -5,9 +5,6 @@ var common = require('./common');
 var join = require('./join');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
-// 추천 맛집 모델
-var contentsRecommend = require('./model/card-contents-recommend');
-
 loadGoogleMapsApi.key = 'AIzaSyDmSxIrhoC4OAiGOtO6ddcFCwSMRbgfPGs';
 loadGoogleMapsApi.language = 'ko';
 loadGoogleMapsApi.version = '3';
@@ -44,9 +41,9 @@ var googleMaps;
 var map;
 var marker;
 var i;
-var spoon;
 var infoWindow;
 var currentPosition = {};
+var fork;
 
 function initMainMap(position) {
     loadGoogleMapsApi().then(function (_googleMaps) {
@@ -76,13 +73,15 @@ function initMainMap(position) {
                 currentPosition.lat = map.getCenter().lat();
                 currentPosition.lng = map.getCenter().lng();
 
+                // console.log('lat : ' + currentPosition.lat);
+                // console.log('lng : ' + currentPosition.lng);
+
                 if ($('#sort-latest').hasClass('active')) {
                     initLatestRest();
                 }
                 else if ($('#sort-article').hasClass('active')) {
                     initArticleRest();
                 }
-
             });
 
             initSort();
@@ -91,33 +90,37 @@ function initMainMap(position) {
         }
         else if ($('#recommend-rest').hasClass('active')) {
 
-            var mapOptions = {
-                zoom: 16,
-                scrollwheel: false,
-                center: new googleMaps.LatLng(contentsRecommend[0].lat, contentsRecommend[0].lng)
-            };
+            $.ajax({
+                url: '/api/cock/rest/recommend',
+                success: function (result) {
+                    var mapOptions = {
+                        zoom: 16,
+                        scrollwheel: false,
+                        center: new googleMaps.LatLng(result[0].lat, result[0].lng)
+                    };
 
-            map = new googleMaps.Map($('#main-map')[0], mapOptions);
-            // spoon = '../img/spoon_blue.png';
+                    map = new googleMaps.Map($('#main-map')[0], mapOptions);
+                    fork = '../img/fork-blue.png';
 
-            for (i = 0; i < contentsRecommend.length; i++) {
-                marker = new googleMaps.Marker({
-                    position: new googleMaps.LatLng(contentsRecommend[i].lat, contentsRecommend[i].lng),
-                    map: map,
-                    icon: '../img/insert/blue-dot.png'
-                });
+                    for (i = 0; i < result.length; i++) {
+                        marker = new googleMaps.Marker({
+                            position: new googleMaps.LatLng(result[i].lat, result[i].lng),
+                            map: map,
+                            icon: fork
+                        });
 
-                googleMaps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infoWindow.setContent(contentsRecommend[i].title);
-                        infoWindow.open(map, marker);
+                        googleMaps.event.addListener(marker, 'click', (function (marker, i) {
+                            return function () {
+                                infoWindow.setContent(result[i].title);
+                                infoWindow.open(map, marker);
+                            }
+                        })(marker, i));
                     }
-                })(marker, i));
-            }
 
-            initSort();
-            initRecommend(contentsRecommend);
-
+                    initSort();
+                    initRecommend(result);
+                }
+            });
         }
     }).catch(function (error) {
         console.error(error);
@@ -224,6 +227,7 @@ function clkSort() {
 
 // var latestArticle;
 
+// 최신 순
 function initLatestRest() {
     $.ajax({
         url: '/api/cock/rest/latest/' + currentPosition.lat + ',' + currentPosition.lng + '/',
@@ -241,12 +245,14 @@ function initLatestRest() {
 
                 // latestArticle = result;
 
+                fork = '../img/fork-red.png';
+
                 // 마커 추가
                 for (i = 0; i < result.length; i++) {
                     marker = new googleMaps.Marker({
                         position: new googleMaps.LatLng(result[i].lat, result[i].lng),
                         map: map,
-                        icon: '../img/insert/red-dot.png'
+                        icon: fork
                     });
 
                     // 마커 클릭시 타이틀 팝업
@@ -262,6 +268,7 @@ function initLatestRest() {
     });
 }
 
+// 게시글 순
 function initArticleRest() {
     $.ajax({
         url: '/api/cock/rest/article/' + currentPosition.lat + ',' + currentPosition.lng + '/',
@@ -277,11 +284,13 @@ function initArticleRest() {
 
                 initNearby(result);
 
+                fork = '../img/fork-red.png';
+
                 for (i = 0; i < result.length; i++) {
                     marker = new googleMaps.Marker({
                         position: new googleMaps.LatLng(result[i].lat, result[i].lng),
                         map: map,
-                        icon: '../img/insert/red-dot.png'
+                        icon: fork
                     });
 
                     googleMaps.event.addListener(marker, 'click', (function (marker, i) {
@@ -375,9 +384,14 @@ function initRecommend(contentsRecommend) {
         $('.contents-recommend').append(recommendHtml);
     }
 
+    $('.card-contents-list > li').on('click', function () {
+        goDetail($(this).attr('rid'));
+    });
+
     clkFavorite();
     clkTag();
     hoverContents();
+    cockSignedInFavorite(contentsRecommend);
 }
 
 function initTags() {
@@ -493,6 +507,7 @@ function clkTag() {
 }
 
 var mainColor = '#f99595';
+var defaultColor = '#5e5e5e';
 
 // 맛집 리스트 마우스오버 이벤트
 function hoverContents() {
@@ -512,16 +527,16 @@ function hoverContents() {
         map.panTo(myLatLng);
 
         if ($(this).parents('#nearby-rest-contents').hasClass('active')) {
-            spoon = '../img/insert/blue-dot.png'
+            fork = '../img/fork-red.png';
         }
         else if ($(this).parents('#recommend-rest-contents').hasClass('active')) {
-            spoon = '../img/insert/red-dot.png'
+            fork = '../img/fork-blue.png';
         }
 
         marker = new googleMaps.Marker({
             position: new googleMaps.LatLng(myLatLng),
             map: map,
-            icon: spoon
+            icon: fork
         });
 
         infoWindow.setContent(iwTitle);
@@ -532,8 +547,8 @@ function hoverContents() {
     $('.card-contents-list > li').on('mouseleave', function () {
         var cardContents = $(this).find('.card-contents');
 
-        cardContents.find('.card-contents-title').css('color', '#5e5e5e');
-        cardContents.find('.card-contents-count').css('color', '#5e5e5e');
+        cardContents.find('.card-contents-title').css('color', defaultColor);
+        cardContents.find('.card-contents-count').css('color', defaultColor);
 
         marker.setMap(null);
     });
