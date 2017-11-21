@@ -11,7 +11,10 @@ common.ajax({
             alert('로그인이 필요한 페이지 입니다.');
             location.href= '/'; // 기본홈으로 돌려보냄.
         }
-        masterVall(result);
+        if(result.signedIn){
+            masterVall(result);
+        }
+
     }
 });
 

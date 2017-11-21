@@ -380,7 +380,7 @@ function naverCallback(naverIdLogin) {
 
 //페이스북 로그인
 function facebookLogin() {
-    console.log();
+    alert('페이스북 준비중 입니다');
     Window.fbAsyncInit = function () {
         FB.init({
             appId: '{147859285970827}', // 앱 ID
