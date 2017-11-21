@@ -7,13 +7,14 @@ var adminCommon = require('./admin/common');
 
 var bookmark = require('../js/bookmark-review.js');
 
-
+var nick;
 common.ajax({
     url:'/api/member/get',
     success: function (result) {
         if (!result.signedIn) {
             location.href= '/'; // 기본홈으로 돌려보냄.
         }
+        nick = result.nick;
         getMemberDetail();
     }
 });
@@ -28,7 +29,7 @@ function getMemberDetail() {
 }
 
 function init(member) {
-    $('.cock-member-info-welcome').append('<span class="cock-member-info-nick">'+member.nick+'</span>'+'님의 회원 정보');
+    $('.cock-member-info-welcome').append('<span class="cock-member-info-nick">'+nick+'</span>'+'님의 회원 정보');
 
     $('.cock-member-tab-btns > li').on('click', function () {
        if ($(this).hasClass('active')) {

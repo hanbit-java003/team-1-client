@@ -303,11 +303,16 @@ function signIn() {
 
 }
 
+var isInitKakao = false;
 
 // kakaoTalk 로그인
 function kakaoLogin() {
-    //카카오에서 받은 키
-    Kakao.init("53aaee2d65e52a4b5117bf7ed31572fc");
+    if (!isInitKakao) {
+        //카카오에서 받은 키
+        Kakao.init("53aaee2d65e52a4b5117bf7ed31572fc");
+        isInitKakao = true;
+    }
+
     Kakao.Auth.login({
        success: function (result) {
            Kakao.API.request({
@@ -354,8 +359,11 @@ function snsSignIn(kakao) {
 
 //카카오톡 로그아웃
 function kakaoLogout() {
-    //카카오에서 받은 키
-    Kakao.init("53aaee2d65e52a4b5117bf7ed31572fc");
+    if (!isInitKakao) {
+        //카카오에서 받은 키
+        Kakao.init("53aaee2d65e52a4b5117bf7ed31572fc");
+        isInitKakao = true;
+    }
     Kakao.Auth.logout();
     if(Kakao.Auth.getRefreshToken()!=undefined&&Kakao.Auth.getRefreshToken().replace(/ /gi,"")!=""){
         kakaoLogout();
