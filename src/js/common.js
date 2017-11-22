@@ -380,7 +380,7 @@ function naverLogin() {                     //클라이언트 id         //콜�
     naverIdLogin.init_naver_id_login();
     console.log(naverIdLogin);
 
-    naverCallback();
+    /*naverCallback();*/
 }
 
 function naverCallback() {
@@ -407,7 +407,7 @@ function facebookLogin() {
             xfbml: true, // 소셜 플러그인이 있으면 처리
             version: 'v2.1' // 버전 2.1 사용
         });
-    }
+    };
 
     FB.getLoginStatus(function (response) {
         if(response.session) {
