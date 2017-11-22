@@ -18,8 +18,8 @@
         </div>
     </div>
     <div class="food-img-wrapper slide">
-        {{~#each imgs~}}
-            <ul id="food-img-tag-{{articleId}}-{{imgId}}" class="slide_ul food-img-tag">
+        <ul id="food-img-tag-{{articleId}}-{{imgId}}" class="slide_ul food-img-tag">
+            {{~#each imgs~}}
                 <li>
                     <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}' alt="dane">
                     <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
@@ -34,8 +34,8 @@
                         <i class="fa fa-plus-square"></i>
                     </div>
                 </li>
-            </ul>
-        {{~/each~}}
+            {{~/each~}}
+        </ul>
         {{~#each imgs~}}
             {{~#each menus~}}
                 <li class="food-eaten" style="color:#353744">

@@ -261,7 +261,7 @@ function initContents(restaurant) {
     initRestInfo(restaurant);
     initLikes();
 
-    //initImgs();
+    initImgs();
 
     sortBtn();
     settingBtn();
@@ -317,8 +317,8 @@ function initImgs() {
             var fade_idx = $(this).parent().index();
             current = $(this).parent().index();//클릭한 버튼의 Index 를 받아서 그 다음 이미지부터 슬라이드 재생.
             if ($('.slide_ul > li:animated').length >= 1) return false; //버튼 반복 클릭시 딜레이 방지
-            $('.slide_ul > li').fadeOut(400);
-            $('.slide_ul > li').eq(fade_idx).fadeIn(400);
+            $('.slide_ul > li').fadeOut(10);
+            $('.slide_ul > li').eq(fade_idx).fadeIn(10);
             $('.slide_btn > li > a').removeClass('active');
             $(this).addClass('active');
 

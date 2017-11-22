@@ -172,7 +172,6 @@ li {
 }
 
 .food-img-wrapper {
-  display: inline-block;
   height: auto;
 
   .food-img-tag {
@@ -181,6 +180,10 @@ li {
     margin-bottom: 10px;
     background-position: center;
     background-size: cover;
+  }
+
+  .food-img-tag > li {
+    display: block;
   }
 }
 
@@ -476,12 +479,6 @@ li {
     list-style: none;
   }
 
-  .slide_btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-
   .slide_btn > li {
     display: inline-block;
   }
@@ -499,6 +496,7 @@ li {
   }
 
   .slide_btn {
+    background-color: #4a4a4a;
     z-index: 100;
     position: absolute;
     right: 0;
