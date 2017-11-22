@@ -303,7 +303,7 @@ function initImgs() {
         $('.slide_ul>li').hide();//이미지 안보이게
         $('.slide_ul>li').first().show();//이미지 하나만 보이게
 
-        $(btn_ul).prependTo($('.slide'))//slide 클래스위에 생성
+        $(btn_ul).prependTo($('.slide'));//slide 클래스위에 생성
         for (var i = 0; i < slide_length; i++) {//동그라미 버튼 생성 이미지 li 개수 만큼
             var child = '<li><a href="#none">' + i + '</a></li>';
             $(child).appendTo($('.slide_btn'));
