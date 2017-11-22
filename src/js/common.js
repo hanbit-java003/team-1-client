@@ -1,4 +1,5 @@
 require('../less/common.less');
+require('../less/setting.less');
 require('../less/member-layer.less');
 
 var _ = require('lodash');
