@@ -33,10 +33,12 @@
                     <i class="fa fa-plus-square"></i>
                 </div>
             </div>
+        {{~/each~}}
+        {{~#each imgs~}}
             {{~#each menus~}}
                 <li class="food-eaten">{{menu}} {{price}}원</li>
             {{~/each~}}
-        {{~/each~}}
+        {{/each}}
     </div>
     <div class="food-text">
         <div class="food-detail card-closed">

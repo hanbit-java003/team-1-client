@@ -17,22 +17,26 @@
             </div>
         </div>
     </div>
-    <div class="food-img-wrapper">
+    <div class="food-img-wrapper slide">
         {{~#each imgs~}}
-            <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
-                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
-                <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
-                    {{#each menus}}
-                        <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
-                             style="position: absolute; top: {{y}}px; left: {{x}}px">
-                            {{~menu~}}
-                        </div>
-                    {{/each}}
-                </div>
-                <div id="img-more-{{articleId}}" class="img-more">
-                    <i class="fa fa-plus-square"></i>
-                </div>
-            </div>
+            <ul id="food-img-tag-{{articleId}}-{{imgId}}" class="slide_ul food-img-tag">
+                <li>
+                    <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}' alt="dane">
+                    <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
+                        {{#each menus}}
+                            <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
+                                 style="position: absolute; top: {{y}}px; left: {{x}}px">
+                                {{~menu~}}
+                            </div>
+                        {{/each}}
+                    </div>
+                    <div id="img-more-{{articleId}}" class="img-more">
+                        <i class="fa fa-plus-square"></i>
+                    </div>
+                </li>
+            </ul>
+        {{~/each~}}
+        {{~#each imgs~}}
             {{~#each menus~}}
                 <li class="food-eaten">{{menu}} {{price}}원</li>
             {{~/each~}}

@@ -4,6 +4,10 @@ body {
   background-color: #f7f7f7;
 }
 
+li {
+  list-style: none;
+}
+
 .cock-detail {
   position: relative;
 }
@@ -171,13 +175,8 @@ body {
   display: inline-block;
   height: auto;
 
-  .food-img-tag:first-child {
-    display: inline-block;
-  }
-
   .food-img-tag {
     position: relative;
-    display: none;
     width: 360px;
     margin-bottom: 10px;
     background-position: center;
@@ -202,6 +201,7 @@ body {
   background-color: rgba(5, 5, 5, 0.4);
   color: #fff;
   font-family: 'Hanna', serif;
+  z-index: 8000;
 }
 
 .food-text {
@@ -393,6 +393,7 @@ body {
 
   .content-wrapper {
     max-width: 384px;
+    //background-color: #666;
   }
 
   .food-img-wrapper {
@@ -457,6 +458,60 @@ body {
     font-family: 'Hanna', serif;
     font-size: 20px;
     color: #555;
+  }
+
+  .slide {
+    position: relative;
+  }
+
+  .slide_ul > li img {
+  }
+
+  .show {
+    display: block;
+  }
+
+  .slide_ul > li {
+    list-style: none;
+  }
+
+  .slide_btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .slide_btn > li {
+    display: inline-block;
+  }
+
+  .slide_btn > li > a {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(../img/spr.png) -24px -125px;
+    text-indent: -999em;
+  }
+
+  .slide_btn > li > a.active {
+    background-position: 0 -126px;
+  }
+
+  .slide_btn {
+    z-index: 100;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  .slide_btn:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .slide_btn {
+    *zoom: 1;
   }
 
 }
