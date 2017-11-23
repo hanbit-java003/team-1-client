@@ -57,6 +57,9 @@ const pages = [{
     html: 'admin/admin-alert-article',
     script: 'admin/admin-alert-article'
 }, {
+    html: 'admin/admin-alert-article-detail',
+    script: 'admin/admin-alert-article-detail'
+}, {
     html: 'member',
     script: 'member'
 }, {
