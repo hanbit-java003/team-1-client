@@ -1,3 +1,4 @@
+/*
 module.exports = [{
     id:'butantsu',
     title: '부탄츄 신촌점',
@@ -33,4 +34,4 @@ module.exports = [{
     title: '크리스터치킨 신촌점',
     address: '서울 서대문구 연세로11길 30',
     review: '간장마늘치킨과 강렬했던 신촌맥주'
-}];
+}];*/

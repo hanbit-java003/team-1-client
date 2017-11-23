@@ -144,8 +144,6 @@ $.ajax({
                 tag: result[i].tag.split(',')
             };
         }
-
-        console.log(tags);
     }
 });
 
@@ -356,29 +354,24 @@ function cockSignedInFavorite(article) {
 
 // 주변 맛집 리스트
 function initNearby(contentsNearby) {
-    console.log(contentsNearby);
     $('.contents-nearby').empty();
 
     for (var i = 0; i < contentsNearby.length; i++) {
         var contentsTpl = require('../template/main/card-contents-list.hbs');
+
         var nearbyHtml = contentsTpl(contentsNearby[i]);
+
+        $('.contents-nearby').append(nearbyHtml);
 
         for (var j = 0; j < tags.length; j++) {
             var tagsTpl = require('../template/main/card-contents-tags.hbs');
 
-            if (contentsNearby[i].rid == tags[j].rid) {
+            if (contentsNearby[i].rid === tags[j].rid) {
                 var tagsHtml = tagsTpl(tags[j]);
 
-                console.log(tags[j]);
-                console.log(tagsHtml);
-
-                console.log(contentsNearby[i]);
+                $('.contents-nearby > li[rid="' + tags[j].rid + '"] .card-contents-tags').html(tagsHtml);
             }
         }
-
-        $('.card-contents-tags').append(tagsHtml);
-        $('.contents-nearby').append(nearbyHtml);
-
     }
 
     // 리스트 클릭하면 상세 페이지로 이동
@@ -402,6 +395,16 @@ function initRecommend(contentsRecommend) {
         var recommendHtml = contentsTpl(contentsRecommend[i]);
 
         $('.contents-recommend').append(recommendHtml);
+
+        for (var j = 0; j < tags.length; j++) {
+            var tagsTpl = require('../template/main/card-contents-tags.hbs');
+
+            if (contentsRecommend[i].rid === tags[j].rid) {
+                var tagsHtml = tagsTpl(tags[j]);
+
+                $('.contents-recommend > li[rid="' + tags[j].rid + '"] .card-contents-tags').html(tagsHtml);
+            }
+        }
     }
 
     $('.card-contents-list > li').on('click', function () {
