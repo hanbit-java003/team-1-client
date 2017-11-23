@@ -2,7 +2,9 @@ require('bootstrap');
 require('../less/main.less');
 
 var common = require('./common');
+var adminCommon = require('./admin/common');
 var join = require('./join');
+var Search = require('./search/search-service');
 var loadGoogleMapsApi = require('load-google-maps-api-2');
 
 loadGoogleMapsApi.key = 'AIzaSyDmSxIrhoC4OAiGOtO6ddcFCwSMRbgfPGs';
@@ -40,6 +42,7 @@ getLocation();
 var googleMaps;
 var map;
 var marker;
+var markers = [];
 var i;
 var infoWindow;
 var currentPosition = {};
@@ -69,12 +72,15 @@ function initMainMap(position) {
             // 지도 생성
             map = new googleMaps.Map($('#main-map')[0], mapOptions);
 
+            map.addListener('dragstart', function () {
+                 if (markers) {
+                     deleteMarkers();
+                 }
+            });
+
             map.addListener('dragend', function () {
                 currentPosition.lat = map.getCenter().lat();
                 currentPosition.lng = map.getCenter().lng();
-
-                // console.log('lat : ' + currentPosition.lat);
-                // console.log('lng : ' + currentPosition.lng);
 
                 if ($('#sort-latest').hasClass('active')) {
                     initLatestRest();
@@ -111,13 +117,12 @@ function initMainMap(position) {
 
                         googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                             return function () {
-                                infoWindow.setContent(result[i].title);
+                                infoWindow.setContent(result[i].name);
                                 infoWindow.open(map, marker);
                             }
                         })(marker, i));
                     }
 
-                    initSort();
                     initRecommend(result);
                 }
             });
@@ -126,6 +131,23 @@ function initMainMap(position) {
         console.error(error);
     });
 }
+
+// 전체 tag 불러옴
+var tags = [];
+
+$.ajax({
+    url: '/api/cock/rest/tags',
+    success: function (result) {
+        for (var i=0; i<result.length; i++) {
+            tags[i] = {
+                rid: result[i].rid,
+                tag: result[i].tag.split(',')
+            };
+        }
+
+        console.log(tags);
+    }
+});
 
 // CockCock Top4
 $.ajax({
@@ -179,11 +201,10 @@ function clkTab() {
         $(tabContents[tabIndex]).addClass('active');
 
         if ($('#nearby-rest').hasClass('active')) {
-            console.log('주변 맛집');
             getLocation();
         }
         else {
-            console.log('추천 맛집');
+            $('.card-contents-sort').hide();
             initMainMap();
         }
     });
@@ -207,6 +228,8 @@ function clkSort() {
             return;
         }
 
+        deleteMarkers();
+
         $(this).parent('.card-contents-sort').find('div').removeClass('active');
         $(this).addClass('active');
 
@@ -217,6 +240,8 @@ function clkSort() {
         if ($(this).hasClass('active')) {
             return;
         }
+
+        deleteMarkers();
 
         $(this).parent('.card-contents-sort').find('div').removeClass('active');
         $(this).addClass('active');
@@ -254,6 +279,8 @@ function initLatestRest() {
                         map: map,
                         icon: fork
                     });
+
+                    markers.push(marker);
 
                     // 마커 클릭시 타이틀 팝업
                     googleMaps.event.addListener(marker, 'click', (function (marker, i) {
@@ -293,6 +320,8 @@ function initArticleRest() {
                         icon: fork
                     });
 
+                    markers.push(marker);
+
                     googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                         return function () {
                             infoWindow.setContent(result[i].name);
@@ -304,8 +333,6 @@ function initArticleRest() {
         }
     });
 }
-
-// dragMap();
 
 // 로그인 상태에서 즐겨찾기 가져오기
 /* 문기*/
@@ -329,37 +356,30 @@ function cockSignedInFavorite(article) {
 
 // 주변 맛집 리스트
 function initNearby(contentsNearby) {
+    console.log(contentsNearby);
     $('.contents-nearby').empty();
 
-    var contentsTpl = require('../template/main/card-contents-list.hbs');
-
     for (var i = 0; i < contentsNearby.length; i++) {
+        var contentsTpl = require('../template/main/card-contents-list.hbs');
         var nearbyHtml = contentsTpl(contentsNearby[i]);
 
-        $('.contents-nearby').append(nearbyHtml);
-    }
+        for (var j = 0; j < tags.length; j++) {
+            var tagsTpl = require('../template/main/card-contents-tags.hbs');
 
-    $.ajax({
-        url: '/api/cock/rest/tags',
-        success: function (result) {
-            // console.log(result);
+            if (contentsNearby[i].rid == tags[j].rid) {
+                var tagsHtml = tagsTpl(tags[j]);
 
-            var restTags = {
-                rid: {},
-                tag: [{
-                    item: {}
-                }]
-            };
+                console.log(tags[j]);
+                console.log(tagsHtml);
 
-            for (var i=0; i<result.length; i++) {
-                restTags.rid = result[i].rid;
-                restTags.tag.item = result[i].tag.split(',');
-
-                // console.log(restTags.rid);
-                // console.log(restTags.tag.item);
+                console.log(contentsNearby[i]);
             }
         }
-    });
+
+        $('.card-contents-tags').append(tagsHtml);
+        $('.contents-nearby').append(nearbyHtml);
+
+    }
 
     // 리스트 클릭하면 상세 페이지로 이동
     $('.card-contents-list > li').on('click', function () {
@@ -500,9 +520,10 @@ function signedInFavorite() {
 function clkTag() {
     $('.card-contents-tags > li').on('click', function (event) {
         event.stopPropagation();
-        
-        // 태그 클릭으로 검색 구현 필요함
-        alert('태그 클릭되었음'); // 임시
+
+        var tagVal = $(this).text().substr(1);
+
+        location.href = 'search.html?text=' + tagVal
     })
 }
 
@@ -562,6 +583,13 @@ function hoverContents() {
     });
 }
 
+function deleteMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
+}
+
 function goDetail(rid) {
     location.href = 'detail.html?rid=' + rid;
 }
@@ -573,25 +601,3 @@ $('#btn-join-test').on('click', function () {
 $('#btn-join-food-test').on('click', function () {
     location.href = 'join-food.html';
 });
-
-/* 구글 지도에 원 그리기
-var circles = new googleMaps.Circle({
-                center : mapOptions.center,
-                // 반지름 (m)
-                radius: 500,
-                // 외곽선 두께
-                strokeWeight: 1,
-                // 외곽선 색상
-                strokeColor: '#FF7E5F',
-                // 외곽선 불투명도 (0~1)
-                strokeOpacity: 0.7,
-                // 외곽선 스타일
-                strokeStyle: 'dashed',
-                // 원 내부 색상
-                fillColor: '#FF7E5F',
-                // 원 내부 불투명도 (0~1)
-                fillOpacity: 0.2
-            });
-
-            circles.setMap(map);
-*/

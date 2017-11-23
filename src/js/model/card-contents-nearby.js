@@ -1,10 +1,5 @@
 module.exports = [{
     rid: '2',
-    name: '고라멘',
-    img: './img/main-img/goramen.jpg',
-    lat: 37.555344,
-    lng: 126.932692,
-    count: 14,
     tag: [{
         item: '신촌맛집'
     }, {
@@ -15,8 +10,7 @@ module.exports = [{
         item: '면추가'
     }, {
         item: '차슈추가'
-    }],
-    writeDt: '2017-09-07 15:32:08'
+    }]
 }, {
     rid: '3',
     name: '미분당',
