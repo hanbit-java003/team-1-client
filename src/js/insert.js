@@ -46,7 +46,17 @@ function getLocation() {
             });
 
         }, function (error) { // 위치 찾기 에러 시 콜백
-            console.error(error);
+            if (params.get('rid') === null) {
+                latLng.lat = 37.552331;
+                latLng.lng = 126.937588;
+            }
+
+            loadGoogleMapsApi().then(function(_googleMaps) {
+                googleMaps = _googleMaps;
+                initMap();
+            }).catch(function(error) {
+                console.error(error);
+            });
         }, { // 옵션
             enableHighAccuracy: false,
             maximumAge: 0,

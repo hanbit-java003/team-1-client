@@ -27,6 +27,17 @@ function setList(list) {
     var html = template(list);
 
     $('.admin-alert-articles tbody').html(html);
+
+    $('.admin-alert-articles tbody tr').on('click', function () {
+        var tr = $(this);
+        var td = $(this).children();
+
+        var rid = td.eq(1).text();
+        var articleId =  td.eq(2).text();
+        var aaid = td.eq(3).text();
+
+        location.href = 'admin-alert-article-detail.html?rid='+ rid +'&articleId='+ articleId +'&aaid='+ aaid;
+    });
 }
 
 var currentPage = 1;

@@ -1,5 +1,6 @@
 require('../less/common.less');
 require('../less/member-layer.less');
+require('../less/setting.less');
 
 var _ = require('lodash');
 _.move = require('lodash-move').default;
@@ -11,6 +12,12 @@ var script = require('scriptjs');
 
 // kakaoTalk 로그인
 script('//developers.kakao.com/sdk/js/kakao.min.js', function() {
+});
+// 네이버 로그인
+script("https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js", function () {
+});
+// 페이스북 로그인
+script("http://connect.facebook.net/ko_KR/all.js", function () {
 });
 
 
@@ -74,11 +81,17 @@ $.ajax({
     url: '/api/member/get',
     success: function (result) {
         if (result.signedIn) {
+            user = result;
             templateHeader(result);
         }
     }
 });
 
+var user;
+
+function getUser() {
+    return user;
+}
 
 // 오른쪽 상단 버튼
 $('.header-bt').on('click', function () {
@@ -370,32 +383,36 @@ function kakaoLogout() {
     }
 }
 
+var naverIdLogin;
+
 // 네이버 로그인
 function naverLogin() {                     //클라이언트 id         //콜백 url
-    var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://naver.com");
+    naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/naver-callback.html");
     var state = naverIdLogin; // 서비스 url
     naverIdLogin.setDomain("http://localhost:88/");
     naverIdLogin.setState(state);
     naverIdLogin.setPopup();
     naverIdLogin.init_naver_id_login();
-    console.log(naverIdLogin);
-
-    /*naverCallback();*/
+    console.log("a", naverIdLogin);
 }
 
-function naverCallback() {
-    var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/");
+
+
+/*window.naverCallback = function() {
+    naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/naver-callback.html");
     // 접근 토큰 값 출력
-    console.log(naverIdLogin.oauthParams.access_token);
+    console.log("b", naverIdLogin.oauthParams.access_token);
     // 네이버 사용자 프로필 조회
-    naverIdLogin.get_naver_userprofile(naverSignInCallback());
+    naverIdLogin.get_naver_userprofile("naverSignInCallback()");
     // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-    function naverSignInCallback() {
-        console.log(naverIdLogin.getProfileData('email'));
-        console.log(naverIdLogin.getProfileData('nickname'));
-        console.log(naverIdLogin.getProfileData('age'));
-    }
 }
+
+window.$ = $;
+window.naverSignInCallback = function() {
+    console.log(naverIdLogin.getProfileData('email'));
+    console.log(naverIdLogin.getProfileData('nickname'));
+    console.log(naverIdLogin.getProfileData('age'));
+}*/
 
 //페이스북 로그인
 function facebookLogin() {
@@ -509,8 +526,9 @@ function closeMemberLayer(callback) {
 
 module.exports = {
     ajax: ajax,
+    getUser: getUser,
     signOut : signOut
-}
+};
 
 $('#admin-btn').on('click', function () {
     location.href = '/admin'

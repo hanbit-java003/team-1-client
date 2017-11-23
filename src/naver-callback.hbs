@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>콕콕 네이버 로그인</title>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+{{> template/header info=false}}
+    <script type="text/javascript">
+       var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/naver-callback.html");
+       // 접근 토큰 값 출력
+       /*alert(naverIdLogin.oauthParams.access_token);*/
+       // 네이버 사용자 프로필 조회
+       naverIdLogin.get_naver_userprofile("naverSignInCallback()");
+       // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+       function naverSignInCallback() {
+           var nick = naverIdLogin.getProfileData('nickname');
+           var uid = naverIdLogin.getProfileData('id');
+           var avatar = naverIdLogin.getProfileData('profile_image');
+           /*alert(naverIdLogin.getProfileData('email'));
+           alert(naverIdLogin.getProfileData('nickname'));
+           alert(naverIdLogin.getProfileData('profile_image'));*/
+
+           $.ajax({
+              url: '/api/member/snsSignin',
+              method: 'POST',
+              data : {
+                  nick : nick,
+                  uid: uid,
+                  avatar : avatar
+              },
+               success: function () {
+
+                   alert('<네이버>'+ nick + '님 반갑습니다.');
+                   location.href = location.href;
+
+                   var parentWindow = window.opener;
+                   parentWindow.location.href = parentWindow.location.href;
+
+                   window.close();
+               },
+               error: function (jqXHR) {
+                   alert(jqXHR.responseJSON.message);
+               }
+           });
+       }
+    </script>
+
+{{> template/footer }}
+</body>
+</html>
