@@ -62,6 +62,9 @@ const pages = [{
 }, {
     html: 'search',
     script: 'search'
+}, {
+    html: 'naver-callback',
+    script: 'naver-callback'
 }];
 
 module.exports = {
