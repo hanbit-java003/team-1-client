@@ -29,14 +29,16 @@
                         </div>
                     {{/each}}
                 </div>
-                <div id="m-img-more-{{articleId}}" class="img-more">
-                    <i class="fa fa-plus-square"></i>
-                </div>
             </div>
-            {{~#each menus~}}
-                <li class="food-eaten">{{menu}} {{price}}원</li>
-            {{~/each~}}
         {{~/each~}}
+        {{~#each imgs~}}
+            {{~#each menus~}}
+                <li class="food-eaten" style="color:#353744">
+                    <span>{{menu}}</span>
+                    <span style="color:#dd4b39;margin-right: 2px;">{{price}}</span>원
+                </li>
+            {{~/each~}}
+        {{/each}}
     </div>
     <div class="food-text">
         <div class="food-detail card-closed">
