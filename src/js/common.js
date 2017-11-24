@@ -10,6 +10,9 @@ var Search = require('./search/search-service');
 var search = new Search($('#search-input'));
 var script = require('scriptjs');
 
+var naverLoginPage = require('./naver-callback');
+
+
 
 // kakaoTalk 로그인
 script('//developers.kakao.com/sdk/js/kakao.min.js', function() {
@@ -170,14 +173,16 @@ function openMemberLayer(memberInfo) {
                     kakaoLogin();
                 });
 
-                $('#kakao-logout').on('click', function () {
+                $('.cock-logout').on('click', function () {
                    kakaoLogout();
+                   naverLogout();
                 });
 
                 $('#cock-login-email').focus();
             }
             else {
-                $('#cock-logout').on('click', function () {
+                $('.cock-logout').on('click', function () {
+                    naverLogout();
                     kakaoLogout();
                     signOut();
                 });
@@ -394,7 +399,12 @@ function naverLogin() {                     //클라이언트 id         //콜�
     naverIdLogin.setState(state);
     naverIdLogin.setPopup();
     naverIdLogin.init_naver_id_login();
-    console.log("a", naverIdLogin);
+
+    // 로그인이 될시 토큰을 받아서 naver-callback 페이지로 넘어감.
+}
+// 네이버 로그아웃
+function naverLogout() {
+
 }
 
 
@@ -415,30 +425,47 @@ window.naverSignInCallback = function() {
     console.log(naverIdLogin.getProfileData('age'));
 }*/
 
+var isInitFb = false;
 //페이스북 로그인
 function facebookLogin() {
-    alert('페이스북 준비중 입니다');
-    Window.fbAsyncInit = function () {
+
+    if(!isInitFb){
+        console.log('실행');
         FB.init({
             appId: '{147859285970827}', // 앱 ID
             cookie: true, // 쿠키가 세션을 참조할 수 있도록 허용
             xfbml: true, // 소셜 플러그인이 있으면 처리
-            version: 'v2.1' // 버전 2.1 사용
+            version: 'v2.11' // 버전 2.11 사용
         });
-    };
+        isInitFb = true;
+    }
+
+
+
+
+   /* Window.fbAsyncInit = function () {
+
+    }
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
     FB.getLoginStatus(function (response) {
-        if(response.session) {
-
-        }
-    })
+        statusChangeCallback(response);
+        console.log(response);
+    });*/
 }
 /*
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
 
-console.log(response);
+    console.log(response);
 // response 객체는 현재 로그인 상태를 나타내는 정보를 보여준다.
 // 앱에서 현재의 로그인 상태에 따라 동작하면 된다.
 // FB.getLoginStatus().의 레퍼런스에서 더 자세한 내용이 참조 가능하다.
