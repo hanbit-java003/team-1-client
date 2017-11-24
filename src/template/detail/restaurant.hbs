@@ -35,6 +35,13 @@
                 </li>
             {{~/each~}}
         </ul>
+        <ul class="food-img-dot">
+            {{~#each imgs~}}
+                <li id="dot-{{articleId}}-{{imgId}}" {{#if @first}}class="active"{{/if}} style="color:black">
+                    <span></span>
+                </li>
+            {{~/each~}}
+        </ul>
         {{~#each imgs~}}
             {{~#each menus~}}
                 <li class="food-eaten" style="color:#353744">

@@ -297,6 +297,9 @@ function initImgs() {
     });
 }
 
+function clickDotBtn() {
+}
+
 function showMenuTags(img) {
     if (img.parent().find($('.detail-menu-tag')).hasClass('visible')) {
         img.parent().find($('.detail-menu-tag')).css('visibility', 'hidden');
@@ -310,10 +313,14 @@ function showMenuTags(img) {
 
 function showNextImg(btn) {
     var articleId = btn.parent().attr('articleId');
+    var imgId = btn.parent().attr('imgId');
     var img = btn.parents().find($('#food-img-tag-' + articleId));
+    var dot = btn.parents().find($('#dot-' + articleId + '-' + imgId));
     var size = img.find('li').length;
     var li = img.find('li.active');
     var index = li.index();
+
+    console.log(dot);
 
     index++;
     if (index >= size) {
@@ -322,11 +329,15 @@ function showNextImg(btn) {
 
     img.find('li.active').removeClass('active');
     img.find('li:eq(' + index + ')').addClass('active');
+    dot.parent().find('li.active').removeClass('active');
+    dot.parent().find('li:eq(' + index + ')').addClass('active');
 }
 
 function showPrevImg(btn) {
     var articleId = btn.parent().attr('articleId');
+    var imgId = btn.parent().attr('imgId');
     var img = btn.parents().find($('#food-img-tag-' + articleId));
+    var dot = btn.parents().find($('#dot-' + articleId + '-' + imgId));
     var size = img.find('li').length;
     var li = img.find('li.active');
     var index = li.index();
@@ -338,6 +349,8 @@ function showPrevImg(btn) {
 
     img.find('li.active').removeClass('active');
     img.find('li:eq(' + index + ')').addClass('active');
+    dot.parent().find('li.active').removeClass('active');
+    dot.parent().find('li:eq(' + index + ')').addClass('active');
 }
 
 // 더보기
