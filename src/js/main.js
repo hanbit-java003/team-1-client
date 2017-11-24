@@ -34,6 +34,11 @@ function getLocation() {
     // GPS 지원 X
     else {
         alert('GPS를 지원하지 않습니다.');
+        $('#nearby-rest').removeClass('active');
+        $('#nearby-rest-contents').removeClass('active');
+        $('#recommend-rest').addClass('active');
+        $('#recommend-rest-contents').addClass('active');
+        initMainMap();
     }
 }
 

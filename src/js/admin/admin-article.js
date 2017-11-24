@@ -104,6 +104,7 @@ function handlePagination() {
     });
 }
 
+// 게시글 리스트
 function requestList(page) {
     $.ajax({
         url: '/api/cock/admin/article',
@@ -127,7 +128,8 @@ function setList(list) {
     var adminArticleHtml = adminArticleTemplate(list);
 
     $('.admin-article-table tbody').html(adminArticleHtml);
-
+    
+    // 게시글 삭제
     $('.article-delete-btn').on('click', function () {
         var rid = $(this).attr('rid');
         var articleId = $(this).attr('articleId');
