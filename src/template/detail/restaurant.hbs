@@ -20,8 +20,10 @@
     <div class="food-img-wrapper">
         <ul id="food-img-tag-{{articleId}}" class="food-img-tag">
             {{~#each imgs~}}
-                <li {{#if @first}}class="active"{{/if}}>
+                <li {{#if @first}}class="active"{{/if}} articleId="{{articleId}}" imgId="{{imgId}}">
                     <img id="food-img-{{articleId}}-{{imgId}}" class="food-img" src='{{path}}'>
+                    <div class="food-img-prev"><i class="fa fa-caret-left"></i></div>
+                    <div class="food-img-next"><i class="fa fa-caret-right"></i></div>
                     <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
                         {{#each menus}}
                             <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"

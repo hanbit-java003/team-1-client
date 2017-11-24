@@ -261,6 +261,7 @@ function initContents(restaurant) {
 
     initRestInfo(restaurant);
     initLikes();
+    initImgs();
 
     sortBtn();
     settingBtn();
@@ -280,10 +281,18 @@ function initContents(restaurant) {
         var articleId = $(this).parents('.content-wrapper').attr('articleId');
         location.href = './report.html?rid=' + rid + '&articleId=' + articleId;
     });
+}
 
-    // 사진 클릭
-    $('.food-img-tag').unbind('click').on('click', function () {
+function initImgs() {
+    $('.food-img').unbind('click').on('click', function () {
         showMenuTags($(this));
+    });
+
+    $('.food-img-prev').unbind('click').on('click', function () {
+        showPrevImg($(this));
+    });
+
+    $('.food-img-next').unbind('click').on('click', function () {
         showNextImg($(this));
     });
 }
@@ -299,19 +308,36 @@ function showMenuTags(img) {
     }
 }
 
-function showNextImg(img) {
-    img.on('click', function () {
-        var size = $(this).find('li').length;
-        var li = $(this).find('li.active');
-        var index = li.index();
+function showNextImg(btn) {
+    var articleId = btn.parent().attr('articleId');
+    var img = btn.parents().find($('#food-img-tag-' + articleId));
+    var size = img.find('li').length;
+    var li = img.find('li.active');
+    var index = li.index();
 
-        index++;
-        if (index >= size) {
-            index = 0;
-        }
-        $(this).find('li.active').removeClass('active');
-        $(this).find('li:eq(' + index + ')').addClass('active');
-    });
+    index++;
+    if (index >= size) {
+        index = 0;
+    }
+
+    img.find('li.active').removeClass('active');
+    img.find('li:eq(' + index + ')').addClass('active');
+}
+
+function showPrevImg(btn) {
+    var articleId = btn.parent().attr('articleId');
+    var img = btn.parents().find($('#food-img-tag-' + articleId));
+    var size = img.find('li').length;
+    var li = img.find('li.active');
+    var index = li.index();
+
+    if (index < 0) {
+        index = size.length + 1;
+    }
+    index--;
+
+    img.find('li.active').removeClass('active');
+    img.find('li:eq(' + index + ')').addClass('active');
 }
 
 // 더보기
