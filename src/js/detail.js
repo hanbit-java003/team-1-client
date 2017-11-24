@@ -278,51 +278,39 @@ function initContents(restaurant) {
     // 신고 버튼
     $('.food-report').unbind('click').on('click', function () {
         var articleId = $(this).parents('.content-wrapper').attr('articleId');
-        location.href = './report.html?rid='+ rid +'&articleId='+ articleId;
+        location.href = './report.html?rid=' + rid + '&articleId=' + articleId;
     });
 
     // 사진 클릭
-    $('.img-responsive').unbind('click').on('click', function () {
-        if ($(this).parent().find($('.detail-menu-tag')).hasClass('visible')) {
-            $(this).parent().find($('.detail-menu-tag')).css('visibility', 'hidden');
-            $(this).parent().find($('.detail-menu-tag')).removeClass('visible');
-        }
-        else {
-            $(this).parent().find($('.detail-menu-tag')).css('visibility', 'visible');
-            $(this).parent().find($('.detail-menu-tag')).addClass('visible');
-        }
+    $('.food-img-tag').unbind('click').on('click', function () {
+        showMenuTags($(this));
+        showNextImg($(this));
     });
+}
 
-    for (var i = 0; i < restaurant.articles.length; i++) {
-        var articleId = restaurant.articles[i].articleId;
-        if (restaurant.articles[i].imgs.length > 1) {
-            $('#img-more-' + articleId).css('visibility', 'visible');
-            $('#m-img-more-' + articleId).css('visibility', 'visible');
-
-            $('#img-more-' + articleId).unbind('click').on('click', function () {
-                initGallery(articleId);
-            });
-            $('#m-img-more-' + articleId).unbind('click').on('click', function () {
-                initGallery(articleId);
-            });
-        }
+function showMenuTags(img) {
+    if (img.parent().find($('.detail-menu-tag')).hasClass('visible')) {
+        img.parent().find($('.detail-menu-tag')).css('visibility', 'hidden');
+        img.parent().find($('.detail-menu-tag')).removeClass('visible');
+    }
+    else {
+        img.parent().find($('.detail-menu-tag')).css('visibility', 'visible');
+        img.parent().find($('.detail-menu-tag')).addClass('visible');
     }
 }
 
-function initGallery(articleId) {
-    var template = require('../template/detail/gallery.hbs');
-    $('.detail-gallery-wrapper').empty();
+function showNextImg(img) {
+    img.on('click', function () {
+        var size = $(this).find('li').length;
+        var li = $(this).find('li.active');
+        var index = li.index();
 
-    common.ajax({
-        url: '/api/cock/detail/img/' + rid + '/' + articleId,
-        success: function (result) {
-            for (var i = 0; i < result.length; i++) {
-                var html = template(result[i]);
-                $('.detail-gallery-wrapper').append(html);
-                $('.detail-gallery-wrapper').css('visibility', 'visible');
-                console.log(html);
-            }
+        index++;
+        if (index >= size) {
+            index = 0;
         }
+        $(this).find('li.active').removeClass('active');
+        $(this).find('li:eq(' + index + ')').addClass('active');
     });
 }
 

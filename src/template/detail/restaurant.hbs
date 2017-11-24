@@ -18,23 +18,27 @@
         </div>
     </div>
     <div class="food-img-wrapper">
+        <ul id="food-img-tag-{{articleId}}" class="food-img-tag">
+            {{~#each imgs~}}
+                <li {{#if @first}}class="active"{{/if}}>
+                    <img id="food-img-{{articleId}}-{{imgId}}" class="food-img" src='{{path}}'>
+                    <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
+                        {{#each menus}}
+                            <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
+                                 style="position: absolute; top: {{y}}px; left: {{x}}px">
+                                {{~menu~}}
+                            </div>
+                        {{/each}}
+                    </div>
+                </li>
+            {{~/each~}}
+        </ul>
         {{~#each imgs~}}
-            <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
-                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
-                <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
-                    {{#each menus}}
-                        <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
-                             style="position: absolute; top: {{y}}px; left: {{x}}px">
-                            {{~menu~}}
-                        </div>
-                    {{/each}}
-                </div>
-                <div id="img-more-{{articleId}}" class="img-more">
-                    <i class="fa fa-plus-square"></i>
-                </div>
-            </div>
             {{~#each menus~}}
-                <li class="food-eaten">{{menu}} {{price}}원</li>
+                <li class="food-eaten" style="color:#353744">
+                    <span>{{menu}}</span>
+                    <span style="color:#dd4b39;margin-right: 2px;">{{price}}</span>원
+                </li>
             {{~/each~}}
         {{~/each~}}
     </div>

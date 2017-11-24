@@ -269,6 +269,7 @@ $('#rest-edit-delete').on('click', function () {
     })
 });
 
+// 취소 버튼
 $('#rest-edit-cancel').on('click', function () {
     history.back();
 });

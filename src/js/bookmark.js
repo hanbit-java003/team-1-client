@@ -81,11 +81,8 @@ function initBookmarkMap(position) {
                         + '<br/>' + bookmarkModel[i].address);
                     infoWindow.open(bookmarkMaps, marker);
                 }
-
             })(marker, i));
-
         }
-
     }).catch(function (error) {
         console.error(error);
     });
@@ -94,26 +91,40 @@ function initBookmarkMap(position) {
 
 }
 
-initBookmarkMap();
+//initBookmarkMap();
 
+var bookmarkModel;
 
-function bookmarkReview(bookmarkModel) {
+function bookmarkReview() {
 
     $('.bookmark-container > li').on('click', function () {
+        var reviewId = parseInt($(this).attr('rid'));
 
-        var reviewId = $(this).attr('rid');
-
+        // === 를 쓰는것은 String 일 때, == 로 하는 것은 Integer 일 때
         for(i=0; i<bookmarkModel.length; i++) {
-
-            if(reviewId === bookmarkModel[i].id) {
-
+            if (reviewId === bookmarkModel[i].rid) {
                 var html = bookmarkReviewTemplate(bookmarkModel[i]);
 
                 $('.detail-review').html(html);
+                break;
             }
         }
     });
 }
+
+
+function getBookmarkReview() {
+
+    $.ajax({
+        url:'/api/cock/bookmark/review',
+        success: function (result) {
+            bookmarkModel = result;
+
+            bookmarkReview();
+        }
+    });
+}
+
 
 function clickDetail() {
     $('.btn-goDetail').on('click', function () {
@@ -135,8 +146,15 @@ function getBookmark() {
         success: function (result) {
             initBookmark(result);
 
+            if(result.length === 0) {
+                $('.bookmark-container').hide();
+                $('.bookmark-result_empty').show();
+            }
+            else {
+                $('.bookmark-result_empty').hide();
+            }
+
             bookmarkContents = result;
-            console.log(result[i].address);
 
             for(i=0; i < result.length; i++) {
                 marker = new googleMaps.Marker({
@@ -145,24 +163,18 @@ function getBookmark() {
                     icon: '../img/insert/red-dot.png'
                 });
             }
-            
             googleMaps.event.addListener(marker, 'click', (function (marker, i) {
                return function () {
                    infoWindow.setContent(result[i].name + '<br/>' + result[i].address);
                    infoWindow.open(map, marker);
                }
-
             })(marker, i));
-
         }
-
     });
-
 }
 
 
 function initBookmark(bookmarkModel) {
-
     $('.bookmark-container').empty();
 
     for (var i=0; i<bookmarkModel.length; i++) {
@@ -173,7 +185,8 @@ function initBookmark(bookmarkModel) {
     }
 
     // Bookmark 버튼 클릭시 변환
-    $('.bookmark-btn').on('click', function () {
+    $('.bookmark-btn').unbind('click').on('click', function (event) {
+        event.stopPropagation();
         if($(this).hasClass('fa-star')) {
             $(this).removeClass('fa-star').addClass('fa-star-o');
             $(this).css('color', mainColor);
@@ -188,8 +201,7 @@ function initBookmark(bookmarkModel) {
     });
 
     bookmarkClick();
-    bookmarkReview(bookmarkModel);
-
+    getBookmarkReview();
 }
 
 
@@ -243,13 +255,8 @@ function bookmarkClick() {
                 icon: '../img/insert/red-dot.png'
             });
         });
-
     });
-
 }
-
-
-
 
 function bookmarkToDetail(rid) {
     location.href = 'detail.html?rid=' + rid;

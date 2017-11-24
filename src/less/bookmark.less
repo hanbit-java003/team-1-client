@@ -14,7 +14,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 900;
+  z-index: 99;
 }
 
 .bookmark-page-container {
@@ -153,7 +153,7 @@
   div{
     position: absolute;
     cursor:pointer;
-    z-index: 2000;
+    z-index: 100;
   }
 }
 
@@ -171,7 +171,7 @@
 
 .btn-bookmark{
   position: absolute;
-  right: -5px;
+  right: 18px;
   color: #f99595;
   font-size: 30px;
   margin-left: 20px;
@@ -196,11 +196,16 @@
 }
 
 .commentary{
-  bottom: 0;
+  min-width: 200px;
+  max-width: 500px;
+  max-height: 500px;
   margin-left:10px;
   margin-bottom: 40px;
   font-size:14px;
   color: rgb(255, 255, 255);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   li {
     display: inline-block;
@@ -210,4 +215,13 @@
 
 .location-info {
   display: none;
+}
+
+.bookmark-result_empty {
+  padding-top: 356px;
+  padding-bottom: 356px;
+  color: #5e5e5e;
+  font-family: 'Hanna', serif;
+  font-size: 21px;
+  text-align: center;
 }
