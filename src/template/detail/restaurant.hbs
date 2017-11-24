@@ -37,7 +37,7 @@
         </ul>
         <ul class="food-img-dot">
             {{~#each imgs~}}
-                <li id="dot-{{articleId}}-{{imgId}}" {{#if @first}}class="active"{{/if}} style="color:black">
+                <li id="dot-{{articleId}}-{{imgId}}" {{#if @first}}class="active"{{/if}} style="color:black" articleId="{{articleId}}" imgId="{{imgId}}">
                     <span></span>
                 </li>
             {{~/each~}}

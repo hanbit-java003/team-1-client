@@ -297,9 +297,6 @@ function initImgs() {
     });
 }
 
-function clickDotBtn() {
-}
-
 function showMenuTags(img) {
     if (img.parent().find($('.detail-menu-tag')).hasClass('visible')) {
         img.parent().find($('.detail-menu-tag')).css('visibility', 'hidden');
@@ -319,8 +316,6 @@ function showNextImg(btn) {
     var size = img.find('li').length;
     var li = img.find('li.active');
     var index = li.index();
-
-    console.log(dot);
 
     index++;
     if (index >= size) {
