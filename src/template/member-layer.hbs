@@ -16,7 +16,7 @@
             <div id="cock-member-info" class="cock-member-layer-btn">회원 정보</div>
             <div id="cock-insert" class="cock-member-layer-btn">맛집 추가</div>
             <div id="cock-bookmark" class="cock-member-layer-btn">즐겨찾기</div>
-            <div id="cock-logout" class="cock-member-layer-btn">로그아웃</div>
+            <div class="cock-logout cock-member-layer-btn" >로그아웃</div>
     {{else}}
             <div class="cock-member-form-group">
                 <input id=cock-login-email type="email" placeholder="이메일주소">
@@ -38,11 +38,11 @@
                         회원가입
                     </div>
                 </div>
-                    <div class="cock-member-sns-text" id="kakao-logout">SNS 로그인 및 회원가입</div>
+                    <div class="cock-member-sns-text cock-logout">SNS 로그인 및 회원가입</div>
                 <ul class="cock-member-sns">
                     <li class="cock-member-sns-kakao" style="background-image: url(../img/member-layer/kakao.jpg)"></li>
                     <li class="cock-member-sns-naver" id="naver_id_login" style="background-image: url(../img/member-layer/naver.png)"></li>
-                    <li class="cock-member-sns-fb" style="background-image: url(../img/member-layer/facebook.png)"></li>
+                    <li class="cock-member-sns-fb" scope="public_profile,email"  style="background-image: url(../img/member-layer/facebook.png)"></li>
                 </ul>
             </div>
     {{/if}}

@@ -1,2 +1,2 @@
 require('../less/common.less');
-require('./common');
+require('./common.js');

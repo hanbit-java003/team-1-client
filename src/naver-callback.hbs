@@ -9,9 +9,17 @@
 <body>
 {{> template/header info=false}}
     <script type="text/javascript">
-       var naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/naver-callback.html");
+        var naverIdLogin;
+        var accessToken;
+        function naverLoginPage() {
+            console.log('실행');
+            naverIdLogin = new naver_id_login("Ezo6uk0_qHSgskTmDLQn", "http://localhost:88/naver-callback.html");
+            accessToken =naverIdLogin.oauthParams.access_token;
+        }
+        naverLoginPage();
        // 접근 토큰 값 출력
        /*alert(naverIdLogin.oauthParams.access_token);*/
+
        // 네이버 사용자 프로필 조회
        naverIdLogin.get_naver_userprofile("naverSignInCallback()");
        // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
@@ -34,7 +42,6 @@
                success: function () {
 
                    alert('<네이버>'+ nick + '님 반갑습니다.');
-                   location.href = location.href;
 
                    var parentWindow = window.opener;
                    parentWindow.location.href = parentWindow.location.href;
@@ -43,10 +50,15 @@
                },
                error: function (jqXHR) {
                    alert(jqXHR.responseJSON.message);
+                   window.close();
                }
            });
        }
+        module.exports = {
+            naverLoginPage : naverLoginPage
+       }
     </script>
+    <div class="cock-naver-login">네이버 로그인 페이지</div>
 
 {{> template/footer }}
 </body>
