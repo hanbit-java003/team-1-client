@@ -428,6 +428,7 @@ window.naverSignInCallback = function() {
 var isInitFb = false;
 //페이스북 로그인
 function facebookLogin() {
+    alert('페이스북 준비중 입니다.');
 
     if(!isInitFb){
         console.log('실행');
