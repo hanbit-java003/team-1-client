@@ -3,6 +3,8 @@ require('../less/setting.less');
 require('../less/member-layer.less');
 require('../less/setting.less');
 
+
+
 var _ = require('lodash');
 _.move = require('lodash-move').default;
 
@@ -556,7 +558,7 @@ function closeMemberLayer(callback) {
 module.exports = {
     ajax: ajax,
     getUser: getUser,
-    signOut : signOut
+    signOut : signOut,
 };
 
 $('#admin-btn').on('click', function () {
@@ -566,4 +568,7 @@ $('#admin-btn').on('click', function () {
 $('.cock-admin-btn').on('click', function () {
    location.href = location.href
 });
+
+
+
 

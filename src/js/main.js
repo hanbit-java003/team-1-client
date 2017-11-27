@@ -97,6 +97,7 @@ function initMainMap(position) {
 
             initSort();
             initLatestRest();
+            foodSelect();
 
         }
         else if ($('#recommend-rest').hasClass('active')) {
@@ -298,11 +299,14 @@ function initLatestRest() {
     });
 }
 
+var todayRest;
 // 게시글 순
 function initArticleRest() {
     $.ajax({
         url: '/api/cock/rest/article/' + currentPosition.lat + ',' + currentPosition.lng + '/',
         success: function (result) {
+            todayRest = result;
+
             if (result.length === 0) {
                 $('.contents-nearby').empty();
                 $('.card-contents-sort').hide();
@@ -609,3 +613,57 @@ $('#btn-join-test').on('click', function () {
 $('#btn-join-food-test').on('click', function () {
     location.href = 'join-food.html';
 });
+
+
+
+function foodSelect() {
+    //오늘 뭐 먹지?
+    $('.food-select').on('click', function () {
+        /*var dialog = $('<div class="food-select-modal">' +
+            '<div class="food-select-dialog">내용</div></div>');
+
+        $('body').append(dialog);
+
+        $('.food-select-modal').on('click', function () {
+           $('.food-select-modal').fadeOut(400, function () {
+              $('.food-select-modal').remove();
+           });
+        });*/
+        $.ajax({
+            url: '/api/cock/rest/latest/' + currentPosition.lat + ',' + currentPosition.lng + '/',
+            success: function (result) {
+                console.log(result);
+                if (result.length === 0) {
+                    adminCommon.openDialog({
+                        body: '&lt; 오늘 뭐 먹지? &gt;' + '<br>' + '<br>' + '고객님이 계신 장소에는 등록된 주변 맛집이 없습니다!',
+                        title: '주변 맛집 추천!'
+                    });
+                }
+                else {
+                    var l = result.length;
+                    var rec = parseInt(Math.random() * l);
+                    console.log();
+                    adminCommon.openDialog({
+                        body: '&lt; 오늘 뭐 먹지? &gt;' + '<br>' +'<br>' + '고객님이 계신 장소에서 등록된 <<' + result[rec].name + '>> 추천해드립니다.',
+                        title: '주변 맛집 추천!',
+                        buttons:[{
+                            id: 'info',
+                            name: '추천 맛집 페이지 이동',
+                            style: 'info'
+                        }],
+                        handler: function (btnId) {
+                            if(btnId == 'info') {
+                                location.href = '/detail.html?rid='+ result[rec].rid;
+                            }
+                        }
+                    })
+                }
+            }
+        });
+
+
+
+    });
+}
+
+
