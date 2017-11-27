@@ -61,7 +61,7 @@ header {
   color: #888;
   background-color: #fff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  z-index: 5000;
+  z-index: 4000;
 }
 
 .header-wrapper {
@@ -277,7 +277,7 @@ footer {
 }
 
 #cock-modal {
-  z-index: 5000;
+  z-index: 7000;
 }
 
 // 모바일 화면
@@ -318,4 +318,48 @@ footer {
   font-family: 'Hanna', serif;
   font-size: 21px;
   text-align: center;
+}
+
+.food-select-border {
+  position: relative;
+}
+
+.food-select {
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  display: inline-block;
+  /*color: #555;*/
+  font-family: 'Hanna', serif;
+  font-size: 15px;
+  cursor: pointer;
+
+
+  margin-top: -80px;
+  margin-left: 10px;
+  width: 100px;
+  padding: 7px;
+  color: #fff;
+  background-color: #1eba00;
+  border: 0;
+  text-align: center;
+  z-index: 4500;
+}
+
+.food-select:hover {
+  color: #f99595;
+
+  opacity: 0.7;
+}
+
+.modal-title {
+  font-family: 'Hanna', serif;
+}
+
+.modal-body {
+  font-family: 'Noto Sans KR', serif;
+}
+
+.modal-footer {
+  font-family: 'Noto Sans KR', serif;
 }

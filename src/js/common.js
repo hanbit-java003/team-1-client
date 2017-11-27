@@ -3,6 +3,8 @@ require('../less/setting.less');
 require('../less/member-layer.less');
 require('../less/setting.less');
 
+
+
 var _ = require('lodash');
 _.move = require('lodash-move').default;
 
@@ -428,6 +430,7 @@ window.naverSignInCallback = function() {
 var isInitFb = false;
 //페이스북 로그인
 function facebookLogin() {
+    alert('페이스북 준비중 입니다.');
 
     if(!isInitFb){
         console.log('실행');
@@ -555,7 +558,7 @@ function closeMemberLayer(callback) {
 module.exports = {
     ajax: ajax,
     getUser: getUser,
-    signOut : signOut
+    signOut : signOut,
 };
 
 $('#admin-btn').on('click', function () {
@@ -565,4 +568,7 @@ $('#admin-btn').on('click', function () {
 $('.cock-admin-btn').on('click', function () {
    location.href = location.href
 });
+
+
+
 
