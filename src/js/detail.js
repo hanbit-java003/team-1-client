@@ -60,7 +60,7 @@ function setTemplate(restaurant) {
         else {
             $('#cock-restaurants-right').append(html);
         }
-        $('#cock-restaurants-mobile').append(html);
+        $('#cock-restaurants-mobile').append(mHtml);
     }
 }
 
@@ -453,7 +453,7 @@ function tagClick() {
 
 // 윈도우 크기가 바뀔때
 $(window).resize(function () {
-    //location.reload();
+    location.reload();
     attachRestInfoEvent();
 });
 
