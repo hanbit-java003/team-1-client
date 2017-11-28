@@ -515,7 +515,7 @@ function statusChangeCallback(response) {
     { // 페이스북에는 로그인 했으나, 앱에는 로그인이 되어있지 않다.
         console.log('페이스북에는 로그인 했으나, 앱에는 로그인이 되어있지 않다.');
         /*document.getElementById('status').innerHTML = 'Please log ' + 'into this app.'; */
-    return;
+        return;
     }
     else {
         // 페이스북에 로그인이 되어있지 않다. 따라서, 앱에 로그인이 되어있는지 여부가 불확실하다.
