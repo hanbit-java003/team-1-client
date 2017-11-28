@@ -1,8 +1,6 @@
 require('bootstrap');
 require('../../less/admin/common.less');
 
-var common = require('../common');
-
 $('#admin-main').on('click', function () {
     location.href = '/admin';
 });
@@ -28,7 +26,12 @@ $('#admin-alert-article').on('click', function () {
 });
 
 $('#admin-logout').on('click', function () {
-    common.signOut();
+    $.ajax({
+        url: '/api/member/signout',
+        success: function () {
+            location.href = '../';
+        }
+    });
 });
 
 // modal 열림
