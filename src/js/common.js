@@ -89,6 +89,10 @@ $.ajax({
         if (result.signedIn) {
             user = result;
             templateHeader(result);
+
+            if (result.master === 'Y') {
+                $('#admin-btn').css('display', 'inline-block');
+            }
         }
     }
 });
@@ -140,6 +144,11 @@ function openMemberLayer(memberInfo) {
                }) ;
             });
             if (!memberInfo.signedIn) {
+                $('.cock-toggle').on('click', function () {
+                   $('.cock-sign-in').toggle();
+                    $('.cock-sign-up').toggle();
+                });
+                // 로그인 페이지
                 // 엔터키 누르면 실행 되게끔.
                 $('#cock-login-email').keyup(function (key) {
                     if (key.keyCode == 13) {// 키가 13이면 실행
@@ -182,6 +191,25 @@ function openMemberLayer(memberInfo) {
                 });
 
                 $('#cock-login-email').focus();
+
+
+                // 비밀번호 찾기 페이지
+                $('#cock-find-pw-email-btn').unbind('click').on('click', function () {
+                    // 이메일 검증
+                    findEmail();
+                });
+
+                // E-mail 인증번호 검증.
+                $('#cock-find-pw-email-auth-btn').on('click', function () {
+                   // 이메일 인증번호 검증.
+                    authCheck();
+                });
+
+                // E-mail 인증 후에 비밀번호 체인지
+                $('#cock-change-pw-btn').on('click', function () {
+                   // 비밀번호 체인지
+                   changePassword();
+                });
             }
             else {
                 $('.cock-logout').on('click', function () {
@@ -291,6 +319,7 @@ function signOut() {
 }
 
 var bannVall;
+var master = false;
 //로그인
 function signIn() {
     var email = $('#cock-login-email').val().trim();
@@ -557,6 +586,126 @@ function testAPI() {
        console.log('성공 로그인 : '+ response.name );
        document.getElementsById('status').innerHTML = '감사합니다 로그인,' + response.name +'!';
     });
+}
+var emailRest;
+// 비밀번호 찾기
+// 이메일 인증
+function findEmail() {
+    var email = $('#cock-find-email').val().trim();
+    var emailRe=/^[a-zA-Z0-9]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    if(!email) {
+        alert('이메일을 입력하세요.');
+        $('#cock-find-email').focus();
+        return;
+    }
+    else if(!emailRe.test(email)) {
+        alert('이메일 형식이 맞지 않습니다.');
+        $('#cock-find-email').focus();
+        return;
+    }
+
+    $('#cock-find-pw-email-btn').attr('disabled', true);
+
+    $.ajax({
+       url: '/api/find/email',
+       data: {
+           email: email
+       },
+        success: function (result) {
+            alert('가입된 이메일로 인증번호를 발송하였습니다.');
+            console.log(result.authNum);
+            emailRest = email;
+
+            $('#cock-find-pw-email-btn').attr('disabled', false);
+
+            $('.cock-sign-up-auth').show(1000);
+        },
+        error: function (jqXHR) { // Xml Http Request
+            alert(jqXHR.responseJSON.message);
+            $('#cock-find-pw-email-btn').attr('disabled', false);
+        }
+    });
+}
+
+// E-mail 인증번호 검증
+function authCheck() {
+    var form = $('#cock-find-email-auth').val().trim();
+
+    if(!form) {
+        alert('인증번호를 입력하세요');
+        $('#cock-find-email-auth').focus();
+    }
+
+    $.ajax({
+        url: '/api/authnum',
+        data: {
+            authNumvall : form
+        },
+        success: function () {
+            alert("인증완료");
+            $('#cock-find-email').attr('disabled', true);
+            $('.cock-sign-up-certification').show(100);
+            $('.cock-sign-up-auth').remove();
+            $('#cock-find-pw-email-btn').remove();
+            $('.cock-sign-up-leave').toggle(1000);
+        },
+        error: function  (jqXHR) { // Xml Http Request
+            alert(jqXHR.responseJSON.message);
+            form="";
+            $('#cock-find-email-auth').focus();
+        }
+    })
+}
+
+// E-mail 인증후에 비밀번호 변경
+function changePassword() {
+    var pw = $('#cock-change-pw').val().trim();
+    var pwc = $('#cock-change-pwc').val().trim();
+    var pwRe=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+
+    if(!pw){
+        alert('비밀번호를 입력하세요.');
+        $('#cock-change-pw').focus();
+        return;
+    }
+    else if(!pwc){
+        alert('비밀번호 재확인을 입력하세요.');
+        $('#cock-change-pwc').focus();
+        return;
+    }// 비밀번호랑 비밀번호 확인 부분이 다르면?
+    else if(pw !== pwc) {
+        alert('새 비밀번호 확인이 다릅니다.');
+        $('#cock-change-pwc').focus();
+        return;
+    } // 비밀번호 영문 대소문자 6~20 / 최소 1개의 숫자 혹은 특수 문자 포함.
+    else if(!pwRe.test(pwc)) {
+        alert('비밀번호는 6~20자 영문 대 소문자, 최소 1개의 숫자,특수문자를 사용하세요.');
+        $('#cock-change-pw').focus();
+        return;
+    }
+
+    $('#cock-change-pw-btn').attr('disabled', true);
+    $.ajax({
+        url: '/api/change/password',
+        method: 'POST',
+        data: {
+            email: emailRest,
+            password: pw
+        },
+        success: function () {
+            alert('비밀번호가 변경되었습니다.');
+            closeMemberLayer(function () {
+                location.href = location.href;
+            });
+            $('#cock-change-pw-btn').attr('disabled', false);
+        },
+        error: function (jqXHR) { // Xml Http Request
+            alert(jqXHR.responseJSON.message);
+            $('#cock-change-pw-btn').attr('disabled', false);
+        }
+    });
+
 }
 
 
