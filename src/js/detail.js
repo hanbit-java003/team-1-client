@@ -43,7 +43,7 @@ common.ajax({
 
 function setTemplate(restaurant) {
     var template = require('../template/detail/restaurant.hbs');
-    //var mTemplate = require('../template/detail/retaurant_m.hbs');
+    var mTemplate = require('../template/detail/retaurant_m.hbs');
 
     $('#cock-restaurants-left').empty();
     $('#cock-restaurants-right').empty();
@@ -52,7 +52,7 @@ function setTemplate(restaurant) {
     for (var i = 0; i < restaurant.articles.length; i++) {
         restaurant.articles[i].comment = _.replace(restaurant.articles[i].comment, /(?:\r\n|\r|\n)/g, '<br/>');
         var html = template(restaurant.articles[i]);
-        //var mHtml = mTemplate(restaurant.articles[i]);
+        var mHtml = mTemplate(restaurant.articles[i]);
 
         if (i % 2 === 0) {
             $('#cock-restaurants-left').append(html);
@@ -392,7 +392,9 @@ function initLikes() {
                     $('#like-icon-' + result[i].articleId)
                         .removeClass('fa-heart-o').addClass('fa-heart')
                         .css('color', '#ff4461');
-                    //$('#m-like-icon-' + result[i].articleId)                        .removeClass('fa-heart-o').addClass('fa-heart').css('color', '#ff4461');
+                    $('#m-like-icon-' + result[i].articleId)
+                        .removeClass('fa-heart-o').addClass('fa-heart')
+                        .css('color', '#ff4461');
                 }
             }
         }
