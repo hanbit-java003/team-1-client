@@ -447,7 +447,7 @@ function tagClick() {
 
         var tag = $(this).text().substr(1);
 
-        location.href = 'search.html?text=' + tag
+        location.href = 'search.html?text=' + tag;
     });
 }
 
