@@ -11,7 +11,7 @@ var params = new UrlSearchParams(location.search);
 var _ = require('lodash');
 _.move = require('lodash-move').default;
 
-loadGoogleMapsApi.key = 'AIzaSyDfasnDjKf4JZvuEqVnp3N7Ezv3Cm-qAII';
+loadGoogleMapsApi.key = 'AIzaSyDmSxIrhoC4OAiGOtO6ddcFCwSMRbgfPGs';
 loadGoogleMapsApi.language = 'ko';
 loadGoogleMapsApi.version = '3';
 
@@ -299,7 +299,7 @@ function addMarkers() {
                         position: loc[i],
                         map: map,
                         title: loc[i].title,
-                        icon: '../img/insert/blue-dot.png'
+                        icon: '../img/fork-blue.png'
                     });
 
                     marker.addListener("click", function() {
@@ -329,7 +329,7 @@ function addMarkers() {
                     position: loc[i],
                     map: map,
                     title: loc.title,
-                    icon: '../img/insert/blue-dot.png'
+                    icon: '../img/fork-blue.png'
                 });
                 markers.push(marker);
             }
@@ -354,7 +354,7 @@ function selectMap(latLng) {
     clkMarker = new googleMaps.Marker({
         position: latLng,
         map: map,
-        icon: '../img/insert/red-dot.png'
+        icon: '../img/fork-red.png'
     });
 
     map.panTo(latLng);
@@ -719,6 +719,7 @@ $('.cc-btn-save').on('click', function () {
         formData.append('imgs', img);
     });
 
+
     $.ajax({
         url: '/api/cock/insert/save',
         method: 'POST',
@@ -728,7 +729,7 @@ $('.cc-btn-save').on('click', function () {
         success: function(result) {
             alert('정상적으로 저장되었습니다.');
 
-            location.href = 'insert.html?rid=' + result.rid + '&articleId=' + result.articleId;
+            location.href = 'detail.html?rid=' + result.rid;
         },
         error: function() {
             alert('저장 중 오류가 발생하였습니다.');

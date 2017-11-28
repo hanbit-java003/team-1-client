@@ -110,6 +110,7 @@ $('.header-bt').on('click', function () {
     $.ajax({
         url: '/api/member/get',
         success: function (result) {
+            user = result;
             openMemberLayer(result);
         }
     });
@@ -238,6 +239,28 @@ function openMemberLayer(memberInfo) {
                    closeMemberLayer(function () {
                        location.href = '../bookmark.html';
                    })
+                });
+                $('#cock-emblem').on('click', function () {
+                    $.ajax({
+                        url: '/api/emblem/get/' + user.uid,
+                        success: function (result) {
+                            var emblemLayerTemplate = require('../template/emblem-verify-layer.hbs');
+                            var emblemLayer = emblemLayerTemplate(result);
+
+                            $('.cock-member-layer').append(emblemLayer);
+
+                            $('.emblem-verify-img div').hover(
+                                function () {
+                                $(this).find('.emblem-verify-img-hover').css('display', 'block');
+                            },  function () {
+                                $(this).find('.emblem-verify-img-hover').css('display', 'none');
+                            });
+
+                            $('#cock-emblem-verify').on('click', function () {
+                                $('#cock-emblem-verify').remove();
+                            });
+                        }
+                    });
                 });
             }
         }
@@ -738,7 +761,7 @@ function closeMemberLayer(callback) {
             $('body').css('overflow', 'auto');  // 히든에서 클릭으로 속성을 바꿈.
 
             if (typeof callback === 'function') { // callback이 없을수도? 함수가 아닐수도 있다. 함수는 function인지?
-                callback();
+                callback(); //
             }
         }
     });

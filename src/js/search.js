@@ -199,10 +199,16 @@ function imgClickEvent(ul) {
         $(this).find('li.active').removeClass('active');
         $(this).find('li:eq('+ index +')').addClass('active');
     });
+
+    var restLi = ul.parent();
+    var rid = restLi.attr('rid');
+    restLi.find('.search-rest-result-text').on('click', function () {
+        location.href = 'detail.html?rid=' + rid;
+    });
 }
 
 function addCntTag(ul) {
     var size = ul.find('li').length;
-    var html = '<div class="result-img-cnt">'+ size +'+</div>';
+    var html = '<div class="result-img-cnt">'+ size +'</div>';
     ul.append(html);
 }

@@ -1,0 +1,34 @@
+<div id="cock-emblem-verify">
+    <div class="emblem-verify-title">내가 얻은</div>
+    <div class="emblem-verify-img">
+        {{#each emblems}}
+            <div>
+                <div class="emblem-verify-img-item" style="background-image: url({{img}})"></div>
+                <div class="emblem-verify-img-hover balloon">{{howAchieve}}</div>
+            </div>
+        {{/each}}
+    </div>
+    <div class="emblem-verify-title">내가 먹은</div>
+    <div>
+        <table class="emblem-verify-table table table-hover">
+            <thead>
+            <tr>
+                <th>식당 수</th>
+                <th>기사 수</th>
+                <th>국수 좋아</th>
+                <th>고기 좋아</th>
+                <th>치킨 좋아</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{registRest}}</td>
+                <td>{{registArticle}}</td>
+                <td>{{eatNoodle}}</td>
+                <td>{{eatMeat}}</td>
+                <td>{{eatChicken}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
