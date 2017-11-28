@@ -498,7 +498,16 @@ function facebookLogin() {
     FB.login(function(response) { // response 처리
          }, {scope: 'public_profile'});
 
+    //SDK를 비동기적으로 호출
+    (function (d, s, id) {
+        var js, fjs = d.getElmentsByTagName(s)[0];
+        if (d.getElmentById(id)){
+            return;
+        }
+        js = d.createElement(); js.id= id;
+        js.src = "//conent.facebook.net/en_US"
 
+    });
 
     checkLoginState();
 }
@@ -548,16 +557,7 @@ function statusChangeCallback(response) {
     }
 }
 
-//SDK를 비동기적으로 호출
-(function (d, s, id) {
-    var js, fjs = d.getElmentsByTagName(s)[0];
-    if (d.getElmentById(id)){
-        return;
-    }
-    js = d.createElement(); js.id= id;
-    js.src = "//conent.facebook.net/en_US"
 
-});
 var fbAvatar;
 var fbName;
 var fbId;
