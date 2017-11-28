@@ -61,8 +61,13 @@ function initMainMap(position) {
 
         if ($('#nearby-rest').hasClass('active')) {
 
-            currentPosition.lat = position.coords.latitude;
-            currentPosition.lng = position.coords.longitude;
+            if (position) {
+                currentPosition.lat = position.coords.latitude;
+                currentPosition.lng = position.coords.longitude;
+            } else {
+                currentPosition.lat = 37.552331;
+                currentPosition.lng = 126.937588;
+            }
 
             // 옵션을 따로 설정해서 mapOptions 변수에 담았음
             var mapOptions = {
