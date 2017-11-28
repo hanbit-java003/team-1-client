@@ -102,6 +102,7 @@ function initMainMap(position) {
 
             initSort();
             initLatestRest();
+            //문기
             foodSelect();
 
         }
@@ -620,7 +621,7 @@ $('#btn-join-food-test').on('click', function () {
 });
 
 
-
+//문기
 function foodSelect() {
     //오늘 뭐 먹지?
     $('.food-select').on('click', function () {
@@ -640,7 +641,7 @@ function foodSelect() {
                 console.log(result);
                 if (result.length === 0) {
                     adminCommon.openDialog({
-                        body: '&lt; 오늘 뭐 먹지? &gt;' + '<br>' + '<br>' + '고객님이 계신 장소에는 등록된 주변 맛집이 없습니다!' + '<br>' + '<br>' +'방문하셨던 맛집을 첫번째로 등록해 보시겠습니까?',
+                        body: '&lt; 오늘 뭐 먹지? &gt;' + '<br>' + '<br>' + '회원님이 계신 장소에는 등록된 주변 맛집이 없습니다!' + '<br>' + '<br>' +'방문하셨던 맛집을 첫번째로 등록해 보시겠습니까?',
                         title: '주변 맛집 추천!',
                         buttons:[{
                             id: 'info',
@@ -671,7 +672,7 @@ function foodSelect() {
                     var rec = parseInt(Math.random() * l);
                     console.log();
                     adminCommon.openDialog({
-                        body: '&lt; 오늘 뭐 먹지? &gt;'  + '<div class="food-select-img" style="background-image: url('+ result[rec].img +')"></div>' +'고객님이 계신 장소에서 등록된 <<'+'<span>' + result[rec].name + '</span>'+'>> 추천해드립니다!',
+                        body: '&lt; 오늘 뭐 먹지? &gt;'  + '<div class="food-select-img" style="background-image: url('+ result[rec].img +')"></div>' +'회원님이 계신 장소에서 등록된 <<'+'<span>' + result[rec].name + '</span>'+'>> 추천해드립니다!',
                         title: '주변 맛집 추천!',
                         buttons:[{
                             id: 'info',
