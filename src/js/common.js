@@ -721,7 +721,7 @@ function closeMemberLayer(callback) {
             $('body').css('overflow', 'auto');  // 히든에서 클릭으로 속성을 바꿈.
 
             if (typeof callback === 'function') { // callback이 없을수도? 함수가 아닐수도 있다. 함수는 function인지?
-                callback();
+                callback(); //
             }
         }
     });
