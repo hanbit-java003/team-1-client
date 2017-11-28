@@ -60,7 +60,7 @@ function setTemplate(restaurant) {
         else {
             $('#cock-restaurants-right').append(html);
         }
-        $('#cock-restaurants-mobile').append(mHtml);
+        $('#cock-restaurants-mobile').append(html);
     }
 }
 
@@ -266,6 +266,8 @@ function initContents(restaurant) {
     sortBtn();
     settingBtn();
 
+    tagClick();
+
     // 더보기 버튼
     $('.btn-more').unbind('click').on('click', function () {
         articleOpen($(this));
@@ -439,9 +441,19 @@ function likes(likeElm, restaurant) {
     }
 }
 
+function tagClick() {
+    $('.food-tag > li').on('click', function (event) {
+        event.stopPropagation();
+
+        var tag = $(this).text().substr(1);
+
+        location.href = 'search.html?text=' + tag
+    });
+}
+
 // 윈도우 크기가 바뀔때
 $(window).resize(function () {
-    location.reload();
+    //location.reload();
     attachRestInfoEvent();
 });
 

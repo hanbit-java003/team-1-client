@@ -18,19 +18,31 @@
         </div>
     </div>
     <div class="food-img-wrapper">
-        {{~#each imgs~}}
-            <div id="food-img-tag-{{articleId}}-{{imgId}}" class="food-img-tag">
-                <img id="food-img-{{articleId}}-{{imgId}}" class="img-responsive" src='{{path}}'>
-                <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
-                    {{#each menus}}
-                        <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
-                             style="position: absolute; top: {{y}}px; left: {{x}}px">
-                            {{~menu~}}
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
-        {{~/each~}}
+        <ul id="food-img-tag-{{articleId}}" class="food-img-tag">
+            {{~#each imgs~}}
+                <li {{#if @first}}class="active"{{/if}} articleId="{{articleId}}" imgId="{{imgId}}">
+                    <img id="food-img-{{articleId}}-{{imgId}}" class="food-img" src='{{path}}'>
+                    <div class="food-img-prev"><i class="fa fa-caret-left"></i></div>
+                    <div class="food-img-next"><i class="fa fa-caret-right"></i></div>
+                    <div id="food-menus-{{articleId}}-{{imgId}}" class="food-menus">
+                        {{#each menus}}
+                            <div id="menu-tag-{{articleId}}-{{imgId}}-{{id}}" class="detail-menu-tag"
+                                 style="position: absolute; top: {{y}}px; left: {{x}}px">
+                                {{~menu~}}
+                            </div>
+                        {{/each}}
+                    </div>
+                </li>
+            {{~/each~}}
+        </ul>
+        <ul class="food-img-dot">
+            {{~#each imgs~}}
+                <li id="dot-{{articleId}}-{{imgId}}"
+                    {{#if @first}}class="active"{{/if}} style="color:black" articleId="{{articleId}}" imgId="{{imgId}}">
+                    <span></span>
+                </li>
+            {{~/each~}}
+        </ul>
         {{~#each imgs~}}
             {{~#each menus~}}
                 <li class="food-eaten" style="color:#353744">
@@ -38,7 +50,7 @@
                     <span style="color:#dd4b39;margin-right: 2px;">{{price}}</span>원
                 </li>
             {{~/each~}}
-        {{/each}}
+        {{~/each~}}
     </div>
     <div class="food-text">
         <div class="food-detail card-closed">
