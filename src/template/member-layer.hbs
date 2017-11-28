@@ -18,6 +18,7 @@
             <div id="cock-bookmark" class="cock-member-layer-btn">즐겨찾기</div>
             <div class="cock-logout cock-member-layer-btn" >로그아웃</div>
     {{else}}
+        <div class="cock-sign-in">
             <div class="cock-member-form-group">
                 <input id=cock-login-email type="email" placeholder="이메일주소">
                 <i class="fa fa-fw fa-envelope-o"></i>
@@ -32,6 +33,7 @@
                     자동로그인
                 </label>
                 <div id="cock-login-btn" class="cock-member-layer-btn">로그인</div>
+                <div class="cock-find-pw">비밀번호를 잊어버리셨나요?<span class="cock-toggle">비밀번호찾기</span></div>
                 <div class="cock-member-text">
                     <span class="cock-highlight"><img src="../img/main-logo.png"></span>만의 맛집 정보를 받으시려면?<br>
                     <div id="cock-member-join-btn" class="cock-member-layer-btn cock-member-layer-join">
@@ -45,6 +47,36 @@
                     <li class="cock-member-sns-fb" scope="public_profile,email"  style="background-image: url(../img/member-layer/facebook.png)"></li>
                 </ul>
             </div>
+        </div>
+        <div class="cock-sign-up">
+            <div class="cock-find-pw"><span class="cock-highlight"><img src="../img/main-logo.png"></span>만의 맛집 정보를 받으시려면?<br><span class="cock-toggle">로그인</span></div>
+            <div class="cock-member-form-group">
+                <input id=cock-find-email type="email" placeholder="이메일주소">
+                <i class="fa fa-fw fa-envelope-o"></i>
+            </div>
+            <button id="cock-find-pw-email-btn" class="cock-member-layer-btn">이메일 인증</button>
+            <span class="cock-join-certification cock-sign-up-certification cock-find-password-certification">인증완료</span>
+            <div class="cock-sign-up-auth"> <!---->
+            <div class="cock-find-form">
+            <div class="cock-member-form-group">
+                <input id=cock-find-email-auth type="email" placeholder="인증번호 입력">
+                <i class="fa fa-fw fa-thumbs-o-up"></i>
+            </div>
+            <div id="cock-find-pw-email-auth-btn" class="cock-member-layer-btn">인증번호 확인</div>
+            </div>
+            </div>
+            <div class="cock-sign-up-leave"> <!--class="cock-sign-up-leave"-->
+            <div class="cock-member-form-group">
+                <input id="cock-change-pw" type="password" placeholder="비밀번호">
+                <i class="fa fa-fw fa-lock"></i>
+            </div>
+            <div class="cock-member-form-group">
+                <input id="cock-change-pwc" type="password" placeholder="비밀번호 재입력">
+                <i class="fa fa-fw fa-lock"></i>
+            </div>
+            <button id="cock-change-pw-btn" class="cock-member-layer-btn">비밀번호 변경</button>
+            </div>
+        </div>
     {{/if}}
     </section>
 </div>
