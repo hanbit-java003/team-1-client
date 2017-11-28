@@ -89,6 +89,10 @@ $.ajax({
         if (result.signedIn) {
             user = result;
             templateHeader(result);
+
+            if (result.master === 'Y') {
+                $('#admin-btn').css('display', 'inline-block');
+            }
         }
     }
 });
@@ -268,6 +272,7 @@ function signOut() {
 }
 
 var bannVall;
+var master = false;
 //로그인
 function signIn() {
     var email = $('#cock-login-email').val().trim();
