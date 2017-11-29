@@ -109,6 +109,7 @@ function bookmarkReview() {
                 break;
             }
         }
+        clickDetail();
     });
 }
 
@@ -121,21 +122,20 @@ function getBookmarkReview() {
             bookmarkModel = result;
 
             bookmarkReview();
+
         }
     });
 }
 
 
 function clickDetail() {
-    $('.btn-goDetail').on('click', function () {
+    $('.detail-container > .detail-review > li > a').on('click', function () {
         var goId = $(this).attr('rid');
 
         bookmarkToDetail(goId);
     });
 }
 
-
-clickDetail();
 
 var bookmarkContents;
 
@@ -187,16 +187,38 @@ function initBookmark(bookmarkModel) {
     // Bookmark 버튼 클릭시 변환
     $('.bookmark-btn').unbind('click').on('click', function (event) {
         event.stopPropagation();
+
+        var rid = $(this).parents('li').attr('rid');
+
         if($(this).hasClass('fa-star')) {
+
             $(this).removeClass('fa-star').addClass('fa-star-o');
             $(this).css('color', mainColor);
-            alert("즐겨찾기 목록에서 제거되었습니다.");
+
+            $.ajax({
+               url: 'api/cock/bookmark/delete',
+                data: {
+                   rid: rid
+                },
+                success: function (result) {
+                    alert("즐겨찾기 목록에서 제거되었습니다.");
+                }
+            });
         }
         else if ($(this).hasClass('fa-star-o')) {
             $(this).removeClass('fa-star-o').addClass('fa-star');
             $(this).css('color', mainColor);
-            alert("즐겨찾기 목록에 추가되었습니다.");
-            /*이 alert이 필요할런지 모르겠지만 일단은 추가함.*/
+
+            $.ajax({
+               url: 'api/cock/bookmark/save',
+               data: {
+                   rid: rid
+               },
+               success: function (result) {
+                   alert("즐겨찾기 목록에 추가되었습니다.");
+                   /*이 alert이 필요할런지 모르겠지만 일단은 추가함.*/
+               }
+            });
         }
     });
 
