@@ -160,7 +160,7 @@ function getBookmark() {
                 marker = new googleMaps.Marker({
                     position: new googleMaps.LatLng(result[i].lat, result[i].lng),
                     map: bookmarkMaps,
-                    icon: '../img/insert/red-dot.png'
+                    icon: '../img/fork-red.png'
                 });
             }
             googleMaps.event.addListener(marker, 'click', (function (marker, i) {
@@ -234,7 +234,7 @@ function bookmarkClick() {
 
     $('.bookmark-container > li').on('mouseenter', function () {
 
-        spoonMark = '../img/insert/red-dot.png';
+        spoonMark = '../img/fork-red.png';
 
         var location = $(this).find('.location-info');
 
@@ -252,7 +252,7 @@ function bookmarkClick() {
         });*/
 
         $(this).on('click', function () {
-            spoonMark = '../img/insert/blue-dot.png';
+            spoonMark = '../img/fork-blue.png';
 
             marker = new googleMaps.Marker({
                 position: new googleMaps.LatLng(locationLatLng),
@@ -274,7 +274,7 @@ function bookmarkClick() {
             marker = new googleMaps.Marker({
                 position: new googleMaps.LatLng(locationLatLng),
                 map: bookmarkMaps,
-                icon: '../img/insert/red-dot.png'
+                icon: '../img/fork-red.png'
             });
         });
     });
