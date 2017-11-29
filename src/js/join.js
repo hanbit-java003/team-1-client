@@ -5,14 +5,14 @@ var common = require('./common.js');
 var _ = require('lodash');
 
 
-//$.getScript('https://www.google.com/recaptcha/api.js');
+$.getScript('https://www.google.com/recaptcha/api.js');
 
 // 캡차부분.
-var vall = true;
+var vall = false;
 
-//window.verifyCallback = function() {
-//    vall = true;
-//};
+window.verifyCallback = function() {
+    vall = true;
+};
 
 /*window.onloadCallback = function() {
     grecaptcha.render('cock-prevent', {
